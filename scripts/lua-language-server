@@ -1,0 +1,3 @@
+#!/bin/bash
+SOURCES_PATH="/opt/src/lua-language-server"
+exec "$SOURCES_PATH/bin/lua-language-server" "$@"

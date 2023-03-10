@@ -83,6 +83,7 @@ $ sudo apt install -y shellcheck
 
 - shfmt: formatter for shell scripts:
 ```bash
+$ sudo apt install -y golang-go  # install go if not installed
 $ GO111MODULE=on go install mvdan.cc/sh/v3/cmd/shfmt@latest
 $ sudo cp ~/go/bin/shfmt /usr/bin/
 ```
@@ -99,7 +100,8 @@ NOTE: Treesitter parsers will be installed through npm. Commands to inspect that
 - lua-language-server (previously called "sumneko"):
 	- Download a release from this page: <https://github.com/LuaLS/lua-language-server/releases>
 	- Uncompress the release at `/opt/src/lua-language-server`
-    - Copy the binary `lua-language-server` to `/usr/local/bin/lua-language-server`
+    - Giver permission to all users: `sudo chmod -R 777 /opt/src/lua-language-server/`
+    - Copy the wrapper script to the destination:  `cp scripts/lua-language-server to /usr/local/bin`
     - Check it is working and the version is the same you downloaded:
     ``` bash
     $ lua-language-server --version
@@ -107,6 +109,7 @@ NOTE: Treesitter parsers will be installed through npm. Commands to inspect that
 
 - stylua: install using rust package manager:
 ```bash
+$ sudo apt install cargo
 $ cargo install stylua
 ```
 
