@@ -25,6 +25,7 @@ renameDirIfPresent() {
 }
 
 removeConfiguration() {
+    removeDirIfPresent ~/.config/nvim
     removeDirIfPresent ~/.local/share/nvim
     removeDirIfPresent ~/.local/state/nvim
     removeDirIfPresent ~/.cache/nvim
@@ -32,6 +33,7 @@ removeConfiguration() {
 }
 
 backupConfiguration() {
+    renameDirIfPresent ~/.config/nvim
     renameDirIfPresent ~/.local/share/nvim
     renameDirIfPresent ~/.local/state/nvim
     renameDirIfPresent ~/.cache/nvim
@@ -45,6 +47,7 @@ echo 'Backing up old setup (if it exists)...'
 backupConfiguration
 
 echo 'Recreating setup using symlinks from my dot_files repo...'
+mkdir -p ~/.config || true
 removeSymbolicLinkIfPresent rm ~/.config/nvim
 ln -s /storage/src/pde.nvim ~/.config/nvim
 
