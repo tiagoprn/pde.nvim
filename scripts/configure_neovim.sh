@@ -46,7 +46,6 @@ backupConfiguration
 
 echo 'Recreating setup using symlinks from my dot_files repo...'
 removeSymbolicLinkIfPresent rm ~/.config/nvim
-removeSymbolicLinkIfPresent ~/.config/efm-langserver
 ln -s /storage/src/pde.nvim ~/.config/nvim
 
 echo 'Cloning packer as the package manager...'
