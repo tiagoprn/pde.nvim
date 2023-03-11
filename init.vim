@@ -34,6 +34,10 @@ set cmdheight=1
 " default updatetime 4000ms is not good for async update
 set updatetime=100
 
+" timeout configs (changed when which-key was included)
+set timeout
+set timeoutlen=300
+
 " use linux's default gui clipboard - disabled because I have specific mappings for that
 " set clipboard=unnamedplus
 
@@ -164,6 +168,7 @@ lua require('goto-preview-conf')
 lua require('mind-conf')
 lua require('noice-conf')
 lua require('dynamic-mappings')
+lua require('which-key-conf')
 
 source $HOME/.config/nvim/conf-plugins/marvim.vim
 source $HOME/.config/nvim/conf-plugins/conceals.vim

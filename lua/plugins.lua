@@ -115,6 +115,8 @@ return require("packer").startup(function(use)
 
 	use({ "folke/noice.nvim" })
 
+	use({ "folke/which-key.nvim" })
+
 	-- # LANGUAGE SERVERS - begin
 
 	-- --  handles automatically launching and initializing language servers installed on your system
