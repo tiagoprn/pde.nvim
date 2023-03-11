@@ -25,6 +25,9 @@ which_key.register({
 		f = {
 			name = "+files",
 		},
+		i = {
+			name = "+lists",
+		},
 		g = {
 			name = "+grep",
 		},
