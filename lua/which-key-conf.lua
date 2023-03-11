@@ -16,7 +16,7 @@ which_key.register({
 			n = { "<cmd>enew<cr>", "LEADER New File" },
 		},
 	},
-	["<C>"] = {
+	["<leader><C>"] = {
 		n = {
 			name = "+custom CTRL group",
 			f = { "<cmd>Telescope find_files<cr>", "CTRL Find File" },
