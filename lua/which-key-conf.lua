@@ -6,3 +6,22 @@ if not status_ok then
 end
 
 which_key.setup({})
+
+which_key.register({
+	["<leader>"] = {
+		v = {
+			name = "+custom LEADER group",
+			f = { "<cmd>Telescope find_files<cr>", "LEADER Find File" },
+			r = { "<cmd>Telescope oldfiles<cr>", "LEADER Open Recent File" },
+			n = { "<cmd>enew<cr>", "LEADER New File" },
+		},
+	},
+	["<C>"] = {
+		n = {
+			name = "+custom CTRL group",
+			f = { "<cmd>Telescope find_files<cr>", "CTRL Find File" },
+			r = { "<cmd>Telescope oldfiles<cr>", "CTRL Open Recent File" },
+			n = { "<cmd>enew<cr>", "New File" },
+		},
+	},
+})
