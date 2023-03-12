@@ -72,9 +72,15 @@ which_key.register({
 		e = {
 			name = "+etc",
 		},
-		["<C-Space>"] = { ":bufdo w! | :q!<CR>", "save all buffers and quit" },
-		["<C-q>"] = { ":qa!<cr>", "quit without saving" },
-		["<C-e>"] = { ":e<cr>", "reload file" },
+		-- ["<C-Space>"] = { ":bufdo w! | :q!<CR>", "save all buffers and quit" },
+		-- ["<C-q>"] = { ":qa!<cr>", "quit without saving" },
+		-- ["<C-e>"] = { ":e<cr>", "reload file" },
+		["<C>"] = {
+			name = "+CTRL mappings",
+			["<Space>"] = { ":bufdo w! | :q!<CR>", "save all buffers and quit" },
+			q = { ":qa!<cr>", "quit without saving" },
+			e = { ":e<cr>", "reload file" },
+		},
 	},
 })
 
