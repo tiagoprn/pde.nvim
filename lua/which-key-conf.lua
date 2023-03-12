@@ -8,7 +8,6 @@ end
 which_key.setup({})
 
 which_key.register({
-	["<Space>"] = { ":w!<cr>", "save current buffer" },
 	["<leader><C>"] = {
 		w = { ":bufdo w!<cr>", "save all buffers" },
 	},
@@ -22,11 +21,12 @@ which_key.register({
 		--
 		u = { ":undo<cr>", "undo changes" },
 		r = { ":redo<cr>", "redo changes" },
+		s = { ":w!<cr>", "save current buffer" },
 		--
 		l = {
 			name = "+lazy",
 		},
-		s = {
+		S = {
 			name = "+session",
 		},
 		f = {
