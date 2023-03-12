@@ -8,12 +8,6 @@ end
 which_key.setup({})
 
 which_key.register({
-	["<C>"] = {
-		name = "+CTRL",
-		["<Space>"] = { ":bufdo w! | :q!<CR>", "save all buffers and quit" },
-		q = { ":qa!<cr>", "quit without saving" },
-		e = { ":e<cr>", "reload file" },
-	},
 	["<leader>"] = {
 		-- v = {
 		-- 	name = "+sample LEADER group",
@@ -78,6 +72,9 @@ which_key.register({
 		e = {
 			name = "+etc",
 		},
+		["<C-Space>"] = { ":bufdo w! | :q!<CR>", "save all buffers and quit" },
+		["<C-q>"] = { ":qa!<cr>", "quit without saving" },
+		["<C-e>"] = { ":e<cr>", "reload file" },
 	},
 })
 
