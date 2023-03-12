@@ -9,16 +9,16 @@ which_key.setup({})
 
 which_key.register({
 	["<leader>"] = {
-		v = {
-			name = "+sample LEADER group",
-			f = { "<cmd>Telescope find_files<cr>", "LEADER Find File" },
-			r = { "<cmd>Telescope oldfiles<cr>", "LEADER Open Recent File" },
-			n = { "<cmd>enew<cr>", "LEADER New File" },
-		},
+		-- v = {
+		-- 	name = "+sample LEADER group",
+		-- 	f = { "<cmd>Telescope find_files<cr>", "LEADER Find File" },
+		-- 	r = { "<cmd>Telescope oldfiles<cr>", "LEADER Open Recent File" },
+		-- 	n = { "<cmd>enew<cr>", "LEADER New File" },
+		-- },
 		--
-		["<leader>u"] = { ":undo", "undo changes" },
-		["<leader>r"] = { ":redo", "redo changes" },
-		["<leader>space"] = { ":w!<cr>", "save current buffer" },
+		u = { ":undo", "undo changes" },
+		r = { ":redo", "redo changes" },
+		space = { ":w!<cr>", "save current buffer" },
 		--
 		l = {
 			name = "+lazy",
