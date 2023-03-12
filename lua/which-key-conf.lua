@@ -8,6 +8,9 @@ end
 which_key.setup({})
 
 which_key.register({
+	["<leader><M>"] = {
+		w = { ":bufdo w!<cr>", "save all buffers" },
+	},
 	["<leader>"] = {
 		-- v = {
 		-- 	name = "+sample LEADER group",
@@ -16,9 +19,9 @@ which_key.register({
 		-- 	n = { "<cmd>enew<cr>", "LEADER New File" },
 		-- },
 		--
-		u = { ":undo", "undo changes" },
-		r = { ":redo", "redo changes" },
-		space = { ":w!<cr>", "save current buffer" },
+		u = { ":undo<cr>", "undo changes" },
+		r = { ":redo<cr>", "redo changes" },
+		["Space"] = { ":w!<cr>", "save current buffer" },
 		--
 		l = {
 			name = "+lazy",
