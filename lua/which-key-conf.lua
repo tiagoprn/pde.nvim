@@ -16,9 +16,9 @@ which_key.register({
 			n = { "<cmd>enew<cr>", "LEADER New File" },
 		},
 		--
-		["<leader>u"] = { "undo", "undo changes" },
-		["<leader>r"] = { "redo", "redo changes" },
-		["<leader>space"] = { "w!<cr>", "save current buffer" },
+		["<leader>u"] = { ":undo", "undo changes" },
+		["<leader>r"] = { ":redo", "redo changes" },
+		["<leader>space"] = { ":w!<cr>", "save current buffer" },
 		--
 		l = {
 			name = "+lazy",
