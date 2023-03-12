@@ -1,8 +1,5 @@
 " CORE REMAPPPINGS - those that do not depend on any function, command or plugin
 
-vnoremap < <gv  " better indentation| " (VISUAL) deindent selection
-vnoremap > >gv  " better indentation| " (VISUAL) indent selection
-
 nnoremap <silent> <F6> :set list!<CR>| " (function-keys) toggle showing special chars (listchars)
 nnoremap <silent> <F5> :set rnu!<CR>| " (function-keys) toggle relative line numbering
 
