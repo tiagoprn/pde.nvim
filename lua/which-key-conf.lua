@@ -72,21 +72,26 @@ which_key.register({
 		e = {
 			name = "+etc",
 		},
-		["<C-Space>"] = { ":bufdo w! | :q!<CR>", "save all buffers and quit" },
+		["<C-Space>"] = { ":bufdo w! | :q!<cr>", "save all buffers and quit" },
 		["<C-q>"] = { ":qa!<cr>", "quit without saving" },
 		["<C-e>"] = { ":e<cr>", "reload file" },
 	},
 })
 
+local map = vim.keymap
+
+-- DIRECT mappings (can/must NOT be triggered with the LEADER key)
+map.set("n", "<CR>", ":nohlsearch<cr>", { desc = "clean current highlighted search" })
+map.set("v", "<", "<gv", { desc = "dedent" })
+map.set("v", ">", ">gv", { desc = "indent" })
+
 -- DYNAMIC (programatic) MAPPINGS
 --   references: https://gist.github.com/benfrain/97f2b91087121b2d4ba0dcc4202d252f#file-mappings-lua
-
-local km = vim.keymap
-
+--
 -- Easier window switching with leader + Number
 -- Creates mappings like this: km.set("n", "<Leader>2", "2<C-W>w", { desc = "Move to Window 2" })
 for i = 1, 6 do
 	local lhs = "<Leader>" .. i
 	local rhs = i .. "<C-W>w"
-	km.set("n", lhs, rhs, { desc = "Go to Window " .. i })
+	map.set("n", lhs, rhs, { desc = "Go to Window " .. i })
 end

@@ -1,8 +1,5 @@
 " CORE REMAPPPINGS - those that do not depend on any function, command or plugin
 
-
-nnoremap <CR> :nohlsearch<cr>| " de-highlights current highlighted search
-
 vnoremap < <gv  " better indentation| " (VISUAL) deindent selection
 vnoremap > >gv  " better indentation| " (VISUAL) indent selection
 
