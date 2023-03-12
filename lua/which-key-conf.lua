@@ -10,7 +10,7 @@ which_key.setup({})
 which_key.register({
 	["<C>"] = {
 		name = "+CTRL",
-		["<Space>"] = { ":bufdo w! \\| :q!<CR>", "save all buffers and quit" },
+		["<Space>"] = { ":bufdo w! | :q!<CR>", "save all buffers and quit" },
 		q = { ":qa!<cr>", "quit without saving" },
 		e = { ":e<cr>", "reload file" },
 	},
