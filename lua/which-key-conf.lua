@@ -8,8 +8,11 @@ end
 which_key.setup({})
 
 which_key.register({
-	["<leader><C>"] = {
-		w = { ":bufdo w!<cr>", "save all buffers" },
+	["<C>"] = {
+		name = "+CTRL",
+		["<Space>"] = { ":bufdo w! \\| :q!<CR>", "save all buffers and quit" },
+		q = { ":qa!<cr>", "quit without saving" },
+		e = { ":e<cr>", "reload file" },
 	},
 	["<leader>"] = {
 		-- v = {
@@ -31,6 +34,7 @@ which_key.register({
 		},
 		f = {
 			name = "+files",
+			w = { ":bufdo w!<cr>", "save all buffers" },
 		},
 		i = {
 			name = "+lists",

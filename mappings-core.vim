@@ -1,8 +1,5 @@
 " CORE REMAPPPINGS - those that do not depend on any function, command or plugin
 
-nnoremap <C-Space> :bufdo w! \| :q!<CR>| " (core) save all files and close/quit
-nnoremap <C-q> :qa!<CR>| " (core) close/quit without saving
-nnoremap <C-e> :e<CR>| " (core) reload file
 
 nnoremap <CR> :nohlsearch<cr>| " de-highlights current highlighted search
 
