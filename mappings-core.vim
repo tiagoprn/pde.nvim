@@ -1,11 +1,5 @@
 " CORE REMAPPPINGS - those that do not depend on any function, command or plugin
 
-nnoremap <silent> <F6> :set list!<CR>| " (function-keys) toggle showing special chars (listchars)
-nnoremap <silent> <F5> :set rnu!<CR>| " (function-keys) toggle relative line numbering
-
-vnoremap <silent> * :call VisualSelection('f')<CR>| " search forwards current highlighted selection
-vnoremap <silent> # :call VisualSelection('b')<CR>| " search backwards current highlighted selection
-
 nnoremap <leader><Backspace> :bw<Enter>| " close buffer
 nnoremap <Backspace> <C-w>c<Enter>| " close window but keep buffer
 nnoremap <leader>k :bp<bar>sp<bar>bn<bar>bd<CR>| " close buffer but keep window

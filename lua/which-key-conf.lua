@@ -41,6 +41,8 @@ which_key.register({
 		},
 		T = {
 			name = "+toggle",
+			c = { ":set list!<cr>", "special chars (listchars)" },
+			n = { ":set rnu!<cr>", "relative line numbers" },
 		},
 		w = {
 			name = "+writing",
@@ -84,6 +86,8 @@ local map = vim.keymap
 map.set("n", "<CR>", ":nohlsearch<cr>", { desc = "clean current highlighted search" })
 map.set("v", "<", "<gv", { desc = "dedent" })
 map.set("v", ">", ">gv", { desc = "indent" })
+map.set("v", "]", ":call VisualSelection('f')<CR>", { desc = "search forwards selection" })
+map.set("v", "[", ":call VisualSelection('b')<CR>", { desc = "search backwards selection" })
 
 -- DYNAMIC (programatic) MAPPINGS
 --   references: https://gist.github.com/benfrain/97f2b91087121b2d4ba0dcc4202d252f#file-mappings-lua
