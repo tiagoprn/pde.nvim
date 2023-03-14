@@ -28,8 +28,8 @@ which_key.register({
 		},
 		f = {
 			name = "+files",
-			["<Backspace>"] = { ":bw<Enter>", "close buffer" },
-			k = { ":bp<bar>sp<bar>bn<bar>bd<CR>", "close buffer & keep window" },
+			k = { ":bw<Enter>", "close buffer" },
+			K = { ":bp<bar>sp<bar>bn<bar>bd<CR>", "close buffer & keep window" },
 			w = { ":bufdo w!<cr>", "save all buffers" },
 		},
 		i = {
