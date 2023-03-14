@@ -31,6 +31,11 @@ which_key.register({
 			k = { ":bw<Enter>", "close buffer" },
 			K = { ":bp<bar>sp<bar>bn<bar>bd<CR>", "close buffer & keep window" },
 			w = { ":bufdo w!<cr>", "save all buffers" },
+			t = {
+				name = "+tabs",
+				n = { ":tabnew<CR>", "new" },
+				c = { ":tabclose<CR>", "close" },
+			},
 		},
 		i = {
 			name = "+lists",
@@ -69,7 +74,7 @@ which_key.register({
 			name = "+quickfix",
 		},
 		m = {
-			name = "+messages / notifications",
+			name = "+messages & notifications",
 		},
 		o = {
 			name = "+formatting",

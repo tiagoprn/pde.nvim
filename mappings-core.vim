@@ -27,8 +27,9 @@
 " inoremap <C-right> <Esc>:tabnext<CR> | " (INSERT) (tabs) next
 " inoremap <C-left> <Esc>:tabprevious<CR> | " (INSERT) (tabs) previous
 "
-nnoremap <leader>nt :tabnew<CR> | " (tabs) Open new empty tab
-nnoremap <leader>ct :tabclose<CR> | " (tabs) close
+
+" nnoremap <leader>nt :tabnew<CR> | " (tabs) Open new empty tab
+" nnoremap <leader>ct :tabclose<CR> | " (tabs) close
 
 " CUSTOM NAVIGATION
 " Keep the cursor in place when you join lines with J. That will also drop a mark before the operation to which you return afterwards:
