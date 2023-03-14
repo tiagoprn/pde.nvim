@@ -34,10 +34,10 @@
 " CUSTOM NAVIGATION
 
 " Keep the cursor in place when you join lines with J. That will also drop a mark before the operation to which you return afterwards:
-nnoremap J mzJ`z
+" nnoremap J mzJ`z
 
-nnoremap <Leader>M :Marks<CR>| " (marks) show all
-nnoremap <Leader>Mda :delmarks!<CR>| " (marks) delete all
+" nnoremap <Leader>M :Marks<CR>| " (marks) show all
+" nnoremap <Leader>Mda :delmarks!<CR>| " (marks) delete all
 
 nnoremap <Leader>wj <c-w>j| " (windows) move to down window
 nnoremap <Leader>wk <c-w>k| " (windows) move to up window

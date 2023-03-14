@@ -63,7 +63,6 @@ which_key.register({
 			name = "+navigation (marks, lists etc)",
 			m = {
 				name = "+marks",
-				s = { ":Marks<cr>", "show" },
 				d = { ":delmarks!<cr>", "delete all" },
 			},
 		},
