@@ -54,6 +54,9 @@ which_key.register({
 		},
 		b = {
 			name = "+clipboard",
+			n = { "<cmd>let @+=expand('%:t')..':'..line('.')<CR>", "current buffer name" },
+			a = { "<cmd>let @+=expand('%:p')..':'..line('.')<CR>", "current buffer absolute path" },
+			r = { "<cmd>let @+=expand('%:.')..':'..line('.')<CR>", "current buffer relative path" },
 		},
 		q = {
 			name = "+quickfix",
