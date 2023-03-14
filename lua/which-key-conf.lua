@@ -102,6 +102,14 @@ map.set("n", "<Down>", "<Nop>", { desc = "disable Down in normal mode" })
 map.set("n", "<Left>", "<Nop>", { desc = "disable Left in normal mode" })
 map.set("n", "<Right>", "<Nop>", { desc = "disable Right in normal mode" })
 
+map.set("n", "<C-j>", ":m .+1<CR>==", { desc = "move current line/selection down" })
+map.set("n", "<C-k>", ":m .-2<CR>==", { desc = "move current line/selection up" })
+
+map.set("n", "<C-right>", ":tabnext<CR>", { desc = "go to next tab" })
+map.set("n", "<C-left>", ":tabprevious<CR>", { desc = "go to previous tab" })
+map.set("i", "<C-right>", "<Esc>:tabnext<CR>", { desc = "go to next tab" })
+map.set("i", "<C-left>", "<Esc>:tabprevious<CR>", { desc = "go to previous tab" })
+
 -- DYNAMIC (programatic) MAPPINGS
 --   references: https://gist.github.com/benfrain/97f2b91087121b2d4ba0dcc4202d252f#file-mappings-lua
 --

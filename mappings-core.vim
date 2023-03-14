@@ -19,15 +19,16 @@
 " nnoremap <Leader>hc :set cuc!<CR> | " toggle highlight current column identation
 " nnoremap <Leader>hl :set cursorline!<CR> | " toggle highlight current line
 
-nnoremap <c-j> :m .+1<CR>== | "(movement) move current line or selection down
-nnoremap <c-k> :m .-2<CR>== | "(movement) move current line or selection up
-
+" nnoremap <c-j> :m .+1<CR>== | "(movement) move current line or selection down
+" nnoremap <c-k> :m .-2<CR>== | "(movement) move current line or selection up
+"
+" nnoremap <C-right> :tabnext<CR> | " (NORMAL) (tabs) next
+" nnoremap <C-left> :tabprevious<CR> | " (NORMAL) (tabs) previous
+" inoremap <C-right> <Esc>:tabnext<CR> | " (INSERT) (tabs) next
+" inoremap <C-left> <Esc>:tabprevious<CR> | " (INSERT) (tabs) previous
+"
 nnoremap <leader>nt :tabnew<CR> | " (tabs) Open new empty tab
 nnoremap <leader>ct :tabclose<CR> | " (tabs) close
-nnoremap <C-right> :tabnext<CR> | " (NORMAL) (tabs) next
-nnoremap <C-left> :tabprevious<CR> | " (NORMAL) (tabs) previous
-inoremap <C-right> <Esc>:tabnext<CR> | " (INSERT) (tabs) next
-inoremap <C-left> <Esc>:tabprevious<CR> | " (INSERT) (tabs) previous
 
 " CUSTOM NAVIGATION
 " Keep the cursor in place when you join lines with J. That will also drop a mark before the operation to which you return afterwards:
