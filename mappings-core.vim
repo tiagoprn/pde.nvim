@@ -16,8 +16,8 @@
 " noremap <Leader>y "+y | " copy to system clipboard
 " noremap <Leader>p "+p | " paste from system clipboard
 
-nnoremap <Leader>hc :set cuc!<CR> | " toggle highlight current column identation
-nnoremap <Leader>hl :set cursorline!<CR> | " toggle highlight current line
+" nnoremap <Leader>hc :set cuc!<CR> | " toggle highlight current column identation
+" nnoremap <Leader>hl :set cursorline!<CR> | " toggle highlight current line
 
 nnoremap <c-j> :m .+1<CR>== | "(movement) move current line or selection down
 nnoremap <c-k> :m .-2<CR>== | "(movement) move current line or selection up

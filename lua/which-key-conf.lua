@@ -45,6 +45,8 @@ which_key.register({
 			name = "+toggle",
 			c = { ":set list!<cr>", "special chars (listchars)" },
 			n = { ":set rnu!<cr>", "relative line numbers" },
+			i = { ":set cuc!<CR>", "current column indentation" },
+			l = { ":set cursorline!<CR>", "current line" },
 		},
 		w = {
 			name = "+writing",
