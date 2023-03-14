@@ -8,13 +8,13 @@
 " nnoremap <Leader>fcB <cmd>let @+=expand('%:p')..":"..line(".")<CR>| " copy current file/buffer full/absolute path name to clipboard
 " nnoremap <Leader>fcr <cmd>let @+=expand('%:.')..":"..line(".")<CR>| " copy current file/buffer relative path name to clipboard
 
-noremap <Up> <Nop> | " disable Up key in normal mode
-noremap <Down> <Nop> | " disable Down key in normal mode
-noremap <Left> <Nop> | " disable Left key in normal mode
-noremap <Right> <Nop> | " disable Right key in normal mode
+" noremap <Up> <Nop> | " disable Up key in normal mode
+" noremap <Down> <Nop> | " disable Down key in normal mode
+" noremap <Left> <Nop> | " disable Left key in normal mode
+" noremap <Right> <Nop> | " disable Right key in normal mode
 
-noremap <Leader>y "+y | " copy to system clipboard
-noremap <Leader>p "+p | " paste from system clipboard
+" noremap <Leader>y "+y | " copy to system clipboard
+" noremap <Leader>p "+p | " paste from system clipboard
 
 nnoremap <Leader>hc :set cuc!<CR> | " toggle highlight current column identation
 nnoremap <Leader>hl :set cursorline!<CR> | " toggle highlight current line

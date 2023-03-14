@@ -57,6 +57,8 @@ which_key.register({
 			n = { "<cmd>let @+=expand('%:t')..':'..line('.')<CR>", "current buffer name" },
 			a = { "<cmd>let @+=expand('%:p')..':'..line('.')<CR>", "current buffer absolute path" },
 			r = { "<cmd>let @+=expand('%:.')..':'..line('.')<CR>", "current buffer relative path" },
+			y = { '"+y', "copy to system clipboard" },
+			p = { '"+p', "paste from system clipboard" },
 		},
 		q = {
 			name = "+quickfix",
@@ -92,6 +94,11 @@ map.set("n", "<CR>", ":nohlsearch<cr>", { desc = "clean current highlighted sear
 map.set("v", "<", "<gv", { desc = "dedent" })
 map.set("v", ">", ">gv", { desc = "indent" })
 map.set("n", "<Backspace>", "<C-w>c<Enter>", { desc = "close window & keep buffer" })
+
+map.set("n", "<Up>", "<Nop>", { desc = "disable Up in normal mode" })
+map.set("n", "<Down>", "<Nop>", { desc = "disable Down in normal mode" })
+map.set("n", "<Left>", "<Nop>", { desc = "disable Left in normal mode" })
+map.set("n", "<Right>", "<Nop>", { desc = "disable Right in normal mode" })
 
 -- DYNAMIC (programatic) MAPPINGS
 --   references: https://gist.github.com/benfrain/97f2b91087121b2d4ba0dcc4202d252f#file-mappings-lua
