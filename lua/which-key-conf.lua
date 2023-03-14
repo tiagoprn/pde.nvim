@@ -28,6 +28,8 @@ which_key.register({
 		},
 		f = {
 			name = "+files",
+			["<Backspace>"] = { ":bw<Enter>", "close buffer" },
+			k = { ":bp<bar>sp<bar>bn<bar>bd<CR>", "close buffer & keep window" },
 			w = { ":bufdo w!<cr>", "save all buffers" },
 		},
 		i = {
@@ -86,6 +88,7 @@ local map = vim.keymap
 map.set("n", "<CR>", ":nohlsearch<cr>", { desc = "clean current highlighted search" })
 map.set("v", "<", "<gv", { desc = "dedent" })
 map.set("v", ">", ">gv", { desc = "indent" })
+map.set("n", "<Backspace>", "<C-w>c<Enter>", { desc = "close window & keep buffer" })
 
 -- DYNAMIC (programatic) MAPPINGS
 --   references: https://gist.github.com/benfrain/97f2b91087121b2d4ba0dcc4202d252f#file-mappings-lua

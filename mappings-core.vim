@@ -1,8 +1,8 @@
 " CORE REMAPPPINGS - those that do not depend on any function, command or plugin
 
-nnoremap <leader><Backspace> :bw<Enter>| " close buffer
-nnoremap <Backspace> <C-w>c<Enter>| " close window but keep buffer
-nnoremap <leader>k :bp<bar>sp<bar>bn<bar>bd<CR>| " close buffer but keep window
+" nnoremap <leader><Backspace> :bw<Enter>| " close buffer
+" nnoremap <Backspace> <C-w>c<Enter>| " close window but keep buffer
+" nnoremap <leader>k :bp<bar>sp<bar>bn<bar>bd<CR>| " close buffer but keep window
 
 nnoremap <Leader>fcb <cmd>let @+=expand('%:t')..":"..line(".")<CR>| " copy current file/buffer name to clipboard
 nnoremap <Leader>fcB <cmd>let @+=expand('%:p')..":"..line(".")<CR>| " copy current file/buffer full/absolute path name to clipboard
