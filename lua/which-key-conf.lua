@@ -27,7 +27,7 @@ which_key.register({
 			name = "+session",
 		},
 		f = {
-			name = "+files",
+			name = "+files, buffers, tabs & windows",
 			k = { ":bw<Enter>", "close buffer" },
 			K = { ":bp<bar>sp<bar>bn<bar>bd<CR>", "close buffer & keep window" },
 			w = { ":bufdo w!<cr>", "save all buffers" },
@@ -35,6 +35,9 @@ which_key.register({
 		i = {
 			name = "+lists",
 		},
+    l = {
+      name = "+launchers"  -- telescope, harpoon, buffer_manager and others
+    }
 		g = {
 			name = "+grep",
 		},
