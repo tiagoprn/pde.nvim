@@ -16,35 +16,65 @@ which_key.register({
 		-- 	n = { "<cmd>enew<cr>", "LEADER New File" },
 		-- },
 		--
-		u = { ":undo<cr>", "undo changes" },
-		r = { ":redo<cr>", "redo changes" },
-		s = { ":w!<cr>", "save current buffer" },
-		--
-		l = {
-			name = "+lazy",
+		a = {
+			name = "+launchers", -- telescope, harpoon, buffer_manager and others
 		},
-		S = {
-			name = "+session",
+		b = {
+			name = "+clipboard",
+			n = { "<cmd>let @+=expand('%:t')..':'..line('.')<CR>", "current buffer name" },
+			a = { "<cmd>let @+=expand('%:p')..':'..line('.')<CR>", "current buffer absolute path" },
+			r = { "<cmd>let @+=expand('%:.')..':'..line('.')<CR>", "current buffer relative path" },
+			y = { '"+y', "copy to system clipboard" },
+			p = { '"+p', "paste from system clipboard" },
+		},
+		c = {
+			name = "+coding",
+		},
+		e = {
+			name = "+etc",
 		},
 		f = {
 			name = "+files, buffers, tabs & windows",
-			k = { ":bw<Enter>", "close buffer" },
-			K = { ":bp<bar>sp<bar>bn<bar>bd<CR>", "close buffer & keep window" },
-			w = { ":bufdo w!<cr>", "save all buffers" },
+			b = {
+				name = "+buffers",
+				k = { ":bw<Enter>", "close" },
+				K = { ":bp<bar>sp<bar>bn<bar>bd<CR>", "close & keep window" },
+				w = { ":bufdo w!<cr>", "save all" },
+			},
 			t = {
 				name = "+tabs",
 				n = { ":tabnew<CR>", "new" },
 				c = { ":tabclose<CR>", "close" },
 			},
 		},
+		g = {
+			name = "+grep",
+		},
+		h = {
+			name = "+harpoon",
+		},
 		i = {
 			name = "+lists",
 		},
-		a = {
-			name = "+launchers", -- telescope, harpoon, buffer_manager and others
+		l = {
+			name = "+lazy",
 		},
-		g = {
-			name = "+grep",
+		m = {
+			name = "+messages & notifications",
+		},
+		o = {
+			name = "+formatting",
+		},
+		p = {
+			name = "+python",
+		},
+		q = {
+			name = "+quickfix",
+		},
+		r = { ":redo<cr>", "redo changes" },
+		s = { ":w!<cr>", "save current buffer" },
+		S = {
+			name = "+session",
 		},
 		t = {
 			name = "+tree",
@@ -56,40 +86,12 @@ which_key.register({
 			i = { ":set cuc!<CR>", "current column indentation" },
 			l = { ":set cursorline!<CR>", "current line" },
 		},
+		u = { ":undo<cr>", "undo changes" },
 		w = {
 			name = "+writing",
 		},
-		c = {
-			name = "+coding",
-		},
-		b = {
-			name = "+clipboard",
-			n = { "<cmd>let @+=expand('%:t')..':'..line('.')<CR>", "current buffer name" },
-			a = { "<cmd>let @+=expand('%:p')..':'..line('.')<CR>", "current buffer absolute path" },
-			r = { "<cmd>let @+=expand('%:.')..':'..line('.')<CR>", "current buffer relative path" },
-			y = { '"+y', "copy to system clipboard" },
-			p = { '"+p', "paste from system clipboard" },
-		},
-		q = {
-			name = "+quickfix",
-		},
-		m = {
-			name = "+messages & notifications",
-		},
-		o = {
-			name = "+formatting",
-		},
-		h = {
-			name = "+harpoon",
-		},
 		x = {
 			name = "+external commands",
-		},
-		p = {
-			name = "+python",
-		},
-		e = {
-			name = "+etc",
 		},
 		["<C-Space>"] = { ":bufdo w! | :q!<cr>", "save all buffers and quit" },
 		["<C-q>"] = { ":qa!<cr>", "quit without saving" },
