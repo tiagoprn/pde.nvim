@@ -32,6 +32,7 @@
 " nnoremap <leader>ct :tabclose<CR> | " (tabs) close
 
 " CUSTOM NAVIGATION
+
 " Keep the cursor in place when you join lines with J. That will also drop a mark before the operation to which you return afterwards:
 nnoremap J mzJ`z
 

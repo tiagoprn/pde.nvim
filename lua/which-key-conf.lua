@@ -53,14 +53,19 @@ which_key.register({
 		h = {
 			name = "+harpoon",
 		},
-		i = {
-			name = "+lists",
-		},
 		l = {
 			name = "+lazy",
 		},
 		m = {
 			name = "+messages & notifications",
+		},
+		n = {
+			name = "+navigation (marks, lists etc)",
+      m = {
+        name = "+marks",
+        s = {":Marks<cr>", "show"}
+        d = {":delmarks!<cr>", "delete all"}
+      }
 		},
 		o = {
 			name = "+formatting",
@@ -119,6 +124,9 @@ map.set("n", "<C-right>", ":tabnext<CR>", { desc = "go to next tab" })
 map.set("n", "<C-left>", ":tabprevious<CR>", { desc = "go to previous tab" })
 map.set("i", "<C-right>", "<Esc>:tabnext<CR>", { desc = "go to next tab" })
 map.set("i", "<C-left>", "<Esc>:tabprevious<CR>", { desc = "go to previous tab" })
+
+-- Keep the cursor in place when you join lines with J. That will also drop a mark before the operation to which you return afterwards:
+map.set("n", "J", "mzJ`z", { desc = "join lines keeping cursor in place" })
 
 -- DYNAMIC (programatic) MAPPINGS
 --   references: https://gist.github.com/benfrain/97f2b91087121b2d4ba0dcc4202d252f#file-mappings-lua
