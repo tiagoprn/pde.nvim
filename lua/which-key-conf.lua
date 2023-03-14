@@ -35,9 +35,9 @@ which_key.register({
 		i = {
 			name = "+lists",
 		},
-    a = {
-      name = "+launchers"  -- telescope, harpoon, buffer_manager and others
-    }
+		a = {
+			name = "+launchers", -- telescope, harpoon, buffer_manager and others
+		},
 		g = {
 			name = "+grep",
 		},
