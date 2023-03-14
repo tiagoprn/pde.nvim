@@ -61,11 +61,11 @@ which_key.register({
 		},
 		n = {
 			name = "+navigation (marks, lists etc)",
-      m = {
-        name = "+marks",
-        s = {":Marks<cr>", "show"}
-        d = {":delmarks!<cr>", "delete all"}
-      }
+			m = {
+				name = "+marks",
+				s = { ":Marks<cr>", "show" },
+				d = { ":delmarks!<cr>", "delete all" },
+			},
 		},
 		o = {
 			name = "+formatting",
