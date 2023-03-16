@@ -17,18 +17,21 @@
 
 
 " LSP config (the mappings used in the default file don't quite work right)
-nnoremap <silent> <leader>ld <cmd>lua vim.lsp.buf.definition()<CR>| " ( lsp) go to definition
-nnoremap <silent> <leader>le <cmd>lua vim.lsp.buf.declaration()<CR>| " (lsp) go to declaration
-nnoremap <silent> <leader>li <cmd>lua vim.lsp.buf.implementation()<CR>| " (lsp) go to implementation
-
-nnoremap <silent> <leader>lq <cmd>lua vim.diagnostic.setqflist()<CR>| " ( lsp) linter/diagnostics quickfix list
-nnoremap <silent> <leader>lt <cmd>lua vim.lsp.buf.format(nil,1200)<CR>| " (lsp) format file (e.g. isort, black) with null-ls
-nnoremap <silent> <leader>lo :LspInfo <CR>| " (lsp) Show Info
-nnoremap <silent> <leader>loo :NullLsInfo <CR>| " (lsp) Show NullLs Info
-" lspsaga
-nnoremap <silent> <leader>lh :Lspsaga hover_doc<CR>| " (lsp-saga) documentation hover
-nnoremap <silent> <leader>lf :Lspsaga lsp_finder<CR>| " (lsp-sage) finder
-nnoremap <silent> <leader>la :Lspsaga code_action<CR>| " (lsp-saga) code action
+" nnoremap <silent> <leader>ld <cmd>lua vim.lsp.buf.definition()<CR>| " ( lsp) go to definition
+" nnoremap <silent> <leader>ldf <cmd>lua require('goto-preview').goto_preview_definition()<CR>| " (lsp) go to definition - floating window
+" nnoremap <silent> <leader>ldq <cmd>lua require('goto-preview').close_all_win()<CR>| " (lsp) go to definition - close all floating windows
+" nnoremap <silent> <leader>ldv <cmd>lua require"telescope.builtin".lsp_definitions({jump_type="vsplit"})<CR>| " (lsp) go to definition - vertical window (right)
+" nnoremap <silent> <leader>ldx <cmd>lua require"telescope.builtin".lsp_definitions({jump_type="split"})<CR>| " (lsp) go to definition - horizontal window (bottom)
+" nnoremap <silent> <leader>ldt <cmd>lua require"telescope.builtin".lsp_definitions({jump_type="tab"})<CR>| " (lsp) go to definition - Opens window on a new tab
+" nnoremap <silent> <leader>le <cmd>lua vim.lsp.buf.declaration()<CR>| " (lsp) go to declaration
+" nnoremap <silent> <leader>li <cmd>lua vim.lsp.buf.implementation()<CR>| " (lsp) go to implementation
+" nnoremap <silent> <leader>lt <cmd>lua vim.lsp.buf.format(nil,1200)<CR>| " (lsp) format file (e.g. isort, black) with null-ls
+" nnoremap <silent> <leader>lo :LspInfo <CR>| " (lsp) Show Info
+" nnoremap <silent> <leader>loo :NullLsInfo <CR>| " (lsp) Show NullLs Info
+" nnoremap <silent> <leader>lq <cmd>lua vim.diagnostic.setqflist()<CR>| " ( lsp) linter/diagnostics quickfix list
+" nnoremap <silent> <leader>lh :Lspsaga hover_doc<CR>| " (lsp-saga) documentation hover
+" nnoremap <silent> <leader>lf :Lspsaga lsp_finder<CR>| " (lsp-sage) finder
+" nnoremap <silent> <leader>la :Lspsaga code_action<CR>| " (lsp-saga) code action
 vnoremap <silent> <leader>lar :<C-U>Lspsaga range_code_action<CR>| " (lsp-saga) code action
 
 " harpoon
@@ -107,15 +110,6 @@ nnoremap <silent> <leader>gp :Gitsigns preview_hunk<CR>| "  (gitsigns) preview h
 nnoremap <silent> <C-b> <cmd>lua require("buffer_manager.ui").toggle_quick_menu()<CR>| " (buffer_manager) open quick menu
 nnoremap <silent> <leader>bl <cmd>lua require("buffer_manager.ui").load_menu_from_file()<CR>| " (buffer_manager) load buffers from file
 nnoremap <silent> <leader>bw <cmd>lua require("buffer_manager.ui").save_menu_to_file()<CR>| " (buffer_manager) save buffers to file
-
-" goto-preview
-nnoremap <silent> <leader>ldf <cmd>lua require('goto-preview').goto_preview_definition()<CR>| " (lsp) go to definition - floating window
-nnoremap <silent> <leader>ldq <cmd>lua require('goto-preview').close_all_win()<CR>| " (lsp) go to definition - close all floating windows
-
-" telescope - alternative go to definitions
-nnoremap <silent> <leader>ldv <cmd>lua require"telescope.builtin".lsp_definitions({jump_type="vsplit"})<CR>| " (lsp) go to definition - vertical window (right)
-nnoremap <silent> <leader>ldx <cmd>lua require"telescope.builtin".lsp_definitions({jump_type="split"})<CR>| " (lsp) go to definition - horizontal window (bottom)
-nnoremap <silent> <leader>ldt <cmd>lua require"telescope.builtin".lsp_definitions({jump_type="tab"})<CR>| " (lsp) go to definition - Opens window on a new tab
 
 " mind
 nnoremap <silent> <leader>mo :MindOpenMain<CR>| " (mind ) open index menu

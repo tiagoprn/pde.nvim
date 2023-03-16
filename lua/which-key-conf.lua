@@ -34,8 +34,33 @@ which_key.register({
 		},
 		c = {
 			name = "+coding",
+			d = {
+				name = "+go to definition",
+				f = { "<cmd>lua require('goto-preview').goto_preview_definition()<cr>", "LSP open on floating window" },
+				o = { "<cmd>lua vim.lsp.buf.definition()<cr>", "LSP open on current window" },
+				q = { "<cmd>lua require('goto-preview').close_all_win()<cr>", "LSP close all floating windows" },
+				t = { '<cmd>lua require"telescope.builtin".lsp_definitions({jump_type="tab"})<cr>', "LSP open on tab" },
+				x = {
+					'<cmd>lua require"telescope.builtin".lsp_definitions({jump_type="split"})<cr>',
+					"LSP open on horizontal window",
+				},
+				v = {
+					'<cmd>lua require"telescope.builtin".lsp_definitions({jump_type="vsplit"})<cr>',
+					"LSP open on vertical window",
+				},
+			},
 			m = { ":Telescope make<cr>", "telescope run Makefile command" },
 			n = { ":Telescope aerial<cr>", "telescope navigation through classes, methods and functions" },
+			--
+			-- nnoremap <silent> <leader>le <cmd>lua vim.lsp.buf.declaration()<cr>| " (lsp) go to declaration
+			-- nnoremap <silent> <leader>li <cmd>lua vim.lsp.buf.implementation()<cr>| " (lsp) go to implementation
+			-- nnoremap <silent> <leader>lt <cmd>lua vim.lsp.buf.format(nil,1200)<cr>| " (lsp) format file (e.g. isort, black) with null-ls
+			-- nnoremap <silent> <leader>lo :LspInfo <cr>| " (lsp) Show Info
+			-- nnoremap <silent> <leader>loo :NullLsInfo <cr>| " (lsp) Show NullLs Info
+			-- nnoremap <silent> <leader>lq <cmd>lua vim.diagnostic.setqflist()<cr>| " ( lsp) linter/diagnostics quickfix list
+			-- nnoremap <silent> <leader>lh :Lspsaga hover_doc<cr>| " (lsp-saga) documentation hover
+			-- nnoremap <silent> <leader>lf :Lspsaga lsp_finder<cr>| " (lsp-sage) finder
+			-- nnoremap <silent> <leader>la :Lspsaga code_action<cr>| " (lsp-saga) code action
 		},
 		e = {
 			name = "+etc",
