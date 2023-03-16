@@ -46,6 +46,18 @@ which_key.register({
 				n = { ":tabnew<CR>", "new" },
 				c = { ":tabclose<CR>", "close" },
 			},
+			w = {
+				name = "+windows",
+				j = { "<c-w>J", "move down" },
+				k = { "<c-w>K", "move up" },
+				h = { "<c-w>H", "move left" },
+				l = { "<c-w>L", "move right" },
+				r = { "<c-w>r", "rotate split window" },
+				x = { "<c-w>t<c-w>K", "become horizontal split" },
+				v = { "<c-w>t<c-w>H", "become vertical split" },
+				X = { ":new", "new horizontal split" },
+				V = { ":vnew", "new vertical split" },
+			},
 		},
 		g = {
 			name = "+grep",
@@ -109,7 +121,7 @@ local map = vim.keymap
 map.set("n", "<CR>", ":nohlsearch<cr>", { desc = "clean current highlighted search" })
 map.set("v", "<", "<gv", { desc = "dedent" })
 map.set("v", ">", ">gv", { desc = "indent" })
-map.set("n", "<Backspace>", "<C-w>c<Enter>", { desc = "close window & keep buffer" })
+map.set("n", "<Del>", "<C-w>c<Enter>", { desc = "close window & keep buffer" })
 
 map.set("n", "<Up>", "<Nop>", { desc = "disable Up in normal mode" })
 map.set("n", "<Down>", "<Nop>", { desc = "disable Down in normal mode" })
