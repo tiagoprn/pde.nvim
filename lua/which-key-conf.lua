@@ -25,17 +25,22 @@ which_key.register({
 		},
 		b = {
 			name = "+clipboard",
-			n = { "<cmd>let @+=expand('%:t')..':'..line('.')<cr>", "current buffer name" },
 			a = { "<cmd>let @+=expand('%:p')..':'..line('.')<cr>", "current buffer absolute path" },
+			e = { ":Telescope registers<cr>", "telescope browse registers" },
+			n = { "<cmd>let @+=expand('%:t')..':'..line('.')<cr>", "current buffer name" },
+			p = { '"+p', "paste from system clipboard" },
 			r = { "<cmd>let @+=expand('%:.')..':'..line('.')<cr>", "current buffer relative path" },
 			y = { '"+y', "copy to system clipboard" },
-			p = { '"+p', "paste from system clipboard" },
 		},
 		c = {
 			name = "+coding",
+			m = { ":Telescope make<cr>", "telescope run Makefile command" },
+			n = { ":Telescope aerial<cr>", "telescope navigation through classes, methods and functions" },
 		},
 		e = {
 			name = "+etc",
+			c = { ":Telescope colorscheme<cr>", "telescope browse color schemes" },
+			h = { ":Telescope help_tags<cr>", "telescope search tag on nvim help (builtins and plugins)" },
 		},
 		f = {
 			name = "+files, buffers, tabs & windows",
@@ -78,7 +83,7 @@ which_key.register({
 			name = "+messages & notifications",
 			h = {
 				name = "+history",
-				n = { ":Telescope notify<cr>", "notifications" },
+				n = { ":Telescope notify<cr>", "telescope notifications" },
 			},
 		},
 		n = {
@@ -86,6 +91,11 @@ which_key.register({
 			m = {
 				name = "+marks",
 				d = { ":delmarks!<cr>", "delete all" },
+				b = { ":Telescope marks<cr>", "telescope browse" },
+			},
+			l = {
+				name = "+location list",
+				b = { ":Telescope loclist<cr>", "telescope browse" },
 			},
 		},
 		o = {
@@ -96,6 +106,8 @@ which_key.register({
 		},
 		q = {
 			name = "+quickfix",
+			b = { ":Telescope quickfix<cr>", "telescope browse" },
+			h = { ":Telescope quickfixhistory<cr>", "telescope browse history" },
 		},
 		r = { ":redo<cr>", "redo changes" },
 		s = { ":w!<cr>", "save current buffer" },

@@ -3,17 +3,17 @@
 
 " -- telescope
 " nnoremap <leader>ta :Telescope builtin<cr>| " (telescope) all commands
-nnoremap <leader>tm :Telescope marks<cr>| " (telescope) browse marks
-nnoremap <leader>tn :Telescope aerial<cr>| " ( telescope) (lsp) F4 code navigation through classes, methods and functions
-nnoremap <leader>th :Telescope command_history<cr>| " (telescope) command history (q:)
-nnoremap <leader>tr :Telescope registers<cr>| " (telescope) browse registers
-nnoremap <leader>tq :Telescope quickfix<cr>| " (telescope) browse quickfix
-nnoremap <leader>ti :Telescope quickfixhistory<cr>| " (telescope) browse quickfix history
-nnoremap <leader>tl :Telescope loclist<cr>| " (telescope) browse location-list
-nnoremap <leader>tt :Telescope help_tags<cr>| " (telescope) tags
-nnoremap <leader>tc :Telescope colorscheme<cr>| " (telescope) browser color schemes
-nnoremap <leader>Mk :Telescope make<cr>| " (telescope) run Makefile command
-nnoremap <leader>lr :lua require'telescope.builtin'.lsp_references{}<CR>| "( lsp) (telescope) search over variable references from your LSP
+" nnoremap <leader>tm :Telescope marks<cr>| " (telescope) browse marks
+" nnoremap <leader>tn :Telescope aerial<cr>| " ( telescope) (lsp) F4 code navigation through classes, methods and functions
+" nnoremap <leader>th :Telescope command_history<cr>| " (telescope) command history (q:)
+" nnoremap <leader>tr :Telescope registers<cr>| " (telescope) browse registers
+" nnoremap <leader>tq :Telescope quickfix<cr>| " (telescope) browse quickfix
+" nnoremap <leader>ti :Telescope quickfixhistory<cr>| " (telescope) browse quickfix history
+" nnoremap <leader>tl :Telescope loclist<cr>| " (telescope) browse location-list
+" nnoremap <leader>tt :Telescope help_tags<cr>| " (telescope) tags
+" nnoremap <leader>tc :Telescope colorscheme<cr>| " (telescope) browser color schemes
+" nnoremap <leader>Mk :Telescope make<cr>| " (telescope) run Makefile command
+" nnoremap <leader>lr :lua require'telescope.builtin'.lsp_references{}<CR>| "( lsp) (telescope) search over variable references from your LSP
 
 
 " LSP config (the mappings used in the default file don't quite work right)
