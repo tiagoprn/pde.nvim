@@ -18,6 +18,10 @@ which_key.register({
 		--
 		a = {
 			name = "+launchers", -- telescope, harpoon, buffer_manager and others
+			t = {
+				name = "+telescope",
+				a = { ":Telescope builtin<cr>", "all commands" },
+			},
 		},
 		b = {
 			name = "+clipboard",
@@ -72,6 +76,10 @@ which_key.register({
 		},
 		m = {
 			name = "+messages & notifications",
+			h = {
+				name = "+history",
+				n = { ":Telescope notify<cr>", "notifications" },
+			},
 		},
 		n = {
 			name = "+navigation (marks, lists etc)",
