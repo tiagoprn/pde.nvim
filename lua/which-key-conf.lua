@@ -41,6 +41,10 @@ which_key.register({
 				K = { ":bp<bar>sp<bar>bn<bar>bd<CR>", "close & keep window" },
 				w = { ":bufdo w!<cr>", "save all" },
 			},
+			f = {
+				name = "files",
+				o = { ":!gedit %<CR>", "open current file on gedit" },
+			},
 			t = {
 				name = "+tabs",
 				n = { ":tabnew<CR>", "new" },
@@ -55,8 +59,8 @@ which_key.register({
 				r = { "<c-w>r", "rotate split window" },
 				x = { "<c-w>t<c-w>K", "become horizontal split" },
 				v = { "<c-w>t<c-w>H", "become vertical split" },
-				X = { ":new", "new horizontal split" },
-				V = { ":vnew", "new vertical split" },
+				X = { ":new", "empty buffer on new horizontal split" },
+				V = { ":vnew", "empty buffer on new vertical split" },
 			},
 		},
 		g = {
@@ -105,6 +109,16 @@ which_key.register({
 		u = { ":undo<cr>", "undo changes" },
 		w = {
 			name = "+writing",
+			s = {
+				name = "+spell",
+				t = { ":set spell!<cr>", "toggle" },
+				o = { ":set spell?<cr>", "show status" },
+				l = { ":set spelllang?<cr>", "show current language" },
+				b = { ":set spelllang=en,pt_br<cr>", "set to EN & PT_BR" },
+				e = { ":set spelllang=en<cr>", "set to EN" },
+				p = { ":set spelllang=pt_br<cr>", "set to PT_BR" },
+				a = { ":normal! mz[s1z=`z]<cr>", "fix last misspelled word & jump back to where you were" },
+			},
 		},
 		x = {
 			name = "+external commands",
