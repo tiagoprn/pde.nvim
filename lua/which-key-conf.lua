@@ -1,4 +1,4 @@
--- This allows nvim to not crash if this plugin is not installed.
+-- This allows nvim to nfocus ot crash if this plugin is not installed.
 -- It would be great to extend this to my other plugins configuration.
 local status_ok, which_key = pcall(require, "which-key")
 if not status_ok then
@@ -20,7 +20,7 @@ which_key.register({
 		-- },
 		--
 		a = {
-			name = "+launchers", -- telescope, harpoon, buffer_manager and others
+			name = "+launchers", -- telescope, buffer_manager and others
 			t = {
 				name = "+telescope",
 				a = { ":Telescope builtin<cr>", "all commands" },
@@ -98,10 +98,20 @@ which_key.register({
 			},
 		},
 		g = {
-			name = "+grep",
+			name = "+git",
+			t = { ":!tmux select-window -t git<CR>", "go to gitui tmux window" },
 		},
 		h = {
 			name = "+harpoon",
+			a = { '<cmd>lua require("harpoon.mark").add_file()<cr>', "add current file" },
+			n = { '<cmd>lua require("harpoon.ui").nav_next()<cr>', "next file on list" },
+			p = { '<cmd>lua require("harpoon.ui").nav_prev()<cr>', "previous file on list" },
+			t = { '<cmd>lua require("harpoon.tmux").gotoTerminal("{down-of}")<cr>', "go to tmux pane below" },
+			c = {
+				'<cmd>lua require("harpoon.tmux").sendCommand("{down-of}", vim.fn.input("Enter the command: "))<cr>',
+				"run command on tmux pane below",
+			},
+			m = { ":Easypick make<cr>", "run easypick select make command on tmux pane below" },
 		},
 		l = {
 			name = "+lazy",
@@ -114,15 +124,21 @@ which_key.register({
 			},
 		},
 		n = {
-			name = "+navigation (marks, lists etc)",
-			m = {
-				name = "+marks",
-				d = { ":delmarks!<cr>", "delete all" },
-				b = { ":Telescope marks<cr>", "telescope browse" },
+			name = "+navigation (hop, marks, lists etc)",
+			h = {
+				name = "+hop",
+				s = { "<cmd>Svart<cr>", "search" },
+				r = { "<cmd>SvartRepeat<cr>", "repeat last" },
+				e = { "<cmd>SvartRegex<cr>", "regex" },
 			},
 			l = {
 				name = "+location list",
 				b = { ":Telescope loclist<cr>", "telescope browse" },
+			},
+			m = {
+				name = "+marks",
+				d = { ":delmarks!<cr>", "delete all" },
+				b = { ":Telescope marks<cr>", "telescope browse" },
 			},
 		},
 		o = {
@@ -168,6 +184,11 @@ which_key.register({
 		x = {
 			name = "+external commands",
 		},
+		z = {
+			name = "+zen focus mode",
+			c = { ":ZenCode<cr>", "code full screen" },
+			w = { ":ZenWrite<cr>", "write full screen" },
+		},
 		["<C-Space>"] = { ":bufdo w! | :q!<cr>", "save all buffers and quit" },
 		["<C-q>"] = { ":qa!<cr>", "quit without saving" },
 		["<C-e>"] = { ":e<cr>", "reload file" },
@@ -212,6 +233,11 @@ map.set(
 )
 map.set("n", "<C-up>", ":Telescope buffers<cr>", { desc = "telescope open buffer on current window" })
 
+map.set("n", "<C-h>", '<cmd>lua require("harpoon.ui").toggle_quick_menu()<cr>', { desc = "harpoon quick menu" })
+
+-- FUNCTION KEYS
+map.set("n", "<F3>", ":NvimTreeToggle<CR>", { desc = "nvim tree (project directory)" })
+
 --> VISUAL mode
 map.set("v", "<", "<gv", { desc = "dedent" })
 map.set("v", ">", ">gv", { desc = "indent" })
@@ -221,6 +247,12 @@ map.set("v", "<leader>cA", ":<C-U>Lspsaga range_code_action<CR>", { desc = "code
 --> INSERT mode
 map.set("i", "<C-right>", "<Esc>:tabnext<cr>", { desc = "go to next tab" })
 map.set("i", "<C-left>", "<Esc>:tabprevious<cr>", { desc = "go to previous tab" })
+map.set(
+	"i",
+	"<C-s>",
+	"<cmd>lua require'snippy'.complete()<cr>",
+	{ desc = "show all available snippets for current filetype" }
+)
 
 -- --
 -- 3) DYNAMIC (programatic) MAPPINGS
@@ -232,4 +264,18 @@ for i = 1, 6 do
 	local lhs = "<Leader>" .. i
 	local rhs = i .. "<C-W>w"
 	map.set("n", lhs, rhs, { desc = "Go to Window " .. i })
+end
+
+-- Harpoon
+--   Go to file
+for i = 1, 9 do
+	local lhs = "<Leader>h" .. i
+	local rhs = '<cmd>lua require("harpoon.ui").nav_file(' .. i .. ")<cr>"
+	map.set("n", lhs, rhs, { desc = "harpoon go to file" .. i })
+end
+--   Run project command
+for i = 1, 9 do
+	local lhs = "<Leader>hc" .. i
+	local rhs = '<cmd>lua require("harpoon.tmux").sendCommand("{down-of}", ' .. 1 .. ")<cr>"
+	map.set("n", lhs, rhs, { desc = "harpoon run project command" .. i .. "on tmux pane below" })
 end
