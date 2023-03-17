@@ -32,7 +32,7 @@
 " nnoremap <silent> <leader>lh :Lspsaga hover_doc<CR>| " (lsp-saga) documentation hover
 " nnoremap <silent> <leader>lf :Lspsaga lsp_finder<CR>| " (lsp-sage) finder
 " nnoremap <silent> <leader>la :Lspsaga code_action<CR>| " (lsp-saga) code action
-vnoremap <silent> <leader>lar :<C-U>Lspsaga range_code_action<CR>| " (lsp-saga) code action
+" vnoremap <silent> <leader>lar :<C-U>Lspsaga range_code_action<CR>| " (lsp-saga) code action
 
 " harpoon
 nnoremap <silent> <C-h> <cmd>lua require("harpoon.ui").toggle_quick_menu()<CR>| " (navigation - harpoon) quick menu

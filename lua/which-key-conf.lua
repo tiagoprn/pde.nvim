@@ -5,6 +5,9 @@ if not status_ok then
 	return
 end
 
+-- --
+-- 1) WHICH-KEY mappings (can/must be triggered with the LEADER key)
+-- --
 which_key.setup({})
 
 which_key.register({
@@ -172,12 +175,12 @@ which_key.register({
 })
 
 -- --
--- DIRECT mappings (can/must NOT be triggered with the LEADER key)
+-- 2) DIRECT mappings (can/must NOT be triggered with the LEADER key)
+-- --
 local map = vim.keymap
 
+--> NORMAL mode
 map.set("n", "<cr>", ":nohlsearch<cr>", { desc = "clean current highlighted search" })
-map.set("v", "<", "<gv", { desc = "dedent" })
-map.set("v", ">", ">gv", { desc = "indent" })
 map.set("n", "<Del>", "<C-w>c<Enter>", { desc = "close window & keep buffer" })
 
 map.set("n", "<Up>", "<Nop>", { desc = "disable Up in normal mode" })
@@ -190,8 +193,6 @@ map.set("n", "<C-k>", ":m .-2<cr>==", { desc = "move current line/selection up" 
 
 map.set("n", "<C-right>", ":tabnext<cr>", { desc = "go to next tab" })
 map.set("n", "<C-left>", ":tabprevious<cr>", { desc = "go to previous tab" })
-map.set("i", "<C-right>", "<Esc>:tabnext<cr>", { desc = "go to next tab" })
-map.set("i", "<C-left>", "<Esc>:tabprevious<cr>", { desc = "go to previous tab" })
 
 -- Keep the cursor in place when you join lines with J. That will also drop a mark before the operation to which you return afterwards:
 map.set("n", "J", "mzJ`z", { desc = "join lines keeping cursor in place" })
@@ -211,10 +212,20 @@ map.set(
 )
 map.set("n", "<C-up>", ":Telescope buffers<cr>", { desc = "telescope open buffer on current window" })
 
+--> VISUAL mode
+map.set("v", "<", "<gv", { desc = "dedent" })
+map.set("v", ">", ">gv", { desc = "indent" })
+
+map.set("v", "<leader>cA", ":<C-U>Lspsaga range_code_action<CR>", { desc = "code action" })
+
+--> INSERT mode
+map.set("i", "<C-right>", "<Esc>:tabnext<cr>", { desc = "go to next tab" })
+map.set("i", "<C-left>", "<Esc>:tabprevious<cr>", { desc = "go to previous tab" })
+
 -- --
--- DYNAMIC (programatic) MAPPINGS
+-- 3) DYNAMIC (programatic) MAPPINGS
 --   references: https://gist.github.com/benfrain/97f2b91087121b2d4ba0dcc4202d252f#file-mappings-lua
---
+-- --
 -- Easier window switching with leader + Number
 -- Creates mappings like this: km.set("n", "<Leader>2", "2<C-W>w", { desc = "Move to Window 2" })
 for i = 1, 6 do
