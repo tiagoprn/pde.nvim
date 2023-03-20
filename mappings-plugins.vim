@@ -85,37 +85,37 @@
 
 
 " aerial code navigation
-nnoremap <silent> <F4> :AerialToggle<CR>| " (lsp)(function-keys) toggle code navigation through classes and methods
-nnoremap <silent> <leader>; :AerialNext<CR>| " (aerial F4 code navigation) go to next function / method
-nnoremap <silent> <leader>, :AerialPrev<CR>| " (aerial F4 code navigation) go to previous function/method
-nnoremap <silent> <leader>: :lua require'aerial'.next_up()<CR>| " (aerial F4 code navigation) go to next class
-nnoremap <silent> <leader>< :lua require'aerial'.prev_up()<CR>| " (aerial F4 code navigation) go to previous class
+" nnoremap <silent> <F4> :AerialToggle<CR>| " (lsp)(function-keys) toggle code navigation through classes and methods
+" nnoremap <silent> <leader>; :AerialNext<CR>| " (aerial F4 code navigation) go to next function / method
+" nnoremap <silent> <leader>, :AerialPrev<CR>| " (aerial F4 code navigation) go to previous function/method
+" nnoremap <silent> <leader>: :lua require'aerial'.next_up()<CR>| " (aerial F4 code navigation) go to next class
+" nnoremap <silent> <leader>< :lua require'aerial'.prev_up()<CR>| " (aerial F4 code navigation) go to previous class
 
 
-" session manager
-nnoremap <silent> <leader>ss :SessionManager save_current_session<CR>| " (sessions) save current session
-nnoremap <silent> <leader>sl :SessionManager load_session<CR>| " (sessions) load session
-nnoremap <silent> <leader>sd :SessionManager delete_session<CR>| "  (sessions) delete session
+" " session manager
+" nnoremap <silent> <leader>ss :SessionManager save_current_session<CR>| " (sessions) save current session
+" nnoremap <silent> <leader>sl :SessionManager load_session<CR>| " (sessions) load session
+" nnoremap <silent> <leader>sd :SessionManager delete_session<CR>| "  (sessions) delete session
 
 
-" gitsigns
-nnoremap <silent> <leader>gb :Gitsigns blame_line<CR>| " (gitsigns) blame line
-nnoremap <silent> <leader>gj :Gitsigns next_hunk<CR>| "  (gitsigns) go to next changed hunk
-nnoremap <silent> <leader>gk :Gitsigns prev_hunk<CR>| "  (gitsigns) go to next changed hunk
-nnoremap <silent> <leader>gp :Gitsigns preview_hunk<CR>| "  (gitsigns) preview hunk
+" " gitsigns
+" nnoremap <silent> <leader>gb :Gitsigns blame_line<CR>| " (gitsigns) blame line
+" nnoremap <silent> <leader>gj :Gitsigns next_hunk<CR>| "  (gitsigns) go to next changed hunk
+" nnoremap <silent> <leader>gk :Gitsigns prev_hunk<CR>| "  (gitsigns) go to next changed hunk
+" nnoremap <silent> <leader>gp :Gitsigns preview_hunk<CR>| "  (gitsigns) preview hunk
 
 " buffer_manager
 " nnoremap <silent> <Tab> <cmd>lua require("buffer_manager.ui").nav_next()<CR>| " (buffer_manager) switch to next buffer
 " nnoremap <silent> <S-Tab> <cmd>lua require("buffer_manager.ui").nav_prev()<CR>| " (buffer_manager) switch to previous buffer
-nnoremap <silent> <C-b> <cmd>lua require("buffer_manager.ui").toggle_quick_menu()<CR>| " (buffer_manager) open quick menu
-nnoremap <silent> <leader>bl <cmd>lua require("buffer_manager.ui").load_menu_from_file()<CR>| " (buffer_manager) load buffers from file
-nnoremap <silent> <leader>bw <cmd>lua require("buffer_manager.ui").save_menu_to_file()<CR>| " (buffer_manager) save buffers to file
+" nnoremap <silent> <C-b> <cmd>lua require("buffer_manager.ui").toggle_quick_menu()<CR>| " (buffer_manager) open quick menu
+" nnoremap <silent> <leader>bl <cmd>lua require("buffer_manager.ui").load_menu_from_file()<CR>| " (buffer_manager) load buffers from file
+" nnoremap <silent> <leader>bw <cmd>lua require("buffer_manager.ui").save_menu_to_file()<CR>| " (buffer_manager) save buffers to file
 
 " mind
-nnoremap <silent> <leader>mo :MindOpenMain<CR>| " (mind ) open index menu
-nnoremap <silent> <leader>mO :MindOpenSmartProject<CR>| " (mind ) open index menu (smart project)
-nnoremap <silent> <leader>mq :MindClose<CR>| " (mind ) close index menu
+" nnoremap <silent> <leader>mo :MindOpenMain<CR>| " (mind ) open index menu
+" nnoremap <silent> <leader>mO :MindOpenSmartProject<CR>| " (mind ) open index menu (smart project)
+" nnoremap <silent> <leader>mq :MindClose<CR>| " (mind ) close index menu
 
 " treesitter
-nnoremap <silent> <leader>i :TSNodeUnderCursor<CR>| " (treesitter) get current node information
-nnoremap <silent> <leader>it :TSPlaygroundToggle<CR>| " (treesitter) toggle playground
+" nnoremap <silent> <leader>i :TSNodeUnderCursor<CR>| " (treesitter) get current node information
+" nnoremap <silent> <leader>it :TSPlaygroundToggle<CR>| " (treesitter) toggle playground

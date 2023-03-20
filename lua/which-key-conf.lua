@@ -62,6 +62,11 @@ which_key.register({
 			n = { ":Telescope aerial<cr>", "telescope navigation through classes, methods and functions" },
 			q = { "<cmd>lua vim.diagnostic.setqflist()<cr>", "send linter/diagnostics to quickfix list" },
 			r = { ":Lspsaga lsp_finder<cr>", "finder" },
+			t = {
+				name = "+treesitter",
+				n = { ":TSNodeUnderCursor<cr>", "current node info" },
+				p = { ":TSPlaygroundToggle<cr>", "toggle playground" },
+			},
 			u = { ":NullLsInfo <cr>", "null-ls info" },
 		},
 		e = {
@@ -76,6 +81,12 @@ which_key.register({
 				k = { ":bw<Enter>", "close" },
 				K = { ":bp<bar>sp<bar>bn<bar>bd<cr>", "close & keep window" },
 				w = { ":bufdo w!<cr>", "save all" },
+				m = { '<cmd>lua require("buffer_manager.ui").toggle_quick_menu()<cr>', "buffer_manager open menu" },
+				l = {
+					'<cmd>lua require("buffer_manager.ui").load_menu_from_file()<cr>',
+					"buffer_manager load from file",
+				},
+				s = { '<cmd>lua require("buffer_manager.ui").save_menu_to_file()<cr>', "buffer_manager save to file" },
 			},
 			o = { ":!gedit %<cr>", "open current file on gedit" },
 			f = { ":Telescope find_files find_command=fd,-H,-E,.git prompt_prefix=fd:  <cr>", "telescope open files" },
@@ -99,7 +110,7 @@ which_key.register({
 		},
 		g = {
 			name = "+git",
-			t = { ":!tmux select-window -t git<CR>", "go to gitui tmux window" },
+			t = { ":!tmux select-window -t git<cr>", "go to gitui tmux window" },
 		},
 		h = {
 			name = "+harpoon",
@@ -156,6 +167,9 @@ which_key.register({
 		s = { ":w!<cr>", "save current buffer" },
 		S = {
 			name = "+session",
+			d = { ":SessionManager delete_session<cr>", "delete" },
+			l = { ":SessionManager load_session<cr>", "load" },
+			s = { ":SessionManager save_current_session<cr>", "save" },
 		},
 		t = {
 			name = "+tree",
@@ -170,6 +184,12 @@ which_key.register({
 		u = { ":undo<cr>", "undo changes" },
 		w = {
 			name = "+writing",
+			m = {
+				name = "+Mind",
+				i = { ":MindOpenMain<cr>", "open main index menu" },
+				I = { ":MindOpenSmartProject<cr>", "open smart project index menu" },
+				q = { ":MindClose<cr>", "close index menu" },
+			},
 			s = {
 				name = "+spell",
 				t = { ":set spell!<cr>", "toggle" },
@@ -195,12 +215,21 @@ which_key.register({
 	},
 })
 
+--> SPECIAL leader mappings
+-- (must be done this way to avoid syntax errors on the default ones)
+which_key.register({
+	["<leader>;"] = { ":AerialNext<cr>", "aerial go to next function / method" },
+	["<leader>,"] = { ":AerialPrev<cr>", "aerial go to previous function/method" },
+	["<leader>:"] = { ":lua require'aerial'.next_up()<cr>", "aerial go to next class" },
+	["<leader><"] = { ":lua require'aerial'.prev_up()<cr>", "aerial go to previous class" },
+})
+
 -- --
 -- 2) DIRECT mappings (can/must NOT be triggered with the LEADER key)
 -- --
 local map = vim.keymap
 
---> NORMAL mode
+--> NORMAL mode (TODO: map these with which-key as I did SPECIAL leader mappings)
 map.set("n", "<cr>", ":nohlsearch<cr>", { desc = "clean current highlighted search" })
 map.set("n", "<Del>", "<C-w>c<Enter>", { desc = "close window & keep buffer" })
 
@@ -235,14 +264,20 @@ map.set("n", "<C-up>", ":Telescope buffers<cr>", { desc = "telescope open buffer
 
 map.set("n", "<C-h>", '<cmd>lua require("harpoon.ui").toggle_quick_menu()<cr>', { desc = "harpoon quick menu" })
 
+map.set("n", "<PageDown>", ":Gitsigns next_hunk<cr>", { desc = "gitsigns go to next hunk" })
+map.set("n", "<PageUp>", ":Gitsigns prev_hunk<cr>", { desc = "gitsigns go to previous hunk" })
+map.set("n", "<Home>", ":Gitsigns blame_line<cr>", { desc = "gitsigns blame line" })
+map.set("n", "<End>", ":Gitsigns preview_hunk<cr>", { desc = "gitsigns preview hunk" })
+
 -- FUNCTION KEYS
-map.set("n", "<F3>", ":NvimTreeToggle<CR>", { desc = "nvim tree (project directory)" })
+map.set("n", "<F3>", ":NvimTreeToggle<cr>", { desc = "nvim tree (project directory)" })
+map.set("n", "<F4>", ":AerialToggle<cr>", { desc = "aerial classes and methods tree" })
 
 --> VISUAL mode
 map.set("v", "<", "<gv", { desc = "dedent" })
 map.set("v", ">", ">gv", { desc = "indent" })
 
-map.set("v", "<leader>cA", ":<C-U>Lspsaga range_code_action<CR>", { desc = "code action" })
+map.set("v", "<leader>cA", ":<C-U>Lspsaga range_code_action<cr>", { desc = "code action" })
 
 --> INSERT mode
 map.set("i", "<C-right>", "<Esc>:tabnext<cr>", { desc = "go to next tab" })
