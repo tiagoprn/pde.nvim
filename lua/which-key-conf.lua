@@ -165,7 +165,13 @@ which_key.register({
 		q = {
 			name = "+quickfix",
 			b = { ":Telescope quickfix<cr>", "telescope browse" },
+			e = { ":clast<cr>", "end" },
 			h = { ":Telescope quickfixhistory<cr>", "telescope browse history" },
+			l = { ":colder<cr>", "older" },
+			n = { ":cnewer<cr>", "newer" },
+			o = { ":copen<cr>", "open" },
+			q = { ":cclose<cr>", "close" },
+			s = { ":cfirst<cr>", "start" },
 		},
 		r = { ":redo<cr>", "redo changes" },
 		s = { ":w!<cr>", "save current buffer" },
@@ -263,6 +269,9 @@ map.set("n", "<PageDown>", ":Gitsigns next_hunk<cr>", { desc = "gitsigns go to n
 map.set("n", "<PageUp>", ":Gitsigns prev_hunk<cr>", { desc = "gitsigns go to previous hunk" })
 map.set("n", "<Home>", ":Gitsigns blame_line<cr>", { desc = "gitsigns blame line" })
 map.set("n", "<End>", ":Gitsigns preview_hunk<cr>", { desc = "gitsigns preview hunk" })
+
+map.set("n", "<leader>]", ":cn", { desc = "quickfix next item" })
+map.set("n", "<leader>[", ":cp", { desc = "quickfix previous item" })
 
 -- FUNCTION KEYS
 map.set("n", "<F3>", ":NvimTreeToggle<cr>", { desc = "nvim tree (project directory)" })
