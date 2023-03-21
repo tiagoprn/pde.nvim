@@ -127,8 +127,6 @@ source $HOME/.config/nvim/commands.vim
 source $HOME/.config/nvim/abbreviations.vim
 source $HOME/.config/nvim/hooks.vim
 
-source $HOME/.config/nvim/mappings-functions.vim
-
 " --- PLUGINS
 
 lua require('plugins')
