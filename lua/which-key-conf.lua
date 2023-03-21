@@ -283,7 +283,7 @@ map.set("v", "<", "<gv", { desc = "dedent" })
 map.set("v", ">", ">gv", { desc = "indent" })
 
 map.set("v", "<leader>cA", ":<C-U>Lspsaga range_code_action<cr>", { desc = "code action" })
-map.set("n", "<leader>sf", ":call MoveVisualSelectionToFile()<cr>", {
+map.set("v", "<leader>sf", ":call MoveVisualSelectionToFile()<cr>", {
 	desc = "save visual selection to file",
 }) -- defined in functions.vim
 
