@@ -154,6 +154,7 @@ which_key.register({
 				name = "+marks",
 				d = { ":delmarks!<cr>", "delete all" },
 				b = { ":Telescope marks<cr>", "telescope browse" },
+				x = { ":call MarkDelete()<cr>", "delete single" }, -- defined in functions.vim
 			},
 		},
 		o = {
@@ -282,6 +283,9 @@ map.set("v", "<", "<gv", { desc = "dedent" })
 map.set("v", ">", ">gv", { desc = "indent" })
 
 map.set("v", "<leader>cA", ":<C-U>Lspsaga range_code_action<cr>", { desc = "code action" })
+map.set("n", "<leader>sf", ":call MoveVisualSelectionToFile()<cr>", {
+	desc = "save visual selection to file",
+}) -- defined in functions.vim
 
 --> INSERT mode
 map.set("i", "<C-right>", "<Esc>:tabnext<cr>", { desc = "go to next tab" })
