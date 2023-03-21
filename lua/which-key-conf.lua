@@ -270,8 +270,8 @@ map.set("n", "<PageUp>", ":Gitsigns prev_hunk<cr>", { desc = "gitsigns go to pre
 map.set("n", "<Home>", ":Gitsigns blame_line<cr>", { desc = "gitsigns blame line" })
 map.set("n", "<End>", ":Gitsigns preview_hunk<cr>", { desc = "gitsigns preview hunk" })
 
-map.set("n", "<leader>]<cr>", ":cn", { desc = "quickfix next item" })
-map.set("n", "<leader>[<cr>", ":cp", { desc = "quickfix previous item" })
+map.set("n", "<leader>]", ":cn<cr>", { desc = "quickfix next item" })
+map.set("n", "<leader>[", ":cp<cr>", { desc = "quickfix previous item" })
 
 -- FUNCTION KEYS
 map.set("n", "<F3>", ":NvimTreeToggle<cr>", { desc = "nvim tree (project directory)" })
