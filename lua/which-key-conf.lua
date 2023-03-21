@@ -135,7 +135,11 @@ which_key.register({
 			},
 		},
 		n = {
-			name = "+navigation (hop, marks, lists etc)",
+			name = "+navigation (code, hop, marks, lists etc)",
+			f = { ":AerialNext<cr>", "aerial go to next function / method" },
+			F = { ":AerialPrev<cr>", "aerial go to previous function/method" },
+			c = { ":lua require'aerial'.next_up()<cr>", "aerial go to next class" },
+			C = { ":lua require'aerial'.prev_up()<cr>", "aerial go to previous class" },
 			h = {
 				name = "+hop",
 				s = { "<cmd>Svart<cr>", "search" },
@@ -215,15 +219,6 @@ which_key.register({
 	},
 })
 
---> SPECIAL leader mappings
--- (must be done this way to avoid syntax errors on the default ones)
-which_key.register({
-	["<leader>;"] = { ":AerialNext<cr>", "aerial go to next function / method" },
-	["<leader>,"] = { ":AerialPrev<cr>", "aerial go to previous function/method" },
-	["<leader>:"] = { ":lua require'aerial'.next_up()<cr>", "aerial go to next class" },
-	["<leader><"] = { ":lua require'aerial'.prev_up()<cr>", "aerial go to previous class" },
-})
-
 -- --
 -- 2) DIRECT mappings (can/must NOT be triggered with the LEADER key)
 -- --
@@ -300,7 +295,7 @@ for i = 1, 6 do
 	local rhs = i .. "<C-W>w"
 	map.set("n", lhs, rhs, { desc = "Go to Window " .. i })
 end
-
+--
 -- Harpoon
 --   Go to file
 for i = 1, 9 do
@@ -308,7 +303,7 @@ for i = 1, 9 do
 	local rhs = '<cmd>lua require("harpoon.ui").nav_file(' .. i .. ")<cr>"
 	map.set("n", lhs, rhs, { desc = "harpoon go to file" .. i })
 end
---   Run project command
+-- Run project command
 for i = 1, 9 do
 	local lhs = "<Leader>hc" .. i
 	local rhs = '<cmd>lua require("harpoon.tmux").sendCommand("{down-of}", ' .. 1 .. ")<cr>"
