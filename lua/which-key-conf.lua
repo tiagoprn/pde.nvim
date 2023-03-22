@@ -162,6 +162,11 @@ which_key.register({
 		},
 		p = {
 			name = "+python",
+			e = {
+				":EmbedValueFromPythonPrintableExpression<cr>",
+				"type printable / evaluable python expression to embed in current buffer",
+			},
+			r = { ":RunPythonScriptOnCurrentLine<cr>", "run python script on current line" },
 		},
 		q = {
 			name = "+quickfix",
@@ -195,12 +200,20 @@ which_key.register({
 		u = { ":undo<cr>", "undo changes" },
 		w = {
 			name = "+writing",
+			f = {
+				name = "+fleeting notes",
+				c = { ":CreateFleetingNote<cr>", "create" },
+				s = { ":SearchFleetingNotes<cr>", "search" },
+				l = { ":ListFleetingNotesCategories<cr>", "list categories" },
+				u = { ":UpdateFleetingNotesCategories<cr>", "update categories" },
+			},
 			m = {
 				name = "+Mind",
 				i = { ":MindOpenMain<cr>", "open main index menu" },
 				I = { ":MindOpenSmartProject<cr>", "open smart project index menu" },
 				q = { ":MindClose<cr>", "close index menu" },
 			},
+			n = { ":OpenPersonalDoc<cr>", "open note" },
 			s = {
 				name = "+spell",
 				t = { ":set spell!<cr>", "toggle" },
@@ -210,6 +223,21 @@ which_key.register({
 				e = { ":set spelllang=en<cr>", "set to EN" },
 				p = { ":set spelllang=pt_br<cr>", "set to PT_BR" },
 				a = { ":normal! mz[s1z=`z]<cr>", "fix last misspelled word & jump back to where you were" },
+			},
+			t = {
+				name = "+Tasks",
+				c = { ":CreateTask<cr>", "create" },
+				s = { ":SearchTaskCard<cr>", "search" },
+			},
+			w = {
+				name = "+writeloop",
+				s = {
+					":SearchWriteloop<cr>",
+					"search (INBOX, PERSONAL, zettels, posts, flashcards, mind-maps, etc...)",
+				},
+				p = { ":CreatePost<cr>", "create post" },
+				z = { ":CreateZettel<cr>", "create zettel" },
+				f = { ":CreateFlashcard<cr>", "create flashcard" },
 			},
 		},
 		x = {
