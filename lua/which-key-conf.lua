@@ -8,7 +8,17 @@ end
 -- --
 -- 1) WHICH-KEY mappings (can/must be triggered with the LEADER key)
 -- --
-which_key.setup({})
+which_key.setup({
+	window = {
+		border = "single", -- none, single, double, shadow
+	},
+	layout = {
+		height = { min = 4, max = 25 }, -- min and max height of the columns
+		width = { min = 20, max = 80 }, -- min and max width of the columns
+		spacing = 3, -- spacing between columns
+		align = "center", -- align columns left, center or right
+	},
+})
 
 which_key.register({
 	["<leader>"] = {
