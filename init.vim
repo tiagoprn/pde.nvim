@@ -171,7 +171,6 @@ source $HOME/.config/nvim/conf-plugins/navigator.vim
 source $HOME/.config/nvim/conf-plugins/asyncrun.vim
 
 source $HOME/.config/nvim/commands-tiagoprn-functions.vim
-source $HOME/.config/nvim/mappings-tiagoprn-functions.vim
 
 " AUTOGROUPS
 "" Below overrides MAIN SETTINGS section configuration, according to the file type
