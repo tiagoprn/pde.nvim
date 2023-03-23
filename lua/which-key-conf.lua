@@ -34,6 +34,18 @@ which_key.register({
 			p = { '"+p', "paste from system clipboard" },
 			r = { "<cmd>let @+=expand('%:.')..':'..line('.')<cr>", "current buffer relative path" },
 			y = { '"+y', "copy to system clipboard" },
+			A = {
+				":GetCurrentFilenamePositionAndCopyToClipboard<cr>",
+				"treesitter - copy current file/buffer name with position to clipboard",
+			},
+			N = {
+				":GetCurrentFileAbsolutePositionAndCopyToClipboard<cr>",
+				"treesitter - copy current file/buffer full/absolute path with position to clipboard",
+			},
+			R = {
+				":GetCurrentFileRelativePositionAndCopyToClipboard<cr>",
+				"treesitter - copy current file/buffer relative path with position to clipboard",
+			},
 		},
 		c = {
 			name = "+coding",
@@ -87,9 +99,11 @@ which_key.register({
 					"buffer_manager load from file",
 				},
 				s = { '<cmd>lua require("buffer_manager.ui").save_menu_to_file()<cr>', "buffer_manager save to file" },
+				n = { ":LoadBufferWithoutWindow <cr>", "open file without opening a window" },
 			},
 			o = { ":!gedit %<cr>", "open current file on gedit" },
 			f = { ":Telescope find_files find_command=fd,-H,-E,.git prompt_prefix=fd:  <cr>", "telescope open files" },
+			s = { ":SearchOnOpenFiles<cr>", "search on open files" },
 			t = {
 				name = "+tabs",
 				n = { ":tabnew<cr>", "new" },
@@ -212,6 +226,18 @@ which_key.register({
 				i = { ":MindOpenMain<cr>", "open main index menu" },
 				I = { ":MindOpenSmartProject<cr>", "open smart project index menu" },
 				q = { ":MindClose<cr>", "close index menu" },
+				c = {
+					":MindCustomCreateNodeIndexOnMainTree<cr>",
+					"tree - create node inside another without leaving current buffer",
+				},
+				y = { ":MindCustomCopyNodeLinkIndexOnMainTree<cr>", "tree - search a node and copy its' link" },
+				o = { ":MindCustomOpenDataIndexOnMainProjectTree<cr>", "tree - search node and open it" },
+				S = { ":MindCustomInitializeSmartProjectTree<cr>", "smart project - initialize" },
+				Y = {
+					":MindCustomCopyNodeLinkIndexOnSmartProjectTree<cr>",
+					"smart project - search a node and copy its' link",
+				},
+				O = { ":MindCustomOpenDataIndexOnSmartProjectTree<cr>", "smart project - search node and open it" },
 			},
 			n = { ":OpenPersonalDoc<cr>", "open note" },
 			s = {
