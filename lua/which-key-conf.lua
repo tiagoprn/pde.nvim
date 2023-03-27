@@ -1,5 +1,3 @@
--- This allows nvim to nfocus ot crash if this plugin is not installed.
--- It would be great to extend this to my other plugins configuration.
 local status_ok, which_key = pcall(require, "which-key")
 if not status_ok then
 	return
@@ -156,6 +154,10 @@ which_key.register({
 			h = {
 				name = "+history",
 				n = { ":Telescope notify<cr>", "telescope notifications" },
+				r = {
+					':lua require("tiagoprn.toggle_redir").toggle()<cr>',
+					"toggle redirecting messages to file",
+				},
 			},
 		},
 		n = {
