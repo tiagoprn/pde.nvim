@@ -151,13 +151,13 @@ which_key.register({
 		},
 		m = {
 			name = "+messages & notifications",
+			r = {
+				':lua require("tiagoprn.toggle_redir").toggle()<cr>',
+				"toggle redirecting messages to file",
+			},
 			h = {
 				name = "+history",
 				n = { ":Telescope notify<cr>", "telescope notifications" },
-				r = {
-					':lua require("tiagoprn.toggle_redir").toggle()<cr>',
-					"toggle redirecting messages to file",
-				},
 			},
 		},
 		n = {
