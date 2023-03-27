@@ -153,7 +153,7 @@ which_key.register({
 			name = "+messages & notifications",
 			r = {
 				':lua require("tiagoprn.toggle_redir").toggle()<cr>',
-				"toggle redirecting messages to file",
+				"toggle redirecting messages to file - NOT real time (toggle OFF to stop and see the contents)",
 			},
 			h = {
 				name = "+history",
