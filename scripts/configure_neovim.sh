@@ -29,7 +29,6 @@ removeConfiguration() {
     removeDirIfPresent ~/.local/share/nvim
     removeDirIfPresent ~/.local/state/nvim
     removeDirIfPresent ~/.cache/nvim
-    removeDirIfPresent ~/.config/nvim/undodir
 }
 
 backupConfiguration() {
@@ -37,7 +36,6 @@ backupConfiguration() {
     renameDirIfPresent ~/.local/share/nvim
     renameDirIfPresent ~/.local/state/nvim
     renameDirIfPresent ~/.cache/nvim
-    renameDirIfPresent ~/.config/nvim/undodir
 }
 
 # echo 'Deleting old setup (if it exists)...'
