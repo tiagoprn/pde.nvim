@@ -2,31 +2,18 @@
 
 This repo contains my modular neovim configuration.
 
-The package manager I use on neovim is "packer".
+It provides a PDE - Personal Development Environment. It was heavily tweaked by my daily use of neovim through the years, so it reflects my workflow and personal preferences on coding and writing. As so, you can use it as-is following this instructions, but you would better take this as a starting point or reference to create your own. I tweak this almost on a daily basis.
 
-## Install methods (from master branch on github repo - bleeding edge)
+I also daily (re)compile nvim from its' master branch, and the simple script I use to do that is mentioned on the next section.
 
-### 1) Manual compiling:
+The package manager I use on neovim is "packer" - for now, I will migrate to "lazy.nvim" soon.
 
-```bash
-$ sudo su
-$ mkdir -p /opt/src
-$ cd /opt/src
-$ git clone https://github.com/neovim/neovim.git
-$ cd neovim
-$ ldconfig
-$ make clean && make CMAKE_BUILD_TYPE=Release && make install
-```
+The distro package names below with additional tooling to make this work take into account PopOS! 22.04+ (which derives from Ubuntu), so if you want to use this on any other distro you must use the equivalent names there.
 
-### 2) Nightly appimage:
 
-```bash
-$ sudo su
-$ mkdir -p /opt/nvim
-$ cd /opt/nvim
-$ wget https://github.com/neovim/neovim/releases/download/nightly/nvim.appimage
-$ ln -s /opt/nvim/nvim.appimage /usr/bin/nvim
-```
+## Manual install/upgrade method (from master branch on github repo - bleeding edge)
+
+Run [my sync-neovim bash script](./scripts/sync-neovim.sh)
 
 **IMPORTANT**: On debian's derivative distributions, after installing, you can do the optional step below to link the default and vi editor to nvim:
 
@@ -46,7 +33,7 @@ $ curl -fsSL https://deb.nodesource.com/setup_current.x | sudo -E bash -
 $ sudo apt install -y nodejs
 ```
 
-### 2) Install language servers (you must start here)
+### 2) Install language servers
 
 #### python
 
@@ -60,7 +47,7 @@ $ pyenv activate neovim
 $ pip install -r /storage/src/devops/python/requirements.nvim-lsp  # https://github.com/tiagoprn/devops/blob/master/python/requirements.nvim-lsp
 ```
 
-That will install not only pynvim, but also other packages related to python LSP on neovim (pylsp - python language server, black, pylint, isort, etc...) on this common environment. If the need arises to use different versions of any of them, I can manually install the libraries at `/storage/src/devops/python/requirements.nvim-lsp` on the project's virtualenv.
+That will install not only pynvim, but also other packages related to python LSP on neovim (pylsp - python language server, black, pylint, isort, etc...) on this common environment. If the need arises to use different versions of any of them, I can manually install the libraries listed at <https://github.com/tiagoprn/devops/blob/master/python/requirements.nvim-lsp> on the project's virtualenv.
 
 #### bash
 
@@ -76,12 +63,12 @@ $ sudo npm update --location=global
 $ bash-language-server -v
 ```
 
-- shellcheck: linter
+- shellcheck: bash linter
 ```bash
 $ sudo apt install -y shellcheck
 ```
 
-- shfmt: formatter for shell scripts:
+- shfmt: bash formatter for shell scripts:
 ```bash
 $ sudo apt install -y golang-go  # install go if not installed
 $ GO111MODULE=on go install mvdan.cc/sh/v3/cmd/shfmt@latest
@@ -100,8 +87,8 @@ NOTE: Treesitter parsers will be installed through npm. Commands to inspect that
 - lua-language-server (previously called "sumneko"):
 	- Download a release from this page: <https://github.com/LuaLS/lua-language-server/releases>
 	- Uncompress the release at `/opt/src/lua-language-server`
-    - Giver permission to all users: `sudo chmod -R 777 /opt/src/lua-language-server/`
-    - Copy the wrapper script to the destination:  `cp scripts/lua-language-server to /usr/local/bin`
+    - Give permission to all users: `sudo chmod -R 777 /opt/src/lua-language-server/`
+    - Copy the wrapper script to the destination: `cp scripts/lua-language-server to /usr/local/bin`
     - Check it is working and the version is the same you downloaded:
     ``` bash
     $ lua-language-server --version
@@ -111,22 +98,25 @@ NOTE: Treesitter parsers will be installed through npm. Commands to inspect that
 ```bash
 $ sudo apt install cargo
 $ cargo install stylua
+# Add the path of the compiled stylua binary returned by the next command to your $PATH:
+$ which stylua
 ```
 
 ### 3) Setting up neovim
 
-- **IMPORTANT:** Before starting, make sure you already have neovim installed (as appimage or compiled). This assumes neovim 0.7+ (which at this time can only be obtained through cloning the master branch). Also make sure you have installed the language servers and related programs/packages.
+- **IMPORTANT:** Before starting:
+    - make sure you already have neovim installed (as appimage or compiled).
+    - make sure you have installed the language servers and related programs/packages of the previous sections.
+    - make sure you have the following packages installed on your distro: `bash-completion bat entr fd fzf gitui inotify-tools jq ripgrep sed
+`
 
-- To (re)set your environment, run `./scripts/configure_neovim.sh`. It will delete the existing environment and clone the packer repo.
+- To (re)set your environment, run <./scripts/configure_neovim.sh>. It will delete the existing environment and clone the packer repo.
 
 - Run:
 ```
 $ nvim
-
-(run below on VISUAL MODE)
-
-:PackerCompile
-:PackerSync
+<ESC> :PackerCompile <ENTER>
+<ESC> :PackerSync <ENTER>
 ```
 
 - To see the plugins output: `:messages`, to clear all messages: `:messages clear`
@@ -169,7 +159,7 @@ $ nvim +PluginInstall +qall
 - Running lua functions:
 
 ``` vim
-(run below on VISUAL MODE)
+(run below on NORMAL MODE)
 :lua require'sample'.runExternalCommand()
 :lua require'sample'.checkForErrorsAsBooleanVariable()
 :lua require'sample'.welcomeToLua()
