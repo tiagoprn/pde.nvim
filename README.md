@@ -154,9 +154,10 @@ $ nvim +PluginInstall +qall
 
 ## Other
 
-- `viminfo` on neovim: Instead of the viminfo format, neovim uses `shada` files. For more details: `:h shada`. In linux, the default path of this file is: `$HOME/.local/share/nvim/shada/main.shada`.
+### `viminfo` on neovim:
+- Instead of the viminfo format, neovim uses `shada` files. For more details: `:h shada`. In linux, the default path of this file is: `$HOME/.local/share/nvim/shada/main.shada`.
 
-- Running lua functions:
+### Running lua functions:
 
 ``` vim
 (run below on NORMAL MODE)
@@ -164,6 +165,8 @@ $ nvim +PluginInstall +qall
 :lua require'sample'.checkForErrorsAsBooleanVariable()
 :lua require'sample'.welcomeToLua()
 ```
+
+### Lua functions/plugins development
 
 - Developing lua plugins interactively with a "REPL":
 
@@ -203,7 +206,8 @@ On those namespaces, there are string and list manipulation functions (that I wa
 
 - If I receive error "E41: Out of memory!" when opening a file, edit it outside of nvim and save it.
 
-- How export the mappings to an external file:
+### How export the mappings to an external file:
+
 1. Inside nvim:
 ```bash
 :redir >> ~/mymaps.txt
@@ -215,5 +219,7 @@ On those namespaces, there are string and list manipulation functions (that I wa
 nvim +"redir >> /tmp/automap.txt" +"map" +"redir END" +"qa!"
 ```
 (you can use `:verbose map` instead of `:map` to get more info on the mappings.)
+
+### Custom telescope pickers
 
 - If I need to create/run more commands or a command palette using telescope pickers to choose from a list, I can create them on `lua/easypick-conf.lua` (I have examples there and one picker I created to run make commands using harpoon.)
