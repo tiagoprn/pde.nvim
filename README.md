@@ -11,7 +11,8 @@ The package manager I use on neovim is "packer" - for now, I will migrate to "la
 The distro package names below with additional tooling to make this work take into account PopOS! 22.04+ (which derives from Ubuntu), so if you want to use this on any other distro you must use the equivalent names there.
 
 
-## Manual install/upgrade method (from master branch on github repo - bleeding edge)
+## MANUAL INSTALL/UPGRADE METHOD
+(from master branch on github repo - bleeding edge)
 
 Run [my sync-neovim bash script](./scripts/sync-neovim.sh)
 
@@ -24,7 +25,7 @@ update-alternatives --install /usr/bin/vi vi /usr/local/bin/nvim 1 && \
 update-alternatives --set vi /usr/local/bin/nvim
 ```
 
-## Configuration
+## CONFIGURATION
 
 ### 1) Install latest version of node
 
@@ -121,7 +122,7 @@ $ nvim
 
 - To see the plugins output: `:messages`, to clear all messages: `:messages clear`
 
-## Macros:
+## MACROS:
 
 - Record a macro:
 ```
@@ -145,14 +146,14 @@ q	      - stop recording
 99@a    - execute your macro 99 times
 ```
 
-## Script nvim commands:
+## SCRIPT NVIM COMMANDS:
 ```bash
 $ nvim --cmd 'echo "This runs before .vimrc"' -c ':call UltiSnips#ListSnippets()' -c '<Esc>' -c ':q!'
 $ nvim -c ':call UltiSnips#ListSnippets()' -c ':q!'
 $ nvim +PluginInstall +qall
 ```
 
-## Other
+## OTHER
 
 ### `viminfo` on neovim:
 - Instead of the viminfo format, neovim uses `shada` files. For more details: `:h shada`. In linux, the default path of this file is: `$HOME/.local/share/nvim/shada/main.shada`.
