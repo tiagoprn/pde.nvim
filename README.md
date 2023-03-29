@@ -14,6 +14,8 @@ The distro package names below with additional tooling to make this work take in
 ## MANUAL INSTALL/UPGRADE METHOD
 (from master branch on github repo - bleeding edge)
 
+**IMPORTANT**: if you wish before to get rid (backup) your current configuration first, run my [configure_neovim bash script](./scripts/configure_neovim.sh)
+
 Run [my sync-neovim bash script](./scripts/sync-neovim.sh)
 
 **IMPORTANT**: On debian's derivative distributions, after installing, you can do the optional step below to link the default and vi editor to nvim:
