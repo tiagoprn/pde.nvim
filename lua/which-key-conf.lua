@@ -146,6 +146,10 @@ which_key.register({
 		g = {
 			name = "+git",
 			t = { ":!tmux select-window -t git<cr>", "go to gitui tmux window" },
+			b = { ":Gitsigns blame_line<cr>", "blame line" },
+			j = { ":Gitsigns next_hunk<cr>", "go to next changed hunk" },
+			k = { ":Gitsigns prev_hunk<cr>", "go to previous changed hunk" },
+			p = { ":Gitsigns preview_hunk<cr>", "preview hunk" },
 		},
 		h = {
 			name = "+harpoon",
