@@ -214,6 +214,9 @@ snippet pytest_raises
         expected_exception_value = '(pymysql.err.IntegrityError) (1048, "Column \'company_id\' cannot be null")'
         assert exception_instance.value.args[0] == expected_exception_value
 
+snippet pytest_skip_decorator
+	@pytest.mark.skip(reason="${1}")
+
 snippet function_info
 	# fun below can be any function object.
 	# e.g. fun = print
