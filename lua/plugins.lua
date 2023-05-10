@@ -117,6 +117,8 @@ return require("packer").startup(function(use)
 
 	use({ "folke/which-key.nvim" })
 
+	use({ "mrjones2014/legendary.nvim" })
+
 	-- # LANGUAGE SERVERS - begin
 
 	-- --  handles automatically launching and initializing language servers installed on your system

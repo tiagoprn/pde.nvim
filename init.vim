@@ -163,7 +163,7 @@ lua require('buffer_manager-conf')
 lua require('goto-preview-conf')
 lua require('mind-conf')
 lua require('noice-conf')
-lua require('which-key-conf')
+lua require('key-mappings-conf')
 
 source $HOME/.config/nvim/conf-plugins/marvim.vim
 source $HOME/.config/nvim/conf-plugins/conceals.vim

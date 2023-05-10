@@ -1,3 +1,6 @@
+-- This has all my custom keymappings, configured using
+-- which-key and legendary plugins.
+
 local status_ok, which_key = pcall(require, "which-key")
 if not status_ok then
 	return
@@ -30,6 +33,11 @@ which_key.setup({
 -- 		nowait = false,
 -- 	},
 -- })
+
+-- automatically register which-key.nvim tables with legendary.nvim
+-- when you register them with which-key.nvim.
+-- `setup()` must be called before `require('which-key).register()`
+require("legendary").setup({ which_key = { auto_register = true } })
 
 which_key.register({
 	-- NORMAL mode mappings
@@ -204,13 +212,21 @@ which_key.register({
 		o = {
 			name = "+formatting",
 		},
-		p = {
+		P = {
 			name = "+python",
 			e = {
 				":EmbedValueFromPythonPrintableExpression<cr>",
 				"type printable / evaluable python expression to embed in current buffer",
 			},
 			r = { ":RunPythonScriptOnCurrentLine<cr>", "run python script on current line" },
+		},
+		p = {
+			name = "COMMAND PALETTE (legendary.nvim)",
+			a = { ":Legendary<cr>", "everything" },
+			k = { ":Legendary keymaps<cr>", "keymaps" },
+			c = { ":Legendary commands<cr>", "commands" },
+			f = { ":Legendary functions<cr>", "functions" },
+			t = { ":Legendary autocmds<cr>", "autocommands" },
 		},
 		q = {
 			name = "+quickfix",
