@@ -331,7 +331,7 @@ which_key.register({
 -- --
 local map = vim.keymap
 
---> NORMAL mode (TODO: map these with which-key as I did SPECIAL leader mappings)
+--> NORMAL mode (TODO: map these with legendary.nvim setup above)
 map.set("n", "<cr>", ":nohlsearch<cr>", { desc = "clean current highlighted search" })
 map.set("n", "<Del>", "<C-w>c<Enter>", { desc = "close window & keep buffer" })
 
@@ -378,7 +378,7 @@ map.set("n", "<leader>[", ":cp<cr>", { desc = "quickfix previous item" })
 map.set("n", "<F3>", ":NvimTreeToggle<cr>", { desc = "nvim tree (project directory)" })
 map.set("n", "<F4>", ":AerialToggle<cr>", { desc = "aerial classes and methods tree" })
 
---> VISUAL mode
+--> VISUAL mode (TODO: map these with legendary.nvim setup above)
 map.set("v", "<", "<gv", { desc = "dedent" })
 map.set("v", ">", ">gv", { desc = "indent" })
 
@@ -388,7 +388,7 @@ map.set("v", "<leader>f", ":call MoveVisualSelectionToFile()<cr>", {
 }) -- defined in functions.vim
 map.set("v", "<leader>y", '"+y', { desc = "YANK/COPY to system clipboard" })
 
---> INSERT mode
+--> INSERT mode (TODO: map these with legendary.nvim setup above)
 map.set("i", "<C-right>", "<Esc>:tabnext<cr>", { desc = "go to next tab" })
 map.set("i", "<C-left>", "<Esc>:tabprevious<cr>", { desc = "go to previous tab" })
 map.set(
