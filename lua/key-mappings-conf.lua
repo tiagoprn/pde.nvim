@@ -50,7 +50,13 @@ which_key.register({
 		-- },
 		--
 		a = {
-			name = "+launchers", -- telescope, buffer_manager and others
+			name = "+launchers", -- telescope, AI and others
+			i = {
+				name = "+AI (NeoAI)",
+				o = { ":NeoAIToggle<cr>", "NeoAI on/off" },
+				t = { ":put g<cr>", "Insert text output from last question (g register)" },
+				c = { ":put c<cr>", "Insert code output from last question (c register)" },
+			},
 			t = {
 				name = "+telescope",
 				a = { ":Telescope builtin<cr>", "all commands" },
@@ -381,11 +387,16 @@ map.set("n", "<F4>", ":AerialToggle<cr>", { desc = "aerial classes and methods t
 --> VISUAL mode (TODO: map these with legendary.nvim setup above)
 map.set("v", "<", "<gv", { desc = "dedent" })
 map.set("v", ">", ">gv", { desc = "indent" })
-
-map.set("v", "<leader>A", ":<C-U>Lspsaga range_code_action<cr>", { desc = "code action" })
 map.set("v", "<leader>f", ":call MoveVisualSelectionToFile()<cr>", {
 	desc = "save visual selection to file",
 }) -- defined in functions.vim
+map.set(
+	"v",
+	"<leader>aiq",
+	":NeoAIContext<cr>",
+	{ desc = "Send selection to NeoAI & open window to ask questions about it" }
+)
+map.set("v", "<leader>A", ":<C-U>Lspsaga range_code_action<cr>", { desc = "code action" })
 map.set("v", "<leader>y", '"+y', { desc = "YANK/COPY to system clipboard" })
 
 --> INSERT mode (TODO: map these with legendary.nvim setup above)

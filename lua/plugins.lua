@@ -119,6 +119,11 @@ return require("packer").startup(function(use)
 
 	use({ "mrjones2014/legendary.nvim" })
 
+	use({
+		"Bryley/neoai.nvim",
+		require = { "MunifTanjim/nui.nvim" },
+	})
+
 	-- # LANGUAGE SERVERS - begin
 
 	-- --  handles automatically launching and initializing language servers installed on your system
