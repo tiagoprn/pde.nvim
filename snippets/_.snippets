@@ -265,4 +265,13 @@ snippet book_notes_body
 snippet gcommit
 	feat: updated repository on `strftime("%Y-%m-%d %H:%M:%S")` ${1}
 
+snippet test_report
+	- timestamp: `strftime("%Y-%m-%d %H:%M:%S")`
 
+	- environment: ${1:development (my machine), ci, etc..}
+
+	- branch: ${2}
+
+	- context: ${3:describe here the reason I ran the suite - e.g. after refactoring xyz}
+
+	- file: <report.txt>
