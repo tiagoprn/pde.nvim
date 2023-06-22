@@ -13,10 +13,20 @@ require("telescope").setup({
 	},
 	pickers = {
 		find_files = {
-			theme = "dropdown",
+			layout_config = {
+				prompt_position = "top",
+				horizontal = {
+					preview_width = 0.65,
+				},
+			},
 		},
 		live_grep = {
-			theme = "dropdown",
+			layout_config = {
+				prompt_position = "top",
+				horizontal = {
+					preview_width = 0.65,
+				},
+			},
 		},
 	},
 	extensions = {
