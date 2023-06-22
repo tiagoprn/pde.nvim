@@ -66,6 +66,10 @@ which_key.register({
 			name = "+clipboard",
 			a = { "<cmd>let @+=expand('%:p')..':'..line('.')<cr>", "current buffer absolute path" },
 			e = { ":Telescope registers<cr>", "telescope browse registers" },
+			g = {
+				":let @+=system(\"git symbolic-ref --short HEAD 2>/dev/null | tr -d '\\n'\")<cr>",
+				"copy current git branch name to clipboard",
+			},
 			n = { "<cmd>let @+=expand('%:t')..':'..line('.')<cr>", "current buffer name" },
 			p = { '"+p', "paste from system clipboard" },
 			r = { "<cmd>let @+=expand('%:.')..':'..line('.')<cr>", "current buffer relative path" },
