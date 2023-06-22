@@ -37,14 +37,19 @@ local function harpoon_tmux_run_make(prompt_bufnr, _)
 	return true
 end
 
+local current_dir = vim.fn.getcwd()
+local recent_files_on_current_folder_command = [[find ]]
+	.. current_dir
+	.. [[ \( -type d -name '.git' -o -type d -name '__pycache__' \) -prune -o -type f -mtime -14 -printf '%T@ %P\n' | sort -rn | cut -d' ' -f2- ]]
+
 -- Add custom pickers here.
 local custom_pickers = {
-	-- list files inside current folder with default previewer
-	-- {
-	-- 	name = "ls",
-	-- 	command = "ls",
-	-- 	previewer = easypick.previewers.default(),
-	-- },
+	-- list most recent files with default previewer
+	{
+		name = "recent_files_on_current_folder",
+		command = recent_files_on_current_folder_command,
+		previewer = easypick.previewers.default(),
+	},
 
 	-- diff current branch with base_branch and show files that changed with respective diffs in preview
 	-- {

@@ -142,6 +142,7 @@ which_key.register({
 			},
 			o = { ":!gedit %<cr>", "open current file on gedit" },
 			f = { ":Telescope find_files find_command=fd,-H,-E,.git prompt_prefix=fd:  <cr>", "telescope open files" },
+			r = { ":Easypick recent_files_on_current_folder<cr>", "telescope open files changed recently (<=14 days) " },
 			s = { ":SearchOnOpenFiles<cr>", "search on open files" },
 			t = {
 				name = "+tabs",
