@@ -106,6 +106,11 @@ return require("packer").startup(function(use)
 	-- zen mode (allows zooming on a buffer)
 	use({ "folke/zen-mode.nvim" })
 
+	use({
+		"folke/todo-comments.nvim",
+		dependencies = { "nvim-lua/plenary.nvim" },
+	})
+
 	-- fancy cursor to show current line
 	use({ "gen740/SmoothCursor.nvim" })
 

@@ -262,11 +262,13 @@ which_key.register({
 			name = "+tree",
 		},
 		T = {
-			name = "+toggle",
-			c = { ":set list!<cr>", "special chars (listchars)" },
-			n = { ":set rnu!<cr>", "relative line numbers" },
-			i = { ":set cuc!<cr>", "current column indentation" },
-			l = { ":set cursorline!<cr>", "current line" },
+			name = "+TODO list",
+			n = { ":require('todo-comments').jump_next()<cr>", "next" },
+			p = { ":require('todo-comments').jump_prev()<cr>", "prev" },
+			t = { ":TodoTelescope<cr>", "telescope browse" },
+			q = { ":TodoQuickFix<cr>", "quickfix list" },
+			l = { ":TodoLocList<cr>", "location list" },
+			-- n = {"", ""},
 		},
 		u = { ":undo<cr>", "undo changes" },
 		w = {
@@ -324,7 +326,11 @@ which_key.register({
 			},
 		},
 		x = {
-			name = "+external commands",
+			name = "+toggle",
+			c = { ":set list!<cr>", "special chars (listchars)" },
+			n = { ":set rnu!<cr>", "relative line numbers" },
+			i = { ":set cuc!<cr>", "current column indentation" },
+			l = { ":set cursorline!<cr>", "current line" },
 		},
 		z = {
 			name = "+zen focus mode",
