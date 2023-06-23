@@ -86,7 +86,7 @@ return require("packer").startup(function(use)
 	use({ "junegunn/vim-peekaboo" })
 
 	-- better navigation
-	use({ "https://gitlab.com/madyanov/svart.nvim" })
+	-- TODO: add flit
 
 	-- auto pairs
 	use({ "windwp/nvim-autopairs" })

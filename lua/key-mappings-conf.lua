@@ -205,9 +205,7 @@ which_key.register({
 			C = { ":lua require'aerial'.prev_up()<cr>", "aerial go to previous class" },
 			h = {
 				name = "+hop",
-				s = { "<cmd>Svart<cr>", "search" },
-				r = { "<cmd>SvartRepeat<cr>", "repeat last" },
-				e = { "<cmd>SvartRegex<cr>", "regex" },
+				-- TODO: remove or add leap/flit
 			},
 			l = {
 				name = "+location list",
