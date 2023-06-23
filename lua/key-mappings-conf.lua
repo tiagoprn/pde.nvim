@@ -70,6 +70,7 @@ which_key.register({
 				":let @+=system(\"git symbolic-ref --short HEAD 2>/dev/null | tr -d '\\n'\")<cr>",
 				"copy current git branch name to clipboard",
 			},
+			l = { ":let @+=line('.')<cr>", "current line number" },
 			n = { "<cmd>let @+=expand('%:t')..':'..line('.')<cr>", "current buffer name" },
 			p = { '"+p', "paste from system clipboard" },
 			r = { "<cmd>let @+=expand('%:.')..':'..line('.')<cr>", "current buffer relative path" },
