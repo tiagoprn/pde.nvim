@@ -111,9 +111,17 @@ which_key.register({
 			i = { "<cmd>lua vim.lsp.buf.implementation()<cr>", "go to implementation" },
 			l = { ":LspInfo <cr>", "LSP info" },
 			m = { ":Telescope make<cr>", "telescope run Makefile command" },
-			n = { ":Telescope aerial<cr>", "telescope navigation through classes, methods and functions" },
+			-- n = { ":Telescope aerial<cr>", "telescope navigation through classes, methods and functions" },
+			n = {
+				":Telescope lsp_document_symbols<cr>",
+				"telescope navigation through symbols (classes, methods, functions, properties etc)",
+			},
 			q = { "<cmd>lua vim.diagnostic.setqflist()<cr>", "send linter/diagnostics to quickfix list" },
-			r = { ":Lspsaga lsp_finder<cr>", "finder" },
+			-- r = { ":Lspsaga lsp_finder<cr>", "finder" },
+			r = {
+				":Telescope lsp_references<cr>",
+				"telescope search references to the current word (class, function, variable, etc)",
+			},
 			t = {
 				name = "+treesitter",
 				n = { ":TSNodeUnderCursor<cr>", "current node info" },
