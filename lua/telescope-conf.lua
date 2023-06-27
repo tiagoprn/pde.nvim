@@ -1,5 +1,35 @@
 require("telescope").load_extension("aerial")
 
+-- Copy the selected Telescope entry to the clipboard
+local function copy_to_clipboard()
+	local entry = require("telescope.actions.state").get_selected_entry()
+	if entry then
+		local entry_value = entry.value
+		local colon_index = entry_value:find(":")
+		local contents = colon_index and entry_value:sub(colon_index + 1) or entry_value
+
+		-- Remove remainder "line:column:" prefix if it exists
+		contents = contents:gsub("^%d+:%d+:", "")
+
+		vim.fn.setreg("+", contents)
+		print("Copied to clipboard: " .. contents)
+	end
+end
+
+-- Add custom actions to the Telescope pickers
+local actions = require("telescope.actions")
+local custom_actions = setmetatable({}, {
+	__index = function(_, k)
+		return function(prompt_bufnr)
+			if k == "copy_to_clipboard" then
+				copy_to_clipboard()
+			else
+				actions[k](prompt_bufnr)
+			end
+		end
+	end,
+})
+
 require("telescope").setup({
 	defaults = {
 		layout_config = {
@@ -16,6 +46,10 @@ require("telescope").setup({
 				-- actions.which_key shows the mappings for your picker,
 				-- e.g. git_{create, delete, ...}_branch for the git_branches picker
 				["<C-h>"] = "which_key",
+				["<C-y>"] = custom_actions.copy_to_clipboard,
+			},
+			n = {
+				["<C-y>"] = custom_actions.copy_to_clipboard,
 			},
 		},
 	},
