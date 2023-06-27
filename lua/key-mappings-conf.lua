@@ -183,10 +183,11 @@ which_key.register({
 		h = {
 			name = "+harpoon",
 			a = { '<cmd>lua require("harpoon.mark").add_file()<cr>', "add current file" },
+			b = { ":Telescope harpoon marks<cr>", "telescope marks browsing" },
 			h = { '<cmd>lua require("harpoon.ui").toggle_quick_menu()<cr>', "toggle quick menu" },
 			n = { '<cmd>lua require("harpoon.ui").nav_next()<cr>', "next file on list" },
 			p = { '<cmd>lua require("harpoon.ui").nav_prev()<cr>', "previous file on list" },
-			t = { '<cmd>lua require("harpoon.tmux").gotoTerminal("{down-of}")<cr>', "go to tmux pane below" },
+			-- t = { '<cmd>lua require("harpoon.tmux").gotoTerminal("{down-of}")<cr>', "go to tmux pane below" },
 			c = {
 				'<cmd>lua require("harpoon.tmux").sendCommand("{down-of}", vim.fn.input("Enter the command: "))<cr>',
 				"run command on tmux pane below",
@@ -447,7 +448,7 @@ end
 for i = 1, 9 do
 	local lhs = "<Leader>h" .. i
 	local rhs = '<cmd>lua require("harpoon.ui").nav_file(' .. i .. ")<cr>"
-	map.set("n", lhs, rhs, { desc = "harpoon go to file" .. i })
+	map.set("n", lhs, rhs, { desc = "harpoon go to file mark " .. i })
 end
 -- Run project command
 for i = 1, 9 do

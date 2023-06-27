@@ -21,33 +21,37 @@ local harpoon_hint = [[
 ^ ^                             _<Esc>_: quit                            ^ ^
 ]]
 
-Hydra({
-	name = "harpoon",
-	hint = harpoon_hint,
-	config = {
-		color = "pink",
-		invoke_on_body = true,
-		hint = {
-			border = "rounded",
-		},
-	},
-	mode = "n",
-	body = "<leader>h",
-	heads = {
-		{ "1", "<cmd>lua require('harpoon.ui').nav_file(1)<CR>" },
-		{ "2", "<cmd>lua require('harpoon.ui').nav_file(2)<CR>" },
-		{ "3", "<cmd>lua require('harpoon.ui').nav_file(3)<CR>" },
-		{ "4", "<cmd>lua require('harpoon.ui').nav_file(4)<CR>" },
-		{ "5", "<cmd>lua require('harpoon.ui').nav_file(5)<CR>" },
-		{ "6", "<cmd>lua require('harpoon.ui').nav_file(6)<CR>" },
-		{ "7", "<cmd>lua require('harpoon.ui').nav_file(7)<CR>" },
-		{ "8", "<cmd>lua require('harpoon.ui').nav_file(8)<CR>" },
-		{ "9", "<cmd>lua require('harpoon.ui').nav_file(9)<CR>" },
-		{ "n", "<cmd>lua require('harpoon.ui').nav_next()<CR>" },
-		{ "p", "<cmd>lua require('harpoon.ui').nav_prev()<CR>" },
-		{ "t", "<cmd>lua require('harpoon.tmux').gotoTerminal('{down-of}')<CR>" },
-		{ "c", "<cmd>lua require('harpoon.tmux').sendCommand('{down-of}', vim.fn.input('Enter the command: '))<CR>" },
-		{ "m", ":Easypick make<CR>" },
-		{ "<Esc>", nil, { exit = true } },
-	},
-})
+local harpoon_heads = {
+	{ "1", "<cmd>lua require('harpoon.ui').nav_file(1)<CR>" },
+	{ "2", "<cmd>lua require('harpoon.ui').nav_file(2)<CR>" },
+	{ "3", "<cmd>lua require('harpoon.ui').nav_file(3)<CR>" },
+	{ "4", "<cmd>lua require('harpoon.ui').nav_file(4)<CR>" },
+	{ "5", "<cmd>lua require('harpoon.ui').nav_file(5)<CR>" },
+	{ "6", "<cmd>lua require('harpoon.ui').nav_file(6)<CR>" },
+	{ "7", "<cmd>lua require('harpoon.ui').nav_file(7)<CR>" },
+	{ "8", "<cmd>lua require('harpoon.ui').nav_file(8)<CR>" },
+	{ "9", "<cmd>lua require('harpoon.ui').nav_file(9)<CR>" },
+	{ "n", "<cmd>lua require('harpoon.ui').nav_next()<CR>" },
+	{ "p", "<cmd>lua require('harpoon.ui').nav_prev()<CR>" },
+	{ "t", "<cmd>lua require('harpoon.tmux').gotoTerminal('{down-of}')<CR>" },
+	{ "c", "<cmd>lua require('harpoon.tmux').sendCommand('{down-of}', vim.fn.input('Enter the command: '))<CR>" },
+	{ "m", ":Easypick make<CR>" },
+	{ "<Esc>", nil, { exit = true } },
+}
+
+-- TODO: disabled on 2023-06-27, because I was doing above on the which-key plugin.
+
+-- Hydra({
+-- 	name = "harpoon",
+-- 	hint = harpoon_hint,
+-- 	config = {
+-- 		color = "pink",
+-- 		invoke_on_body = true,
+-- 		hint = {
+-- 			border = "rounded",
+-- 		},
+-- 	},
+-- 	mode = "n",
+-- 	body = "<leader>h",
+-- 	heads = harpoon_heads,
+-- })
