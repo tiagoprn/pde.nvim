@@ -1,5 +1,35 @@
 require("telescope").load_extension("aerial")
 
+-- Open files in the same window/tab instead of on the current window
+function open_buffer_selection(prompt_bufnr)
+	-- print("---- PROMPT_BUFNR VALUE: " .. prompt_bufnr)
+
+	local entry = require("telescope.actions.state").get_selected_entry(prompt_bufnr)
+
+	if not entry then
+		return
+	end
+
+	local buffer_number = entry.bufnr
+
+	local buffer_name = vim.fn.bufname(buffer_number)
+	local is_buffer_open = false
+
+	for _, window in ipairs(vim.api.nvim_list_wins()) do
+		if vim.api.nvim_win_get_buf(window) == buffer_number then
+			vim.api.nvim_set_current_win(window)
+			is_buffer_open = true
+			print("Buffer '" .. buffer_name .. "' OPENED, switched to it!")
+			break
+		end
+	end
+
+	if not is_buffer_open then
+		vim.cmd("tabnew | buffer " .. buffer_number)
+		print("Buffer '" .. buffer_name .. "' NOT OPENED, so I opened it on a new tab!")
+	end
+end
+
 -- Copy the selected Telescope entry to the clipboard
 local function copy_to_clipboard()
 	local entry = require("telescope.actions.state").get_selected_entry()
@@ -54,6 +84,19 @@ require("telescope").setup({
 		},
 	},
 	pickers = {
+		buffers = {
+			sort_lastused = true,
+			mappings = {
+				i = {
+					["<cr>"] = open_buffer_selection,
+					["<C-x>"] = require("telescope.actions").delete_buffer,
+				},
+				n = {
+					["<cr>"] = open_buffer_selection,
+					["<C-x>"] = require("telescope.actions").delete_buffer,
+				},
+			},
+		},
 		find_files = {
 			layout_config = {
 				prompt_position = "top",

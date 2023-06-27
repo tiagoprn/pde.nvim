@@ -148,6 +148,7 @@ which_key.register({
 				},
 				s = { '<cmd>lua require("buffer_manager.ui").save_menu_to_file()<cr>', "buffer_manager save to file" },
 				n = { ":LoadBufferWithoutWindow <cr>", "open file without opening a window" },
+				o = { ":Telescope buffers<cr>", "telescope menu of all open buffers" },
 			},
 			o = { ":!gedit %<cr>", "open current file on gedit" },
 			f = { ":Telescope find_files find_command=fd,-H,-E,.git prompt_prefix=fd:  <cr>", "telescope open files" },
