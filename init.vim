@@ -165,6 +165,7 @@ lua require('noice-conf')
 lua require('key-mappings-conf')
 lua require('neoai-conf')
 lua require('todo-conf')
+lua require('flit-conf')
 
 source $HOME/.config/nvim/conf-plugins/marvim.vim
 source $HOME/.config/nvim/conf-plugins/conceals.vim

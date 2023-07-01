@@ -86,7 +86,10 @@ return require("packer").startup(function(use)
 	use({ "junegunn/vim-peekaboo" })
 
 	-- better navigation
-	-- TODO: add flit
+	use({
+		"ggandor/flit.nvim",
+		requires = { { "https://github.com/ggandor/leap.nvim" }, { "https://github.com/tpope/vim-repeat" } },
+	})
 
 	-- auto pairs
 	use({ "windwp/nvim-autopairs" })
