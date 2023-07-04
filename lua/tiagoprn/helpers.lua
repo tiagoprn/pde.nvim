@@ -193,4 +193,50 @@ function M.get_current_file_relative_path()
 	return relative_path ~= "" and relative_path or vim.fn.expand("%")
 end
 
+function M.tmux_get_current_session_name()
+	local exit_code, output = M.linuxCommand("tmux", { "display-message", "-p", "'#S'" })
+	-- print("Exit code 1:", exit_code)
+	-- print("Output 1:", output)
+
+	local session_name = string.gsub(output, "'", "")
+	return session_name
+end
+
+function M.tmux_create_or_switch_to_scratchpad_session()
+	local current_tmux_session_name = M.tmux_get_current_session_name()
+
+	local scripts_root = "/storage/src/dot_files/tiling-window-managers/scripts/"
+	local create_scratchpad_command = scripts_root .. "tmux-create-or-switch-to-scratchpad-session.sh"
+	local exit_code, output = M.linuxCommand("bash", { "-c", create_scratchpad_command })
+
+	-- print("Exit code 2:", exit_code)
+	-- print("Output 2:", output)
+
+	local scratchpad_session_name = current_tmux_session_name .. "__scratchpad"
+	return scratchpad_session_name
+end
+
+function M.tmux_run_bash_command_on_scratchpad_session(tmux_session_name, bash_command)
+	local scripts_root = "/storage/src/dot_files/tiling-window-managers/scripts/"
+	local tmux_run_command_script = scripts_root .. "tmux-run-command-on-other-session-window-and-pane.sh"
+	local tmux_scratchpad_session_window = tmux_session_name .. ":0"
+	print("script: " .. tmux_run_command_script)
+	print("session_window: " .. tmux_scratchpad_session_window)
+	print("bash_command: " .. bash_command)
+
+	local exit_code, output = M.linuxCommand(tmux_run_command_script, {
+		"--session-window",
+		tmux_scratchpad_session_window,
+		"--pane",
+		"0",
+		"--command",
+		bash_command,
+	})
+
+	-- print("EXIT_CODE 3: " .. exit_code)
+	-- print("OUTPUT 3: " .. output)
+
+	return exit_code, output
+end
+
 return M

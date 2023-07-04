@@ -309,48 +309,15 @@ function M.run_command_on_tmux_scratchpad_session()
 		-- "telescope" below is to force using dressing.nvim
 		telescope = require("telescope.themes").get_cursor(),
 	}, function(bash_command)
-		local current_line = vim.api.nvim_get_current_line()
 		if bash_command then
-			-- Get current tmux session name
-			local exit_code, output = helpers.linuxCommand("tmux", { "display-message", "-p", "'#S'" })
-			-- print("Exit code 1:", exit_code)
-			-- print("Output 1:", output)
+			local tmux_session_name = helpers.tmux_create_or_switch_to_scratchpad_session()
+			local exit_code, output =
+				helpers.tmux_run_bash_command_on_scratchpad_session(tmux_session_name, bash_command)
 
 			if exit_code == 0 then
-				-- local current_tmux_session_name = output
-				local current_tmux_session_name = string.gsub(output, "'", "")
-
-				-- create the scratchpad
-				local scripts_root = "/storage/src/dot_files/tiling-window-managers/scripts/"
-				local create_scratchpad_command = scripts_root .. "tmux-create-or-switch-to-scratchpad-session.sh"
-				local exit_code, output = helpers.linuxCommand("bash", { "-c", create_scratchpad_command })
-				-- print("Exit code 2:", exit_code)
-				-- print("Output 2:", output)
-
-				-- run bash_command on the tmux scratchpad session
-				local tmux_run_command_script = scripts_root .. "tmux-run-command-on-other-session-window-and-pane.sh"
-				local tmux_scratchpad_session_window = current_tmux_session_name .. "__scratchpad:0"
-				-- print("script: " .. tmux_run_command_script)
-				-- print("session_window: " .. tmux_scratchpad_session_window)
-				-- print("bash_command: " .. bash_command)
-
-				local exit_code, output = helpers.linuxCommand(tmux_run_command_script, {
-					"--session-window",
-					tmux_scratchpad_session_window,
-					"--pane",
-					"0",
-					"--command",
-					bash_command,
-				})
-
-				-- print("EXIT_CODE 3: " .. exit_code)
-				-- print("OUTPUT 3: " .. output)
-
-				if exit_code == 0 then
-					vim.notify("Successfully executed command!")
-				else
-					vim.notify("Error executing command!")
-				end
+				vim.notify("Successfully executed command!")
+			else
+				vim.notify("Error executing command!")
 			end
 		end
 	end)
