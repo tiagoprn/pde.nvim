@@ -301,4 +301,39 @@ function M.get_current_file_position_and_copy_to_clipboard(opts)
 	print("Copied current file position '" .. current_position .. "' to clipboard.")
 end
 
+function M.run_command_on_tmux_scratchpad_session()
+	-- runs a command on a tmux scratchpad session.
+
+	vim.ui.input({
+		prompt = "Type a bash command to run on the scratchpad session:",
+		-- "telescope" below is to force using dressing.nvim
+		telescope = require("telescope.themes").get_cursor(),
+	}, function(bash_command)
+		local current_line = vim.api.nvim_get_current_line()
+		if bash_command then
+			-- local command = "read !python3 " .. bash_command .. "'" .. current_line .. "'"
+			-- vim.cmd(command)
+
+			-- Create a new tmux window and store the window id
+			-- Get current tmux session name
+			-- tmux display-message -p '#S'
+			local exit_code, output = helpers.linuxCommand("tmux", { "display-message", "-p", "'#S'" })
+			print("Exit code:", exit_code)
+			print("Output:", output)
+
+			if exitCode == 0 then
+				local tmux_session_name = output
+				print("TODO: continue from here...")
+				-- # create the scratchpad session if it does not exist
+				-- tmux-create-or-switch-to-scratchpad-session.sh
+
+				-- # run the command
+				-- tmux-run-command-on-other-session-window-and-pane.sh --session-window "<current_tmux_session>__scratchpad:0" -pane 0 --command "<ask-for-the-command-here>"  # e.g. pytest
+			end
+
+			vim.notify("Successfully executed command!")
+		end
+	end)
+end
+
 return M

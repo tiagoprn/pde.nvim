@@ -44,18 +44,28 @@ function M.writeLines(file, lines)
 	io.close(f)
 end
 
+function M.table_to_str(table)
+	-- returns a lua table as a string
+	local options = { null = true }
+	return vim.inspect(table, options)
+end
+
 function M.linuxCommand(commandName, args)
+	local exitCode
+	local output
+
 	Job:new({
 		command = commandName,
 		args = args,
-		on_exit = function(j, return_val)
-			-- print(return_val)
-			if return_val == 0 then
-				print('[scratchpad] Command "' .. commandName .. '" successfully executed.')
-			end
-			print(j:result())
+		on_exit = function(j, returnVal)
+			exitCode = returnVal
+			output = j:result()
 		end,
-	}):sync() -- or start()
+	}):sync()
+
+	-- print(M.table_to_str(output))
+
+	return exitCode, output[1]
 end
 
 function M.createTimestampedFileWithSnippet(directoryPath, exCommandsFile)

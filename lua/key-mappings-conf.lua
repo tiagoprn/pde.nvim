@@ -90,6 +90,7 @@ which_key.register({
 		c = {
 			name = "+coding",
 			a = { ":Lspsaga code_action<cr>", "code action" },
+			b = { ":RunCommandOnTmuxScratchpadSession<cr>", "run bash command on tmux scratchpad session" },
 			d = {
 				name = "+go to definition",
 				f = { "<cmd>lua require('goto-preview').goto_preview_definition()<cr>", "LSP open on floating window" },
