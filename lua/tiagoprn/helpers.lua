@@ -54,6 +54,8 @@ function M.linuxCommand(commandName, args)
 	local exitCode
 	local output
 
+	-- print("COMMAND_NAME: " .. commandName .. ", ARGS:" .. M.table_to_str(args))
+
 	Job:new({
 		command = commandName,
 		args = args,
@@ -61,9 +63,10 @@ function M.linuxCommand(commandName, args)
 			exitCode = returnVal
 			output = j:result()
 		end,
+		timeout = 3000,
 	}):sync()
 
-	-- print(M.table_to_str(output))
+	-- print("RESULT >>> " .. M.table_to_str(output))
 
 	return exitCode, output[1]
 end
