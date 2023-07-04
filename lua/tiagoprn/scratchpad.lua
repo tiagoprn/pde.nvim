@@ -323,4 +323,16 @@ function M.run_command_on_tmux_scratchpad_session()
 	end)
 end
 
+function M.rerun_last_command_on_tmux_scratchpad_session()
+	local bash_command = "!!"
+	local tmux_session_name = helpers.tmux_create_or_switch_to_scratchpad_session()
+	local exit_code, output = helpers.tmux_run_bash_command_on_scratchpad_session(tmux_session_name, bash_command)
+
+	if exit_code == 0 then
+		vim.notify("Successfully executed command!")
+	else
+		vim.notify("Error executing command!")
+	end
+end
+
 return M

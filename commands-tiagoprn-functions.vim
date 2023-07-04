@@ -21,6 +21,7 @@ command! GetCurrentFileRelativePositionAndCopyToClipboard lua require"tiagoprn.s
 command! GetCurrentFilenamePositionAndCopyToClipboard lua require"tiagoprn.scratchpad".get_current_file_position_and_copy_to_clipboard({kind="only_name"})
 
 command! RunCommandOnTmuxScratchpadSession lua require"tiagoprn.scratchpad".run_command_on_tmux_scratchpad_session()
+command! RerunLastCommandOnTmuxScratchpadSession lua require"tiagoprn.scratchpad".rerun_last_command_on_tmux_scratchpad_session()
 
 command! MindCustomCreateNodeIndexOnMainTree lua require'tiagoprn.mind'.mind_custom_create_node_index_on_main_tree()
 command! MindCustomInitializeSmartProjectTree lua require'tiagoprn.mind'.mind_custom_initialize_smart_project_tree()
