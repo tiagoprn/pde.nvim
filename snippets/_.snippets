@@ -128,10 +128,10 @@ snippet journal-task
 	title: "${1}"
 	date: `strftime("%Y-%m-%d %H:%M:%S")`
 	due_at: ""
-	started_at: ""
-	finished_at: ""
+	started_at: "timestamp"
+	finished_at: "timestamp"
 	tags: [${2:"tag1",}]
-	links: [${3:"link1",}]
+	links: []
 	---
 
 	# CONTEXT
@@ -157,10 +157,6 @@ snippet journal-task
 	# PULL REQUESTS
 
 	journal-task-pull-request
-
-	# CHANGELOG (wip)
-
-	TBD
 
 snippet link-markdown
 	[${2:description}](${1:url})

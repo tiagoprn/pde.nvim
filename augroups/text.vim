@@ -10,6 +10,7 @@ augroup textconf
     autocmd FileType markdown,text,vim let g:indentLine_enabled=0
     autocmd FileType markdown,text,vim let g:indentLine_fileTypeExclude = ['markdown']
 
+    autocmd FileType markdown,text,vim set conceallevel=0
     autocmd FileType markdown,text,vim set nofoldenable  " disable folding
     autocmd FileType markdown,text set spell
     autocmd FileType markdown,text set spelllang=en
