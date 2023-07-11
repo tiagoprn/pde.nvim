@@ -226,3 +226,8 @@ nvim +"redir >> /tmp/automap.txt" +"map" +"redir END" +"qa!"
 ### Custom telescope pickers
 
 - If I need to create/run more commands or a command palette using telescope pickers to choose from a list, I can create them on `lua/easypick-conf.lua` (I have examples there and one picker I created to run make commands using harpoon.)
+
+### Place with lots of neovim configs I can analyze
+
+<https://dotfyle.com/>
+
