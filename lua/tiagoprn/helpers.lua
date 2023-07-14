@@ -239,4 +239,21 @@ function M.tmux_run_bash_command_on_scratchpad_session(tmux_session_name, bash_c
 	return exit_code, output
 end
 
+function M.print_table(t, indent, table_history)
+	indent = indent or ""
+	table_history = table_history or {}
+
+	for k, v in pairs(t) do
+		local item = indent .. tostring(k) .. ": "
+
+		if type(v) == "table" and not table_history[v] then
+			table_history[v] = true
+			print(item)
+			print_table(v, indent .. "  ", table_history)
+		else
+			print(item .. tostring(v))
+		end
+	end
+end
+
 return M

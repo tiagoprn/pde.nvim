@@ -50,16 +50,16 @@ which_key.register({
 		-- },
 		--
 		a = {
-			name = "+launchers", -- telescope, AI and others
-			i = {
-				name = "+AI (NeoAI)",
-				o = { ":NeoAIToggle<cr>", "NeoAI on/off" },
-				t = { ":put g<cr>", "Insert text output from last question (g register)" },
-				c = { ":put c<cr>", "Insert code output from last question (c register)" },
-			},
+			name = "+automations",
+			l = { ":PrintLspSupportedRequests<cr>", "print all supported requests on the current LSP server" },
+			o = { ":RunCommandOnFunctionOrMethod<cr>", "run command on function or method" },
 			t = {
-				name = "+telescope",
-				a = { ":Telescope builtin<cr>", "all commands" },
+				name = "+tmux",
+				r = { ":RunCommandOnTmuxScratchpadSession<cr>", "run bash command on tmux scratchpad session" },
+				l = {
+					":RerunLastCommandOnTmuxScratchpadSession<cr>",
+					"rerun last bash command on tmux scratchpad session",
+				},
 			},
 		},
 		b = {
@@ -90,8 +90,6 @@ which_key.register({
 		c = {
 			name = "+coding",
 			a = { ":Lspsaga code_action<cr>", "code action" },
-			b = { ":RunCommandOnTmuxScratchpadSession<cr>", "run bash command on tmux scratchpad session" },
-			B = { ":RerunLastCommandOnTmuxScratchpadSession<cr>", "rerun last bash command on tmux scratchpad session" },
 			d = {
 				name = "+go to definition",
 				f = { "<cmd>lua require('goto-preview').goto_preview_definition()<cr>", "LSP open on floating window" },
@@ -197,7 +195,18 @@ which_key.register({
 			m = { ":Easypick make<cr>", "run easypick select make command on tmux pane below" },
 		},
 		l = {
-			name = "+lazy",
+			name = "+launchers", -- telescope, AI, lazy and others
+			a = {
+				name = "+AI (NeoAI)",
+				o = { ":NeoAIToggle<cr>", "NeoAI on/off" },
+				t = { ":put g<cr>", "Insert text output from last question (g register)" },
+				c = { ":put c<cr>", "Insert code output from last question (c register)" },
+			},
+
+			t = {
+				name = "+telescope",
+				a = { ":Telescope builtin<cr>", "all commands" },
+			},
 		},
 		m = {
 			name = "+messages & notifications",
