@@ -52,14 +52,21 @@ which_key.register({
 		a = {
 			name = "+automations",
 			l = { ":PrintLspSupportedRequests<cr>", "print all supported requests on the current LSP server" },
-			o = { ":RunCommandOnFunctionOrMethod<cr>", "run command on function or method" },
 			t = {
 				name = "+tmux",
-				r = { ":RunCommandOnTmuxScratchpadSession<cr>", "run bash command on tmux scratchpad session" },
+				i = {
+					":RunInteractiveCommandOnCurrentFunctionOrMethodAtTmuxScratchpadSession<cr>",
+					"run interactive command on current function or method at tmux scratchpad session",
+				},
 				l = {
 					":RerunLastCommandOnTmuxScratchpadSession<cr>",
 					"rerun last bash command on tmux scratchpad session",
 				},
+				p = {
+					":RunPytestOnCurrentFunctionOrMethodAtTmuxScratchpadSession<cr>",
+					"run pytest on current function or method at tmux scratchpad session",
+				},
+				r = { ":RunCommandOnTmuxScratchpadSession<cr>", "run bash command on tmux scratchpad session" },
 			},
 		},
 		b = {

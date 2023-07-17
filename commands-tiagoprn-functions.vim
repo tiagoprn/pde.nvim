@@ -23,7 +23,8 @@ command! GetCurrentFilenamePositionAndCopyToClipboard lua require"tiagoprn.scrat
 command! RunCommandOnTmuxScratchpadSession lua require"tiagoprn.scratchpad".run_command_on_tmux_scratchpad_session()
 command! RerunLastCommandOnTmuxScratchpadSession lua require"tiagoprn.scratchpad".rerun_last_command_on_tmux_scratchpad_session()
 
-command! RunCommandOnFunctionOrMethod lua require"tiagoprn.code_utils".run_command_on_function_or_method()
+command! RunInteractiveCommandOnCurrentFunctionOrMethodAtTmuxScratchpadSession lua require"tiagoprn.code_utils".run_interactive_command_on_current_function_or_method_at_tmux_scratchpad_session()
+command! RunPytestOnCurrentFunctionOrMethodAtTmuxScratchpadSession lua require"tiagoprn.code_utils".run_pytest_on_current_function_or_method_at_tmux_scratchpad_session()
 command! PrintLspSupportedRequests lua require"tiagoprn.code_utils".print_lsp_supported_requests()
 
 command! MindCustomCreateNodeIndexOnMainTree lua require'tiagoprn.mind'.mind_custom_create_node_index_on_main_tree()

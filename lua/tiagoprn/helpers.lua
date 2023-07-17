@@ -256,4 +256,8 @@ function M.print_table(t, indent, table_history)
 	end
 end
 
+function M.escape_single_quotes(str)
+	return string.gsub(str, "'", "'\\''")
+end
+
 return M
