@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 : '
 This script (re)compiles neovim from its official repository.
@@ -6,6 +6,30 @@ This script (re)compiles neovim from its official repository.
 
 NVIM_SOURCES_PATH=/opt/src/neovim
 NVIM_BINARY_PATH=/usr/local/bin/nvim
+
+while [[ $# -gt 0 ]]; do
+    case $1 in
+        --source-path)
+            NVIM_SOURCES_PATH="$2"
+            shift
+            ;;
+        --binary-path)
+            NVIM_BINARY_PATH="$2"
+            shift
+            ;;
+        *)
+            echo "Unknown parameter passed: $1"
+            exit 1
+            ;;
+    esac
+    shift
+done
+
+echo "Using source path: $NVIM_SOURCES_PATH"
+echo "Using binary path: $NVIM_BINARY_PATH"
+
+# TODO: remove after finished testing
+exit 0
 
 # Cleanup existing install and compile a new one
 PREVIOUS_VERSION=$(sudo -- bash -c "cd $NVIM_SOURCES_PATH && git log -n 1 --pretty=format:'%cD by %an (%h)'")
