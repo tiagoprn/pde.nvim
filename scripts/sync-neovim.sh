@@ -5,6 +5,8 @@
 # Below is an example on how to use it with custom paths for the source and the binary:
 #
 # 	$ ./sync-neovim.sh  --source-path $HOME/src/nvim --binary-path $HOME/local/bin/nvim
+#
+# ** IMPORTANT ** : For this script to work with the arguments, --binary-path MUST finish with "/bin/nvim", no matter with subpath you choose before.
 
 NVIM_SOURCES_PATH=/opt/src/neovim
 NVIM_BINARY_PATH=/usr/local/bin/nvim
@@ -57,7 +59,18 @@ echo "The old nvim binary was copied to $BACKUPS_DIR in case you need to manuall
 echo "Compiling nvim (this will take a while)..."
 echo -e "If the build fails because of old version of libraries,\n run the script 'nvim-clean-cmake-build-cache.sh'\n to delete cmake cache and rebuild from a pristine state."
 read -n 1 -s -r -p "Press any key to continue..."
-COMMANDS="cd $NVIM_SOURCES_PATH && git fetch && git pull && rm -fr $NVIM_SOURCES_PATH/build && make clean && make CMAKE_BUILD_TYPE=Release && make install"
+
+case "$NVIM_BINARY_PATH" in
+    /opt*)
+        COMMANDS="cd $NVIM_SOURCES_PATH && git fetch && git pull && rm -fr $NVIM_SOURCES_PATH/build && make clean && make CMAKE_BUILD_TYPE=Release && make install"
+        ;;
+
+    *)
+        BUILD_PREFIX="${NVIM_BINARY_PATH%/bin/nvim}"
+        COMMANDS="cd $NVIM_SOURCES_PATH && git fetch && git pull && rm -fr $NVIM_SOURCES_PATH/build && make clean && make CMAKE_BUILD_TYPE=Release PREFIX=$BUILD_PREFIX && make install PREFIX=$BUILD_PREFIX"
+        ;;
+esac
+
 sudo -- bash -c "$COMMANDS"
 
 NEW_VERSION=$(sudo -- bash -c "cd $NVIM_SOURCES_PATH && git log -n 1 --pretty=format:'%cD by %an (%h)'")
