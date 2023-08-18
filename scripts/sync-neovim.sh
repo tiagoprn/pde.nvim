@@ -29,9 +29,6 @@ while [[ $# -gt 0 ]]; do
     shift
 done
 
-echo "Using source path: $NVIM_SOURCES_PATH"
-echo "Using binary path: $NVIM_BINARY_PATH"
-
 mkdir -p "$NVIM_SOURCES_PATH"
 mkdir -p "$(dirname "$NVIM_BINARY_PATH")"
 
@@ -60,12 +57,17 @@ echo "Compiling nvim (this will take a while)..."
 echo -e "If the build fails because of old version of libraries,\n run the script 'nvim-clean-cmake-build-cache.sh'\n to delete cmake cache and rebuild from a pristine state."
 read -n 1 -s -r -p "Press any key to continue..."
 
+echo "==> Using source path: $NVIM_SOURCES_PATH"
+echo "==> Using binary path: $NVIM_BINARY_PATH"
+
 case "$NVIM_BINARY_PATH" in
     /opt*)
+        echo "==> BUILDING FROM /OPT"
         COMMANDS="cd $NVIM_SOURCES_PATH && git fetch && git pull && rm -fr $NVIM_SOURCES_PATH/build && make clean && make CMAKE_BUILD_TYPE=Release && make install"
         ;;
 
     *)
+        echo "==> BUILDING FROM OTHER"
         BUILD_PREFIX="${NVIM_BINARY_PATH%/bin/nvim}"
         COMMANDS="cd $NVIM_SOURCES_PATH && git fetch && git pull && rm -fr $NVIM_SOURCES_PATH/build && make clean && make CMAKE_BUILD_TYPE=Release PREFIX=$BUILD_PREFIX && make install PREFIX=$BUILD_PREFIX"
         ;;
