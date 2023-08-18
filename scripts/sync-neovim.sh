@@ -1,8 +1,10 @@
 #!/usr/bin/env bash
 
-: '
-This script (re)compiles neovim from its official repository.
-'
+# This script (re)compiles neovim from its official repository.
+#
+# Below is an example on how to use it with custom paths for the source and the binary:
+#
+# 	$ ./sync-neovim.sh  --source-path $HOME/src/nvim --binary-path $HOME/local/bin/nvim
 
 NVIM_SOURCES_PATH=/opt/src/neovim
 NVIM_BINARY_PATH=/usr/local/bin/nvim
@@ -27,6 +29,19 @@ done
 
 echo "Using source path: $NVIM_SOURCES_PATH"
 echo "Using binary path: $NVIM_BINARY_PATH"
+
+mkdir -p "$NVIM_SOURCES_PATH"
+mkdir -p "$(dirname "$NVIM_BINARY_PATH")"
+
+NVIM_REPO_URL="https://github.com/neovim/neovim.git"
+
+# Check if the directory is empty or doesn't exist
+if [ ! -e "$NVIM_SOURCES_PATH" ] || [ -d "$NVIM_SOURCES_PATH" ] && [ -z "$(ls -A "$NVIM_SOURCES_PATH")" ]; then
+    echo "The directory $NVIM_SOURCES_PATH is empty. Cloning Neovim repository..."
+    git clone "$NVIM_REPO_URL" "$NVIM_SOURCES_PATH"
+else
+    echo "$NVIM_SOURCES_PATH is not empty. Moving on..."
+fi
 
 # TODO: remove after finished testing
 exit 0
