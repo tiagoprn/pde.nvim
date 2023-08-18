@@ -43,9 +43,6 @@ else
     echo "$NVIM_SOURCES_PATH is not empty. Moving on..."
 fi
 
-# TODO: remove after finished testing
-exit 0
-
 # Cleanup existing install and compile a new one
 PREVIOUS_VERSION=$(sudo -- bash -c "cd $NVIM_SOURCES_PATH && git log -n 1 --pretty=format:'%cD by %an (%h)'")
 
