@@ -69,7 +69,7 @@ case "$NVIM_BINARY_PATH" in
     *)
         echo "==> BUILDING FROM OTHER"
         BUILD_PREFIX="${NVIM_BINARY_PATH%/bin/nvim}"
-        COMMANDS="cd $NVIM_SOURCES_PATH && git fetch && git pull && rm -fr $NVIM_SOURCES_PATH/build && make clean && make CMAKE_BUILD_TYPE=Release PREFIX=$BUILD_PREFIX && make install PREFIX=$BUILD_PREFIX"
+        COMMANDS="cd $NVIM_SOURCES_PATH && git fetch && git pull && rm -fr $NVIM_SOURCES_PATH/build && make clean && make CMAKE_BUILD_TYPE=Release CMAKE_EXTRA_FLAGS='-DCMAKE_INSTALL_PREFIX=$BUILD_PREFIX' && make install"
         ;;
 esac
 
