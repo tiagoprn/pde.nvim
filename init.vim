@@ -39,7 +39,19 @@ set timeout
 set timeoutlen=300
 
 " use linux's default gui clipboard - disabled because I have specific mappings for that
-" set clipboard=unnamedplus
+set clipboard=unnamedplus
+let g:clipboard = {
+\ 'name': 'wl-copy',
+\ 'copy': {
+\   '+': 'wl-copy',
+\   '*': 'wl-copy',
+\ },
+\ 'paste': {
+\   '+': 'wl-paste',
+\   '*': 'wl-paste',
+\ },
+\ 'cache_enabled': 0,
+\ }
 
 " Disable backup and swap files - they trigger too many events
 " for file system watchers
