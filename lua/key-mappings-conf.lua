@@ -96,7 +96,11 @@ which_key.register({
 		},
 		c = {
 			name = "+coding",
-			a = { ":Lspsaga code_action<cr>", "code action" },
+			A = { ":Lspsaga code_action<cr>", "code action" },
+			a = {
+				":Telescope lsp_workspace_symbols<cr>",
+				"telescope project navigation through symbols (classes, functions etc)",
+			},
 			d = {
 				name = "+go to definition",
 				f = { "<cmd>lua require('goto-preview').goto_preview_definition()<cr>", "LSP open on floating window" },
@@ -121,7 +125,7 @@ which_key.register({
 			-- n = { ":Telescope aerial<cr>", "telescope navigation through classes, methods and functions" },
 			n = {
 				":Telescope lsp_document_symbols<cr>",
-				"telescope navigation through symbols (classes, methods, functions, properties etc)",
+				"telescope buffer navigation through symbols (classes, functions etc)",
 			},
 			q = { "<cmd>lua vim.diagnostic.setqflist()<cr>", "send linter/diagnostics to quickfix list" },
 			-- r = { ":Lspsaga lsp_finder<cr>", "finder" },
