@@ -179,6 +179,8 @@ require("null-ls").setup({
 	sources = sources,
 	debug = false, -- "false" when finished debugging, "true" to inspect logs
 	diagnostics_format = "[#{c}] #{m} (#{s})",
+	update_in_insert = false,
+	debounce = 3000, -- https://github.com/jose-elias-alvarez/null-ls.nvim/blob/main/doc/CONFIG.md#debounce-number
 
 	on_attach = function(client, bufnr)
 		if client.supports_method("textDocument/formatting") then
