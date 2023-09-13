@@ -129,7 +129,7 @@ snippet journal-task
 	date: `strftime("%Y-%m-%d %H:%M:%S")`
 	due_at: ""
 	started_at: "timestamp"
-	finished_at: "timestamp"
+	closed_at: "timestamp"
 	tags: [${2:"tag1",}]
 	links: []
 	---
@@ -171,7 +171,7 @@ snippet task
 	---
 	goal: "${1:Goal}"
 	created: "`strftime("%Y-%m-%d %H:%M:%S")`"
-	finished: ""
+	closed: ""
 	effort: "task_effort"
 	current_status: "task_status"
 	tags: []
