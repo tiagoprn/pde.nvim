@@ -81,6 +81,10 @@ which_key.register({
 			n = { "<cmd>let @+=expand('%:t')..':'..line('.')<cr>", "current buffer name" },
 			p = { '"+p', "paste from system clipboard" },
 			r = { "<cmd>let @+=expand('%:.')..':'..line('.')<cr>", "current buffer relative path" },
+			-- s = {
+			-- 	":lua vim.lsp.buf.execute_command({command = 'copyReference', arguments = {vim.api.nvim_buf_get_lines(0, vim.fn.line('.')-1, vim.fn.line('.'), false)[1], vim.fn.expand('%:p')}})<cr>",
+			-- 	"copy class/method/function under cursor reference",
+			-- },
 			A = {
 				":GetCurrentFilenamePositionAndCopyToClipboard<cr>",
 				"treesitter - copy current file/buffer name with position to clipboard",
@@ -127,6 +131,7 @@ which_key.register({
 				":Telescope lsp_document_symbols<cr>",
 				"telescope buffer navigation through symbols (classes, functions etc)",
 			},
+			o = { ":Telescope import<cr>", "search for import on project and add to the top imports on this module" },
 			q = { "<cmd>lua vim.diagnostic.setqflist()<cr>", "send linter/diagnostics to quickfix list" },
 			-- r = { ":Lspsaga lsp_finder<cr>", "finder" },
 			r = {

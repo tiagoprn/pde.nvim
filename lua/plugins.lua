@@ -32,6 +32,9 @@ return require("packer").startup(function(use)
 	-- sets vim.ui.select to telescope
 	use({ "nvim-telescope/telescope-ui-select.nvim" })
 
+	-- imports on a project
+	use({ "piersolenski/telescope-import.nvim" })
+
 	use({ "kylechui/nvim-surround" })
 
 	-- snippets
