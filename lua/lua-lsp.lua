@@ -1,6 +1,5 @@
--- Here are instructions to setup this plugin: https://github.com/folke/neodev.nvim#-setup
-
 require("neodev").setup({
+	-- https://github.com/folke/neodev.nvim#-setup
 	-- add any options here, or leave empty to use the default settings
 })
 
