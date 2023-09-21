@@ -214,6 +214,9 @@ M.python_project_search = function()
 					vim.api.nvim_buf_set_lines(bufnr, 0, -1, false, preview_lines)
 					vim.api.nvim_buf_set_option(bufnr, "modifiable", false)
 
+					-- Set the filetype to enable syntax highlighting
+					vim.api.nvim_buf_set_option(bufnr, "filetype", "python")
+
 					-- Find the window associated with the buffer and set the cursor to the first line
 					local preview_win = vim.fn.win_findbuf(bufnr)[1]
 					if preview_win then
