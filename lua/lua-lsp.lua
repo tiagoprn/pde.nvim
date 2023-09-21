@@ -29,7 +29,10 @@ lspconfig.lua_ls.setup({
 					workspace = {
 						checkThirdParty = false,
 						library = {
-							vim.env.VIMRUNTIME,
+							-- vim.env.VIMRUNTIME,
+							vim.fn.expand("$VIMRUNTIME/lua"),
+							vim.fn.expand("$VIMRUNTIME/lua/vim/lsp"),
+							vim.fn.stdpath("config") .. "/lua",
 							-- "${3rd}/luv/library"
 							-- "${3rd}/busted/library",
 						},
