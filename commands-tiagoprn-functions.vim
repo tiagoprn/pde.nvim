@@ -35,4 +35,6 @@ command! MindCustomOpenDataIndexOnSmartProjectTree lua require'tiagoprn.mind'.mi
 command! MindCustomOpenDataIndexOnMainProjectTree lua require'tiagoprn.mind'.mind_custom_open_data_index_on_main_project_tree()
 
 command! SearchOnOpenFiles lua require'tiagoprn.telescope_custom_pickers'.search_on_open_files()
+command! PythonProjectSearch lua require'tiagoprn.telescope_custom_pickers'.python_project_search()
+command! GeneratePythonProjectDefinitionsFile lua require'tiagoprn.telescope_custom_pickers'.generate_python_project_definitions_file()
 command! LoadBufferWithoutWindow lua require'tiagoprn.telescope_custom_pickers'.load_buffer_without_window()

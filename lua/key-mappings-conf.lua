@@ -122,6 +122,10 @@ which_key.register({
 			},
 			e = { "<cmd>lua vim.lsp.buf.declaration()<cr>", "go to declaration" },
 			f = { "<cmd>lua vim.lsp.buf.format(nil,1200)<cr>", "format file (null-ls)" },
+			g = {
+				":GeneratePythonProjectDefinitionsFile<cr>",
+				"Python Project Search: create/update python project definitions.txt file",
+			},
 			h = { ":Lspsaga hover_doc<cr>", "documentation hover" },
 			i = { "<cmd>lua vim.lsp.buf.implementation()<cr>", "go to implementation" },
 			l = { ":LspInfo <cr>", "LSP info" },
@@ -138,12 +142,17 @@ which_key.register({
 				":Telescope lsp_references<cr>",
 				"telescope search references to the current word (class, function, variable, etc)",
 			},
+			s = {
+				":PythonProjectSearch<cr>",
+				"Python Project Search: search and open a python class, method or function",
+			},
 			t = {
 				name = "+treesitter",
 				n = { ":TSNodeUnderCursor<cr>", "current node info" },
 				p = { ":TSPlaygroundToggle<cr>", "toggle playground" },
 			},
 			u = { ":NullLsInfo <cr>", "null-ls info" },
+			-- y = { "<cmd>lua vim.lsp.inlay_hint(0, nil)<cr>", "inlay hints toggle" },
 		},
 		e = {
 			name = "+etc",
