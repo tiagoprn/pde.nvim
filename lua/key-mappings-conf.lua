@@ -81,6 +81,10 @@ which_key.register({
 			n = { "<cmd>let @+=expand('%:t')..':'..line('.')<cr>", "current buffer name" },
 			p = { '"+p', "paste from system clipboard" },
 			r = { "<cmd>let @+=expand('%:.')..':'..line('.')<cr>", "current buffer relative path" },
+			-- s = {
+			-- 	":lua vim.lsp.buf.execute_command({command = 'copyReference', arguments = {vim.api.nvim_buf_get_lines(0, vim.fn.line('.')-1, vim.fn.line('.'), false)[1], vim.fn.expand('%:p')}})<cr>",
+			-- 	"copy class/method/function under cursor reference",
+			-- },
 			A = {
 				":GetCurrentFilenamePositionAndCopyToClipboard<cr>",
 				"treesitter - copy current file/buffer name with position to clipboard",
@@ -118,6 +122,10 @@ which_key.register({
 			},
 			e = { "<cmd>lua vim.lsp.buf.declaration()<cr>", "go to declaration" },
 			f = { "<cmd>lua vim.lsp.buf.format(nil,1200)<cr>", "format file (null-ls)" },
+			g = {
+				":GeneratePythonProjectDefinitionsFile<cr>",
+				"Python Project Search: create/update python project definitions.txt file",
+			},
 			h = { ":Lspsaga hover_doc<cr>", "documentation hover" },
 			i = { "<cmd>lua vim.lsp.buf.implementation()<cr>", "go to implementation" },
 			l = { ":LspInfo <cr>", "LSP info" },
@@ -127,11 +135,16 @@ which_key.register({
 				":Telescope lsp_document_symbols<cr>",
 				"telescope buffer navigation through symbols (classes, functions etc)",
 			},
+			o = { ":Telescope import<cr>", "search for import on project and add to the top imports on this module" },
 			q = { "<cmd>lua vim.diagnostic.setqflist()<cr>", "send linter/diagnostics to quickfix list" },
 			-- r = { ":Lspsaga lsp_finder<cr>", "finder" },
 			r = {
 				":Telescope lsp_references<cr>",
 				"telescope search references to the current word (class, function, variable, etc)",
+			},
+			s = {
+				":PythonProjectSearch<cr>",
+				"Python Project Search: search and open a python class, method or function",
 			},
 			t = {
 				name = "+treesitter",
@@ -139,6 +152,7 @@ which_key.register({
 				p = { ":TSPlaygroundToggle<cr>", "toggle playground" },
 			},
 			u = { ":NullLsInfo <cr>", "null-ls info" },
+			-- y = { "<cmd>lua vim.lsp.inlay_hint(0, nil)<cr>", "inlay hints toggle" },
 		},
 		e = {
 			name = "+etc",
