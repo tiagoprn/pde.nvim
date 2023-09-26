@@ -163,7 +163,6 @@ lua require('goto-preview-conf')
 lua require('mind-conf')
 lua require('noice-conf')
 lua require('key-mappings-conf')
-lua require('neoai-conf')
 lua require('todo-conf')
 lua require('flit-conf')
 

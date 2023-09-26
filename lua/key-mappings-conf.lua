@@ -222,10 +222,14 @@ which_key.register({
 		l = {
 			name = "+launchers", -- telescope, AI, lazy and others
 			a = {
-				name = "+AI (NeoAI)",
-				o = { ":NeoAIToggle<cr>", "NeoAI on/off" },
-				t = { ":put g<cr>", "Insert text output from last question (g register)" },
-				c = { ":put c<cr>", "Insert code output from last question (c register)" },
+				name = "+AI",
+				o = { ":FlyboyOpen<cr>", "markdown chat window (current window)" },
+				s = { ":FlyboyOpenSplit<cr>", "markdown chat window (horizontal split)" },
+				v = { ":FlyboyOpenVSplit<cr>", "markdown chat window (vertical split)" },
+				a = { ":FlyboySendMessage<cr>", "send last message to ChatGPT" },
+				-- o = { ":NeoAIToggle<cr>", "NeoAI on/off" },
+				-- t = { ":put g<cr>", "Insert text output from last question (g register)" },
+				-- c = { ":put c<cr>", "Insert code output from last question (c register)" },
 			},
 
 			t = {
@@ -448,15 +452,14 @@ map.set("v", ">", ">gv", { desc = "indent" })
 map.set("v", "<leader>f", ":call MoveVisualSelectionToFile()<cr>", {
 	desc = "save visual selection to file",
 }) -- defined in functions.vim
-map.set(
-	"v",
-	"<leader>aiq",
-	":NeoAIContext<cr>",
-	{ desc = "Send selection to NeoAI & open window to ask questions about it" }
-)
 map.set("v", "<leader>A", ":<C-U>Lspsaga range_code_action<cr>", { desc = "code action" })
 map.set("v", "<leader>y", '"+y', { desc = "YANK/COPY to system clipboard" })
-
+map.set(
+	"v",
+	"<leader>c",
+	":FlyboyStartSplit visual<cr>",
+	{ desc = "AI - open blank markdown buffer to interact with ChatGPT" }
+)
 --> INSERT mode (TODO: map these with legendary.nvim setup above)
 map.set("i", "<C-right>", "<Esc>:tabnext<cr>", { desc = "go to next tab" })
 map.set("i", "<C-left>", "<Esc>:tabprevious<cr>", { desc = "go to previous tab" })

@@ -130,9 +130,10 @@ return require("packer").startup(function(use)
 
 	use({ "mrjones2014/legendary.nvim" })
 
+	-- # AI
+
 	use({
-		"Bryley/neoai.nvim",
-		require = { "MunifTanjim/nui.nvim" },
+		"CamdenClark/flyboy",
 	})
 
 	-- # LANGUAGE SERVERS - begin
