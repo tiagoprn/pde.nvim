@@ -417,12 +417,29 @@ map.set("n", "<C-left>", ":tabprevious<cr>", { desc = "go to previous tab" })
 -- Keep the cursor in place when you join lines with J. That will also drop a mark before the operation to which you return afterwards:
 map.set("n", "J", "mzJ`z", { desc = "join lines keeping cursor in place" })
 
-map.set("n", "<C-g>", ":Telescope live_grep<cr>", { desc = "telescope search string on current path - current window" })
 map.set(
 	"n",
-	"<C-t>",
+	"<C-g>o",
+	":Telescope live_grep<cr>",
+	{ desc = "telescope search string on current path - current window" }
+)
+map.set(
+	"n",
+	"<C-g>t",
 	":tabnew | Telescope live_grep<cr>",
 	{ desc = "telescope search string on current path - new tab" }
+)
+map.set(
+	"n",
+	"<C-g>s",
+	":split | Telescope live_grep<cr>",
+	{ desc = "telescope search string on current path - horizontal split" }
+)
+map.set(
+	"n",
+	"<C-g>v",
+	":vsplit | Telescope live_grep<cr>",
+	{ desc = "telescope search string on current path - vertical split" }
 )
 map.set(
 	"n",
