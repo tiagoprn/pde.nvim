@@ -51,6 +51,13 @@ which_key.register({
 		--
 		a = {
 			name = "+automations",
+			i = {
+				name = "+AI",
+				o = { ":FlyboyOpen<cr>", "(flyboy) new markdown chat - CURRENT WINDOW" },
+				s = { ":FlyboyOpenSplit<cr>", "(flyboy) new markdown chat - HORIZONTAL SPLIT" },
+				v = { ":FlyboyOpenVSplit<cr>", "(flyboy) new markdown chat - VERTICAL SPLIT" },
+				a = { ":FlyboySendMessage<cr>", "(flyboy) markdown chat - submit last user message to ChatGPT" },
+			},
 			l = { ":PrintLspSupportedRequests<cr>", "print all supported requests on the current LSP server" },
 			t = {
 				name = "+tmux",
@@ -221,17 +228,6 @@ which_key.register({
 		},
 		l = {
 			name = "+launchers", -- telescope, AI, lazy and others
-			a = {
-				name = "+AI",
-				o = { ":FlyboyOpen<cr>", "markdown chat window (current window)" },
-				s = { ":FlyboyOpenSplit<cr>", "markdown chat window (horizontal split)" },
-				v = { ":FlyboyOpenVSplit<cr>", "markdown chat window (vertical split)" },
-				a = { ":FlyboySendMessage<cr>", "send last message to ChatGPT" },
-				-- o = { ":NeoAIToggle<cr>", "NeoAI on/off" },
-				-- t = { ":put g<cr>", "Insert text output from last question (g register)" },
-				-- c = { ":put c<cr>", "Insert code output from last question (c register)" },
-			},
-
 			t = {
 				name = "+telescope",
 				a = { ":Telescope builtin<cr>", "all commands" },
