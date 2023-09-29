@@ -57,6 +57,28 @@ which_key.register({
 				s = { ":FlyboyOpenSplit<cr>", "(flyboy) new markdown chat - HORIZONTAL SPLIT" },
 				v = { ":FlyboyOpenVSplit<cr>", "(flyboy) new markdown chat - VERTICAL SPLIT" },
 				a = { ":FlyboySendMessage<cr>", "(flyboy) markdown chat - submit last user message to ChatGPT" },
+				c = { "<cmd>ChatGPT<CR>", "(chatgpt) New Prompt" },
+				-- you can add custom prompts for ChatGPTActAs like explained at <https://youtu.be/7k0KZsheLP4?t=678>
+				d = { "<cmd>ChatGPTActAs<CR>", "(chatgpt) Pre-defined prompt (e.g. Fullstack Software Developer)" },
+				m = {
+					"<cmd>ChatGPTCompleteCode<CR>",
+					"(chatgpt) useful inside an empty function with the name and type hints",
+				},
+				e = { "<cmd>ChatGPTEditWithInstruction<CR>", "(chatgpt) edit with instruction", mode = { "n", "v" } },
+				g = { "<cmd>ChatGPTRun grammar_correction<CR>", "(chatgpt) grammar Correction", mode = { "n", "v" } },
+				t = { "<cmd>ChatGPTRun translate<CR>", "(chatgpt) translate", mode = { "n", "v" } },
+				k = { "<cmd>ChatGPTRun keywords<CR>", "(chatgpt) keywords", mode = { "n", "v" } },
+				p = { "<cmd>ChatGPTRun add_tests<CR>", "(chatgpt) add tests", mode = { "n", "v" } },
+				b = { "<cmd>ChatGPTRun optimize_code<CR>", "(chatgpt) optimize Code", mode = { "n", "v" } },
+				u = { "<cmd>ChatGPTRun summarize<CR>", "(chatgpt) summarize", mode = { "n", "v" } },
+				f = { "<cmd>ChatGPTRun fix_bugs<CR>", "(chatgpt) fix Bugs", mode = { "n", "v" } },
+				x = { "<cmd>ChatGPTRun explain_code<CR>", "(chatgpt) explain Code", mode = { "n", "v" } },
+				r = { "<cmd>ChatGPTRun roxygen_edit<CR>", "(chatgpt) roxygen Edit", mode = { "n", "v" } },
+				l = {
+					"<cmd>ChatGPTRun code_readability_analysis<CR>",
+					"(chatgpt) code readability analysis",
+					mode = { "n", "v" },
+				},
 			},
 			l = { ":PrintLspSupportedRequests<cr>", "print all supported requests on the current LSP server" },
 			t = {

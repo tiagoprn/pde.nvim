@@ -136,6 +136,11 @@ return require("packer").startup(function(use)
 		"CamdenClark/flyboy",
 	})
 
+	use({
+		"jackMort/ChatGPT.nvim",
+		requires = { "MunifTanjim/nui.nvim", "nvim-lua/plenary.nvim", "nvim-telescope/telescope.nvim" },
+	})
+
 	-- # LANGUAGE SERVERS - begin
 
 	-- --  handles automatically launching and initializing language servers installed on your system
