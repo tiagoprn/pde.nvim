@@ -276,3 +276,7 @@ snippet sort_list_items_alphabetically
 
 	# to sort in reverse order and ignoring the case
 	sorted(lst, key=str.lower, reverse=True)
+
+snippet json_dict_to_file
+        with open("/tmp/output.json", "w+") as output_file:
+            output_file.write(__import__('json').dumps(${1:dict_var_name}, indent=2))
