@@ -128,8 +128,6 @@ return require("packer").startup(function(use)
 
 	use({ "folke/which-key.nvim" })
 
-	use({ "mrjones2014/legendary.nvim" })
-
 	-- # AI
 
 	use({

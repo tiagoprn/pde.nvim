@@ -1,5 +1,4 @@
--- This has all my custom keymappings, configured using
--- which-key and legendary plugins.
+-- This has all my custom keymappings, configured using which-key
 
 local status_ok, which_key = pcall(require, "which-key")
 if not status_ok then
@@ -33,11 +32,6 @@ which_key.setup({
 -- 		nowait = false,
 -- 	},
 -- })
-
--- automatically register which-key.nvim tables with legendary.nvim
--- when you register them with which-key.nvim.
--- `setup()` must be called before `require('which-key).register()`
-require("legendary").setup({ which_key = { auto_register = true } })
 
 which_key.register({
 	-- NORMAL mode mappings
@@ -299,12 +293,8 @@ which_key.register({
 			r = { ":RunPythonScriptOnCurrentLine<cr>", "run python script on current line" },
 		},
 		p = {
-			name = "COMMAND PALETTE (legendary.nvim)",
-			a = { ":Legendary<cr>", "everything" },
-			k = { ":Legendary keymaps<cr>", "keymaps" },
-			c = { ":Legendary commands<cr>", "commands" },
-			f = { ":Legendary functions<cr>", "functions" },
-			t = { ":Legendary autocmds<cr>", "autocommands" },
+			name = "Plugins (packer)",
+			s = { ":PackerSync<cr>", "Update all plugins" },
 		},
 		q = {
 			name = "+quickfix",
@@ -417,7 +407,7 @@ which_key.register({
 -- --
 local map = vim.keymap
 
---> NORMAL mode (TODO: map these with legendary.nvim setup above)
+--> NORMAL mode
 map.set("n", "<cr>", ":nohlsearch<cr>", { desc = "clean current highlighted search" })
 map.set("n", "<Del>", "<C-w>c<Enter>", { desc = "close window & keep buffer" })
 
@@ -487,7 +477,7 @@ map.set("n", "<leader>[", ":cp<cr>", { desc = "quickfix previous item" })
 map.set("n", "<F3>", ":NvimTreeToggle<cr>", { desc = "nvim tree (project directory)" })
 map.set("n", "<F4>", ":AerialToggle<cr>", { desc = "aerial classes and methods tree" })
 
---> VISUAL mode (TODO: map these with legendary.nvim setup above)
+--> VISUAL mode
 map.set("v", "<", "<gv", { desc = "dedent" })
 map.set("v", ">", ">gv", { desc = "indent" })
 map.set("v", "<leader>f", ":call MoveVisualSelectionToFile()<cr>", {
@@ -501,7 +491,7 @@ map.set(
 	":FlyboyStartSplit visual<cr>",
 	{ desc = "AI - open blank markdown buffer to interact with ChatGPT" }
 )
---> INSERT mode (TODO: map these with legendary.nvim setup above)
+--> INSERT mode
 map.set("i", "<C-right>", "<Esc>:tabnext<cr>", { desc = "go to next tab" })
 map.set("i", "<C-left>", "<Esc>:tabprevious<cr>", { desc = "go to previous tab" })
 map.set(
