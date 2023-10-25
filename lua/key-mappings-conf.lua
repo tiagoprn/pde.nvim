@@ -51,6 +51,12 @@ which_key.register({
 				x = { ":FlyboyOpenSplit<cr>", "(flyboy) new markdown chat - HORIZONTAL SPLIT" },
 				v = { ":FlyboyOpenVSplit<cr>", "(flyboy) new markdown chat - VERTICAL SPLIT" },
 				s = { ":FlyboySendMessage<cr>", "(flyboy) markdown chat - submit last user message to ChatGPT" },
+				m = {
+					name = "(flyboy) switch model",
+					a = { ":FlyboySwitchModel gpt-3.5-turbo-16k<cr>", "(flyboy) switch to gpt-3.5-turbo-16k" },
+					b = { ":FlyboySwitchModel gpt-4<cr>", "(flyboy) switch to gpt-4" },
+					c = { ":FlyboySwitchModel gpt-4-32k<cr>", "(flyboy) switch to gpt-4-32k" },
+				},
 				c = {
 					name = "ChatGPT advanced plugin",
 					n = { "<cmd>ChatGPT<CR>", "(chatgpt) New Prompt" },
