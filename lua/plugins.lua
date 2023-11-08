@@ -148,7 +148,7 @@ return require("packer").startup(function(use)
 	-- unsupported
 	use({ "glepnir/lspsaga.nvim" })
 
-	use({ "jose-elias-alvarez/null-ls.nvim" })
+	use({ "nvimtools/none-ls.nvim" }) -- originally "jose-elias-alvarez/null-ls.nvim"
 
 	use({
 		"nvim-treesitter/nvim-treesitter",
@@ -185,6 +185,10 @@ return require("packer").startup(function(use)
 
 	-- -- go to definition on floating window
 	use({ "rmagatti/goto-preview" })
+
+	-- -- on insert mode, pressing tab on the first column
+	-- -- will put the cursor on the right indentation.
+	use({ "VidocqH/auto-indent.nvim" })
 
 	-- -- lua development environment
 	use({ "folke/neodev.nvim" })
