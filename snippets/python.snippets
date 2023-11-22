@@ -31,11 +31,18 @@ snippet ordered_dict
 		('${2:key}', '${3:value}'),
 	]
 
-snippet exc
+snippet exception
 	try:
 		${1:code}
 	except:
 		logging.exception(${2:message})
+
+snippet exception_print_traceback
+	try:
+		$1
+	except Exception as ex:
+		message = f'Exception happened. Traceback: {traceback.format_exc()}'
+		print(message)
 
 snippet class
 	class ${1:ClassName}(${2:object}):
