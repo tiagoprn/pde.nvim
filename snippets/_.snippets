@@ -116,14 +116,10 @@ snippet journal-task-daily
 
 	TBD
 
-	### POSTMORTEM
-
-	(write bullet points here when I reached a road block or something that stopped or slowed my code today - be as technical as needed)
-
 	### NEXT
 
+	- [ ] ${1:"..."}
 	- [ ] rnote: Draw a diagram with the tables involved, if that is the case
-	- [ ] ...
 
 snippet journal-task-branch
 	- "${1:branch-name}" - created on `strftime("%Y-%m-%d")`, derived from "${2:derived-branch-name}" at commit "${3:derived-branch-commit-hash}" (merged into "${4:merged-branch-name}" on YYYY-MM-DD)
@@ -155,6 +151,10 @@ snippet journal-task
 	# DAILY JOURNAL
 
 	journal-task-daily
+
+	# POSTMORTEM
+
+	- yyyy-mm-dd: (write bullet points here when I reached a road block or something that stopped or slowed my code today - be as technical as needed)
 
 	# BRANCHES
 
