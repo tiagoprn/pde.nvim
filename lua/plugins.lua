@@ -88,12 +88,6 @@ return require("packer").startup(function(use)
 	-- show contents of vim registers on a sidebar
 	use({ "junegunn/vim-peekaboo" })
 
-	-- better navigation
-	use({
-		"ggandor/flit.nvim",
-		requires = { { "https://github.com/ggandor/leap.nvim" }, { "https://github.com/tpope/vim-repeat" } },
-	})
-
 	-- auto pairs
 	use({ "windwp/nvim-autopairs" })
 

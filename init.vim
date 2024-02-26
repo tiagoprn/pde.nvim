@@ -164,7 +164,6 @@ lua require('mind-conf')
 lua require('noice-conf')
 lua require('key-mappings-conf')
 lua require('todo-conf')
-lua require('flit-conf')
 lua require('chatgpt-conf')
 lua require('auto-indent-conf')
 

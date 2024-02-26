@@ -283,10 +283,6 @@ which_key.register({
 			F = { ":AerialPrev<cr>", "aerial go to previous function/method" },
 			c = { ":lua require'aerial'.next_up()<cr>", "aerial go to next class" },
 			C = { ":lua require'aerial'.prev_up()<cr>", "aerial go to previous class" },
-			h = {
-				name = "+hop",
-				-- TODO: remove or add leap/flit
-			},
 			l = {
 				name = "+location list",
 				b = { ":Telescope loclist<cr>", "telescope browse" },
