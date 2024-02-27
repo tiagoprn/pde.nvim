@@ -260,4 +260,22 @@ function M.escape_single_quotes(str)
 	return string.gsub(str, "'", "'\\''")
 end
 
+function M.get_pyproject_toml_path()
+	local pyproject_toml_file = "pyproject.toml"
+	local default_pyproject_toml = "/storage/src/devops/python/default_configs/pyproject.toml"
+	local project_root = vim.fn.getcwd()
+	local pyproject_toml_full_path = project_root .. "/" .. pyproject_toml_file
+
+	file_exists = M.get_file_exists(pyproject_toml_full_path)
+
+	if file_exists == false then
+		vim.notify("Could not find pyproject.toml, using default one.")
+		pyproject_toml_full_path = default_pyproject_toml
+	end
+
+	vim.notify("Using pyproject.toml from: " .. pyproject_toml_full_path)
+
+	return pyproject_toml_full_path
+end
+
 return M

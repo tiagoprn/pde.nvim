@@ -77,69 +77,69 @@ local sources = {
 			}
 		end,
 	}),
-	require("null-ls").builtins.diagnostics.ruff.with({
-		condition = function(utils)
-			-- https://github.com/jose-elias-alvarez/null-ls.nvim/blob/main/doc/BUILTIN_CONFIG.md#condition
-
-			local filetype = vim.bo.filetype
-			if filetype ~= "python" then
-				return false
-			end
-
-			local skip_ruff_file = project_root .. "/" .. "skip-ruff"
-			local skip_ruff_file_exists = helpers.get_file_exists(skip_ruff_file)
-			if skip_ruff_file_exists == true then
-				vim.notify("skip-ruff file found on project root, ruff will be disabled for this file.")
-				return false
-			else
-				vim.notify("skip-ruff file NOT found on project root, so ruff will be enabled for this file.")
-				return true
-			end
-		end,
-		command = function()
-			local default_venv = "~/.pyenv/versions/neovim"
-
-			local current_venv = vim.env.VIRTUAL_ENV
-
-			local venv = ""
-
-			if current_venv then
-				venv = current_venv
-				vim.notify("Current VENV defined as " .. current_venv .. " ")
-			else
-				venv = default_venv
-				vim.notify("Current VENV NOT defined, using default (" .. default_venv .. ") ")
-			end
-
-			local path = vim.fn.expand(venv .. "/bin/ruff")
-			-- print("Current virtualenv is " .. venv)
-			-- print("Current path is " .. path)
-
-			return path
-		end,
-		extra_args = function()
-			local pyproject_toml_file = "pyproject.toml"
-			local default_pyproject_toml = "/storage/src/devops/python/default_configs/pyproject.toml"
-			local project_root = vim.fn.getcwd()
-			local pyproject_toml_full_path = project_root .. "/" .. pyproject_toml_file
-
-			file_exists = helpers.get_file_exists(pyproject_toml_full_path)
-
-			if file_exists == false then
-				vim.notify("Could not find pyproject.toml, using default one.")
-				pyproject_toml_full_path = default_pyproject_toml
-			end
-
-			vim.notify("Using pyproject.toml from: " .. pyproject_toml_full_path)
-
-			return {
-				"check",
-				"--config",
-				pyproject_toml_full_path,
-				"$FILENAME",
-			}
-		end,
-	}),
+	-- require("null-ls").builtins.diagnostics.ruff.with({
+	-- 	condition = function(utils)
+	-- 		-- https://github.com/jose-elias-alvarez/null-ls.nvim/blob/main/doc/BUILTIN_CONFIG.md#condition
+	--
+	-- 		local filetype = vim.bo.filetype
+	-- 		if filetype ~= "python" then
+	-- 			return false
+	-- 		end
+	--
+	-- 		local skip_ruff_file = project_root .. "/" .. "skip-ruff"
+	-- 		local skip_ruff_file_exists = helpers.get_file_exists(skip_ruff_file)
+	-- 		if skip_ruff_file_exists == true then
+	-- 			vim.notify("skip-ruff file found on project root, ruff will be disabled for this file.")
+	-- 			return false
+	-- 		else
+	-- 			vim.notify("skip-ruff file NOT found on project root, so ruff will be enabled for this file.")
+	-- 			return true
+	-- 		end
+	-- 	end,
+	-- 	command = function()
+	-- 		local default_venv = "~/.pyenv/versions/neovim"
+	--
+	-- 		local current_venv = vim.env.VIRTUAL_ENV
+	--
+	-- 		local venv = ""
+	--
+	-- 		if current_venv then
+	-- 			venv = current_venv
+	-- 			vim.notify("Current VENV defined as " .. current_venv .. " ")
+	-- 		else
+	-- 			venv = default_venv
+	-- 			vim.notify("Current VENV NOT defined, using default (" .. default_venv .. ") ")
+	-- 		end
+	--
+	-- 		local path = vim.fn.expand(venv .. "/bin/ruff")
+	-- 		-- print("Current virtualenv is " .. venv)
+	-- 		-- print("Current path is " .. path)
+	--
+	-- 		return path
+	-- 	end,
+	-- 	extra_args = function()
+	-- 		local pyproject_toml_file = "pyproject.toml"
+	-- 		local default_pyproject_toml = "/storage/src/devops/python/default_configs/pyproject.toml"
+	-- 		local project_root = vim.fn.getcwd()
+	-- 		local pyproject_toml_full_path = project_root .. "/" .. pyproject_toml_file
+	--
+	-- 		file_exists = helpers.get_file_exists(pyproject_toml_full_path)
+	--
+	-- 		if file_exists == false then
+	-- 			vim.notify("Could not find pyproject.toml, using default one.")
+	-- 			pyproject_toml_full_path = default_pyproject_toml
+	-- 		end
+	--
+	-- 		vim.notify("Using pyproject.toml from: " .. pyproject_toml_full_path)
+	--
+	-- 		return {
+	-- 			"check",
+	-- 			"--config",
+	-- 			pyproject_toml_full_path,
+	-- 			"$FILENAME",
+	-- 		}
+	-- 	end,
+	-- }),
 	require("null-ls").builtins.formatting.black.with({
 		condition = function(utils)
 			-- https://github.com/jose-elias-alvarez/null-ls.nvim/blob/main/doc/BUILTIN_CONFIG.md#condition
