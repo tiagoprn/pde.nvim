@@ -13,7 +13,7 @@ local helpers = require("tiagoprn.helpers")
 
 local project_root = vim.fn.getcwd()
 
-local my_custom_source_handler = function(params)
+local my_custom_source_handler_02 = function(params)
 	-- reference: https://www.youtube.com/watch?v=q-oBU2fO1H4
 	local out = {}
 
@@ -33,17 +33,46 @@ local my_custom_source_handler = function(params)
 	return out
 end
 
-local my_custom_source = {
+local my_custom_source_02 = {
+	name = "my-custom-source",
 	method = null_ls.methods.CODE_ACTION,
 	filetypes = { "txt", "md" },
-	generator_opts = { handler = my_custom_source_handler },
-	generator = { fn = my_custom_source_handler },
+	generator_opts = { handler = my_custom_source_handler_02 },
+	generator = { fn = my_custom_source_handler_02 },
 }
 
--- null_ls.register(my_custom_source)
+null_ls.register(my_custom_source_02)
+
+local my_custom_source_handler_01 = function(params)
+	-- reference: https://www.youtube.com/watch?v=q-oBU1fO1H4
+	local out = {}
+
+	-- get current line where it has the string "amazing" - the params var has many other
+	-- things like current column, cursor position, etc
+	-- (https://github.com/nvimtools/none-ls.nvim/blob/main/doc/MAIN.md#params):
+
+	table.insert(out, {
+		title = "test",
+		action = function()
+			print("hello")
+		end,
+	})
+
+	return out
+end
+
+local my_custom_source_01 = {
+	name = "my-custom-source-01",
+	method = null_ls.methods.CODE_ACTION,
+	filetypes = { "txt", "md" },
+	generator_opts = { handler = my_custom_source_handler_01 },
+	generator = { fn = my_custom_source_handler_01 },
+}
+
+null_ls.register(my_custom_source_01)
 
 local sources = {
-	my_custom_source,
+	my_custom_source_01,
 	null_ls.builtins.diagnostics.pylint.with({
 		condition = function(utils)
 			-- https://github.com/jose-elias-alvarez/null-ls.nvim/blob/main/doc/BUILTIN_CONFIG.md#condition
