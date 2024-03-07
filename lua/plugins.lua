@@ -140,7 +140,7 @@ return require("packer").startup(function(use)
 
 	-- -- nice UIs for LSP functions
 	-- unsupported
-	use({ "glepnir/lspsaga.nvim" })
+	use({ "glepnir/lspsaga.nvim", after = "nvim-lspconfig" })
 
 	use({ "nvimtools/none-ls.nvim" }) -- originally "jose-elias-alvarez/null-ls.nvim"
 
