@@ -45,6 +45,17 @@ which_key.register({
 		--
 		a = {
 			name = "+automations",
+			c = {
+				name = "commands (flow)",
+				h = {
+					"<cmd>lua require('tiagoprn.helpers').firefox('https://www.youtube.com/watch?v=GE5E1ZhV_Ok')<cr>",
+					"(flow) open YouTube video explaining how to use this plugin",
+				},
+				l = { ":FlowLauncher<cr>", "(flow) run launcher" },
+				f = { ":FlowRunFile<cr>", "(flow) run command on file" },
+				a = { ":FlowRunLastCmd<cr>", "(flow) run last command" },
+				o = { ":FlowLastOutput<cr>", "(flow) show last output" },
+			},
 			i = {
 				name = "+AI",
 				o = { ":FlyboyOpen<cr>", "(flyboy) new markdown chat - CURRENT WINDOW" },
@@ -259,6 +270,7 @@ which_key.register({
 			},
 			m = { ":Easypick make<cr>", "run easypick select make command on tmux pane below" },
 		},
+		i = { ":Telescope notify<cr>", "Notifications" },
 		l = {
 			name = "+launchers", -- telescope, AI, lazy and others
 			t = {
@@ -504,6 +516,8 @@ map.set(
 	":FlyboyStartSplit visual<cr>",
 	{ desc = "AI - open blank markdown buffer to interact with ChatGPT" }
 )
+map.set("v", "<leader>acr", ":FlowRunSelected<cr>", { desc = "run flow command on selection" })
+
 --> INSERT mode
 map.set("i", "<C-right>", "<Esc>:tabnext<cr>", { desc = "go to next tab" })
 map.set("i", "<C-left>", "<Esc>:tabprevious<cr>", { desc = "go to previous tab" })

@@ -167,6 +167,7 @@ lua require('key-mappings-conf')
 lua require('todo-conf')
 lua require('chatgpt-conf')
 lua require('auto-indent-conf')
+lua require('flow-conf')
 
 source $HOME/.config/nvim/conf-plugins/marvim.vim
 source $HOME/.config/nvim/conf-plugins/conceals.vim

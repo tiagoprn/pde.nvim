@@ -111,6 +111,9 @@ return require("packer").startup(function(use)
 		dependencies = { "nvim-lua/plenary.nvim" },
 	})
 
+	-- create custom commands to be triggered on telescope
+	use({ "arjunmahishi/flow.nvim" })
+
 	-- fancy cursor to show current line
 	use({ "gen740/SmoothCursor.nvim" })
 
