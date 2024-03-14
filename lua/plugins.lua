@@ -159,6 +159,13 @@ return require("packer").startup(function(use)
 
 	use({ "nvim-treesitter/nvim-treesitter-context" })
 
+	-- Text Objects (to do operations like select/change/delete inside/around functions, classes, etc...)
+	use({
+		"nvim-treesitter/nvim-treesitter-textobjects",
+		after = "nvim-treesitter",
+		requires = "nvim-treesitter/nvim-treesitter",
+	})
+
 	-- -- enable LSP completion
 	use({
 		"hrsh7th/nvim-cmp",
