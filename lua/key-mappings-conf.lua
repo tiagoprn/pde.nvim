@@ -52,7 +52,7 @@ which_key.register({
 					"(flow) open YouTube video explaining how to use this plugin",
 				},
 				l = { ":FlowLauncher<cr>", "(flow) run launcher" },
-				f = { ":FlowRunFile<cr>", "(flow) run command on file" },
+				f = { ":FlowRunFile<cr>", "(flow) run current file on new buffer" },
 				a = { ":FlowRunLastCmd<cr>", "(flow) run last command" },
 				o = { ":FlowLastOutput<cr>", "(flow) show last output" },
 			},
@@ -516,7 +516,7 @@ map.set(
 	":FlyboyStartSplit visual<cr>",
 	{ desc = "AI - open blank markdown buffer to interact with ChatGPT" }
 )
-map.set("v", "<leader>acr", ":FlowRunSelected<cr>", { desc = "run flow command on selection" })
+map.set("v", "<leader>acr", ":FlowRunSelected<cr>", { desc = "run selection on new buffer" })
 
 --> INSERT mode
 map.set("i", "<C-right>", "<Esc>:tabnext<cr>", { desc = "go to next tab" })

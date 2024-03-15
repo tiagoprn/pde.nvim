@@ -7,10 +7,11 @@ end
 
 flow.setup({
 	output = {
-		buffer = true,
-		size = 80, -- possible values: "auto" (default) OR 1-100 (percentage of screen to cover)
-		focused = true,
+		buffer = true, -- floating buffer
+		-- size = auto, -- possible values: "auto" (default) OR 1-100 (percentage of screen to cover)
+		focused = false,
 		modifiable = true,
+		split_cmd = "split", -- can also be vsplit
 
 		-- window_override = {
 		--   border = 'double',
@@ -21,15 +22,13 @@ flow.setup({
 		-- }
 	},
 	custom_cmd_dir = "/storage/src/pde.nvim/flow-commands",
-})
 
--- optional custom variables
--- require('flow.vars').add_vars({
---     str = "test-val-2",
---     num = 3,
---     bool = true,
---     var_with_func = function()
---         -- the value of this var is computed by running this function at runtime
---         return "test-val"
---     end
--- })
+	-- OPTIONAL CUSTOM VARIABLES
+	require("flow.vars").add_vars({
+		str = "A FIXED STRING VARIABLE",
+		var_with_func = function()
+			-- the value of this var is computed by running this function at runtime
+			return "A VARIABLE CALCULATED FROM A LUA FUNCTION"
+		end,
+	}),
+})

@@ -1,0 +1,12 @@
+echo "$str"
+echo "$var_with_func"
+
+# Variables available for use:
+#  - $num
+#  - $var_with_func
+#  - $pwd
+#  - $str
+#  - $bool
+#  - $curr_file
+#
+# save the changes and press <esc> to close the window

@@ -1,0 +1,7 @@
+echo "Hello World EXAMPLE!"
+
+# Variables available for use:
+#  - $pwd
+#  - $curr_file
+#
+# save the changes and press <esc> to close the window
