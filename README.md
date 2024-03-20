@@ -110,8 +110,7 @@ $ which stylua
 - **IMPORTANT:** Before starting:
     - make sure you already have neovim installed (as appimage or compiled).
     - make sure you have installed the language servers and related programs/packages of the previous sections.
-    - make sure you have the following packages installed on your distro: `bash-completion bat entr fd fzf gitui inotify-tools jq ripgrep sed
-`
+    - make sure you have the following packages installed on your distro: `bash-completion bat entr fd fzf gitui inotify-tools jq ripgrep sed`
 
 - To (re)set your environment, run <./scripts/configure_neovim.sh>. It will delete the existing environment and clone the packer repo.
 

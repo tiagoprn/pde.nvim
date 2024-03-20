@@ -83,3 +83,6 @@ When editing the macro [^1] , type: "[Ctrl+b]Esc". It must be on another color s
 
 [^1] Macros are on registers. When I record macro "a", to get its contents I can get the register "a" value.
 
+## Create custom commands to integrate on the editor
+
+Instead of using "Code Actions", I can use the "flow" plugin to run some lua+bash code to create my own ones. It is on the "automations" -> "flow" section of my setup.

@@ -136,6 +136,15 @@ return require("packer").startup(function(use)
 		requires = { "MunifTanjim/nui.nvim", "nvim-lua/plenary.nvim", "nvim-telescope/telescope.nvim" },
 	})
 
+	use({
+		"olimorris/codecompanion.nvim",
+		requires = {
+			"nvim-treesitter/nvim-treesitter",
+			"nvim-lua/plenary.nvim",
+			"stevearc/dressing.nvim",
+		},
+	})
+
 	-- # LANGUAGE SERVERS - begin
 
 	-- --  handles automatically launching and initializing language servers installed on your system

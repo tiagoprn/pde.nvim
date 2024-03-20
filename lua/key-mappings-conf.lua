@@ -58,6 +58,11 @@ which_key.register({
 			},
 			i = {
 				name = "+AI",
+				c = {
+					name = "CODE COMPANION",
+					a = { ":CodeCompanionActions<cr>", "Select Action" },
+					t = { ":CodeCompanionToggle<cr>", "Toggle" },
+				},
 				o = { ":FlyboyOpen<cr>", "(flyboy) new markdown chat - CURRENT WINDOW" },
 				x = { ":FlyboyOpenSplit<cr>", "(flyboy) new markdown chat - HORIZONTAL SPLIT" },
 				v = { ":FlyboyOpenVSplit<cr>", "(flyboy) new markdown chat - VERTICAL SPLIT" },
@@ -68,7 +73,7 @@ which_key.register({
 					b = { ":FlyboySwitchModel gpt-4<cr>", "(flyboy) switch to gpt-4" },
 					c = { ":FlyboySwitchModel gpt-4-32k<cr>", "(flyboy) switch to gpt-4-32k" },
 				},
-				c = {
+				g = {
 					name = "ChatGPT advanced plugin",
 					n = { "<cmd>ChatGPT<CR>", "(chatgpt) New Prompt" },
 					-- you can add custom prompts for ChatGPTActAs like explained at <https://youtu.be/7k0KZsheLP4?t=678>
@@ -517,6 +522,8 @@ map.set(
 	{ desc = "AI - open blank markdown buffer to interact with ChatGPT" }
 )
 map.set("v", "<leader>acr", ":FlowRunSelected<cr>", { desc = "run selection on new buffer" })
+map.set("v", "<leader>aica", ":CodeCompanionActions<cr>", { desc = "CODE COMPANION - Select Action" })
+map.set("v", "<leader>aict", ":CodeCompanionToggle<cr>", { desc = "CODE COMPANION - Toggle" })
 
 --> INSERT mode
 map.set("i", "<C-right>", "<Esc>:tabnext<cr>", { desc = "go to next tab" })

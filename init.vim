@@ -169,6 +169,7 @@ lua require('todo-conf')
 lua require('chatgpt-conf')
 lua require('auto-indent-conf')
 lua require('flow-conf')
+lua require('codecompanion-conf')
 
 source $HOME/.config/nvim/conf-plugins/marvim.vim
 source $HOME/.config/nvim/conf-plugins/conceals.vim
