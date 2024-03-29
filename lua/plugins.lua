@@ -128,15 +128,6 @@ return require("packer").startup(function(use)
 	-- # AI
 
 	use({
-		"CamdenClark/flyboy",
-	})
-
-	use({
-		"jackMort/ChatGPT.nvim",
-		requires = { "MunifTanjim/nui.nvim", "nvim-lua/plenary.nvim", "nvim-telescope/telescope.nvim" },
-	})
-
-	use({
 		"olimorris/codecompanion.nvim",
 		requires = {
 			"nvim-treesitter/nvim-treesitter",
@@ -198,10 +189,6 @@ return require("packer").startup(function(use)
 
 	-- -- go to definition on floating window
 	use({ "rmagatti/goto-preview" })
-
-	-- -- on insert mode, pressing tab on the first column
-	-- -- will put the cursor on the right indentation.
-	use({ "VidocqH/auto-indent.nvim" })
 
 	-- -- lua development environment
 	use({ "folke/neodev.nvim" })

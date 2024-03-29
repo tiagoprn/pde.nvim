@@ -14,4 +14,7 @@ codecompanion.setup({
 		}),
 		inline = "openai",
 	},
+	saved_chats = {
+		save_dir = vim.fn.getenv("HOME") .. "/nvim-codecompanion/saved_chats", -- Path to save chats to
+	},
 })

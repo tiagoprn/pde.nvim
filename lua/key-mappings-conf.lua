@@ -57,55 +57,13 @@ which_key.register({
 				o = { ":FlowLastOutput<cr>", "(flow) show last output" },
 			},
 			i = {
-				name = "+AI",
-				c = {
-					name = "CODE COMPANION",
-					a = { ":CodeCompanionActions<cr>", "Select Action" },
-					t = { ":CodeCompanionToggle<cr>", "Toggle" },
+				name = "+AI (CODE COMPANION)",
+				a = { ":CodeCompanionActions<cr>", "Select Action" },
+				h = {
+					"<cmd>lua require('tiagoprn.forms').codecompanion_help()<cr>",
+					"help",
 				},
-				o = { ":FlyboyOpen<cr>", "(flyboy) new markdown chat - CURRENT WINDOW" },
-				x = { ":FlyboyOpenSplit<cr>", "(flyboy) new markdown chat - HORIZONTAL SPLIT" },
-				v = { ":FlyboyOpenVSplit<cr>", "(flyboy) new markdown chat - VERTICAL SPLIT" },
-				s = { ":FlyboySendMessage<cr>", "(flyboy) markdown chat - submit last user message to ChatGPT" },
-				m = {
-					name = "(flyboy) switch model",
-					a = { ":FlyboySwitchModel gpt-3.5-turbo-16k<cr>", "(flyboy) switch to gpt-3.5-turbo-16k" },
-					b = { ":FlyboySwitchModel gpt-4<cr>", "(flyboy) switch to gpt-4" },
-					c = { ":FlyboySwitchModel gpt-4-32k<cr>", "(flyboy) switch to gpt-4-32k" },
-				},
-				g = {
-					name = "ChatGPT advanced plugin",
-					n = { "<cmd>ChatGPT<CR>", "(chatgpt) New Prompt" },
-					-- you can add custom prompts for ChatGPTActAs like explained at <https://youtu.be/7k0KZsheLP4?t=678>
-					d = { "<cmd>ChatGPTActAs<CR>", "(chatgpt) Pre-defined prompt (e.g. Fullstack Software Developer)" },
-					m = {
-						"<cmd>ChatGPTCompleteCode<CR>",
-						"(chatgpt) useful inside an empty function with the name and type hints",
-					},
-					e = {
-						"<cmd>ChatGPTEditWithInstruction<CR>",
-						"(chatgpt) edit with instruction",
-						mode = { "n", "v" },
-					},
-					g = {
-						"<cmd>ChatGPTRun grammar_correction<CR>",
-						"(chatgpt) grammar Correction",
-						mode = { "n", "v" },
-					},
-					t = { "<cmd>ChatGPTRun translate<CR>", "(chatgpt) translate", mode = { "n", "v" } },
-					k = { "<cmd>ChatGPTRun keywords<CR>", "(chatgpt) keywords", mode = { "n", "v" } },
-					p = { "<cmd>ChatGPTRun add_tests<CR>", "(chatgpt) add tests", mode = { "n", "v" } },
-					o = { "<cmd>ChatGPTRun optimize_code<CR>", "(chatgpt) optimize Code", mode = { "n", "v" } },
-					s = { "<cmd>ChatGPTRun summarize<CR>", "(chatgpt) summarize", mode = { "n", "v" } },
-					f = { "<cmd>ChatGPTRun fix_bugs<CR>", "(chatgpt) fix Bugs", mode = { "n", "v" } },
-					x = { "<cmd>ChatGPTRun explain_code<CR>", "(chatgpt) explain Code", mode = { "n", "v" } },
-					y = { "<cmd>ChatGPTRun roxygen_edit<CR>", "(chatgpt) roxygen Edit", mode = { "n", "v" } },
-					r = {
-						"<cmd>ChatGPTRun code_readability_analysis<CR>",
-						"(chatgpt) code readability analysis",
-						mode = { "n", "v" },
-					},
-				},
+				t = { ":CodeCompanionToggle<cr>", "Toggle" },
 			},
 			l = { ":PrintLspSupportedRequests<cr>", "print all supported requests on the current LSP server" },
 			t = {
@@ -513,17 +471,10 @@ map.set("v", ">", ">gv", { desc = "indent" })
 map.set("v", "<leader>f", ":call MoveVisualSelectionToFile()<cr>", {
 	desc = "save visual selection to file",
 }) -- defined in functions.vim
-map.set("v", "<leader>A", ":<C-U>Lspsaga range_code_action<cr>", { desc = "code action" })
 map.set("v", "<leader>y", '"+y', { desc = "YANK/COPY to system clipboard" })
-map.set(
-	"v",
-	"<leader>c",
-	":FlyboyStartSplit visual<cr>",
-	{ desc = "AI - open blank markdown buffer to interact with ChatGPT" }
-)
 map.set("v", "<leader>acr", ":FlowRunSelected<cr>", { desc = "run selection on new buffer" })
-map.set("v", "<leader>aica", ":CodeCompanionActions<cr>", { desc = "CODE COMPANION - Select Action" })
-map.set("v", "<leader>aict", ":CodeCompanionToggle<cr>", { desc = "CODE COMPANION - Toggle" })
+map.set("v", "<leader>aia", ":CodeCompanionActions<cr>", { desc = "CODE COMPANION - Select Action" })
+map.set("v", "<leader>aip", ":CodeCompanion<cr>", { desc = "CODE COMPANION - Run prompt on selection" })
 
 --> INSERT mode
 map.set("i", "<C-right>", "<Esc>:tabnext<cr>", { desc = "go to next tab" })
