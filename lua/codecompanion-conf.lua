@@ -5,6 +5,11 @@ if not status_ok then
 	return
 end
 
+-- NOTE: if this plugin breaks, here are the instructions to fix it: <https://github.com/olimorris/codecompanion.nvim/issues/9>
+
+-- examples here: https://github.com/olimorris/codecompanion.nvim/blob/main/RECIPES.md#recipes
+local custom_actions = {}
+
 codecompanion.setup({
 	adapters = {
 		chat = require("codecompanion.adapters").use("openai", {
@@ -14,6 +19,7 @@ codecompanion.setup({
 		}),
 		inline = "openai",
 	},
+	actions = custom_actions,
 	saved_chats = {
 		save_dir = vim.fn.getenv("HOME") .. "/nvim-codecompanion/saved_chats", -- Path to save chats to
 	},
