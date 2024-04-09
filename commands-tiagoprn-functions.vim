@@ -24,6 +24,7 @@ command! RunCommandOnTmuxScratchpadSession lua require"tiagoprn.scratchpad".run_
 command! RerunLastCommandOnTmuxScratchpadSession lua require"tiagoprn.scratchpad".rerun_last_command_on_tmux_scratchpad_session()
 
 command! RunInteractiveCommandOnCurrentFunctionOrMethodAtTmuxScratchpadSession lua require"tiagoprn.code_utils".run_interactive_command_on_current_function_or_method_at_tmux_scratchpad_session()
+command! RunSelectPythonClass lua require"tiagoprn.code_utils".select_python_class()
 command! RunPytestOnCurrentFunctionOrMethodAtTmuxScratchpadSession lua require"tiagoprn.code_utils".run_pytest_on_current_function_or_method_at_tmux_scratchpad_session()
 command! PrintLspSupportedRequests lua require"tiagoprn.code_utils".print_lsp_supported_requests()
 

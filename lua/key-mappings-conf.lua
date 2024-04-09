@@ -119,6 +119,10 @@ which_key.register({
 				":Telescope lsp_workspace_symbols<cr>",
 				"telescope project navigation through symbols (classes, functions etc)",
 			},
+			b = {
+				":RunSelectPythonClass<cr>",
+				"Go to python class on current file",
+			},
 			d = {
 				name = "+go to definition",
 				f = { "<cmd>lua require('goto-preview').goto_preview_definition()<cr>", "LSP open on floating window" },
