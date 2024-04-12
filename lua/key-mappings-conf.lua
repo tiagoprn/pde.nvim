@@ -223,20 +223,6 @@ which_key.register({
 			k = { ":Gitsigns prev_hunk<cr>", "go to previous changed hunk" },
 			p = { ":Gitsigns preview_hunk<cr>", "preview hunk" },
 		},
-		h = {
-			name = "+harpoon",
-			a = { '<cmd>lua require("harpoon.mark").add_file()<cr>', "add current file" },
-			b = { ":Telescope harpoon marks<cr>", "telescope marks browsing" },
-			h = { '<cmd>lua require("harpoon.ui").toggle_quick_menu()<cr>', "toggle quick menu" },
-			n = { '<cmd>lua require("harpoon.ui").nav_next()<cr>', "next file on list" },
-			p = { '<cmd>lua require("harpoon.ui").nav_prev()<cr>', "previous file on list" },
-			-- t = { '<cmd>lua require("harpoon.tmux").gotoTerminal("{down-of}")<cr>', "go to tmux pane below" },
-			c = {
-				'<cmd>lua require("harpoon.tmux").sendCommand("{down-of}", vim.fn.input("Enter the command: "))<cr>',
-				"run command on tmux pane below",
-			},
-			m = { ":Easypick make<cr>", "run easypick select make command on tmux pane below" },
-		},
 		i = { ":Telescope notify<cr>", "Notifications" },
 		l = {
 			name = "+launchers", -- telescope, AI, lazy and others
@@ -455,8 +441,6 @@ map.set(
 )
 map.set("n", "<C-up>", ":Telescope buffers<cr>", { desc = "telescope open buffer on current window" })
 
--- map.set("n", "<C-h>", '<cmd>lua require("harpoon.ui").toggle_quick_menu()<cr>', { desc = "harpoon quick menu" })
-
 map.set("n", "<PageDown>", ":Gitsigns next_hunk<cr>", { desc = "gitsigns go to next hunk" })
 map.set("n", "<PageUp>", ":Gitsigns prev_hunk<cr>", { desc = "gitsigns go to previous hunk" })
 map.set("n", "<Home>", ":Gitsigns blame_line<cr>", { desc = "gitsigns blame line" })
@@ -502,16 +486,3 @@ for i = 1, 6 do
 	map.set("n", lhs, rhs, { desc = "Go to Window " .. i })
 end
 --
--- Harpoon
---   Go to file
-for i = 1, 9 do
-	local lhs = "<Leader>h" .. i
-	local rhs = '<cmd>lua require("harpoon.ui").nav_file(' .. i .. ")<cr>"
-	map.set("n", lhs, rhs, { desc = "harpoon go to file mark " .. i })
-end
--- Run project command
-for i = 1, 9 do
-	local lhs = "<Leader>hc" .. i
-	local rhs = '<cmd>lua require("harpoon.tmux").sendCommand("{down-of}", ' .. 1 .. ")<cr>"
-	map.set("n", lhs, rhs, { desc = "harpoon run project command" .. i .. "on tmux pane below" })
-end

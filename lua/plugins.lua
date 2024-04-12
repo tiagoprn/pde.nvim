@@ -16,10 +16,6 @@ return require("packer").startup(function(use)
 		run = "cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build",
 	})
 
-	-- bookmark files on project and navigate quickly between them. Also run
-	-- commands on tmux pane without leaving nvim.
-	use({ "ThePrimeagen/harpoon" })
-
 	-- Buffer manager that has an UI similar to harpoon
 	use({ "j-morano/buffer_manager.nvim" })
 
@@ -116,8 +112,6 @@ return require("packer").startup(function(use)
 
 	-- fancy cursor to show current line
 	use({ "gen740/SmoothCursor.nvim" })
-
-	use({ "anuvyklack/hydra.nvim" })
 
 	use({ "phaazon/mind.nvim", branch = "master" })
 
