@@ -287,3 +287,6 @@ snippet sort_list_items_alphabetically
 snippet json_dict_to_file
         with open("/tmp/output.json", "w+") as output_file:
             output_file.write(__import__('json').dumps(${1:dict_var_name}, indent=2))
+
+snippet pprint
+	print('\n'); __import__('pprint').pprint(${1:var_name}); print('\n');  # noqa: E702, E703
