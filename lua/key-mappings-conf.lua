@@ -119,7 +119,7 @@ which_key.register({
 				":Telescope lsp_workspace_symbols<cr>",
 				"telescope project navigation through symbols (classes, functions etc)",
 			},
-			b = {
+			c = {
 				":RunSelectPythonClass<cr>",
 				"Go to python class on current file",
 			},
@@ -218,10 +218,10 @@ which_key.register({
 		g = {
 			name = "+git",
 			t = { ":!tmux select-window -t git<cr>", "go to gitui tmux window" },
-			b = { ":Gitsigns blame_line<cr>", "blame line" },
+			b = { ":BlameToggle<cr>", "blame ([i]nfo, [b]ack, [f]orward)" },
+			d = { ":Gitsigns preview_hunk<cr>", "diff current hunk" },
 			j = { ":Gitsigns next_hunk<cr>", "go to next changed hunk" },
 			k = { ":Gitsigns prev_hunk<cr>", "go to previous changed hunk" },
-			p = { ":Gitsigns preview_hunk<cr>", "preview hunk" },
 		},
 		i = { ":Telescope notify<cr>", "Notifications" },
 		l = {

@@ -166,6 +166,7 @@ lua require('key-mappings-conf')
 lua require('todo-conf')
 lua require('flow-conf')
 lua require('codecompanion-conf')
+lua require('blame-conf')
 
 source $HOME/.config/nvim/conf-plugins/marvim.vim
 source $HOME/.config/nvim/conf-plugins/conceals.vim
