@@ -2,3 +2,4 @@ plugin/
 undodir/
 tmp/
 lua-language-server/
+lazy-lock.json

@@ -106,19 +106,8 @@ set splitbelow
 " --- setup python virtualenv that has nvim requirements installed - check this repository README.md for details
 let g:python3_host_prog = '~/.pyenv/versions/neovim/bin/python'
 
-" --- LUA CONFIGURATION
 " must be here, otherwise does not start with nvim
-lua << EOF
-vim.notify = require("notify")
-vim.notify.setup({
-	background_colour = "#000000",
-	fps = 60,
-	timeout = 90,
-	top_down=false,
-	stages="fade", -- slide, fade, fade_in_slide_out, static
-	render="minimal",  -- minimal, simple, default
-})
-EOF
+lua require('notify-conf')
 
 " --- OTHER SETTINGS
 
