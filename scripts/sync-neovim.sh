@@ -48,11 +48,11 @@ PREVIOUS_VERSION=$(sudo -- bash -c "cd $NVIM_SOURCES_PATH && git log -n 1 --pret
 BACKUPS_ROOT=$NVIM_SOURCES_PATH/tmp/OLD-VERSIONS-ARCHIVE
 SUFFIX="$(date +%Y%m%d-%H%M%S-%N)"
 BACKUPS_DIR=$BACKUPS_ROOT/$SUFFIX
-PLUGINS_DIR=$HOME/.local/share/nvim/site/pack/packer/start
+PLUGINS_DIR=$HOME/.local/share/nvim/lazy
 
 sudo mkdir -p $BACKUPS_DIR
 sudo cp -farv $NVIM_BINARY_PATH $BACKUPS_DIR
-sudo bash -c 'echo -e "# INSTRUCTIONS\n\n- The plugins must be restored to: <[USER_HOME]/.local/share/nvim/site/pack/packer/start>;\n- They must be unpacked using sudo;\n- Change the owner for all of them to [USER] ." > '"$BACKUPS_DIR"'/README.md'
+sudo bash -c 'echo -e "# INSTRUCTIONS\n\n- The plugins must be restored to: <[USER_HOME]/.local/share/nvim/lazy>;\n- They must be unpacked using sudo;\n- Change the owner for all of them to [USER] ." > '"$BACKUPS_DIR"'/README.md'
 sudo tar cjvf $BACKUPS_DIR/home_plugins_archive.tar.bz2 -C $PLUGINS_DIR $(cd $PLUGINS_DIR && find . -type f -print) # the -C option is to enter the path and only include the pattern files that follow on the archive, not their original paths
 echo -e "\n-----\nThe old nvim binary and an archive with the plugins used with them were copied to $BACKUPS_DIR in case you need to manually revert it."
 

@@ -9,7 +9,7 @@
 -- This allows nvim to not crash if this plugin is not installed.
 local status_ok, easypick = pcall(require, "easypick")
 if not status_ok then
-	return
+  return
 end
 
 -- only required for the example to work
@@ -18,7 +18,6 @@ end
 -- a list of commands that you want to pick from
 -- local list = [[
 -- << EOF
--- :PackerInstall
 -- :Telescope find_files
 -- :Git blame
 -- EOF
@@ -29,17 +28,18 @@ local action_state = require("telescope.actions.state")
 
 local current_dir = vim.fn.getcwd()
 local recent_files_on_current_folder_command = [[find ]]
-	.. current_dir
-	.. [[ \( -type d -name '.git' -o -type d -name '__pycache__' \) -prune -o -type f -mtime -14 -printf '%T@ %P\n' | sort -rn | cut -d' ' -f2- ]]
+    .. current_dir
+    ..
+    [[ \( -type d -name '.git' -o -type d -name '__pycache__' \) -prune -o -type f -mtime -14 -printf '%T@ %P\n' | sort -rn | cut -d' ' -f2- ]]
 
 -- Add custom pickers here.
 local custom_pickers = {
-	-- list most recent files with default previewer
-	{
-		name = "recent_files_on_current_folder",
-		command = recent_files_on_current_folder_command,
-		previewer = easypick.previewers.default(),
-	},
+  -- list most recent files with default previewer
+  {
+    name = "recent_files_on_current_folder",
+    command = recent_files_on_current_folder_command,
+    previewer = easypick.previewers.default(),
+  },
 }
 
 easypick.setup({ pickers = custom_pickers })
