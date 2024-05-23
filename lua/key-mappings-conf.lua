@@ -271,8 +271,8 @@ which_key.register({
 			r = { ":RunPythonScriptOnCurrentLine<cr>", "run python script on current line" },
 		},
 		p = {
-			name = "Plugins (packer)",
-			s = { ":PackerSync<cr>", "Update all plugins" },
+			name = "Plugins (lazy.nvim)",
+			s = { ":Lazy sync<cr>", "Update all plugins" },
 		},
 		q = {
 			name = "+quickfix",

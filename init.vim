@@ -127,6 +127,22 @@ source $HOME/.config/nvim/commands.vim
 source $HOME/.config/nvim/abbreviations.vim
 source $HOME/.config/nvim/hooks.vim
 
+" Bootstrap lazy.nvim
+lua << EOF
+local lazy_path = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+if not vim.loop.fs_stat(lazy_path) then
+  vim.fn.system({
+    "git",
+    "clone",
+    "--filter=blob:none",
+    "https://github.com/folke/lazy.nvim.git",
+    "--branch=stable", -- latest stable release
+    lazy_path,
+  })
+end
+vim.opt.rtp:prepend(lazy_path)
+EOF
+
 " --- PLUGINS
 
 lua require('plugins')
