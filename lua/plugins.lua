@@ -84,7 +84,43 @@ require("lazy").setup({
 	{ "windwp/nvim-autopairs" },
 
 	-- Session manager
-	{ "Shatur/neovim-session-manager" },
+	{
+		"jedrzejboczar/possession.nvim",
+		event = "BufReadPre",
+		cmd = { "PossessionLoad", "PossessionList" },
+		keys = {
+			{
+				"<leader>Sl",
+				function()
+					require("telescope").extensions.possession.list()
+				end,
+				desc = "List Sessions",
+			},
+			{
+				"<leader>Ss",
+				function()
+					local input = vim.fn.input("Enter the session name: ")
+					if input ~= "" then
+						require("possession.session").save(input)
+					else
+						print("No input provided.")
+					end
+				end,
+				desc = "Save Session",
+			},
+		},
+		opts = {
+			telescope = {
+				list = {
+					default_action = "load",
+					mappings = {
+						delete = { n = "d", i = "<c-d>" },
+						rename = { n = "r", i = "<c-r>" },
+					},
+				},
+			},
+		},
+	},
 
 	-- Git signs
 	{ "lewis6991/gitsigns.nvim" },

@@ -287,11 +287,15 @@ which_key.register({
 		},
 		r = { ":redo<cr>", "redo changes" },
 		s = { ":w!<cr>", "save current buffer" },
-		S = {
+		-- S = {  -- old neovim-session-manager plugin
+		-- 	name = "+session",
+		-- 	d = { ":SessionManager delete_session<cr>", "delete" },
+		-- 	l = { ":SessionManager load_session<cr>", "load" },
+		-- 	s = { ":SessionManager save_current_session<cr>", "save" },
+		-- },
+		S = { -- session plugin: possession
 			name = "+session",
-			d = { ":SessionManager delete_session<cr>", "delete" },
-			l = { ":SessionManager load_session<cr>", "load" },
-			s = { ":SessionManager save_current_session<cr>", "save" },
+			-- Check "keys" on plugins.lua
 		},
 		t = {
 			name = "+tree",
