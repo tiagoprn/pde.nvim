@@ -104,12 +104,15 @@ require("lazy").setup({
 					local cwd = vim.fn.getcwd()
 					-- Extract the root directory from the CWD
 					local root_dir = cwd:match("([^/]+)$")
+					-- Get the current timestamp
+					local timestamp = os.date("%Y%m%d-%H%M%S")
 					-- Get user input for the session name
 					local input = vim.fn.input("Enter the session name: ")
 					-- Check if the user provided an input
 					if input ~= "" then
-						-- Concatenate root directory with user input as the session name
-						local session_name = root_dir .. "." .. input
+						-- Concatenate root directory with timestamp and user input as the session name
+						local session_name = root_dir .. "." .. timestamp .. "." .. input
+
 						-- Save the session with the new name
 						require("possession.session").save(session_name)
 					else
