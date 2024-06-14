@@ -6,9 +6,10 @@ if not status_ok then
 end
 
 notify.setup({
-	background_colour = "#000000",
+	-- background_colour = "#000000",
+	opacity = 50,
 	fps = 60,
-	timeout = 90,
+	timeout = 100,
 	top_down = false,
 	stages = "fade", -- slide, fade, fade_in_slide_out, static
 	render = "minimal", -- minimal, simple, default
