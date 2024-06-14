@@ -223,7 +223,6 @@ which_key.register({
 			j = { ":Gitsigns next_hunk<cr>", "go to next changed hunk" },
 			k = { ":Gitsigns prev_hunk<cr>", "go to previous changed hunk" },
 		},
-		i = { ":Telescope notify<cr>", "Notifications" },
 		l = {
 			name = "+launchers", -- telescope, AI, lazy and others
 			t = {
@@ -233,14 +232,17 @@ which_key.register({
 		},
 		m = {
 			name = "+messages & notifications",
+			b = { ":Telescope notify<cr>", "browse history" },
+			c = { ":Noice dismiss<cr>", "close all" },
+			d = { ":Noice disable<cr>", "disable noice plugin" },
+			e = { ":Noice enable<cr>", "enable noice plugin" },
+			h = { ":Noice history<cr>", "show history" },
+			l = { ":Noice last<cr>", "last" },
 			r = {
 				':lua require("tiagoprn.toggle_redir").toggle()<cr>',
 				"toggle redirecting messages to file - NOT real time (toggle OFF to stop and see the contents)",
 			},
-			h = {
-				name = "+history",
-				n = { ":Telescope notify<cr>", "telescope notifications" },
-			},
+			x = { ":Noice errors<cr>", "only error messages (on a split, last on top)" },
 		},
 		n = {
 			name = "+navigation (code, hop, marks, lists etc)",
