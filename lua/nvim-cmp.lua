@@ -33,6 +33,10 @@ cmp.setup({
 						},
 					},
 					{ name = "nvim_lsp_signature_help" },
+					{
+						name = "lazydev",
+						group_index = 1, -- set group index to 0 to skip loading LuaLS completions
+					},
 				},
 			},
 		}),

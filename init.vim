@@ -137,7 +137,7 @@ EOF
 lua require('plugins')
 lua require('surround-conf')
 lua require('nvim-cmp')
-lua require('lua-lsp')
+" lua require('lua-lsp')
 lua require('python-lsp')
 lua require('ruff-lsp')
 lua require('bash-lsp')
