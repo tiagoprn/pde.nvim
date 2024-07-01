@@ -4,7 +4,7 @@
 export PYENV_ROOT="$HOME/.pyenv"
 
 # Set the desired Python version and virtualenv name
-PYTHON_VERSION="3.10.4"
+PYTHON_VERSION="3.12.3"
 VIRTUALENV_NAME="neovim"
 
 TIMESTAMP="$(date "+%Y%m%d-%H%M-%S")"
