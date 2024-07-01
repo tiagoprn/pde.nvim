@@ -86,6 +86,7 @@ require("lazy").setup({
 	-- Session manager
 	{
 		"jedrzejboczar/possession.nvim",
+		commit = "46dd09d9d4bf95665eb05286f8fccc0093b10035", -- NOTE: froze because this plugin broke after update on 2024-06-11
 		event = "BufReadPre",
 		cmd = { "PossessionLoad", "PossessionList" },
 		keys = {
@@ -103,12 +104,15 @@ require("lazy").setup({
 					local cwd = vim.fn.getcwd()
 					-- Extract the root directory from the CWD
 					local root_dir = cwd:match("([^/]+)$")
+					-- Get the current timestamp
+					local timestamp = os.date("%Y%m%d-%H%M%S")
 					-- Get user input for the session name
 					local input = vim.fn.input("Enter the session name: ")
 					-- Check if the user provided an input
 					if input ~= "" then
-						-- Concatenate root directory with user input as the session name
-						local session_name = root_dir .. "." .. input
+						-- Concatenate root directory with timestamp and user input as the session name
+						local session_name = root_dir .. "." .. timestamp .. "." .. input
+
 						-- Save the session with the new name
 						require("possession.session").save(session_name)
 					else
@@ -231,7 +235,45 @@ require("lazy").setup({
 	{ "rmagatti/goto-preview" },
 
 	-- Lua development environment
-	{ "folke/neodev.nvim" },
+	{ "justinsgithub/wezterm-types" },
+	{ "Bilal2453/luvit-meta", lazy = true }, -- optional `vim.uv` typings
+	{
+		-- The plugin below was changed because folke/neodev.nvim is now
+		-- deprecated.
+		-- I still have that old plugin's configuration on "lua-lsp.lua",
+		-- case I need to get any config from there
+		-- (e.g. lua-language-server full path)
+		"folke/lazydev.nvim",
+		ft = "lua", -- only load on lua files
+		opts = {
+			library = {
+				-- Library paths can be absolute
+				-- "~/projects/my-awesome-lib",
+				-- Or relative, which means they will be resolved from the plugin dir.
+				"lazy.nvim",
+				"luvit-meta/library",
+				-- It can also be a table with trigger words / mods
+				-- Only load luvit types when the `vim.uv` word is found
+				{ path = "luvit-meta/library", words = { "vim%.uv" } },
+				-- always load the LazyVim library
+				"LazyVim",
+				-- Only load the lazyvim library when the `LazyVim` global is found
+				{ path = "LazyVim", words = { "LazyVim" } },
+				-- Load the wezterm types when the `wezterm` module is required
+				-- Needs `justinsgithub/wezterm-types` to be installed
+				{ path = "wezterm-types", mods = { "wezterm" } },
+			},
+			-- always enable unless `vim.g.lazydev_enabled = false`
+			-- This is the default
+			enabled = function(root_dir)
+				return vim.g.lazydev_enabled == nil and true or vim.g.lazydev_enabled
+			end,
+			-- disable when a .luarc.json file is found
+			enabled = function(root_dir)
+				return not vim.uv.fs_stat(root_dir .. "/.luarc.json")
+			end,
+		},
+	},
 
 	-- REPL
 	{ "rafcamlet/nvim-luapad" },

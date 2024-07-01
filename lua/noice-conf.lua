@@ -16,6 +16,21 @@ noice.setup({
 			["vim.lsp.util.stylize_markdown"] = true,
 			["cmp.entry.get_documentation"] = true,
 		},
+		message = {
+			-- Messages shown by lsp servers
+			enabled = true,
+			view = "split",
+			opts = {},
+		},
+		progress = {
+			enabled = true,
+			-- Lsp Progress is formatted using the builtins for lsp_progress. See config.format.builtin
+			-- See the section on formatting for more details on how to customize.
+			format = "lsp_progress",
+			format_done = "lsp_progress_done",
+			throttle = 1000 / 30, -- frequency to update lsp progress message
+			view = "split",
+		},
 	},
 	-- you can enable a preset for easier configuration
 	presets = {
@@ -23,6 +38,25 @@ noice.setup({
 		long_message_to_split = true, -- long messages will be sent to a split
 		inc_rename = true, -- enables an input dialog for inc-rename.nvim
 		lsp_doc_border = true, -- add a border to hover docs and signature help
+	},
+	messages = {
+		-- NOTE: If you enable messages, then the cmdline is enabled automatically.
+		-- This is a current Neovim limitation.
+		enabled = true, -- enables the Noice messages UI
+		view = "notify", -- default view for messages
+		view_error = "notify", -- view for errors
+		view_warn = "notify", -- view for warnings
+		view_history = "messages", -- view for :messages
+		view_search = "virtualtext", -- view for search count messages. Set to `false` to disable
+	},
+	notify = {
+		-- Noice can be used as `vim.notify` so you can route any notification like other messages
+		-- Notification messages have their level and other properties set.
+		-- event is always "notify" and kind can be any log level as a string
+		-- The default routes will forward notifications to nvim-notify
+		-- Benefit of using Noice for this is the routing and consistent history view
+		enabled = true,
+		view = "notify",
 	},
 	views = { -- check available options at https://github.com/folke/noice.nvim/blob/main/lua/noice/config/views.lua
 		cmdline_popup = {
@@ -34,7 +68,7 @@ noice.setup({
 		},
 		split = {
 			relative = "editor",
-			size = "20%",
+			size = "10%",
 		},
 		mini = {
 			relative = "editor",
