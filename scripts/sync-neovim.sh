@@ -57,7 +57,7 @@ sudo tar cjvf $BACKUPS_DIR/home_plugins_archive.tar.bz2 -C $PLUGINS_DIR $(cd $PL
 echo -e "\n-----\nThe old nvim binary and an archive with the plugins used with them were copied to $BACKUPS_DIR in case you need to manually revert it."
 
 echo "Compiling nvim (this will take a while)..."
-echo -e "If the build fails because of old version of libraries,\n run the script 'nvim-clean-cmake-build-cache.sh'\n to delete cmake cache and rebuild from a pristine state."
+echo -e "\033[0;31mIf the build fails for any reason, run the script \n'/storage/src/pde.nvim/scripts/nvim-clean-cmake-build-cache.sh'\n to delete cmake cache and rebuild from a pristine state.\033[0m"
 read -n 1 -s -r -p "Press any key to continue..."
 
 echo "==> Using source path: $NVIM_SOURCES_PATH"
