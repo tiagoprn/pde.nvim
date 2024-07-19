@@ -86,7 +86,7 @@ require("lazy").setup({
 	-- Session manager
 	{
 		"jedrzejboczar/possession.nvim",
-		commit = "46dd09d9d4bf95665eb05286f8fccc0093b10035", -- NOTE: froze because this plugin broke after update on 2024-06-11
+		-- commit = "46dd09d9d4bf95665eb05286f8fccc0093b10035", -- NOTE: froze because this plugin broke after update on 2024-06-11
 		event = "BufReadPre",
 		cmd = { "PossessionLoad", "PossessionList" },
 		keys = {

@@ -69,6 +69,11 @@ which_key.add({
 		":let @+=system(\"git symbolic-ref --short HEAD 2>/dev/null | tr -d '\\n'\")<cr>",
 		desc = "copy current git branch name to clipboard",
 	},
+	{
+		"<leader>bG",
+		":let @+=system(\"git symbolic-ref --short HEAD 2>/dev/null | tr -d '\\n' | sed 's|/|.|g' \")<cr>",
+		desc = "copy current git branch name to clipboard (replacing / character with .)",
+	},
 	{ "<leader>bl", ":let @+=line('.')<cr>", desc = "current line number" },
 	{ "<leader>bn", "<cmd>let @+=expand('%:t')..':'..line('.')<cr>", desc = "current buffer name" },
 	{ "<leader>bp", '"+p', desc = "paste from system clipboard" },
