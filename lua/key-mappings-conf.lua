@@ -1,3 +1,48 @@
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+-- NOTE: this is NOT being used, I migrated to which-key v3
+-- and kept this for a while until I am confortable with it.
+--
+-- If you need to edit mappings, open:
+--
+-- lua/key-mappings-conf-v3.lua
+--
+-- instead.
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
 -- This has all my custom keymappings, configured using which-key
 
 local status_ok, which_key = pcall(require, "which-key")
