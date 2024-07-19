@@ -181,6 +181,24 @@ require("lazy").setup({
 		},
 	},
 
+	{
+		"christoomey/vim-tmux-navigator",
+		cmd = {
+			"TmuxNavigateLeft",
+			"TmuxNavigateDown",
+			"TmuxNavigateUp",
+			"TmuxNavigateRight",
+			"TmuxNavigatePrevious",
+		},
+		keys = {
+			{ "<M-h>", "<cmd>TmuxNavigateLeft<cr>" },
+			{ "<M-j>", "<cmd>TmuxNavigateDown<cr>" },
+			{ "<M-k>", "<cmd>TmuxNavigateUp<cr>" },
+			{ "<M-l>", "<cmd>TmuxNavigateRight<cr>" },
+			{ "<M-\\>", "<cmd>TmuxNavigatePrevious<cr>" },
+		},
+	},
+
 	-- LANGUAGE SERVERS - begin
 	-- Handles automatically launching and initializing language servers installed on your system
 	{ "neovim/nvim-lspconfig" },
