@@ -338,4 +338,10 @@ function M.firefox(url)
 	end
 end
 
+function M.source_markdown()
+	local filepath = vim.fn.stdpath("config") .. "/after/ftplugin/markdown.vim"
+	vim.cmd("source " .. filepath)
+	vim.notify('Successfully sourced "' .. filepath .. '"!')
+end
+
 return M

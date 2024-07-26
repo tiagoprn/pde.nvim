@@ -275,6 +275,8 @@ which_key.add({
 	{ "<leader>r", ":redo<cr>", desc = "redo changes" },
 	-- save current buffer
 	{ "<leader>s", ":w!<cr>", desc = "save current buffer" },
+	-- source markdown
+	{ "<leader>t", ":SourceMarkdown<cr>", desc = "source markdown configuration (remove conceal, etc)" },
 	-- undo changes
 	{ "<leader>u", ":undo<cr>", desc = "undo changes" },
 	-- writing

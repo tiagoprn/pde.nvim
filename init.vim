@@ -184,9 +184,8 @@ source $HOME/.config/nvim/commands-tiagoprn-functions.vim
 source $HOME/.config/nvim/augroups/python.vim
 source $HOME/.config/nvim/augroups/lua.vim
 source $HOME/.config/nvim/augroups/quickfix.vim
-source $HOME/.config/nvim/augroups/text.vim
 source $HOME/.config/nvim/augroups/json.vim
 source $HOME/.config/nvim/augroups/misc.vim
 source $HOME/.config/nvim/augroups/completion.vim
 source $HOME/.config/nvim/augroups/html.vim
-
+source $HOME/.config/nvim/augroups/text.vim

@@ -39,3 +39,5 @@ command! SearchOnOpenFiles lua require'tiagoprn.telescope_custom_pickers'.search
 command! PythonProjectSearch lua require'tiagoprn.telescope_custom_pickers'.python_project_search()
 command! GeneratePythonProjectDefinitionsFile lua require'tiagoprn.telescope_custom_pickers'.generate_python_project_definitions_file()
 command! LoadBufferWithoutWindow lua require'tiagoprn.telescope_custom_pickers'.load_buffer_without_window()
+
+command! SourceMarkdown lua require'tiagoprn.helpers'.source_markdown()
