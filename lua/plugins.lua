@@ -171,16 +171,6 @@ require("lazy").setup({
 	-- Git blame
 	{ "FabijanZulj/blame.nvim" },
 
-	-- AI
-	{
-		"olimorris/codecompanion.nvim",
-		dependencies = {
-			"nvim-treesitter/nvim-treesitter",
-			"nvim-lua/plenary.nvim",
-			"stevearc/dressing.nvim",
-		},
-	},
-
 	{
 		"christoomey/vim-tmux-navigator",
 		cmd = {

@@ -169,7 +169,6 @@ lua require('noice-conf')
 lua require('key-mappings-conf-v3')
 lua require('todo-conf')
 lua require('flow-conf')
-lua require('codecompanion-conf')
 lua require('blame-conf')
 
 source $HOME/.config/nvim/conf-plugins/marvim.vim
