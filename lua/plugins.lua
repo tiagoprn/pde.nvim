@@ -1,192 +1,289 @@
--- To more advanced package configuration: https://github.com/wbthomason/packer.nvim#quickstart
--- (on this link there also information on how to install lua rocks (packages))
-
-return require("packer").startup(function(use)
-	-- Packer can manage itself
-	use({ "wbthomason/packer.nvim" })
-
-	use({
+require("lazy").setup({
+	-- Telescope
+	{
 		"nvim-telescope/telescope.nvim",
-		requires = { { "nvim-lua/popup.nvim" }, { "nvim-lua/plenary.nvim" } },
-	})
+		dependencies = { "nvim-lua/popup.nvim", "nvim-lua/plenary.nvim" },
+	},
 
 	-- Install to improve performance of sorting on telescope
-	use({
+	{
 		"nvim-telescope/telescope-fzf-native.nvim",
-		run = "cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build",
-	})
-
-	-- bookmark files on project and navigate quickly between them. Also run
-	-- commands on tmux pane without leaving nvim.
-	use({ "ThePrimeagen/harpoon" })
+		build = "cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build",
+	},
 
 	-- Buffer manager that has an UI similar to harpoon
-	use({ "j-morano/buffer_manager.nvim" })
+	{ "j-morano/buffer_manager.nvim" },
 
 	-- Makes vim.ui.select and vim.ui.input prettier
-	use({ "stevearc/dressing.nvim" })
+	{ "stevearc/dressing.nvim" },
 
-	-- useful to create custom telescope pickers
-	use({ "axkirillov/easypick.nvim", requires = "nvim-telescope/telescope.nvim" })
+	-- Useful to create custom telescope pickers
+	{ "axkirillov/easypick.nvim", dependencies = "nvim-telescope/telescope.nvim" },
 
-	-- sets vim.ui.select to telescope
-	use({ "nvim-telescope/telescope-ui-select.nvim" })
+	-- Sets vim.ui.select to telescope
+	{ "nvim-telescope/telescope-ui-select.nvim" },
 
-	-- imports on a project
-	use({ "piersolenski/telescope-import.nvim" })
+	-- Imports on a project
+	{ "piersolenski/telescope-import.nvim" },
 
-	use({ "kylechui/nvim-surround" })
+	-- Surround text with pairs of characters
+	{ "kylechui/nvim-surround" },
 
-	-- snippets
-	use({ "dcampos/nvim-snippy" })
+	-- Snippets
+	{ "dcampos/nvim-snippy" },
 
-	-- macros persistance
-	use({ "chamindra/marvim" })
+	-- Macros persistence
+	{ "chamindra/marvim" },
 
-	-- run commands asynchronously
-	use({ "skywind3000/asyncrun.vim" })
+	-- Run commands asynchronously
+	{ "skywind3000/asyncrun.vim" },
 
-	-- color schemes
-	-- the one below support the treesitter markdown plugin with its highlight group colors:
-	-- https://www.reddit.com/r/neovim/comments/rg97j4/treesitter_for_markdown/hoktehq/?utm_medium=android_app&utm_source=share&context=3
-	use({
+	-- Color schemes
+	{
 		"catppuccin/nvim",
-		as = "catppuccin",
-	})
+		name = "catppuccin",
+	},
 
-	use({ "kyazdani42/nvim-web-devicons" })
+	-- Icons
+	{ "kyazdani42/nvim-web-devicons" },
 
-	use({
+	-- Status line
+	{
 		"nvim-lualine/lualine.nvim",
-		requires = { "kyazdani42/nvim-web-devicons", opt = true },
-	})
+		dependencies = "kyazdani42/nvim-web-devicons",
+	},
 
-	-- markdown syntax highlighting
-	use({
+	-- Markdown syntax highlighting
+	{
 		"plasticboy/vim-markdown",
-		requires = { "godlygeek/tabular" },
-	})
+		dependencies = "godlygeek/tabular",
+	},
 
-	-- vim-notify
-	use({ "rcarriga/nvim-notify" })
+	-- Notifications
+	{ "rcarriga/nvim-notify" },
 
-	-- nui
-	use({ "MunifTanjim/nui.nvim" })
+	-- UI component library
+	{ "MunifTanjim/nui.nvim" },
 
-	-- A tree project view
-	use({
+	-- File explorer
+	{
 		"kyazdani42/nvim-tree.lua",
-		requires = "kyazdani42/nvim-web-devicons",
-	})
+		dependencies = "kyazdani42/nvim-web-devicons",
+	},
 
 	-- Beautiful and customizable indentation
-	use({ "Yggdroot/indentLine" })
+	{ "Yggdroot/indentLine" },
 
-	-- Comment
-	use({ "numToStr/Comment.nvim" })
+	-- Commenting utility
+	{ "numToStr/Comment.nvim" },
 
-	-- show contents of vim registers on a sidebar
-	use({ "junegunn/vim-peekaboo" })
+	-- Show contents of vim registers on a sidebar
+	{ "junegunn/vim-peekaboo" },
 
-	-- better navigation
-	use({
-		"ggandor/flit.nvim",
-		requires = { { "https://github.com/ggandor/leap.nvim" }, { "https://github.com/tpope/vim-repeat" } },
-	})
+	-- Auto pairs
+	{ "windwp/nvim-autopairs" },
 
-	-- auto pairs
-	use({ "windwp/nvim-autopairs" })
+	-- Session manager
+	{
+		"jedrzejboczar/possession.nvim",
+		-- commit = "46dd09d9d4bf95665eb05286f8fccc0093b10035", -- NOTE: froze because this plugin broke after update on 2024-06-11
+		event = "BufReadPre",
+		cmd = { "PossessionLoad", "PossessionList" },
+		keys = {
+			{
+				"<leader>Sl",
+				function()
+					require("telescope").extensions.possession.list()
+				end,
+				desc = "List Sessions",
+			},
+			{
+				"<leader>Ss",
+				function()
+					-- Get the current working directory
+					local cwd = vim.fn.getcwd()
+					-- Extract the root directory from the CWD
+					local root_dir = cwd:match("([^/]+)$")
+					-- Get the current timestamp
+					local timestamp = os.date("%Y%m%d-%H%M%S")
+					-- Get user input for the session name
+					local input = vim.fn.input("Enter the session name: ")
+					-- Check if the user provided an input
+					if input ~= "" then
+						-- Concatenate root directory with timestamp and user input as the session name
+						local session_name = root_dir .. "." .. timestamp .. "." .. input
 
-	-- session manager
-	use({ "Shatur/neovim-session-manager" })
+						-- Save the session with the new name
+						require("possession.session").save(session_name)
+					else
+						print("No input provided.")
+					end
+				end,
+				desc = "Save Session",
+			},
+		},
+		opts = {
+			telescope = {
+				list = {
+					default_action = "load",
+					mappings = {
+						delete = { n = "d", i = "<c-d>" },
+						rename = { n = "r", i = "<c-r>" },
+					},
+				},
+			},
+		},
+	},
 
-	-- gitsigns
-	use({ "lewis6991/gitsigns.nvim" })
+	-- Git signs
+	{ "lewis6991/gitsigns.nvim" },
 
-	-- support for hugo template language (go)
-	use({ "fatih/vim-go" })
+	-- Support for Hugo template language (Go)
+	{ "fatih/vim-go" },
 
-	-- highlight colors
-	use({ "brenoprata10/nvim-highlight-colors" })
+	-- Highlight colors
+	{ "brenoprata10/nvim-highlight-colors" },
 
-	-- zen mode (allows zooming on a buffer)
-	use({ "folke/zen-mode.nvim" })
+	-- Zen mode (allows zooming on a buffer)
+	{ "folke/zen-mode.nvim" },
 
-	use({
+	-- TODO comments
+	{
 		"folke/todo-comments.nvim",
-		dependencies = { "nvim-lua/plenary.nvim" },
-	})
+		dependencies = "nvim-lua/plenary.nvim",
+	},
 
-	-- fancy cursor to show current line
-	use({ "gen740/SmoothCursor.nvim" })
+	-- Create custom commands to be triggered on telescope
+	{ "arjunmahishi/flow.nvim" },
 
-	use({ "anuvyklack/hydra.nvim" })
+	-- Fancy cursor to show current line
+	{ "gen740/SmoothCursor.nvim" },
 
-	use({ "phaazon/mind.nvim", branch = "master" })
+	-- Mind mapping
+	{ "phaazon/mind.nvim", branch = "master" },
 
-	use({ "folke/noice.nvim" })
+	-- Enhanced UI notifications
+	{ "folke/noice.nvim" },
 
-	use({ "folke/which-key.nvim" })
+	-- Keybindings helper
+	{ "folke/which-key.nvim" },
 
-	use({ "mrjones2014/legendary.nvim" })
+	-- Git blame
+	{ "FabijanZulj/blame.nvim" },
 
-	use({
-		"Bryley/neoai.nvim",
-		require = { "MunifTanjim/nui.nvim" },
-	})
+	{
+		"christoomey/vim-tmux-navigator",
+		cmd = {
+			"TmuxNavigateLeft",
+			"TmuxNavigateDown",
+			"TmuxNavigateUp",
+			"TmuxNavigateRight",
+			"TmuxNavigatePrevious",
+		},
+		keys = {
+			{ "<M-h>", "<cmd>TmuxNavigateLeft<cr>" },
+			{ "<M-j>", "<cmd>TmuxNavigateDown<cr>" },
+			{ "<M-k>", "<cmd>TmuxNavigateUp<cr>" },
+			{ "<M-l>", "<cmd>TmuxNavigateRight<cr>" },
+			{ "<M-\\>", "<cmd>TmuxNavigatePrevious<cr>" },
+		},
+	},
 
-	-- # LANGUAGE SERVERS - begin
+	-- LANGUAGE SERVERS - begin
+	-- Handles automatically launching and initializing language servers installed on your system
+	{ "neovim/nvim-lspconfig" },
 
-	-- --  handles automatically launching and initializing language servers installed on your system
-	use({ "neovim/nvim-lspconfig" })
+	-- Nice UIs for LSP functions
+	{ "glepnir/lspsaga.nvim", after = "nvim-lspconfig" },
 
-	-- -- nice UIs for LSP functions
-	-- unsupported
-	use({ "glepnir/lspsaga.nvim" })
+	-- LSP diagnostics and code actions
+	{ "nvimtools/none-ls.nvim" }, -- originally "jose-elias-alvarez/null-ls.nvim"
 
-	use({ "jose-elias-alvarez/null-ls.nvim" })
-
-	use({
+	-- Treesitter
+	{
 		"nvim-treesitter/nvim-treesitter",
-		run = ":TSUpdate",
-	})
+		build = ":TSUpdate",
+	},
 
-	use({
-		"nvim-treesitter/playground",
-		-- run = ":TSInstall query",
-	})
+	-- Treesitter playground
+	{ "nvim-treesitter/playground" },
 
-	use({ "nvim-treesitter/nvim-treesitter-context" })
+	-- Treesitter context
+	{ "nvim-treesitter/nvim-treesitter-context" },
 
-	-- -- enable LSP completion
-	use({
+	-- Text Objects
+	{
+		"nvim-treesitter/nvim-treesitter-textobjects",
+		after = "nvim-treesitter",
+		dependencies = "nvim-treesitter/nvim-treesitter",
+	},
+
+	-- Completion
+	{
 		"hrsh7th/nvim-cmp",
-		requires = {
+		dependencies = {
 			"hrsh7th/cmp-nvim-lsp",
 			"hrsh7th/cmp-buffer",
 			"hrsh7th/cmp-nvim-lsp-signature-help",
 			"dcampos/cmp-snippy",
 		},
-	})
+	},
 
-	-- -- -- cmp source to complete filesystem paths
-	use({ "hrsh7th/cmp-path" })
+	-- CMP source to complete filesystem paths
+	{ "hrsh7th/cmp-path" },
 
-	-- -- code navigation through classes, methods and functions
-	use({ "stevearc/aerial.nvim" })
+	-- Code navigation through classes, methods and functions
+	{ "stevearc/aerial.nvim" },
 
-	-- -- Automatically creates missing LSP diagnostics highlight groups for
-	-- -- color schemes that don't yet support the builtin LSP client
-	use({ "folke/lsp-colors.nvim" })
+	-- Automatically creates missing LSP diagnostics highlight groups for
+	-- color schemes that don't yet support the builtin LSP client
+	{ "folke/lsp-colors.nvim" },
 
-	-- -- go to definition on floating window
-	use({ "rmagatti/goto-preview" })
+	-- Go to definition on floating window
+	{ "rmagatti/goto-preview" },
 
-	-- -- lua development environment
-	use({ "folke/neodev.nvim" })
+	-- Lua development environment
+	{ "justinsgithub/wezterm-types" },
+	{ "Bilal2453/luvit-meta", lazy = true }, -- optional `vim.uv` typings
+	{
+		-- The plugin below was changed because folke/neodev.nvim is now
+		-- deprecated.
+		-- I still have that old plugin's configuration on "lua-lsp.lua",
+		-- case I need to get any config from there
+		-- (e.g. lua-language-server full path)
+		"folke/lazydev.nvim",
+		ft = "lua", -- only load on lua files
+		opts = {
+			library = {
+				-- Library paths can be absolute
+				-- "~/projects/my-awesome-lib",
+				-- Or relative, which means they will be resolved from the plugin dir.
+				"lazy.nvim",
+				"luvit-meta/library",
+				-- It can also be a table with trigger words / mods
+				-- Only load luvit types when the `vim.uv` word is found
+				{ path = "luvit-meta/library", words = { "vim%.uv" } },
+				-- always load the LazyVim library
+				"LazyVim",
+				-- Only load the lazyvim library when the `LazyVim` global is found
+				{ path = "LazyVim", words = { "LazyVim" } },
+				-- Load the wezterm types when the `wezterm` module is required
+				-- Needs `justinsgithub/wezterm-types` to be installed
+				{ path = "wezterm-types", mods = { "wezterm" } },
+			},
+			-- always enable unless `vim.g.lazydev_enabled = false`
+			-- This is the default
+			enabled = function(root_dir)
+				return vim.g.lazydev_enabled == nil and true or vim.g.lazydev_enabled
+			end,
+			-- disable when a .luarc.json file is found
+			enabled = function(root_dir)
+				return not vim.uv.fs_stat(root_dir .. "/.luarc.json")
+			end,
+		},
+	},
 
-	-- -- -- repl
-	use({ "rafcamlet/nvim-luapad" })
-
-	-- # LANGUAGE SERVERS - end
-end)
+	-- REPL
+	{ "rafcamlet/nvim-luapad" },
+	-- LANGUAGE SERVERS - end
+})

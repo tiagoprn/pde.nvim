@@ -14,6 +14,8 @@ augroup pythonconf
     " Indentation
     autocmd FileType py set autoindent
     autocmd FileType py set smartindent
+    autocmd BufWritePost *.py lua require 'tiagoprn.helpers'.run_flake8()
+    autocmd BufEnter *.py lua require 'tiagoprn.helpers'.info_flake8()
 augroup END
 
 

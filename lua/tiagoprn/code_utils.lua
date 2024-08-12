@@ -125,4 +125,52 @@ function M.run_pytest_on_current_function_or_method_at_tmux_scratchpad_session()
 	end)
 end
 
+function M.select_python_class()
+	-- Check if Telescope is available
+
+	local telescope = require("telescope")
+	if not telescope then
+		print("Telescope is not installed")
+		return
+	end
+
+	local classes = {}
+	local current_buf = vim.api.nvim_get_current_buf()
+	local lines = vim.api.nvim_buf_get_lines(current_buf, 0, -1, false)
+
+	for i, line in ipairs(lines) do
+		if line:match("^class%s+") then
+			-- Assuming class definitions are not indented and start with 'class '
+			table.insert(classes, { line, i }) -- Line and line number
+		end
+	end
+
+	-- Using Telescope to select from the list of classes
+	require("telescope.pickers")
+		.new({}, {
+			prompt_title = "Available Python Classes",
+			finder = require("telescope.finders").new_table({
+				results = classes,
+				entry_maker = function(entry)
+					return {
+						value = entry,
+						display = entry[1],
+						ordinal = entry[1],
+						lnum = entry[2],
+					}
+				end,
+			}),
+			sorter = require("telescope.config").values.generic_sorter({}),
+			attach_mappings = function(_, map)
+				map("i", "<CR>", function(bufnr)
+					local selection = require("telescope.actions.state").get_selected_entry(bufnr)
+					require("telescope.actions").close(bufnr)
+					vim.api.nvim_win_set_cursor(0, { selection.lnum, 0 }) -- Go to the class line
+				end)
+				return true
+			end,
+		})
+		:find()
+end
+
 return M

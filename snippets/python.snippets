@@ -31,11 +31,18 @@ snippet ordered_dict
 		('${2:key}', '${3:value}'),
 	]
 
-snippet exc
+snippet exception
 	try:
 		${1:code}
 	except:
 		logging.exception(${2:message})
+
+snippet exception_print_traceback
+	try:
+		$1
+	except Exception as ex:
+		message = f'Exception happened. Traceback: {traceback.format_exc()}'
+		print(message)
 
 snippet class
 	class ${1:ClassName}(${2:object}):
@@ -276,3 +283,10 @@ snippet sort_list_items_alphabetically
 
 	# to sort in reverse order and ignoring the case
 	sorted(lst, key=str.lower, reverse=True)
+
+snippet json_dict_to_file
+        with open("/tmp/output.json", "w+") as output_file:
+            output_file.write(__import__('json').dumps(${1:dict_var_name}, indent=2))
+
+snippet pprint
+	print('\n'); __import__('pprint').pprint(${1:var_name}); print('\n');  # noqa: E702, E703

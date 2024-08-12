@@ -1,7 +1,9 @@
 # snippets for all file types
 snippet code
 	\`\`\` ${1:bash}
-	${2:--your code here}
+
+	${2}
+
 	\`\`\`
 
 snippet timestamp
@@ -108,17 +110,19 @@ snippet journal-task-vlink
 snippet journal-task-daily
 	## `strftime("%Y-%m-%d")`
 
-	### Did
+	### DID
 
 	TBD
 
-	### Doing
+	### DOING
 
 	TBD
 
-	### Next
+	### NEXT
 
-	TBD
+	- [ ] ${1:"..."}
+	- [ ] rnote: Draw a diagram with the tables involved, if that is the case
+
 snippet journal-task-branch
 	- "${1:branch-name}" - created on `strftime("%Y-%m-%d")`, derived from "${2:derived-branch-name}" at commit "${3:derived-branch-commit-hash}" (merged into "${4:merged-branch-name}" on YYYY-MM-DD)
 snippet journal-task-pull-request
@@ -149,6 +153,10 @@ snippet journal-task
 	# DAILY JOURNAL
 
 	journal-task-daily
+
+	# POSTMORTEM
+
+	- yyyy-mm-dd: (write bullet points here when I reached a road block or something that stopped or slowed my code today - be as technical as needed)
 
 	# BRANCHES
 
@@ -271,3 +279,12 @@ snippet test_report
 	- context: ${3:describe here the reason I ran the suite - e.g. after refactoring xyz}
 
 	- file: <report.txt>
+
+snippet prompt_code_explain
+  Can you explain the code above to me?
+
+snippet prompt_unit_test
+  Can you output a unit test for the happy path on the code above using pytest?
+
+snippet prompt_refactor
+  Can you output a refactored version of the code above, using clean code principles and summarizing what you changed?

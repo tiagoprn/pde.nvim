@@ -92,3 +92,13 @@ snippet whichkey-group
 	${1} = {
 		name = "+${2}",
 	},
+
+snippet nvim-get-current-line
+	vim.fn.getline(".")
+
+snippet nvim-get-current-line-matching-regex
+	vim.fn.getline("."):match("amazing")
+
+snippet nvim-get-node-under-cursor
+	local node = vim.treesitter.get_node()
+	-- see <https://www.youtube.com/watch?v=q-oBU2fO1H4> to check how do deal with treesitter nodes

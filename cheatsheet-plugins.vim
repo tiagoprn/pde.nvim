@@ -21,13 +21,6 @@
 " ystA` | " (surround) surround until letter A with ` - you can use ])}> instead of `
 " :h nvim-surround.usage | " (surround) help on usage
 
-" :PackerCompile | " (packer) You must run this or `PackerSync` whenever you make changes to your plugin configuration
-" :PackerInstall | " (packer) Only install missing plugins
-" :PackerUpdate | " (packer) Update and install plugins
-" :PackerClean | " (packer) Remove any disabled or unused plugins
-" :PackerSync | " (packer) Performs `PackerClean` and then `PackerUpdate`
-" :PackerLoad completion-nvim ale | " (packer) Loads opt plugin immediately (the packages listed are just examples)
-
 " <C-n> | " (telescope) (movement) go to next menu item
 " <C-p> | " (telescope) (movement) go to previous menu item
 " <C-q> | " (telescope) copy results to quickfix list

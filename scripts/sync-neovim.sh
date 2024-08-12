@@ -48,13 +48,16 @@ PREVIOUS_VERSION=$(sudo -- bash -c "cd $NVIM_SOURCES_PATH && git log -n 1 --pret
 BACKUPS_ROOT=$NVIM_SOURCES_PATH/tmp/OLD-VERSIONS-ARCHIVE
 SUFFIX="$(date +%Y%m%d-%H%M%S-%N)"
 BACKUPS_DIR=$BACKUPS_ROOT/$SUFFIX
+PLUGINS_DIR=$HOME/.local/share/nvim/lazy
 
 sudo mkdir -p $BACKUPS_DIR
 sudo cp -farv $NVIM_BINARY_PATH $BACKUPS_DIR
-echo "The old nvim binary was copied to $BACKUPS_DIR in case you need to manually revert it to $NVIM_BINARY_PATH."
+sudo bash -c 'echo -e "# INSTRUCTIONS\n\n- The plugins must be restored to: <[USER_HOME]/.local/share/nvim/lazy>;\n- They must be unpacked using sudo;\n- Change the owner for all of them to [USER] ." > '"$BACKUPS_DIR"'/README.md'
+sudo tar cjvf $BACKUPS_DIR/home_plugins_archive.tar.bz2 -C $PLUGINS_DIR $(cd $PLUGINS_DIR && find . -type f -print) # the -C option is to enter the path and only include the pattern files that follow on the archive, not their original paths
+echo -e "\n-----\nThe old nvim binary and an archive with the plugins used with them were copied to $BACKUPS_DIR in case you need to manually revert it."
 
 echo "Compiling nvim (this will take a while)..."
-echo -e "If the build fails because of old version of libraries,\n run the script 'nvim-clean-cmake-build-cache.sh'\n to delete cmake cache and rebuild from a pristine state."
+echo -e "\033[0;31mIf the build fails for any reason, run the script \n'/storage/src/pde.nvim/scripts/nvim-clean-cmake-build-cache.sh'\n to delete cmake cache and rebuild from a pristine state.\033[0m"
 read -n 1 -s -r -p "Press any key to continue..."
 
 echo "==> Using source path: $NVIM_SOURCES_PATH"

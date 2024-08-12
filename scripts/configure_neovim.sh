@@ -49,9 +49,7 @@ mkdir -p ~/.config || true
 removeSymbolicLinkIfPresent rm ~/.config/nvim
 ln -s /storage/src/pde.nvim ~/.config/nvim
 
-echo 'Cloning packer as the package manager...'
-git clone https://github.com/wbthomason/packer.nvim ~/.local/share/nvim/site/pack/packer/start/packer.nvim
-
-# nvim +PackerSync +qa
+echo 'Creating dir to hold the codecompanion chats...'
+mkdir -p $HOME//nvim-codecompanion/saved_chats || true
 
 echo 'DONE.'

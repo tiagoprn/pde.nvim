@@ -260,4 +260,88 @@ function M.escape_single_quotes(str)
 	return string.gsub(str, "'", "'\\''")
 end
 
+function M.get_pyproject_toml_path()
+	local pyproject_toml_file = "pyproject.toml"
+	local default_pyproject_toml = "/storage/src/devops/python/default_configs/pyproject.toml"
+	local project_root = vim.fn.getcwd()
+	local pyproject_toml_full_path = project_root .. "/" .. pyproject_toml_file
+
+	file_exists = M.get_file_exists(pyproject_toml_full_path)
+
+	if file_exists == false then
+		vim.notify("Could not find pyproject.toml, using default one.")
+		pyproject_toml_full_path = default_pyproject_toml
+	end
+
+	vim.notify("Using pyproject.toml from: " .. pyproject_toml_full_path)
+
+	return pyproject_toml_full_path
+end
+
+function M.run_flake8()
+	local project_root = vim.fn.getcwd()
+
+	local enable_flake8_file = project_root .. "/" .. "enable-flake8"
+	local enable_flake8_file_exists = M.get_file_exists(enable_flake8_file)
+	if enable_flake8_file_exists == true then
+		local current_file = vim.fn.expand("%")
+		local result = vim.fn.systemlist("flake8 --max-line-length=160 " .. current_file)
+
+		if next(result) ~= nil then
+			vim.fn.setqflist({}, " ", { title = "Flake8 Errors", lines = result, efm = "%f:%l:%c: %m" })
+			vim.cmd("copen")
+		else
+			vim.cmd("cclose")
+		end
+	end
+end
+
+function M.info_flake8()
+	local project_root = vim.fn.getcwd()
+
+	local enable_flake8_file = project_root .. "/" .. "enable-flake8"
+	local enable_flake8_file_exists = M.get_file_exists(enable_flake8_file)
+	if enable_flake8_file_exists == true then
+		vim.notify("enable-flake8 file found on project root, so flake8 will be enabled for this file.")
+	else
+		vim.notify("enable-flake8 file NOT found on project root, so flake8 will be disabled for this file.")
+	end
+end
+
+function M.update_status_line(message)
+	vim.api.nvim_command("echohl StatusLine")
+	vim.api.nvim_command('echo "' .. message .. '"')
+	vim.api.nvim_command("echohl NONE")
+end
+
+function M.xdg_open(file_or_url)
+	local cmd = "xdg-open " .. file_or_url
+
+	local status = os.execute(cmd)
+
+	if status == nil or status ~= 0 then
+		M.update_status_line("Error opening file or URL with xdg-open")
+	end
+end
+
+function M.firefox(url)
+	local cmd = "firefox --new-window " .. url
+
+	M.update_status_line("Launched firefox with command: '" .. cmd .. "'")
+	local status = os.execute(cmd)
+
+	-- Check if command executed successfully
+	if status == nil or status ~= 0 then
+		M.update_status_line("Error opening URL with firefox!")
+	else
+		M.update_status_line("Firefox was launched successfully.")
+	end
+end
+
+function M.source_markdown()
+	local filepath = vim.fn.stdpath("config") .. "/after/ftplugin/markdown.vim"
+	vim.cmd("source " .. filepath)
+	vim.notify('Successfully sourced "' .. filepath .. '"!')
+end
+
 return M

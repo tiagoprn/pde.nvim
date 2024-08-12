@@ -69,7 +69,7 @@ nvim +"redir >> /tmp/automap.txt" +"map" +"redir END" +"qa!"
 
 ## Custom telescope pickers
 
-- If I need to create/run more commands or a command palette using telescope pickers to choose from a list, I can create them on `lua/easypick-conf.lua` (I have examples there and one picker I created to run make commands using harpoon.)
+- If I need to create/run more commands or a command palette using telescope pickers to choose from a list, I can create them on `lua/easypick-conf.lua`
 
 ## Place with lots of neovim configs I can analyze
 
@@ -83,3 +83,6 @@ When editing the macro [^1] , type: "[Ctrl+b]Esc". It must be on another color s
 
 [^1] Macros are on registers. When I record macro "a", to get its contents I can get the register "a" value.
 
+## Create custom commands to integrate on the editor
+
+Instead of using "Code Actions", I can use the "flow" plugin to run some lua+bash code to create my own ones. It is on the "automations" -> "flow" section of my setup.

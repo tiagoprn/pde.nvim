@@ -1,3 +1,7 @@
+-- This plugin is not installed anymore, it was changed for lazydev.nvim
+-- because it was deprecated. I only kept this file in case I need something
+-- here to customize lazydev.nvim.
+
 require("neodev").setup({
 	-- https://github.com/folke/neodev.nvim#-setup
 	-- add any options here, or leave empty to use the default settings

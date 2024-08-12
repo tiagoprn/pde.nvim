@@ -1,5 +1,49 @@
--- This has all my custom keymappings, configured using
--- which-key and legendary plugins.
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+-- NOTE: this is NOT being used, I migrated to which-key v3
+-- and kept this for a while until I am confortable with it.
+--
+-- If you need to edit mappings, open:
+--
+-- lua/key-mappings-conf-v3.lua
+--
+-- instead.
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+-- This has all my custom keymappings, configured using which-key
 
 local status_ok, which_key = pcall(require, "which-key")
 if not status_ok then
@@ -34,11 +78,6 @@ which_key.setup({
 -- 	},
 -- })
 
--- automatically register which-key.nvim tables with legendary.nvim
--- when you register them with which-key.nvim.
--- `setup()` must be called before `require('which-key).register()`
-require("legendary").setup({ which_key = { auto_register = true } })
-
 which_key.register({
 	-- NORMAL mode mappings
 	["<leader>"] = {
@@ -51,6 +90,26 @@ which_key.register({
 		--
 		a = {
 			name = "+automations",
+			c = {
+				name = "commands (flow)",
+				h = {
+					"<cmd>lua require('tiagoprn.helpers').firefox('https://www.youtube.com/watch?v=GE5E1ZhV_Ok')<cr>",
+					"(flow) open YouTube video explaining how to use this plugin",
+				},
+				l = { ":FlowLauncher<cr>", "(flow) run launcher" },
+				f = { ":FlowRunFile<cr>", "(flow) run current file on new buffer" },
+				a = { ":FlowRunLastCmd<cr>", "(flow) run last command" },
+				o = { ":FlowLastOutput<cr>", "(flow) show last output" },
+			},
+			i = {
+				name = "+AI (CODE COMPANION)",
+				a = { ":CodeCompanionActions<cr>", "Select Action" },
+				h = {
+					"<cmd>lua require('tiagoprn.forms').codecompanion_help()<cr>",
+					"help",
+				},
+				t = { ":CodeCompanionToggle<cr>", "Toggle" },
+			},
 			l = { ":PrintLspSupportedRequests<cr>", "print all supported requests on the current LSP server" },
 			t = {
 				name = "+tmux",
@@ -104,6 +163,10 @@ which_key.register({
 			a = {
 				":Telescope lsp_workspace_symbols<cr>",
 				"telescope project navigation through symbols (classes, functions etc)",
+			},
+			c = {
+				":RunSelectPythonClass<cr>",
+				"Go to python class on current file",
 			},
 			d = {
 				name = "+go to definition",
@@ -200,34 +263,13 @@ which_key.register({
 		g = {
 			name = "+git",
 			t = { ":!tmux select-window -t git<cr>", "go to gitui tmux window" },
-			b = { ":Gitsigns blame_line<cr>", "blame line" },
+			b = { ":BlameToggle<cr>", "blame ([i]nfo, [b]ack, [f]orward)" },
+			d = { ":Gitsigns preview_hunk<cr>", "diff current hunk" },
 			j = { ":Gitsigns next_hunk<cr>", "go to next changed hunk" },
 			k = { ":Gitsigns prev_hunk<cr>", "go to previous changed hunk" },
-			p = { ":Gitsigns preview_hunk<cr>", "preview hunk" },
-		},
-		h = {
-			name = "+harpoon",
-			a = { '<cmd>lua require("harpoon.mark").add_file()<cr>', "add current file" },
-			b = { ":Telescope harpoon marks<cr>", "telescope marks browsing" },
-			h = { '<cmd>lua require("harpoon.ui").toggle_quick_menu()<cr>', "toggle quick menu" },
-			n = { '<cmd>lua require("harpoon.ui").nav_next()<cr>', "next file on list" },
-			p = { '<cmd>lua require("harpoon.ui").nav_prev()<cr>', "previous file on list" },
-			-- t = { '<cmd>lua require("harpoon.tmux").gotoTerminal("{down-of}")<cr>', "go to tmux pane below" },
-			c = {
-				'<cmd>lua require("harpoon.tmux").sendCommand("{down-of}", vim.fn.input("Enter the command: "))<cr>',
-				"run command on tmux pane below",
-			},
-			m = { ":Easypick make<cr>", "run easypick select make command on tmux pane below" },
 		},
 		l = {
 			name = "+launchers", -- telescope, AI, lazy and others
-			a = {
-				name = "+AI (NeoAI)",
-				o = { ":NeoAIToggle<cr>", "NeoAI on/off" },
-				t = { ":put g<cr>", "Insert text output from last question (g register)" },
-				c = { ":put c<cr>", "Insert code output from last question (c register)" },
-			},
-
 			t = {
 				name = "+telescope",
 				a = { ":Telescope builtin<cr>", "all commands" },
@@ -235,14 +277,17 @@ which_key.register({
 		},
 		m = {
 			name = "+messages & notifications",
+			b = { ":Telescope notify<cr>", "browse history" },
+			c = { ":Noice dismiss<cr>", "close all" },
+			d = { ":Noice disable<cr>", "disable noice plugin" },
+			e = { ":Noice enable<cr>", "enable noice plugin" },
+			h = { ":Noice history<cr>", "show history" },
+			l = { ":Noice last<cr>", "last" },
 			r = {
 				':lua require("tiagoprn.toggle_redir").toggle()<cr>',
 				"toggle redirecting messages to file - NOT real time (toggle OFF to stop and see the contents)",
 			},
-			h = {
-				name = "+history",
-				n = { ":Telescope notify<cr>", "telescope notifications" },
-			},
+			x = { ":Noice errors<cr>", "only error messages (on a split, last on top)" },
 		},
 		n = {
 			name = "+navigation (code, hop, marks, lists etc)",
@@ -250,10 +295,6 @@ which_key.register({
 			F = { ":AerialPrev<cr>", "aerial go to previous function/method" },
 			c = { ":lua require'aerial'.next_up()<cr>", "aerial go to next class" },
 			C = { ":lua require'aerial'.prev_up()<cr>", "aerial go to previous class" },
-			h = {
-				name = "+hop",
-				-- TODO: remove or add leap/flit
-			},
 			l = {
 				name = "+location list",
 				b = { ":Telescope loclist<cr>", "telescope browse" },
@@ -277,12 +318,8 @@ which_key.register({
 			r = { ":RunPythonScriptOnCurrentLine<cr>", "run python script on current line" },
 		},
 		p = {
-			name = "COMMAND PALETTE (legendary.nvim)",
-			a = { ":Legendary<cr>", "everything" },
-			k = { ":Legendary keymaps<cr>", "keymaps" },
-			c = { ":Legendary commands<cr>", "commands" },
-			f = { ":Legendary functions<cr>", "functions" },
-			t = { ":Legendary autocmds<cr>", "autocommands" },
+			name = "Plugins (lazy.nvim)",
+			s = { ":Lazy sync<cr>", "Update all plugins" },
 		},
 		q = {
 			name = "+quickfix",
@@ -297,11 +334,15 @@ which_key.register({
 		},
 		r = { ":redo<cr>", "redo changes" },
 		s = { ":w!<cr>", "save current buffer" },
-		S = {
+		-- S = {  -- old neovim-session-manager plugin
+		-- 	name = "+session",
+		-- 	d = { ":SessionManager delete_session<cr>", "delete" },
+		-- 	l = { ":SessionManager load_session<cr>", "load" },
+		-- 	s = { ":SessionManager save_current_session<cr>", "save" },
+		-- },
+		S = { -- session plugin: possession
 			name = "+session",
-			d = { ":SessionManager delete_session<cr>", "delete" },
-			l = { ":SessionManager load_session<cr>", "load" },
-			s = { ":SessionManager save_current_session<cr>", "save" },
+			-- Check "keys" on plugins.lua
 		},
 		t = {
 			name = "+tree",
@@ -395,7 +436,7 @@ which_key.register({
 -- --
 local map = vim.keymap
 
---> NORMAL mode (TODO: map these with legendary.nvim setup above)
+--> NORMAL mode
 map.set("n", "<cr>", ":nohlsearch<cr>", { desc = "clean current highlighted search" })
 map.set("n", "<Del>", "<C-w>c<Enter>", { desc = "close window & keep buffer" })
 
@@ -413,7 +454,30 @@ map.set("n", "<C-left>", ":tabprevious<cr>", { desc = "go to previous tab" })
 -- Keep the cursor in place when you join lines with J. That will also drop a mark before the operation to which you return afterwards:
 map.set("n", "J", "mzJ`z", { desc = "join lines keeping cursor in place" })
 
-map.set("n", "<C-g>", ":tabnew | Telescope live_grep<cr>", { desc = "telescope search string on current path" })
+map.set(
+	"n",
+	"<C-g>o",
+	":Telescope live_grep<cr>",
+	{ desc = "telescope search string on current path - current window" }
+)
+map.set(
+	"n",
+	"<C-g>t",
+	":tabnew | Telescope live_grep<cr>",
+	{ desc = "telescope search string on current path - new tab" }
+)
+map.set(
+	"n",
+	"<C-g>s",
+	":split | Telescope live_grep<cr>",
+	{ desc = "telescope search string on current path - horizontal split" }
+)
+map.set(
+	"n",
+	"<C-g>v",
+	":vsplit | Telescope live_grep<cr>",
+	{ desc = "telescope search string on current path - vertical split" }
+)
 map.set(
 	"n",
 	"<leader>*",
@@ -428,8 +492,6 @@ map.set(
 )
 map.set("n", "<C-up>", ":Telescope buffers<cr>", { desc = "telescope open buffer on current window" })
 
--- map.set("n", "<C-h>", '<cmd>lua require("harpoon.ui").toggle_quick_menu()<cr>', { desc = "harpoon quick menu" })
-
 map.set("n", "<PageDown>", ":Gitsigns next_hunk<cr>", { desc = "gitsigns go to next hunk" })
 map.set("n", "<PageUp>", ":Gitsigns prev_hunk<cr>", { desc = "gitsigns go to previous hunk" })
 map.set("n", "<Home>", ":Gitsigns blame_line<cr>", { desc = "gitsigns blame line" })
@@ -442,22 +504,18 @@ map.set("n", "<leader>[", ":cp<cr>", { desc = "quickfix previous item" })
 map.set("n", "<F3>", ":NvimTreeToggle<cr>", { desc = "nvim tree (project directory)" })
 map.set("n", "<F4>", ":AerialToggle<cr>", { desc = "aerial classes and methods tree" })
 
---> VISUAL mode (TODO: map these with legendary.nvim setup above)
+--> VISUAL mode
 map.set("v", "<", "<gv", { desc = "dedent" })
 map.set("v", ">", ">gv", { desc = "indent" })
 map.set("v", "<leader>f", ":call MoveVisualSelectionToFile()<cr>", {
 	desc = "save visual selection to file",
 }) -- defined in functions.vim
-map.set(
-	"v",
-	"<leader>aiq",
-	":NeoAIContext<cr>",
-	{ desc = "Send selection to NeoAI & open window to ask questions about it" }
-)
-map.set("v", "<leader>A", ":<C-U>Lspsaga range_code_action<cr>", { desc = "code action" })
 map.set("v", "<leader>y", '"+y', { desc = "YANK/COPY to system clipboard" })
+map.set("v", "<leader>acr", ":FlowRunSelected<cr>", { desc = "run selection on new buffer" })
+map.set("v", "<leader>aia", ":CodeCompanionActions<cr>", { desc = "CODE COMPANION - Select Action" })
+map.set("v", "<leader>aip", ":CodeCompanion<cr>", { desc = "CODE COMPANION - Run prompt on selection" })
 
---> INSERT mode (TODO: map these with legendary.nvim setup above)
+--> INSERT mode
 map.set("i", "<C-right>", "<Esc>:tabnext<cr>", { desc = "go to next tab" })
 map.set("i", "<C-left>", "<Esc>:tabprevious<cr>", { desc = "go to previous tab" })
 map.set(
@@ -479,16 +537,3 @@ for i = 1, 6 do
 	map.set("n", lhs, rhs, { desc = "Go to Window " .. i })
 end
 --
--- Harpoon
---   Go to file
-for i = 1, 9 do
-	local lhs = "<Leader>h" .. i
-	local rhs = '<cmd>lua require("harpoon.ui").nav_file(' .. i .. ")<cr>"
-	map.set("n", lhs, rhs, { desc = "harpoon go to file mark " .. i })
-end
--- Run project command
-for i = 1, 9 do
-	local lhs = "<Leader>hc" .. i
-	local rhs = '<cmd>lua require("harpoon.tmux").sendCommand("{down-of}", ' .. 1 .. ")<cr>"
-	map.set("n", lhs, rhs, { desc = "harpoon run project command" .. i .. "on tmux pane below" })
-end

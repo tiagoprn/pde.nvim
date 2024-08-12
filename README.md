@@ -6,7 +6,7 @@ It provides a PDE - Personal Development Environment. It was heavily tweaked by 
 
 I also daily (re)compile nvim from its' master branch, and the simple script I use to do that is mentioned on the next section.
 
-The package manager I use on neovim is "packer" - for now, I will migrate to "lazy.nvim" soon.
+The package manager I use on neovim is "lazy.nvim".
 
 The distro package names below with additional tooling to make this work take into account PopOS! 22.04+ (which derives from Ubuntu), so if you want to use this on any other distro you must use the equivalent names there.
 
@@ -110,16 +110,14 @@ $ which stylua
 - **IMPORTANT:** Before starting:
     - make sure you already have neovim installed (as appimage or compiled).
     - make sure you have installed the language servers and related programs/packages of the previous sections.
-    - make sure you have the following packages installed on your distro: `bash-completion bat entr fd fzf gitui inotify-tools jq ripgrep sed
-`
+    - make sure you have the following packages installed on your distro: `bash-completion bat entr fd fzf gitui inotify-tools jq ripgrep sed`
 
-- To (re)set your environment, run <./scripts/configure_neovim.sh>. It will delete the existing environment and clone the packer repo.
+- To (re)set your environment, run <./scripts/configure_neovim.sh>. It will delete the existing environment.
 
 - Run:
 ```
 $ nvim
-<ESC> :PackerCompile <ENTER>
-<ESC> :PackerSync <ENTER>
+<ESC> :Lazy sync<ENTER>
 ```
 
 - To see the plugins output: `:messages`, to clear all messages: `:messages clear`

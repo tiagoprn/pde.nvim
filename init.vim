@@ -118,19 +118,8 @@ set splitbelow
 " --- setup python virtualenv that has nvim requirements installed - check this repository README.md for details
 let g:python3_host_prog = '~/.pyenv/versions/neovim/bin/python'
 
-" --- LUA CONFIGURATION
 " must be here, otherwise does not start with nvim
-lua << EOF
-vim.notify = require("notify")
-vim.notify.setup({
-	background_colour = "#000000",
-	fps = 60,
-	timeout = 90,
-	top_down=false,
-	stages="fade", -- slide, fade, fade_in_slide_out, static
-	render="minimal",  -- minimal, simple, default
-})
-EOF
+lua require('notify-conf')
 
 " --- OTHER SETTINGS
 
@@ -139,13 +128,30 @@ source $HOME/.config/nvim/commands.vim
 source $HOME/.config/nvim/abbreviations.vim
 source $HOME/.config/nvim/hooks.vim
 
+" Bootstrap lazy.nvim
+lua << EOF
+local lazy_path = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+if not vim.loop.fs_stat(lazy_path) then
+  vim.fn.system({
+    "git",
+    "clone",
+    "--filter=blob:none",
+    "https://github.com/folke/lazy.nvim.git",
+    "--branch=stable", -- latest stable release
+    lazy_path,
+  })
+end
+vim.opt.rtp:prepend(lazy_path)
+EOF
+
 " --- PLUGINS
 
 lua require('plugins')
 lua require('surround-conf')
 lua require('nvim-cmp')
-lua require('lua-lsp')
+" lua require('lua-lsp')
 lua require('python-lsp')
+lua require('ruff-lsp')
 lua require('bash-lsp')
 lua require('lsp-saga')
 lua require('setup-null-ls')
@@ -156,7 +162,6 @@ lua require('autopairs')
 lua require('snippets')
 lua require('aerial-code-navigation')
 lua require('telescope-conf')
-lua require('sessions')
 lua require('gitsigns-conf')
 lua require('luapad-conf')
 lua require('lualine-conf')
@@ -166,18 +171,17 @@ lua require('lsp-colors-conf')
 lua require('zen-conf')
 lua require('easypick-conf')
 lua require('treesitter-context-conf')
-lua require('harpoon-conf')
+lua require('treesitter-textobjects-conf')
 lua require('smooth-cursor-conf')
 lua require('dressing-conf')
-lua require('hydra-conf')
 lua require('buffer_manager-conf')
 lua require('goto-preview-conf')
 lua require('mind-conf')
 lua require('noice-conf')
-lua require('key-mappings-conf')
-lua require('neoai-conf')
+lua require('key-mappings-conf-v3')
 lua require('todo-conf')
-lua require('flit-conf')
+lua require('flow-conf')
+lua require('blame-conf')
 
 source $HOME/.config/nvim/conf-plugins/marvim.vim
 source $HOME/.config/nvim/conf-plugins/conceals.vim
@@ -191,9 +195,8 @@ source $HOME/.config/nvim/commands-tiagoprn-functions.vim
 source $HOME/.config/nvim/augroups/python.vim
 source $HOME/.config/nvim/augroups/lua.vim
 source $HOME/.config/nvim/augroups/quickfix.vim
-source $HOME/.config/nvim/augroups/text.vim
 source $HOME/.config/nvim/augroups/json.vim
 source $HOME/.config/nvim/augroups/misc.vim
 source $HOME/.config/nvim/augroups/completion.vim
 source $HOME/.config/nvim/augroups/html.vim
-
+source $HOME/.config/nvim/augroups/text.vim
