@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+set -eou pipefail
+
 # Path to your pyenv installation
 export PYENV_ROOT="$HOME/.pyenv"
 

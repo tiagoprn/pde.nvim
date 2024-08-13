@@ -39,11 +39,26 @@ require("lazy").setup({
 	{ "skywind3000/asyncrun.vim" },
 
 	-- Color schemes
+	-- {
+	-- 	"catppuccin/nvim",
+	-- 	name = "catppuccin",
+	-- },
 	{
-		"catppuccin/nvim",
-		name = "catppuccin",
-	},
+		"0xstepit/flow.nvim",
+		lazy = false,
+		priority = 1000,
+		opts = {},
+		config = function()
+			require("flow").setup({
+				transparent = true, -- Set transparent background.
+				fluo_color = "pink", --  Fluo color: pink, yellow, orange, or green.
+				mode = "bright", -- Intensity of the palette: normal, bright, desaturate, or dark. Notice that dark is ugly!
+				aggressive_spell = false, -- Display colors for spell check.
+			})
 
+			vim.cmd("colorscheme flow")
+		end,
+	},
 	-- Icons
 	{ "kyazdani42/nvim-web-devicons" },
 
@@ -153,8 +168,8 @@ require("lazy").setup({
 		dependencies = "nvim-lua/plenary.nvim",
 	},
 
-	-- Create custom commands to be triggered on telescope
-	{ "arjunmahishi/flow.nvim" },
+	-- -- Create custom commands to be triggered on telescope
+	-- { "arjunmahishi/flow.nvim" },
 
 	-- Fancy cursor to show current line
 	{ "gen740/SmoothCursor.nvim" },
