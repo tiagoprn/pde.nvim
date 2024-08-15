@@ -98,7 +98,7 @@ $ which stylua
 ``` bash
 
 sudo apt install -y ninja-build gettext libtool libtool-bin autoconf automake cmake g++ pkg-config unzip curl doxygen \
-    bash-completion bat entr fd-find fzf gitui inotify-tools jq ripgrep sed
+    bash-completion bat entr fd-find fzf inotify-tools jq ripgrep sed
 
 ```
 
