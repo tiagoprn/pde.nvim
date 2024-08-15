@@ -93,7 +93,27 @@ $ which stylua
 
 ## INSTALL
 
-1) To setup or get rid (backup) your current configuration first, run the configure_neovim bash script:
+1) Make sure you have the followig packages installed on your distro, to make sure you will be able to compile and use nvim with the configuration on this repo:
+
+``` bash
+
+sudo apt install -y ninja-build gettext libtool libtool-bin autoconf automake cmake g++ pkg-config unzip curl doxygen \
+    bash-completion bat entr fd-find fzf gitui inotify-tools jq ripgrep sed
+
+```
+
+Then, create the bash aliases needed for some of the utils:
+
+
+``` bash
+
+sudo ln -s /usr/bin/batcat /usr/bin/bat
+sudo ln -s /usr/bin/fdfind /usr/bin/fd
+
+
+```
+
+2) To setup or get rid (backup) your current configuration first, run the configure_neovim bash script:
 
 ``` bash
 
@@ -101,7 +121,7 @@ $ which stylua
 
 ```
 
-2) Run the script which will download and compile nvim from the master/main branch of its' github repository:
+3) Run the script which will download and compile nvim from the master/main branch of its' github repository:
 
 ``` bash
 
