@@ -157,6 +157,7 @@ require("lazy").setup({
 	{ "fatih/vim-go" },
 
 	-- Highlight colors
+	-- (highlight colors in neovim with the real color)
 	{ "brenoprata10/nvim-highlight-colors" },
 
 	-- Zen mode (allows zooming on a buffer)
