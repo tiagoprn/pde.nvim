@@ -64,7 +64,7 @@ $ GO111MODULE=on go install mvdan.cc/sh/v3/cmd/shfmt@latest
 $ sudo cp ~/go/bin/shfmt /usr/bin/
 ```
 
-NOTE: Treesitter parsers will be installed through npm. Commands to inspect that:
+NOTE: Treesitter parsers will be installed when neovim if first started through npm. Commands to inspect that:
 ```bash
 :TSInstallInfo  # List all available languages and their installation status
 :TSUpdate       # Updates all parsers
@@ -74,7 +74,7 @@ NOTE: Treesitter parsers will be installed through npm. Commands to inspect that
 #### lua
 
 - lua-language-server (previously called "sumneko"):
-    - Create folder (or delete existing contents on it when updating): `~/.config/nvim/lua-language-server`
+    - Create folder (or delete existing contents on it when updating): `mkdir -p ~/.config/nvim/lua-language-server`
     - Enter folder `~/.config/nvim/lua-language-server`
 	- Download a release from this page: <https://github.com/LuaLS/lua-language-server/releases>
     - Uncompress the file with `tar xfzv`
