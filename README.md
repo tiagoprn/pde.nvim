@@ -130,10 +130,11 @@ sudo ln -s /usr/bin/fdfind /usr/bin/fd
 ```
 
 - Run:
-```
+``` bash
 $ nvim
-<ESC> :Lazy sync<ENTER>
 ```
+
+This will automatically run the "lazy" package manager that will install all packages on nvim. After finished, quit nvim and start it again.
 
 - To see the plugins output: `:messages`, to clear all messages: `:messages clear`
 
@@ -142,10 +143,10 @@ $ nvim
 **IMPORTANT**: On debian's derivative distributions, after installing, you can do the optional step below to link the default and vi editor to nvim:
 
 ```bash
-$ update-alternatives --install /usr/bin/editor editor /usr/local/bin/nvim 1 && \
-update-alternatives --set editor /usr/local/bin/nvim && \
-update-alternatives --install /usr/bin/vi vi /usr/local/bin/nvim 1 && \
-update-alternatives --set vi /usr/local/bin/nvim
+$ sudo update-alternatives --install /usr/bin/editor editor /usr/local/bin/nvim 1 && \
+sudo update-alternatives --set editor /usr/local/bin/nvim && \
+sudo update-alternatives --install /usr/bin/vi vi /usr/local/bin/nvim 1 && \
+sudo update-alternatives --set vi /usr/local/bin/nvim
 ```
 
 ---
