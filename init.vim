@@ -79,8 +79,9 @@ set termguicolors
 " set lazyredraw
 
 " OVERRIDING COLORS
-" do that here: lua/catppuccin-colors.lua
+" do that here: 'after/plugin/highlight.lua'
 
+" TODO: move below to 'after/plugin/highlight.lua'
 " Highlight current line
 set cursorline
 hi cursorline cterm=none term=none
@@ -94,9 +95,6 @@ hi cursorcolumn cterm=none term=none
 autocmd WinEnter * setlocal cursorcolumn
 autocmd WinLeave * setlocal nocursorcolumn
 highlight CursorColumn guibg=#303000 ctermbg=238
-
-" Highlight winbar inactive window font to white
-" hi WinBarNC ctermfg=15 guifg=#FFFFFF
 
 " --- Configure rg integration
 set grepprg=rg\ --vimgrep
@@ -157,7 +155,7 @@ lua require('lsp-saga')
 lua require('setup-null-ls')
 lua require('treesitter-conf')
 lua require('tree')
-lua require('catppuccin-colors')
+" lua require('catppuccin-colors')
 lua require('autopairs')
 lua require('snippets')
 lua require('aerial-code-navigation')
@@ -180,7 +178,7 @@ lua require('mind-conf')
 lua require('noice-conf')
 lua require('key-mappings-conf-v3')
 lua require('todo-conf')
-lua require('flow-conf')
+" lua require('flow-conf')
 lua require('blame-conf')
 
 source $HOME/.config/nvim/conf-plugins/marvim.vim
