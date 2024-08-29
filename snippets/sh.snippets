@@ -274,6 +274,14 @@ snippet return_code
 	status=$?
 	[ $status -eq 0 ] && echo "command successful" || echo "command unsuccessful"
 
+snippet colors
+	# Define color variables
+	RED='\033[0;31m'
+	NC='\033[0m' # No Color
+
+	# example: Print part of a string in red
+	echo -e "This is \${RED}a test\${NC}, and the remaining is back to normal font color."
+
 snippet bash!
 	#!/usr/bin/env bash
 
