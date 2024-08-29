@@ -279,11 +279,8 @@ snippet colors
 	RED='\033[0;31m'
 	NC='\033[0m' # No Color
 
-	# Define your string
-	STRING="This is a test"
-
-	# Print part of the string in red
-	echo -e "This is ${RED}a test${NC}"
+	# example: Print part of a string in red
+	echo -e "This is \${RED}a test\${NC}, and the remaining is back to normal font color."
 
 snippet bash!
 	#!/usr/bin/env bash

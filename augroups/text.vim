@@ -13,8 +13,6 @@ augroup textconf
     autocmd FileType markdown,text,vim setlocal conceallevel=0
     autocmd FileType markdown,text,vim setlocal concealcursor=
     autocmd FileType markdown,text,vim setlocal nofoldenable  " disable folding
-    autocmd FileType markdown,text set spell
-    autocmd FileType markdown,text set spelllang=en
 augroup END
 
 augroup convertmarkdownconf
