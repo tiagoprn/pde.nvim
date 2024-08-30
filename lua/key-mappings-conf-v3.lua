@@ -342,7 +342,8 @@ which_key.add({
 	{ "<leader>x", group = "toggle" },
 	{ "<leader>xc", ":set list!<cr>", desc = "special chars (listchars)" },
 	{ "<leader>xi", ":set cuc!<cr>", desc = "current column indentation" },
-	{ "<leader>xl", ":set cursorline!<cr>", desc = "current line" },
+	{ "<leader>xl", ":set number! relativenumber!<cr>", desc = "toggle show line numbers" },
+	{ "<leader>xc", ":set cursorline!<cr>", desc = "current line" },
 	{ "<leader>xn", ":set rnu!<cr>", desc = "relative line numbers" },
 	-- zen focus mode
 	{ "<leader>z", group = "zen focus mode" },
