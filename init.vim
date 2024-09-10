@@ -69,7 +69,7 @@ set termguicolors
 " OVERRIDING COLORS
 " do that here: 'after/plugin/highlight.lua'
 
-" TODO: move below to 'after/plugin/highlight.lua'
+" TODO: move below to 'after/plugin/all.lua'
 " Highlight current line
 set cursorline
 hi cursorline cterm=none term=none

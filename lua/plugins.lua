@@ -75,7 +75,12 @@ require("lazy").setup({
 	},
 
 	-- Notifications
-	{ "rcarriga/nvim-notify" },
+	{
+		"rcarriga/nvim-notify",
+		opts = {
+			background_colour = "#000000",
+		},
+	},
 
 	-- UI component library
 	{ "MunifTanjim/nui.nvim" },
