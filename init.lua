@@ -37,20 +37,42 @@ vim.o.updatetime = 100
 vim.o.timeout = true
 vim.o.timeoutlen = 300
 
--- Use Linux's default GUI clipboard
-vim.o.clipboard = "unnamedplus"
-vim.g.clipboard = {
-	name = "wl-copy",
-	copy = {
-		["+"] = "wl-copy",
-		["*"] = "wl-copy",
-	},
-	paste = {
-		["+"] = "wl-paste",
-		["*"] = "wl-paste",
-	},
-	cache_enabled = 0,
-}
+-- Clipboard configuration
+if vim.fn.executable("wl-copy") == 1 and vim.fn.executable("wl-paste") == 1 then
+  -- Use wl-copy and wl-paste if available
+  vim.o.clipboard = "unnamedplus"
+  vim.g.clipboard = {
+    name = "wl-clipboard",
+    copy = {
+      ["+"] = "wl-copy",
+      ["*"] = "wl-copy",
+    },
+    paste = {
+      ["+"] = "wl-paste",
+      ["*"] = "wl-paste",
+    },
+    cache_enabled = 0,
+  }
+elseif vim.fn.executable("tmux") == 1 and vim.env.TMUX ~= nil then
+  -- Use tmux clipboard commands if tmux is installed and inside a tmux session
+  vim.o.clipboard = "unnamedplus"
+  vim.g.clipboard = {
+    name = "tmux",
+    copy = {
+      ["+"] = "tmux load-buffer -",
+      ["*"] = "tmux load-buffer -",
+    },
+    paste = {
+      ["+"] = "tmux save-buffer -",
+      ["*"] = "tmux save-buffer -",
+    },
+    cache_enabled = 0,
+  }
+else
+  -- Fallback to default clipboard behavior
+  vim.o.clipboard = ""
+  vim.g.clipboard = nil
+end
 
 -- Disable backup and swap files - they trigger too many events for file system watchers
 vim.o.backup = false
@@ -84,12 +106,12 @@ vim.o.termguicolors = true
 vim.o.cursorline = true
 vim.cmd("hi CursorLine cterm=none term=none")
 vim.api.nvim_create_autocmd({ "WinEnter" }, {
-	pattern = "*",
-	command = "setlocal cursorline",
+  pattern = "*",
+  command = "setlocal cursorline",
 })
 vim.api.nvim_create_autocmd({ "WinLeave" }, {
-	pattern = "*",
-	command = "setlocal nocursorline",
+  pattern = "*",
+  command = "setlocal nocursorline",
 })
 vim.cmd("highlight CursorLine guibg=#c0c0c0 ctermbg=238")
 
@@ -97,12 +119,12 @@ vim.cmd("highlight CursorLine guibg=#c0c0c0 ctermbg=238")
 vim.o.cursorcolumn = true
 vim.cmd("hi CursorColumn cterm=none term=none")
 vim.api.nvim_create_autocmd({ "WinEnter" }, {
-	pattern = "*",
-	command = "setlocal cursorcolumn",
+  pattern = "*",
+  command = "setlocal cursorcolumn",
 })
 vim.api.nvim_create_autocmd({ "WinLeave" }, {
-	pattern = "*",
-	command = "setlocal nocursorcolumn",
+  pattern = "*",
+  command = "setlocal nocursorcolumn",
 })
 vim.cmd("highlight CursorColumn guibg=#303000 ctermbg=238")
 
@@ -143,14 +165,14 @@ vim.cmd("source $HOME/.config/nvim/hooks.vim")
 -- Bootstrap lazy.nvim
 local lazy_path = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazy_path) then
-	vim.fn.system({
-		"git",
-		"clone",
-		"--filter=blob:none",
-		"https://github.com/folke/lazy.nvim.git",
-		"--branch=stable", -- Latest stable release
-		lazy_path,
-	})
+  vim.fn.system({
+    "git",
+    "clone",
+    "--filter=blob:none",
+    "https://github.com/folke/lazy.nvim.git",
+    "--branch=stable", -- Latest stable release
+    lazy_path,
+  })
 end
 vim.opt.rtp:prepend(lazy_path)
 
