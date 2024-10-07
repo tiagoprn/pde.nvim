@@ -9,7 +9,7 @@ vim.o.title = true
 vim.o.history = 1000 -- remember more commands and search history
 
 -- Persistent undo
-vim.o.undodir = "~/.config/nvim/undodir"
+vim.o.undodir = vim.fn.getenv("HOME") .. "/.config/nvim/undodir"
 vim.o.undofile = true
 
 vim.o.wildignore = "*.swp,*.bak,*.pyc,*~"
