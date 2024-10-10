@@ -82,11 +82,20 @@ function M.copy_visual_selection_to_file()
 
   -- Get the yanked selection from the temporary register
   local text = vim.fn.getreg("v")
+  local reg_type = vim.fn.getregtype("v") -- Check the register type
 
-  -- If the text is empty, notify the user
   if text == "" then
     M.notify_user("Visual selection is empty.", true)
     return
+  end
+
+  -- If block selection (CTRL-V) was used, format the text accordingly
+  if reg_type == "\22" then -- "\22" is the code for block-wise visual mode
+    local lines = vim.split(text, "\n")
+    for i, line in ipairs(lines) do
+      lines[i] = line:gsub("\n", "") -- Clean up newlines within block selections
+    end
+    text = table.concat(lines, "\n")
   end
 
   local file_path = "/tmp/copied.txt"
