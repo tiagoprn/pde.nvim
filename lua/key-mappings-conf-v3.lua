@@ -430,6 +430,7 @@ map.set("n", "<leader>[", ":cp<cr>", { desc = "quickfix previous item" })
 -- FUNCTION KEYS
 map.set("n", "<F3>", ":NvimTreeToggle<cr>", { desc = "nvim tree (project directory)" })
 map.set("n", "<F4>", ":AerialToggle<cr>", { desc = "aerial classes and methods tree" })
+map.set("n", "<F5>", ":TelescopeSelectLocalClipboardFiles<cr>", { desc = "telescope select local clipboard file" })
 
 --> VISUAL mode
 map.set("v", "<", "<gv", { desc = "dedent" })

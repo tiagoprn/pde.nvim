@@ -74,14 +74,6 @@ require("lazy").setup({
     dependencies = "godlygeek/tabular",
   },
 
-  -- Notifications
-  {
-    "rcarriga/nvim-notify",
-    opts = {
-      background_colour = "#000000",
-    },
-  },
-
   -- UI component library
   { "MunifTanjim/nui.nvim" },
 

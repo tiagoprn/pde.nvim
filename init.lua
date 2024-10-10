@@ -158,9 +158,6 @@ vim.o.splitbelow = true
 -- Check this repository README.md for details
 vim.g.python3_host_prog = "~/.pyenv/versions/neovim/bin/python"
 
--- Must be here; otherwise does not start with Neovim
-require("notify-conf")
-
 -- --- OTHER SETTINGS
 
 -- Source additional Vimscript files
@@ -183,6 +180,9 @@ if not vim.loop.fs_stat(lazy_path) then
   })
 end
 vim.opt.rtp:prepend(lazy_path)
+
+-- custom commands
+require("tiagoprn.custom_commands")
 
 -- --- PLUGINS
 
@@ -242,4 +242,4 @@ vim.cmd("source $HOME/.config/nvim/augroups/json.vim")
 vim.cmd("source $HOME/.config/nvim/augroups/misc.vim")
 vim.cmd("source $HOME/.config/nvim/augroups/completion.vim")
 vim.cmd("source $HOME/.config/nvim/augroups/html.vim")
-vim.cmd("source $HOME/.config/nvim/augroups/text.vim")
+vim.cmd("source $HOME/.config/nvim/augroups/txt.vim")
