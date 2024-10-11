@@ -73,14 +73,6 @@ else
   vim.o.clipboard = ""
   vim.g.clipboard = nil
 end
--- Remap 'dd' to delete a line without copying to the clipboard
-vim.keymap.set("n", "dd", '"_dd', { noremap = true, silent = true })
--- Remap 'd' in normal mode to delete without copying to clipboard
-vim.keymap.set("n", "d", '"_d', { noremap = true, silent = true })
--- Remap 'd' in visual mode to delete without copying to clipboard
-vim.keymap.set("v", "d", '"_d', { noremap = true, silent = true })
--- Optionally, remap 'x' (cut) to delete a single character without copying to clipboard
-vim.keymap.set("n", "x", '"_x', { noremap = true, silent = true })
 
 -- Disable backup and swap files - they trigger too many events for file system watchers
 vim.o.backup = false
