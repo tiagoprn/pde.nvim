@@ -214,6 +214,7 @@ require("key-mappings-conf-v3")
 require("todo-conf")
 -- require('flow-conf')
 require("blame-conf")
+require("markview-conf")
 
 -- Source additional Vimscript plugin configurations
 -- TODO: these need to be converted to Lua

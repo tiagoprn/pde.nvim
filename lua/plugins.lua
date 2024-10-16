@@ -68,10 +68,20 @@ require("lazy").setup({
     dependencies = "kyazdani42/nvim-web-devicons",
   },
 
-  -- Markdown syntax highlighting
+  -- -- Markdown syntax highlighting
+  -- {
+  --   "plasticboy/vim-markdown",
+  --   dependencies = "godlygeek/tabular",
+  -- },
+
+  -- markdown editting and view support
   {
-    "plasticboy/vim-markdown",
-    dependencies = "godlygeek/tabular",
+    "OXY2DEV/markview.nvim",
+    lazy = false,
+    dependencies = {
+      "nvim-treesitter/nvim-treesitter",
+      "nvim-tree/nvim-web-devicons",
+    },
   },
 
   -- UI component library

@@ -431,6 +431,7 @@ map.set("n", "<leader>[", ":cp<cr>", { desc = "quickfix previous item" })
 map.set("n", "<F3>", ":NvimTreeToggle<cr>", { desc = "nvim tree (project directory)" })
 map.set("n", "<F4>", ":AerialToggle<cr>", { desc = "aerial classes and methods tree" })
 map.set("n", "<F5>", ":TelescopeSelectLocalClipboardFiles<cr>", { desc = "telescope select local clipboard file" })
+map.set("n", "<F12>", ":Markview toggle<cr>", { desc = "(markdown) turns markview on/off" })
 
 --> VISUAL mode
 map.set("v", "<", "<gv", { desc = "dedent" })
