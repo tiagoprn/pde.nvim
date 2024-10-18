@@ -215,6 +215,7 @@ require("todo-conf")
 -- require('flow-conf')
 require("blame-conf")
 require("markview-conf")
+require("bookmarks-conf")
 
 -- Source additional Vimscript plugin configurations
 -- TODO: these need to be converted to Lua

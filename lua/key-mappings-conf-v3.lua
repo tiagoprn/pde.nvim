@@ -5,6 +5,8 @@ if not status_ok then
   return
 end
 
+local bm = require("bookmarks")
+
 -- --
 -- 1) WHICH-KEY mappings (can/must be triggered with the LEADER key)
 -- --
@@ -41,7 +43,6 @@ which_key.add({
   },
   { "<leader>acl", ":FlowLauncher<cr>", desc = "(flow) run launcher" },
   { "<leader>aco", ":FlowLastOutput<cr>", desc = "(flow) show last output" },
-
   { "<leader>ai", group = "AI (ChatGPT)" },
   { "<leader>aic", "<cmd>ChatGPTRun complete_code<cr>", desc = "Create/Complete Code", mode = { "n", "v" } },
   { "<leader>aie", "<cmd>ChatGPTEditWithInstruction<cr>", desc = "Edit with instruction", mode = { "n", "v" } },
@@ -60,7 +61,6 @@ which_key.add({
     desc = "Code Readability Analysis",
     mode = { "n", "v" },
   },
-
   { "<leader>al", ":PrintLspSupportedRequests<cr>", desc = "print all supported requests on the current LSP server" },
   { "<leader>at", group = "tmux" },
   {
@@ -239,6 +239,15 @@ which_key.add({
   { "<leader>gj", ":Gitsigns next_hunk<cr>", desc = "go to next changed hunk" },
   { "<leader>gk", ":Gitsigns prev_hunk<cr>", desc = "go to previous changed hunk" },
   { "<leader>gt", ":!tmux select-window -t git<cr>", desc = "go to gitui tmux window" },
+  -- BOOKMARKS
+  { "<leader>k", group = "BOOKMARKS" },
+  { "<leader>kt", bm.bookmark_toggle, desc = "(bookmark) add/remove on current line" },
+  { "<leader>ka", bm.bookmark_ann, desc = "(bookmark) add/edit annotation at current line" },
+  { "<leader>kc", bm.bookmark_clean, desc = "(bookmark) clean all in local buffer" },
+  { "<leader>kn", bm.bookmark_next, desc = "(bookmark) jump to next in local buffer" },
+  { "<leader>kp", bm.bookmark_prev, desc = "(bookmark) jump to previous in local buffer" },
+  { "<leader>kq", bm.bookmark_list, desc = "(bookmark) show list in quickfix window" },
+  { "<leader>kx", bm.bookmark_clear_all, desc = "(bookmark) remove all" },
   -- launchers
   { "<leader>l", group = "launchers" },
   { "<leader>lt", group = "telescope" },
@@ -447,6 +456,7 @@ map.set("n", "<leader>[", ":cp<cr>", { desc = "quickfix previous item" })
 map.set("n", "<F3>", ":NvimTreeToggle<cr>", { desc = "nvim tree (project directory)" })
 map.set("n", "<F4>", ":AerialToggle<cr>", { desc = "aerial classes and methods tree" })
 map.set("n", "<F5>", ":TelescopeSelectLocalClipboardFiles<cr>", { desc = "telescope select local clipboard file" })
+map.set("n", "<F8>", ":Telescope bookmarks list<cr>", { desc = "telescope bookmarks list" })
 map.set("n", "<F10>", ":ChatGPT<cr>", { desc = "ChatGPT prompt (<C-h> to show help menu)" })
 map.set("n", "<F12>", ":Markview toggle<cr>", { desc = "(markdown) turns markview on/off" })
 

@@ -62,6 +62,9 @@ require("lazy").setup({
   -- Icons
   { "kyazdani42/nvim-web-devicons" },
 
+  -- bookmarks (use instead of marks, better UX and supports annotating on the lines)
+  { "tomasky/bookmarks.nvim" },
+
   -- Status line
   {
     "nvim-lualine/lualine.nvim",
