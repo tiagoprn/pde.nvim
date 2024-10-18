@@ -41,10 +41,26 @@ which_key.add({
   },
   { "<leader>acl", ":FlowLauncher<cr>", desc = "(flow) run launcher" },
   { "<leader>aco", ":FlowLastOutput<cr>", desc = "(flow) show last output" },
-  { "<leader>ai", group = "AI (CODE COMPANION)" },
-  { "<leader>aia", ":CodeCompanionActions<cr>", desc = "Select Action" },
-  { "<leader>aih", "<cmd>lua require('tiagoprn.forms').codecompanion_help()<cr>", desc = "help" },
-  { "<leader>ait", ":CodeCompanionToggle<cr>", desc = "Toggle" },
+
+  { "<leader>ai", group = "AI (ChatGPT)" },
+  { "<leader>aic", "<cmd>ChatGPTRun complete_code<cr>", desc = "Create/Complete Code", mode = { "n", "v" } },
+  { "<leader>aie", "<cmd>ChatGPTEditWithInstruction<cr>", desc = "Edit with instruction", mode = { "n", "v" } },
+  { "<leader>aig", "<cmd>ChatGPTRun grammar_correction<cr>", desc = "Grammar Correction", mode = { "n", "v" } },
+  { "<leader>ait", "<cmd>ChatGPTRun translate<cr>", desc = "Translate", mode = { "n", "v" } },
+  { "<leader>aik", "<cmd>ChatGPTRun keywords<cr>", desc = "Keywords", mode = { "n", "v" } },
+  { "<leader>aid", "<cmd>ChatGPTRun docstring<cr>", desc = "Docstring", mode = { "n", "v" } },
+  { "<leader>aia", "<cmd>ChatGPTRun add_tests<cr>", desc = "Add Tests", mode = { "n", "v" } },
+  { "<leader>aio", "<cmd>ChatGPTRun optimize_code<cr>", desc = "Optimize Code", mode = { "n", "v" } },
+  { "<leader>ais", "<cmd>ChatGPTRun summarize<cr>", desc = "Summarize", mode = { "n", "v" } },
+  { "<leader>aif", "<cmd>ChatGPTRun fix_bugs<cr>", desc = "Fix Bugs", mode = { "n", "v" } },
+  { "<leader>aix", "<cmd>ChatGPTRun explain_code<cr>", desc = "Explain Code", mode = { "n", "v" } },
+  {
+    "<leader>ail",
+    "<cmd>ChatGPTRun code_readability_analysis<cr>",
+    desc = "Code Readability Analysis",
+    mode = { "n", "v" },
+  },
+
   { "<leader>al", ":PrintLspSupportedRequests<cr>", desc = "print all supported requests on the current LSP server" },
   { "<leader>at", group = "tmux" },
   {
@@ -431,6 +447,7 @@ map.set("n", "<leader>[", ":cp<cr>", { desc = "quickfix previous item" })
 map.set("n", "<F3>", ":NvimTreeToggle<cr>", { desc = "nvim tree (project directory)" })
 map.set("n", "<F4>", ":AerialToggle<cr>", { desc = "aerial classes and methods tree" })
 map.set("n", "<F5>", ":TelescopeSelectLocalClipboardFiles<cr>", { desc = "telescope select local clipboard file" })
+map.set("n", "<F10>", ":ChatGPT<cr>", { desc = "ChatGPT prompt (<C-h> to show help menu)" })
 map.set("n", "<F12>", ":Markview toggle<cr>", { desc = "(markdown) turns markview on/off" })
 
 --> VISUAL mode
@@ -447,8 +464,6 @@ end, { desc = "save visual selection to file", noremap = true, silent = true })
 
 map.set("v", "<leader>y", '"+y', { desc = "YANK/COPY to system clipboard" })
 map.set("v", "<leader>acr", ":FlowRunSelected<cr>", { desc = "run selection on new buffer" })
-map.set("v", "<leader>aia", ":CodeCompanionActions<cr>", { desc = "CODE COMPANION - Select Action" })
-map.set("v", "<leader>aip", ":CodeCompanion<cr>", { desc = "CODE COMPANION - Run prompt on selection" })
 
 --> INSERT mode
 map.set("i", "<C-right>", "<Esc>:tabnext<cr>", { desc = "go to next tab" })
