@@ -216,6 +216,7 @@ require("todo-conf")
 require("blame-conf")
 require("markview-conf")
 require("bookmarks-conf")
+require("obsidian-conf")
 
 -- Source additional Vimscript plugin configurations
 -- TODO: these need to be converted to Lua

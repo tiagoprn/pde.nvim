@@ -87,6 +87,21 @@ require("lazy").setup({
     },
   },
 
+  -- obsidian
+  {
+    "epwalsh/obsidian.nvim",
+    version = "*", -- recommended, use latest release instead of latest commit
+    lazy = true,
+    -- only want to load obsidian.nvim for markdown files in your vault:
+    event = {
+      "BufReadPre /storage/src/codex/*.md",
+      "BufNewFile /storage/src/codex/*.md",
+    },
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+    },
+  },
+
   -- UI component library
   { "MunifTanjim/nui.nvim" },
 
