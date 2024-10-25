@@ -280,7 +280,7 @@ which_key.add({
   { "<leader>nmx", ":call MarkDelete()<cr>", desc = "delete single" },
   -- obsidian
   { "<leader>o", group = "Obsidian" },
-  { "<leader>oo", ":ObsidianOpen<cr>", desc = "Open Obsidian Vault" },
+  { "<leader>oo", ":ObsidianOpen<cr>", desc = "Open in Obsidian App" },
   { "<leader>on", ":ObsidianNew<cr>", desc = "Create New Note" },
   { "<leader>os", ":ObsidianSearch<cr>", desc = "Search Notes" },
   { "<leader>ob", ":ObsidianBacklinks<cr>", desc = "Show Backlinks" },
