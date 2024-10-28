@@ -4,6 +4,7 @@ if not status_ok then
 end
 
 obsidian.setup({
+  ui = { enable = false }, -- disables the plugin's markdown renderer, so that I can keep using markview.nvim
   workspaces = {
     {
       name = "codex",
