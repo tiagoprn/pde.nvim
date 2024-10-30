@@ -212,6 +212,12 @@ which_key.add({
     ":Telescope find_files find_command=fd,-H,-E,.git prompt_prefix=fd: <cr>",
     desc = "telescope open files",
   },
+  {
+    "<leader>fg",
+    ":<cmd>lua require('tiagoprn.code_utils').open_git_changed_files_with_telescope()<cr>",
+    desc = "(git) telescope open changed files",
+  },
+
   { "<leader>fo", ":!gedit %<cr>", desc = "open current file on gedit" },
   {
     "<leader>fr",
