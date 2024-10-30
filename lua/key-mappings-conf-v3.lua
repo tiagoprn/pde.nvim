@@ -278,20 +278,21 @@ which_key.add({
   { "<leader>nmb", ":Telescope marks<cr>", desc = "telescope browse" },
   { "<leader>nmd", ":delmarks!<cr>", desc = "delete all" },
   { "<leader>nmx", ":call MarkDelete()<cr>", desc = "delete single" },
-  -- obsidian
+  -- obsidian: https://github.com/epwalsh/obsidian.nvim?tab=readme-ov-file#commands
   { "<leader>o", group = "Obsidian" },
-  { "<leader>oo", ":ObsidianOpen<cr>", desc = "Open in Obsidian App" },
+  { "<leader>oa", ":ObsidianOpen<cr>", desc = "Open in Obsidian App" },
+  { "<leader>ob", ":ObsidianBacklinks<cr>", desc = "Show Backlinks to this note" },
+  { "<leader>oi", ":ObsidianTOC<cr>", desc = "Browse Note Section" },
+  { "<leader>ol", ":ObsidianLinks<cr>", desc = "Show all links on this note" },
   { "<leader>on", ":ObsidianNew<cr>", desc = "Create New Note" },
-  { "<leader>os", ":ObsidianSearch<cr>", desc = "Search Notes" },
-  { "<leader>ob", ":ObsidianBacklinks<cr>", desc = "Show Backlinks" },
-  { "<leader>ol", ":ObsidianLink<cr>", desc = "Create Link" },
-  { "<leader>ou", ":ObsidianUnlink<cr>", desc = "Unlink Note" },
-  { "<leader>ot", ":ObsidianToday<cr>", desc = "Open Today's Note" },
-  { "<leader>oy", ":ObsidianYesterday<cr>", desc = "Open Yesterday's Note" },
+  { "<leader>oo", group = "Open Link" },
+  { "<leader>ooo", ":ObsidianFollowLink<cr>", desc = "here" },
+  { "<leader>ooh", ":ObsidianFollowLink hsplit<cr>", desc = "in Horizontal Split" },
+  { "<leader>oov", ":ObsidianFollowLink vsplit<cr>", desc = "in Vertical Split" },
   { "<leader>oq", ":ObsidianQuickSwitch<cr>", desc = "Quick Switch Note" },
-  { "<leader>of", ":ObsidianFollowLink<cr>", desc = "Follow Link" },
-  { "<leader>og", ":ObsidianGenerateLink<cr>", desc = "Generate Link" },
   { "<leader>or", ":ObsidianRename<cr>", desc = "Rename Note" },
+  { "<leader>os", ":ObsidianSearch<cr>", desc = "Search Inside All Notes" },
+  { "<leader>ot", ":ObsidianTags<cr>", desc = "Show all tags" },
   -- plugins (lazy.nvim)
   { "<leader>p", group = "plugins (lazy.nvim)" },
   { "<leader>ps", ":Lazy sync<cr>", desc = "Update all plugins" },
@@ -474,13 +475,13 @@ map.set("n", "<F8>", ":Telescope bookmarks list<cr>", { desc = "telescope bookma
 map.set("n", "<F10>", ":ChatGPT<cr>", { desc = "ChatGPT prompt (<C-h> to show help menu)" })
 map.set("n", "<F12>", ":Markview toggle<cr>", { desc = "(markdown) turns markview on/off" })
 
---> VISUAL mode
+--> VISUAL (selection) mode
 map.set("v", "<", "<gv", { desc = "dedent" })
 map.set("v", ">", ">gv", { desc = "indent" })
 
--- map.set("v", "<leader>f", ":call MoveVisualSelectionToFile()<cr>", {
---   desc = "save visual selection to file",
--- }) -- defined in functions.vim
+map.set("v", "<leader>ox", ":ObsidianExtractNote<cr>", { desc = "Obsidian: Extract to new note and link to it" })
+map.set("v", "<leader>oe", ":ObsidianLink<cr>", { desc = "Obsidian: Create Link to existing note" })
+map.set("v", "<leader>on", ":ObsidianLinkNew<cr>", { desc = "Obsidian: Create Link to new note" })
 
 map.set("v", "<leader>f", function()
   require("tiagoprn.text_utils").copy_visual_selection_to_file()
