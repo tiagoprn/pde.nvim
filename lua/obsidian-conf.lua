@@ -37,7 +37,7 @@ obsidian.setup({
         suffix = suffix .. string.char(math.random(65, 90))
       end
     end
-    local formatted_time = os.date("%Y%m%d-%H%M%S", os.time())
+    local formatted_time = os.date("%Y%m%d-%a-%H%M%S", os.time()) -- E.g. 20241101-Fri-064114
     return tostring(formatted_time) .. "-" .. suffix
   end,
   -- customizes how note frontmatter is generated
