@@ -63,7 +63,13 @@ require("lazy").setup({
   { "kyazdani42/nvim-web-devicons" },
 
   -- bookmarks (use instead of marks, better UX and supports annotating on the lines)
-  { "tomasky/bookmarks.nvim" },
+  {
+    "EvWilson/spelunk.nvim",
+    dependencies = {
+      "nvim-lua/plenary.nvim", -- For window drawing utilities
+      "nvim-telescope/telescope.nvim", -- Optional: for fuzzy search capabilities
+    },
+  },
 
   -- Status line
   {

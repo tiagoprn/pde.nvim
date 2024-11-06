@@ -1,6 +1,6 @@
 require("telescope").load_extension("aerial")
 require("telescope").load_extension("possession")
-require("telescope").load_extension("bookmarks")
+-- require("telescope").load_extension("bookmarks")
 
 -- Open files in the same window/tab instead of on the current window
 function open_buffer_selection(prompt_bufnr)

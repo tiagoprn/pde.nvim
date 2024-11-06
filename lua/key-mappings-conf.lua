@@ -5,8 +5,6 @@ if not status_ok then
   return
 end
 
-local bm = require("bookmarks")
-
 -- --
 -- 1) WHICH-KEY mappings (can/must be triggered with the LEADER key)
 -- --
@@ -246,14 +244,7 @@ which_key.add({
   { "<leader>gk", ":Gitsigns prev_hunk<cr>", desc = "go to previous changed hunk" },
   { "<leader>gt", ":!tmux select-window -t git<cr>", desc = "go to gitui tmux window" },
   -- BOOKMARKS
-  { "<leader>k", group = "BOOKMARKS" },
-  { "<leader>kt", bm.bookmark_toggle, desc = "(bookmark) add/remove on current line" },
-  { "<leader>ka", bm.bookmark_ann, desc = "(bookmark) add/edit annotation at current line" },
-  { "<leader>kc", bm.bookmark_clean, desc = "(bookmark) clean all in local buffer" },
-  { "<leader>kn", bm.bookmark_next, desc = "(bookmark) jump to next in local buffer" },
-  { "<leader>kp", bm.bookmark_prev, desc = "(bookmark) jump to previous in local buffer" },
-  { "<leader>kq", bm.bookmark_list, desc = "(bookmark) show list in quickfix window" },
-  { "<leader>kx", bm.bookmark_clear_all, desc = "(bookmark) remove all" },
+  { "<leader>k", group = "BOOKMARKS (spelunky)" },
   -- launchers
   { "<leader>l", group = "launchers" },
   { "<leader>lt", group = "telescope" },
