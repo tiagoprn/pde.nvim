@@ -127,9 +127,18 @@ snippet ic
 	ic.configureOutput(prefix='icecream debug-> ')
 	ic('world')
 
-snippet pprint
+snippet pprint_to_console
 	__import__('pprint').pprint(${1:expression}, width=1)$0
 
+snippet pprint_to_str
+        def custom_serializer(obj):
+	    from datetime import datetime
+            if isinstance(obj, datetime):
+                return obj.isoformat()  # Converts datetime to ISO 8601 string format
+            raise TypeError(f"Type {type(obj)} not serializable")
+        dict_name_str = __import__('json').dumps(dict_name,
+                                                 indent=4,
+                                                 default=custom_serializer)
 snippet ifmain
 	if __name__ == '__main__':
 	    ${1:main()}$0
