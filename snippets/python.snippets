@@ -128,7 +128,7 @@ snippet ic
 	ic('world')
 
 snippet pprint_to_console
-	__import__('pprint').pprint(${1:expression}, width=1)$0
+	print('\n'); __import__('pprint').pprint(${1:var_name}, width=2); print('\n');  # noqa: E702, E703
 
 snippet pprint_to_str
         def custom_serializer(obj):
@@ -137,7 +137,7 @@ snippet pprint_to_str
                 return obj.isoformat()  # Converts datetime to ISO 8601 string format
             raise TypeError(f"Type {type(obj)} not serializable")
         dict_name_str = __import__('json').dumps(dict_name,
-                                                 indent=4,
+                                                 indent=2,
                                                  default=custom_serializer)
 snippet ifmain
 	if __name__ == '__main__':
@@ -297,5 +297,3 @@ snippet json_dict_to_file
         with open("/tmp/output.json", "w+") as output_file:
             output_file.write(__import__('json').dumps(${1:dict_var_name}, indent=2))
 
-snippet pprint
-	print('\n'); __import__('pprint').pprint(${1:var_name}); print('\n');  # noqa: E702, E703
