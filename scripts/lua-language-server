@@ -1,3 +1,4 @@
-#!/bin/bash
-SOURCES_PATH="/opt/src/lua-language-server"
-exec "$SOURCES_PATH/bin/lua-language-server" "$@"
+#!/usr/bin/env bash
+
+ROOT_PATH="/run/current-system/sw"
+exec "$ROOT_PATH/bin/lua-language-server" "$@"

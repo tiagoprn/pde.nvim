@@ -8,7 +8,8 @@
 #
 # ** IMPORTANT ** : For this script to work with the arguments, --binary-path MUST finish with "/bin/nvim", no matter with subpath you choose before.
 
-NVIM_SOURCES_PATH=/opt/src/neovim
+SOURCES_PATH=/opt/src
+NVIM_SOURCES_PATH=$SOURCES_PATH/neovim
 NVIM_BINARY_PATH=/usr/local/bin/nvim
 
 while [[ $# -gt 0 ]]; do
@@ -29,8 +30,11 @@ while [[ $# -gt 0 ]]; do
     shift
 done
 
-mkdir -p "$NVIM_SOURCES_PATH"
-mkdir -p "$(dirname "$NVIM_BINARY_PATH")"
+OWNER=$(whoami)
+
+sudo mkdir -p "$NVIM_SOURCES_PATH"
+sudo mkdir -p "$(dirname "$NVIM_BINARY_PATH")"
+sudo chown -R "$OWNER":"$OWNER" "$SOURCES_PATH"
 
 NVIM_REPO_URL="https://github.com/neovim/neovim.git"
 
