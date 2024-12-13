@@ -41,21 +41,23 @@ which_key.add({
   },
   { "<leader>acl", ":FlowLauncher<cr>", desc = "(flow) run launcher" },
   { "<leader>aco", ":FlowLastOutput<cr>", desc = "(flow) show last output" },
-  { "<leader>ai", group = "AI (ChatGPT)" },
-  { "<leader>aia", "<cmd>ChatGPTRun chat_with_selection<cr>", desc = "Chat with selection", mode = { "v" } },
-  { "<leader>aic", "<cmd>ChatGPTRun complete_code<cr>", desc = "Create/Complete Code", mode = { "n", "v" } },
-  { "<leader>aie", "<cmd>ChatGPTEditWithInstruction<cr>", desc = "Edit with instruction", mode = { "n", "v" } },
-  { "<leader>aig", "<cmd>ChatGPTRun grammar_correction<cr>", desc = "Grammar Correction", mode = { "n", "v" } },
-  { "<leader>ait", "<cmd>ChatGPTRun translate<cr>", desc = "Translate", mode = { "n", "v" } },
-  { "<leader>aik", "<cmd>ChatGPTRun keywords<cr>", desc = "Keywords", mode = { "n", "v" } },
-  { "<leader>aid", "<cmd>ChatGPTRun docstring<cr>", desc = "Docstring", mode = { "n", "v" } },
-  { "<leader>aiT", "<cmd>ChatGPTRun add_tests<cr>", desc = "Add Tests", mode = { "n", "v" } },
-  { "<leader>aio", "<cmd>ChatGPTRun optimize_code<cr>", desc = "Optimize Code", mode = { "n", "v" } },
-  { "<leader>ais", "<cmd>ChatGPTRun summarize<cr>", desc = "Summarize", mode = { "n", "v" } },
-  { "<leader>aif", "<cmd>ChatGPTRun fix_bugs<cr>", desc = "Fix Bugs", mode = { "n", "v" } },
-  { "<leader>aix", "<cmd>ChatGPTRun explain_code<cr>", desc = "Explain Code", mode = { "n", "v" } },
+  { "<leader>ai", group = "AI (avante)" },
+
+  { "<leader>aig", group = "AI (ChatGPT)" },
+  { "<leader>aiga", "<cmd>ChatGPTRun chat_with_selection<cr>", desc = "Chat with selection", mode = { "v" } },
+  { "<leader>aigc", "<cmd>ChatGPTRun complete_code<cr>", desc = "Create/Complete Code", mode = { "n", "v" } },
+  { "<leader>aige", "<cmd>ChatGPTEditWithInstruction<cr>", desc = "Edit with instruction", mode = { "n", "v" } },
+  { "<leader>aigg", "<cmd>ChatGPTRun grammar_correction<cr>", desc = "Grammar Correction", mode = { "n", "v" } },
+  { "<leader>aigt", "<cmd>ChatGPTRun translate<cr>", desc = "Translate", mode = { "n", "v" } },
+  { "<leader>aigk", "<cmd>ChatGPTRun keywords<cr>", desc = "Keywords", mode = { "n", "v" } },
+  { "<leader>aigd", "<cmd>ChatGPTRun docstring<cr>", desc = "Docstring", mode = { "n", "v" } },
+  { "<leader>aigT", "<cmd>ChatGPTRun add_tests<cr>", desc = "Add Tests", mode = { "n", "v" } },
+  { "<leader>aigo", "<cmd>ChatGPTRun optimize_code<cr>", desc = "Optimize Code", mode = { "n", "v" } },
+  { "<leader>aigs", "<cmd>ChatGPTRun summarize<cr>", desc = "Summarize", mode = { "n", "v" } },
+  { "<leader>aigf", "<cmd>ChatGPTRun fix_bugs<cr>", desc = "Fix Bugs", mode = { "n", "v" } },
+  { "<leader>aigx", "<cmd>ChatGPTRun explain_code<cr>", desc = "Explain Code", mode = { "n", "v" } },
   {
-    "<leader>ail",
+    "<leader>aigl",
     "<cmd>ChatGPTRun code_readability_analysis<cr>",
     desc = "Code Readability Analysis",
     mode = { "n", "v" },
@@ -496,7 +498,8 @@ map.set("n", "<F3>", ":NvimTreeToggle<cr>", { desc = "nvim tree (project directo
 map.set("n", "<F4>", ":AerialToggle<cr>", { desc = "aerial classes and methods tree" })
 map.set("n", "<F5>", ":TelescopeSelectLocalClipboardFiles<cr>", { desc = "telescope select local clipboard file" })
 map.set("n", "<F8>", ":Telescope bookmarks list<cr>", { desc = "telescope bookmarks list" })
-map.set("n", "<F10>", ":ChatGPT<cr>", { desc = "ChatGPT prompt (<C-h> to show help menu)" })
+map.set("n", "<F9>", ":ChatGPT<cr>", { desc = "ChatGPT prompt (<C-h> to show help menu)" })
+map.set("n", "<F10>", ":AvanteToggle<cr>", { desc = "Toggle Avante (Anthropic Claude AI)" })
 map.set("n", "<F12>", ":Markview toggle<cr>", { desc = "(markdown) turns markview on/off" })
 
 --> VISUAL (selection) mode
