@@ -18,6 +18,10 @@ vim.api.nvim_create_autocmd("VimEnter", {
       highlight Comment guifg=#f5eea3
     ]])
 
+    -- forces nvim background to be transparent
+    vim.api.nvim_set_hl(0, "Normal", { bg = "NONE" })
+    vim.api.nvim_set_hl(0, "NormalFloat", { bg = "NONE" })
+
     -- store the messages in Neovim's :messages history without showing a popup
     -- or printing anything to the command line.
     -- You can view these notifications later using the :messages command.
