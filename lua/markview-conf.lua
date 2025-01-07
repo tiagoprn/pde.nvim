@@ -6,7 +6,7 @@ if not status_ok then
 end
 
 markview.setup({
-  highlight_groups = "light",
+  highlight_groups = "dark",
   hybrid_modes = { "n" },
   initial_state = true, -- show or do not show the preview when opening a file
   checkboxes = {
