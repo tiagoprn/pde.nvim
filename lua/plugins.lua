@@ -89,7 +89,7 @@ require("lazy").setup({
     lazy = false,
     dependencies = {
       "nvim-treesitter/nvim-treesitter",
-      "nvim-tree/nvim-web-devicons",
+      "kyazdani42/nvim-web-devicons",
     },
   },
 
@@ -117,7 +117,7 @@ require("lazy").setup({
     ---@module 'oil'
     ---@type oil.SetupOpts
     opts = {},
-    dependencies = { "nvim-tree/nvim-web-devicons" }, -- use if prefer nvim-web-devicons
+    -- dependencies = { "kyazdani42/nvim-web-devicons" }, -- use if prefer nvim-web-devicons
   },
 
   -- Beautiful and customizable indentation
@@ -273,7 +273,7 @@ require("lazy").setup({
       "nvim-lua/plenary.nvim",
       "MunifTanjim/nui.nvim",
       --- The below dependencies are optional,
-      "nvim-tree/nvim-web-devicons", -- or echasnovski/mini.icons
+      "kyazdani42/nvim-web-devicons", -- or echasnovski/mini.icons
       {
         -- support for image pasting
         "HakonHarnes/img-clip.nvim",
