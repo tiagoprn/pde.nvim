@@ -117,6 +117,15 @@ require("lazy").setup({
     dependencies = "kyazdani42/nvim-web-devicons",
   },
 
+  -- Alternative file explorer (oil)
+  {
+    "stevearc/oil.nvim",
+    ---@module 'oil'
+    ---@type oil.SetupOpts
+    opts = {},
+    dependencies = { "nvim-tree/nvim-web-devicons" }, -- use if prefer nvim-web-devicons
+  },
+
   -- Beautiful and customizable indentation
   { "Yggdroot/indentLine" },
 

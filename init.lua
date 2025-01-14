@@ -218,6 +218,7 @@ require("markview-conf")
 require("bookmarks-conf")
 require("obsidian-conf")
 require("avante-conf")
+require("oil-conf")
 
 -- Source additional Vimscript plugin configurations
 -- TODO: these need to be converted to Lua

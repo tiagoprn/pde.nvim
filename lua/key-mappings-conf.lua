@@ -494,7 +494,13 @@ map.set("n", "<leader>]", ":cn<cr>", { desc = "quickfix next item" })
 map.set("n", "<leader>[", ":cp<cr>", { desc = "quickfix previous item" })
 
 -- FUNCTION KEYS
-map.set("n", "<F3>", ":NvimTreeToggle<cr>", { desc = "nvim tree (project directory)" })
+-- map.set("n", "<F3>", ":NvimTreeToggle<cr>", { desc = "nvim tree (project directory)" })
+map.set(
+  "n",
+  "<F2>",
+  "<cmd>lua require'oil'.toggle_float()<cr>",
+  { desc = "buffer file manager (oil) - save buffer to apply changes" }
+)
 map.set("n", "<F4>", ":AerialToggle<cr>", { desc = "aerial classes and methods tree" })
 map.set("n", "<F5>", ":TelescopeSelectLocalClipboardFiles<cr>", { desc = "telescope select local clipboard file" })
 map.set("n", "<F8>", ":Telescope bookmarks list<cr>", { desc = "telescope bookmarks list" })
