@@ -494,7 +494,7 @@ map.set("n", "<leader>]", ":cn<cr>", { desc = "quickfix next item" })
 map.set("n", "<leader>[", ":cp<cr>", { desc = "quickfix previous item" })
 
 -- FUNCTION KEYS
--- map.set("n", "<F3>", ":NvimTreeToggle<cr>", { desc = "nvim tree (project directory)" })
+map.set("n", "<F3>", ":NvimTreeToggle<cr>", { desc = "nvim tree (project directory)" })
 map.set(
   "n",
   "<F2>",
