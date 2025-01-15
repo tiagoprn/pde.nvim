@@ -409,11 +409,11 @@ which_key.add({
   { "<leader>Tt", ":TodoTelescope keywords=TODO<cr>", desc = "telescope browse TODOs" },
   -- toggle
   { "<leader>x", group = "toggle" },
-  { "<leader>xc", ":set list!<cr>", desc = "special chars (listchars)" },
-  { "<leader>xi", ":set cuc!<cr>", desc = "current column indentation" },
-  { "<leader>xl", ":set number! relativenumber!<cr>", desc = "line numbers on/off" },
-  { "<leader>xc", ":set cursorline!<cr>", desc = "current line" },
-  { "<leader>xn", ":set rnu!<cr>", desc = "relative line numbers" },
+  { "<leader>xx", ":set list!<cr>", desc = "special chars (listchars)" },
+  { "<leader>xc", ":set cuc!<cr>", desc = "current column indentation" },
+  { "<leader>xn", ":set number! relativenumber!<cr>", desc = "line numbers on/off" },
+  { "<leader>xl", ":set cursorline!<cr>", desc = "current line" },
+  { "<leader>xr", ":set rnu!<cr>", desc = "relative line numbers" },
   -- zen focus mode
   { "<leader>z", group = "zen focus mode" },
   { "<leader>zc", ":ZenCode<cr>", desc = "code full screen" },
