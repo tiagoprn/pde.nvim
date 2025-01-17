@@ -26,14 +26,22 @@ $ sudo apt install -y nodejs
 
 #### python
 
-To be able to use virtualenvs in python projects but not have to install the library pynvim on each one of them, I can create a pyenv virtualenv called neovim, and install the nvim requirements there. Then, the configuration `g:python3_host_prog` on my `init.vim` will point to the python interpreter that has the integration library. Reference: <https://neovim.io/doc/user/provider.html#python-virtualenv>
+To be able to use virtualenvs in python projects but not have to install the library pynvim on each one of them, I can create a pyenv virtualenv called neovim, and install the nvim requirements there. Then, the configuration `vim.g.python3_host_prog` on my `init.lua` will point to the python interpreter that has the integration library. Reference: <https://neovim.io/doc/user/provider.html#python-virtualenv>
 
 E.g. on how to setup that virtualenv (adapted to my workflow):
 
 ```bash
+
+# using uv
+$ uv venv --python 3.12 $HOME/.pyenv/versions/neovim
+$ source $HOME/.pyenv/versions/neovim/bin/activate
+$ uv pip install -r /storage/src/devops/python/requirements.nvim-lsp  # https://github.com/tiagoprn/devops/blob/master/python/requirements.nvim-lsp
+
+# using pyenv
 $ pyenv virtualenv 3.12.3 neovim
 $ pyenv activate neovim
 $ pip install -r /storage/src/devops/python/requirements.nvim-lsp  # https://github.com/tiagoprn/devops/blob/master/python/requirements.nvim-lsp
+
 ```
 
 That will install not only pynvim, but also other packages related to python LSP on neovim (pylsp - python language server, black, pylint, isort, etc...) on this common environment. If the need arises to use different versions of any of them, I can manually install the libraries listed at <https://github.com/tiagoprn/devops/blob/master/python/requirements.nvim-lsp> on the project's virtualenv.
