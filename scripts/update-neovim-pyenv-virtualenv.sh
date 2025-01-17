@@ -6,15 +6,14 @@ set -eou pipefail
 export PYENV_ROOT="$HOME/.pyenv"
 
 # Set the desired Python version and virtualenv name
-PYTHON_VERSION="3.12.3"
 VIRTUALENV_NAME="neovim"
 
 TIMESTAMP="$(date "+%Y%m%d-%H%M-%S")"
 
-LOGS_ROOT="$HOME/.pyenv-logs/$PYTHON_VERSION-$VIRTUALENV_NAME/auto-updates/$TIMESTAMP"
+LOGS_ROOT="$HOME/.pyenv-logs/$VIRTUALENV_NAME/auto-updates/$TIMESTAMP"
 mkdir -p "$LOGS_ROOT"
 
-source "$PYENV_ROOT/versions/$PYTHON_VERSION/envs/$VIRTUALENV_NAME/bin/activate"
+source "$PYENV_ROOT/versions/$VIRTUALENV_NAME/bin/activate"
 
 echo "-----"
 
