@@ -14,14 +14,24 @@ obsidian.setup({
       },
     },
   },
+  new_notes_location = "notes_subdir",
   completion = {
     nvim_cmp = true,
     min_chars = 2,
-    new_notes_location = "notes_subdir",
     prepend_note_id = true,
   },
   -- Either 'wiki' or 'markdown'.
   preferred_link_style = "wiki",
+  -- Below is due to https://github.com/epwalsh/obsidian.nvim/pull/406
+  wiki_link_func = function(opts)
+    if opts.id == nil then
+      return string.format("[[%s]]", opts.label)
+    elseif opts.label ~= opts.id then
+      return string.format("[[%s|%s]]", opts.id, opts.label)
+    else
+      return string.format("[[%s]]", opts.id)
+    end
+  end,
   -- customizes how notes ids are generated
   note_id_func = function(title)
     -- Create note IDs in a Zettelkasten format with a timestamp and a suffix.
