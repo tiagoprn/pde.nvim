@@ -44,6 +44,17 @@ lsp.ruff.setup({
         })
       end,
     })
+
+    -- mapping to format the selection with ruff
+    vim.keymap.set("v", "<leader>cf", function()
+      vim.lsp.buf.format({
+        async = true,
+        range = {
+          ["start"] = vim.api.nvim_buf_get_mark(0, "<"),
+          ["end"] = vim.api.nvim_buf_get_mark(0, ">"),
+        },
+      })
+    end, { buffer = bufnr, desc = "Format selection with Ruff" })
   end,
   init_options = {
     settings = {
