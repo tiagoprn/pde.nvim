@@ -1,4 +1,18 @@
-#!/usr/bin/env python3
+# /// script
+# requires-python = ">=3.12"
+# dependencies = [
+#   "typer",
+#   "requests"
+# ]
+# ///
+
+"""
+The headers above are defined on PEP 723,
+and they allow a script to run with uv running:
+
+    uv run script.py
+
+"""
 
 import logging
 import os

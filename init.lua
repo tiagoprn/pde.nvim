@@ -157,7 +157,10 @@ vim.g.python3_host_prog = "~/.pyenv/versions/neovim/bin/python"
 vim.cmd("source $HOME/.config/nvim/functions.vim")
 vim.cmd("source $HOME/.config/nvim/commands.vim")
 vim.cmd("source $HOME/.config/nvim/abbreviations.vim")
-vim.cmd("source $HOME/.config/nvim/hooks.vim")
+
+-- Disabled, since vim file was converted to lua (./lua/hooks.lua). Remove this line and hooks.vim after some time.
+-- vim.cmd("source $HOME/.config/nvim/hooks.vim")
+require("custom_hooks")
 
 -- Bootstrap lazy.nvim
 local lazy_path = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"

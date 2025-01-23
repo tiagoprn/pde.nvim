@@ -20,3 +20,5 @@ oil.setup({
   },
   watch_for_changes = true,
 })
+
+vim.keymap.set("n", "<Esc>", require("oil").close, { desc = "Close oil" })
