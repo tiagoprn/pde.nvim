@@ -499,7 +499,7 @@ map.set(
   "n",
   "<F2>",
   "<cmd>lua require'oil'.toggle_float()<cr>",
-  { desc = "buffer file manager (oil) - save buffer to apply changes" }
+  { desc = "(oil) toggle buffer file manager - save buffer to apply changes" }
 )
 map.set("n", "<F4>", ":AerialToggle<cr>", { desc = "aerial classes and methods tree" })
 map.set("n", "<F5>", ":TelescopeSelectLocalClipboardFiles<cr>", { desc = "telescope select local clipboard file" })
