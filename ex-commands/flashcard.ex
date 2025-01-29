@@ -1,2 +1,2 @@
-norm ggIflashcard
+norm ggIflashcard_writeloop
 startinsert!

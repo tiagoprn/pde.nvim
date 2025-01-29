@@ -73,7 +73,7 @@ snippet bib-note
 
 	${4}
 
-snippet flashcard
+snippet flashcard_writeloop
 	---
 	author: "Tiago Paranhos Lima"
 	title: "${1}"
@@ -86,6 +86,29 @@ snippet flashcard
 	---
 
 	${4}
+
+snippet recall-flashcard-new
+  ## Card
+  id: `strftime("%s")`
+  Q: ${1:type the question here}
+  A: ${2:type the answer here}
+  QR: ${3:type the reverse question here (turn the original answer into the question)}
+  AR: ${4:type the reverse answer here (turn the original question into the answer)}
+  Tags: ${5:tag1, tag2, ...}
+
+snippet recall-tracking-file-entry
+	## ${1: today}
+  - ${2: card_id, card_direction(A/AR), status, current_interval, next_review_date}
+
+snippet recall-tracking-file
+  # Tracking Journal
+
+  ## Card Status Legend
+  - Status: EASY (21 days), GOOD (14 days), HARD (7 days), FORGOT (1 day)
+  - Format: id, direction(A/AR), status, current_interval, next_review_date
+
+  recall-tracking-file-entry
+
 
 snippet zettelkasten
 	---
