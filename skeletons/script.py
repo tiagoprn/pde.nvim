@@ -12,6 +12,17 @@ and they allow a script to run with uv running:
 
     uv run script.py
 
+
+If you want to run the script directly, you can also include the following on your shebang line:
+
+    #!/usr/bin/env -S uv run --script
+
+(on my vim snippets this is "env_python_uv")
+
+Then, chmod the file to be executable (e.g. chmod 755 script.py)
+
+Given all this, the shell will run "uv run --script" with the file as the argument.
+
 """
 
 import logging
