@@ -117,15 +117,6 @@ vim.cmd("highlight CursorLine guibg=#c0c0c0 ctermbg=238")
 
 -- Highlight current column
 vim.o.cursorcolumn = false
-vim.cmd("hi CursorColumn cterm=none term=none")
-vim.api.nvim_create_autocmd({ "WinEnter" }, {
-  pattern = "*",
-  command = "setlocal cursorcolumn",
-})
-vim.api.nvim_create_autocmd({ "WinLeave" }, {
-  pattern = "*",
-  command = "setlocal nocursorcolumn",
-})
 vim.cmd("highlight CursorColumn guibg=#303000 ctermbg=238")
 
 -- --- Configure rg integration
