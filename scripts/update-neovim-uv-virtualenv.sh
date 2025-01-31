@@ -3,7 +3,7 @@
 set -eou pipefail
 
 # Set your virtualenv path here
-VENV_PATH="/home/tiago/.pyenv/versions/3.12.3/envs/neovim"
+VENV_PATH="$HOME/.pyenv/versions/neovim"
 VIRTUALENV_NAME=$(basename "$VENV_PATH")
 
 # Validate that the path exists and contains a virtualenv
