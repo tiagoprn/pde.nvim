@@ -55,7 +55,8 @@ local skeleton_files = {
 }
 
 -- Create new files from skeletons
-vim.api.nvim_create_autocmd({ "BufNewFile", "BufWritePre" }, {
+-- vim.api.nvim_create_autocmd({ "BufNewFile", "BufWritePre" }, {
+vim.api.nvim_create_autocmd({ "BufNewFile" }, {
   pattern = { "*.sh", "*.py", "*.lua" },
   callback = function()
     local filepath = vim.fn.expand("%")

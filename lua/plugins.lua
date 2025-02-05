@@ -132,8 +132,8 @@ require("lazy").setup({
   -- Commenting utility
   { "numToStr/Comment.nvim" },
 
-  -- Show contents of vim registers on a sidebar
-  { "junegunn/vim-peekaboo" },
+  -- Show contents of vim registers on a sidebar (removed, this plugin causes bugs when dealing with normal windows)
+  -- { "junegunn/vim-peekaboo" },
 
   -- Auto pairs
   { "windwp/nvim-autopairs" },
