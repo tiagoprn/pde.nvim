@@ -41,27 +41,32 @@ which_key.add({
   },
   { "<leader>acl", ":FlowLauncher<cr>", desc = "(flow) run launcher" },
   { "<leader>aco", ":FlowLastOutput<cr>", desc = "(flow) show last output" },
-  { "<leader>ai", group = "AI (avante)" },
+  -- { "<leader>ai", group = "AI (avante)" },
+  --
+  -- { "<leader>aig", group = "AI (ChatGPT)" },
+  -- { "<leader>aiga", "<cmd>ChatGPTRun chat_with_selection<cr>", desc = "Chat with selection", mode = { "v" } },
+  -- { "<leader>aigc", "<cmd>ChatGPTRun complete_code<cr>", desc = "Create/Complete Code", mode = { "n", "v" } },
+  -- { "<leader>aige", "<cmd>ChatGPTEditWithInstruction<cr>", desc = "Edit with instruction", mode = { "n", "v" } },
+  -- { "<leader>aigg", "<cmd>ChatGPTRun grammar_correction<cr>", desc = "Grammar Correction", mode = { "n", "v" } },
+  -- { "<leader>aigt", "<cmd>ChatGPTRun translate<cr>", desc = "Translate", mode = { "n", "v" } },
+  -- { "<leader>aigk", "<cmd>ChatGPTRun keywords<cr>", desc = "Keywords", mode = { "n", "v" } },
+  -- { "<leader>aigd", "<cmd>ChatGPTRun docstring<cr>", desc = "Docstring", mode = { "n", "v" } },
+  -- { "<leader>aigT", "<cmd>ChatGPTRun add_tests<cr>", desc = "Add Tests", mode = { "n", "v" } },
+  -- { "<leader>aigo", "<cmd>ChatGPTRun optimize_code<cr>", desc = "Optimize Code", mode = { "n", "v" } },
+  -- { "<leader>aigs", "<cmd>ChatGPTRun summarize<cr>", desc = "Summarize", mode = { "n", "v" } },
+  -- { "<leader>aigf", "<cmd>ChatGPTRun fix_bugs<cr>", desc = "Fix Bugs", mode = { "n", "v" } },
+  -- { "<leader>aigx", "<cmd>ChatGPTRun explain_code<cr>", desc = "Explain Code", mode = { "n", "v" } },
+  -- {
+  --   "<leader>aigl",
+  --   "<cmd>ChatGPTRun code_readability_analysis<cr>",
+  --   desc = "Code Readability Analysis",
+  --   mode = { "n", "v" },
+  -- },
+  { "<leader>ai", group = "AI (CODE COMPANION)" },
+  { "<leader>aia", ":CodeCompanionActions<cr>", desc = "Select Action" },
+  { "<leader>aih", "<cmd>lua require('tiagoprn.forms').codecompanion_help()<cr>", desc = "help" },
+  { "<F10>", ":CodeCompanionChat<cr>", desc = "Toggle" },
 
-  { "<leader>aig", group = "AI (ChatGPT)" },
-  { "<leader>aiga", "<cmd>ChatGPTRun chat_with_selection<cr>", desc = "Chat with selection", mode = { "v" } },
-  { "<leader>aigc", "<cmd>ChatGPTRun complete_code<cr>", desc = "Create/Complete Code", mode = { "n", "v" } },
-  { "<leader>aige", "<cmd>ChatGPTEditWithInstruction<cr>", desc = "Edit with instruction", mode = { "n", "v" } },
-  { "<leader>aigg", "<cmd>ChatGPTRun grammar_correction<cr>", desc = "Grammar Correction", mode = { "n", "v" } },
-  { "<leader>aigt", "<cmd>ChatGPTRun translate<cr>", desc = "Translate", mode = { "n", "v" } },
-  { "<leader>aigk", "<cmd>ChatGPTRun keywords<cr>", desc = "Keywords", mode = { "n", "v" } },
-  { "<leader>aigd", "<cmd>ChatGPTRun docstring<cr>", desc = "Docstring", mode = { "n", "v" } },
-  { "<leader>aigT", "<cmd>ChatGPTRun add_tests<cr>", desc = "Add Tests", mode = { "n", "v" } },
-  { "<leader>aigo", "<cmd>ChatGPTRun optimize_code<cr>", desc = "Optimize Code", mode = { "n", "v" } },
-  { "<leader>aigs", "<cmd>ChatGPTRun summarize<cr>", desc = "Summarize", mode = { "n", "v" } },
-  { "<leader>aigf", "<cmd>ChatGPTRun fix_bugs<cr>", desc = "Fix Bugs", mode = { "n", "v" } },
-  { "<leader>aigx", "<cmd>ChatGPTRun explain_code<cr>", desc = "Explain Code", mode = { "n", "v" } },
-  {
-    "<leader>aigl",
-    "<cmd>ChatGPTRun code_readability_analysis<cr>",
-    desc = "Code Readability Analysis",
-    mode = { "n", "v" },
-  },
   { "<leader>al", ":PrintLspSupportedRequests<cr>", desc = "print all supported requests on the current LSP server" },
   { "<leader>at", group = "tmux" },
   {
@@ -505,7 +510,7 @@ map.set("n", "<F4>", ":AerialToggle<cr>", { desc = "aerial classes and methods t
 map.set("n", "<F5>", ":TelescopeSelectLocalClipboardFiles<cr>", { desc = "telescope select local clipboard file" })
 map.set("n", "<F8>", ":Telescope bookmarks list<cr>", { desc = "telescope bookmarks list" })
 map.set("n", "<F9>", ":ChatGPT<cr>", { desc = "ChatGPT prompt (<C-h> to show help menu)" })
-map.set("n", "<F10>", ":AvanteToggle<cr>", { desc = "Toggle Avante (Anthropic Claude AI)" })
+-- map.set("n", "<F10>", ":AvanteToggle<cr>", { desc = "Toggle Avante (Anthropic Claude AI)" })
 map.set("n", "<F12>", ":Markview toggle<cr>", { desc = "(markdown) turns markview on/off" })
 
 --> VISUAL (selection) mode
@@ -523,6 +528,8 @@ end, { desc = "save visual selection to file", noremap = true, silent = true })
 map.set("v", "<leader>y", '"+y', { desc = "YANK/COPY to system clipboard" })
 map.set("v", "<leader>acr", ":FlowRunSelected<cr>", { desc = "run selection on new buffer" })
 
+map.set("v", "<leader>aia", ":CodeCompanionActions<cr>", { desc = "CODE COMPANION - Select Action" })
+map.set("v", "<leader>aip", ":CodeCompanion<cr>", { desc = "CODE COMPANION - Run prompt on selection" })
 --> INSERT mode
 map.set("i", "<C-right>", "<Esc>:tabnext<cr>", { desc = "go to next tab" })
 map.set("i", "<C-left>", "<Esc>:tabprevious<cr>", { desc = "go to previous tab" })
