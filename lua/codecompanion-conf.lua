@@ -14,7 +14,7 @@ codecompanion.setup({
         },
         schema = {
           model = {
-            default = "gpt-4",
+            default = "gpt-4", -- check more using my curl navi cheat for openai
           },
         },
       })
@@ -23,6 +23,11 @@ codecompanion.setup({
       return require("codecompanion.adapters").extend("anthropic", {
         env = {
           api_key = "cmd:pass api-keys/anthropic 2>/dev/null",
+        },
+        schema = {
+          model = {
+            default = "claude-3-5-sonnet-20241022", -- check more using my curl navi cheat for anthropic
+          },
         },
       })
     end,
