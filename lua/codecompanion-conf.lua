@@ -14,7 +14,7 @@ codecompanion.setup({
         },
         schema = {
           model = {
-            default = "gpt-4", -- check more using my curl navi cheat for openai
+            default = "gpt-4", -- (gpt-4, ...: check more using my curl navi cheat for openai)
           },
         },
       })
@@ -31,13 +31,25 @@ codecompanion.setup({
         },
       })
     end,
+    deepseek = function()
+      return require("codecompanion.adapters").extend("deepseek", {
+        env = {
+          api_key = "cmd:pass api-keys/deepseek 2>/dev/null",
+        },
+        schema = {
+          model = {
+            default = "deepseek-reasoner", -- deepseek-chat, deepseek-reasoner
+          },
+        },
+      })
+    end,
   },
   strategies = {
     chat = {
-      adapter = "anthropic", -- default. options: openai, anthropic
+      adapter = "anthropic", -- default. options: openai, anthropic, deepseek
     },
     inline = {
-      adapter = "anthropic", -- default. options: openai, anthropic
+      adapter = "anthropic", -- default. options: openai, anthropic, deepseek
     },
   },
   saved_chats = {
