@@ -50,7 +50,8 @@ function M.live_multigrep(opts)
   pickers
     .new(opts, {
       debounce = 100, -- time to wait when I type the prompt
-      prompt_title = "Live Multi Grep (e.g. use <SPACE><SPACE>.PY after the text to filter for python files)",
+      prompt_title = "Live Multi Grep (e.g. use <SPACE><SPACE>.py after the text to filter for python files)",
+      results_title = "Multi Grep Results",
       finder = finder,
       previewer = conf.grep_previewer(opts),
       sorter = require("telescope.sorters").empty(), -- no sorter, since rg will do that
