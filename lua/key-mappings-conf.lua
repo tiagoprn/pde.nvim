@@ -87,7 +87,36 @@ which_key.add({
   { "<leader>atr", ":RunCommandOnTmuxScratchpadSession<cr>", desc = "run bash command on tmux scratchpad session" },
   -- clipboard
   { "<leader>b", group = "clipboard" },
-  { "<leader>ba", "<cmd>let @+=expand('%:p')..':'..line('.')<cr>", desc = "current buffer absolute path" },
+  {
+    "<leader>ba",
+    "<cmd>lua require('tiagoprn.buffer_utils').copy_current_buffer_absolute_path()<cr>",
+    desc = "copy current buffer absolute path to /tmp/copied.txt",
+  },
+  {
+    "<leader>br",
+    "<cmd>lua require('tiagoprn.buffer_utils').copy_current_buffer_relative_path()<cr>",
+    desc = "copy current buffer relative path to /tmp/copied.txt",
+  },
+  {
+    "<leader>bn",
+    "<cmd>lua require('tiagoprn.buffer_utils').copy_current_buffer_name()<cr>",
+    desc = "copy current buffer name to /tmp/copied.txt",
+  },
+  {
+    "<leader>bA",
+    "<cmd>lua require('tiagoprn.buffer_utils').copy_current_buffer_absolute_path_with_position()<cr>",
+    desc = "copy current buffer absolute path (WITH POSITION) to /tmp/copied.txt",
+  },
+  {
+    "<leader>bR",
+    "<cmd>lua require('tiagoprn.buffer_utils').copy_current_buffer_relative_path_with_position()<cr>",
+    desc = "copy current buffer relative path (WITH POSITION) to /tmp/copied.txt",
+  },
+  {
+    "<leader>bN",
+    "<cmd>lua require('tiagoprn.buffer_utils').copy_current_buffer_name_with_position()<cr>",
+    desc = "copy current buffer name (WITH POSITION) to /tmp/copied.txt",
+  },
   { "<leader>be", ":Telescope registers<cr>", desc = "telescope browse registers" },
   {
     "<leader>bg",
@@ -100,24 +129,7 @@ which_key.add({
     desc = "copy current git branch name to clipboard (replacing / character with .)",
   },
   { "<leader>bl", ":let @+=line('.')<cr>", desc = "current line number" },
-  { "<leader>bn", "<cmd>let @+=expand('%:t')..':'..line('.')<cr>", desc = "current buffer name" },
   { "<leader>bp", '"+p', desc = "paste from system clipboard" },
-  { "<leader>br", "<cmd>let @+=expand('%:.')..':'..line('.')<cr>", desc = "current buffer relative path" },
-  {
-    "<leader>bA",
-    ":GetCurrentFilenamePositionAndCopyToClipboard<cr>",
-    desc = "treesitter - copy current file/buffer name with position to clipboard",
-  },
-  {
-    "<leader>bN",
-    ":GetCurrentFileAbsolutePositionAndCopyToClipboard<cr>",
-    desc = "treesitter - copy current file/buffer full/absolute path with position to clipboard",
-  },
-  {
-    "<leader>bR",
-    ":GetCurrentFileRelativePositionAndCopyToClipboard<cr>",
-    desc = "treesitter - copy current file/buffer relative path with position to clipboard",
-  },
   -- coding
   { "<leader>c", group = "coding" },
   { "<leader>cA", ":Lspsaga code_action<cr>", desc = "code action" },
@@ -452,6 +464,12 @@ map.set("n", "<C-left>", ":tabprevious<cr>", { desc = "go to previous tab" })
 -- Keep the cursor in place when you join lines with J. That will also drop a mark before the operation to which you return afterwards:
 map.set("n", "J", "mzJ`z", { desc = "join lines keeping cursor in place" })
 
+map.set(
+  "n",
+  "<C-g>g",
+  "<cmd>lua require('tiagoprn.telescope_multigrep').live_multigrep()<cr>",
+  { desc = "telescope custom search using rg and optional glob filters" }
+)
 map.set(
   "n",
   "<C-g>o",

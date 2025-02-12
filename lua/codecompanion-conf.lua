@@ -6,6 +6,21 @@ if not status_ok then
 end
 
 codecompanion.setup({
+  display = {
+    action_palette = {
+      width = 95,
+      height = 10,
+      prompt = "Prompt ", -- Prompt used for interactive LLM calls
+      provider = "telescope", -- default|telescope|mini_pick
+      opts = {
+        show_default_actions = true, -- Show the default actions in the action palette?
+        show_default_prompt_library = true, -- Show the default prompt library in the action palette?
+      },
+    },
+    chat = {
+      show_settings = true,
+    },
+  },
   adapters = {
     openai = function()
       return require("codecompanion.adapters").extend("openai", {
@@ -50,9 +65,19 @@ codecompanion.setup({
     },
     inline = {
       adapter = "anthropic", -- default. options: openai, anthropic, deepseek
+      keymaps = {
+        accept_change = {
+          modes = { n = "ga" },
+          description = "CODECOMPANION - Accept all suggested changes",
+        },
+        reject_change = {
+          modes = { n = "gr" },
+          description = "CODECOMPANION - Rejects all suggested changes",
+        },
+      },
     },
   },
-  saved_chats = {
-    save_dir = vim.fn.getenv("HOME") .. "/nvim-codecompanion/saved_chats", -- Path to save chats to
-  },
+  -- saved_chats = {
+  --   save_dir = vim.fn.getenv("HOME") .. "/nvim-codecompanion/saved_chats", -- Path to save chats to
+  -- },
 })

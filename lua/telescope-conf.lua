@@ -161,3 +161,11 @@ require("telescope").load_extension("fzf")
 
 -- To get ui-select loaded and working with telescope
 require("telescope").load_extension("ui-select")
+
+vim.keymap.set("n", "<leader>pf", function()
+  require("telescope.builtin").find_files({
+    cwd = vim.fs.joinpath(vim.fn.stdpath("data"), "lazy"),
+  })
+end, { desc = "open plugin file (useful to inspect on how to do something or how it works)" })
+
+-- 2:03 - fzf match on files with specific extension
