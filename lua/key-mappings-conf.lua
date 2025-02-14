@@ -88,6 +88,11 @@ which_key.add({
   -- clipboard
   { "<leader>b", group = "clipboard" },
   {
+    "<leader>bf",
+    "<cmd>lua require('tiagoprn.buffer_utils').copy_default_clipboard_register_to_file()<cr>",
+    desc = "copy contents of default clipboard register to /tmp/copied.txt",
+  },
+  {
     "<leader>ba",
     "<cmd>lua require('tiagoprn.buffer_utils').copy_current_buffer_absolute_path()<cr>",
     desc = "copy current buffer absolute path to /tmp/copied.txt",
@@ -539,15 +544,12 @@ map.set("v", "<leader>ox", ":ObsidianExtractNote<cr>", { desc = "Obsidian: Extra
 map.set("v", "<leader>oe", ":ObsidianLink<cr>", { desc = "Obsidian: Create Link to existing note" })
 map.set("v", "<leader>on", ":ObsidianLinkNew<cr>", { desc = "Obsidian: Create Link to new note" })
 
-map.set("v", "<leader>f", function()
-  require("tiagoprn.text_utils").copy_visual_selection_to_file()
-end, { desc = "save visual selection to file", noremap = true, silent = true })
-
 map.set("v", "<leader>y", '"+y', { desc = "YANK/COPY to system clipboard" })
 map.set("v", "<leader>acr", ":FlowRunSelected<cr>", { desc = "run selection on new buffer" })
 
 map.set("v", "<leader>aia", ":CodeCompanionActions<cr>", { desc = "CODE COMPANION - Select Action" })
 map.set("v", "<leader>aip", ":CodeCompanion<cr>", { desc = "CODE COMPANION - Run prompt on selection" })
+
 --> INSERT mode
 map.set("i", "<C-right>", "<Esc>:tabnext<cr>", { desc = "go to next tab" })
 map.set("i", "<C-left>", "<Esc>:tabprevious<cr>", { desc = "go to previous tab" })

@@ -37,4 +37,28 @@ function M.copy_current_buffer_relative_path_with_position()
   vim.fn.writefile({ path_with_position }, "/tmp/copied.txt")
 end
 
+function M.copy_default_clipboard_register_to_file()
+  local yank_text = vim.fn.getreg("+")
+
+  -- If the register is empty, do nothing
+  if yank_text == nil or yank_text == "" then
+    return
+  end
+
+  local file_path = "/tmp/copied.txt"
+  local file = io.open(file_path, "w")
+
+  if file then
+    file:write(yank_text)
+    file:close()
+
+    -- Check if inside tmux and send a notification
+    if os.getenv("TMUX") then
+      os.execute("tmux display-message 'Saved to /tmp/copied.txt!'")
+    end
+  else
+    vim.notify("Failed to write to " .. file_path, vim.log.levels.ERROR)
+  end
+end
+
 return M

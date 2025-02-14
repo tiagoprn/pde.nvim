@@ -70,6 +70,10 @@ function M.write_to_file(file_path, text)
 end
 
 function M.copy_visual_selection_to_file()
+  -- NOTE: I am not using this function anymore, instead I am copying what is on the
+  --       default register clipboard to a file (buffer_utils.copy_default_clipboard_register_to_file()).
+  --       But I am keeping this as an example on how to deal with a visual selection in lua.
+
   -- Check if there is an active visual selection
   local mode = vim.fn.mode()
   if not mode:match("[vV\x16]") then

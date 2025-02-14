@@ -53,6 +53,7 @@ if vim.fn.executable("wl-copy") == 1 and vim.fn.executable("wl-paste") == 1 then
     },
     cache_enabled = 0,
   }
+  vim.notify("Using Wayland clipboard configuration", vim.log.levels.INFO)
 elseif vim.fn.executable("tmux") == 1 and vim.env.TMUX ~= nil then
   -- Use tmux clipboard commands if tmux is installed and inside a tmux session
   vim.o.clipboard = "unnamedplus"
@@ -68,10 +69,12 @@ elseif vim.fn.executable("tmux") == 1 and vim.env.TMUX ~= nil then
     },
     cache_enabled = 0,
   }
+  vim.notify("Using Tmux clipboard configuration", vim.log.levels.INFO)
 else
   -- Fallback to default clipboard behavior
-  vim.o.clipboard = ""
+  vim.o.clipboard = "unnamedplus"
   vim.g.clipboard = nil
+  vim.notify("Using default clipboard configuration", vim.log.levels.INFO)
 end
 
 -- Disable backup and swap files - they trigger too many events for file system watchers
