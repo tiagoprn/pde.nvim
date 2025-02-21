@@ -14,7 +14,7 @@ local helpers = require("tiagoprn.helpers")
 local project_root = vim.fn.getcwd()
 
 local my_custom_source_handler_02 = function(params)
-  -- reference: https://www.youtube.com/watch?v=q-oBU2fO1H4
+  -- reference: https://www.youtube.com/watch?v=q-oBU1fO1H4
   local out = {}
 
   -- get current line where it has the string "amazing" - the params var has many other
@@ -85,10 +85,18 @@ local sources = {
       local skip_pylint_file = project_root .. "/" .. "skip-pylint"
       local skip_pylint_file_exists = helpers.get_file_exists(skip_pylint_file)
       if skip_pylint_file_exists == true then
-        vim.notify("skip-pylint file found on project root, pylint will be disabled for this file.")
+        vim.api.nvim_echo(
+          { { "skip-pylint file found on project root, pylint will be disabled for this file.", "WarningMsg" } },
+          true,
+          {}
+        )
         return false
       else
-        vim.notify("skip-pylint file NOT found on project root, so pylint will be enabled for this file.")
+        vim.api.nvim_echo(
+          { { "skip-pylint file NOT found on project root, so pylint will be enabled for this file.", "WarningMsg" } },
+          true,
+          {}
+        )
         return true
       end
     end,
@@ -101,10 +109,14 @@ local sources = {
 
       if current_venv then
         venv = current_venv
-        vim.notify("Current VENV defined as " .. current_venv .. " ")
+        vim.api.nvim_echo({ { "Current VENV defined as " .. current_venv .. " ", "WarningMsg" } }, true, {})
       else
         venv = default_venv
-        vim.notify("Current VENV NOT defined, using default (" .. default_venv .. ") ")
+        vim.api.nvim_echo(
+          { { "Current VENV NOT defined, using default (" .. default_venv .. ") ", "WarningMsg" } },
+          true,
+          {}
+        )
       end
 
       local path = vim.fn.expand(venv .. "/bin/pylint")
@@ -122,11 +134,11 @@ local sources = {
       file_exists = helpers.get_file_exists(pylintrc_full_path)
 
       if file_exists == false then
-        vim.notify("Could not find .pylintrc, using default one.")
+        vim.api.nvim_echo({ { "Could not find .pylintrc, using default one.", "WarningMsg" } }, true, {})
         pylintrc_full_path = default_pylintrc
       end
 
-      vim.notify("Using .pylintrc from: " .. pylintrc_full_path)
+      vim.api.nvim_echo({ { "Using .pylintrc from: " .. pylintrc_full_path, "WarningMsg" } }, true, {})
 
       return {
         "--rcfile",
@@ -150,10 +162,10 @@ local sources = {
   -- 		local skip_ruff_file = project_root .. "/" .. "skip-ruff"
   -- 		local skip_ruff_file_exists = helpers.get_file_exists(skip_ruff_file)
   -- 		if skip_ruff_file_exists == true then
-  -- 			vim.notify("skip-ruff file found on project root, ruff will be disabled for this file.")
+  -- 			vim.api.nvim_echo({{ "skip-ruff file found on project root, ruff will be disabled for this file.", "WarningMsg" }}, true, {})
   -- 			return false
   -- 		else
-  -- 			vim.notify("skip-ruff file NOT found on project root, so ruff will be enabled for this file.")
+  -- 			vim.api.nvim_echo({{ "skip-ruff file NOT found on project root, so ruff will be enabled for this file.", "WarningMsg" }}, true, {})
   -- 			return true
   -- 		end
   -- 	end,
@@ -166,10 +178,10 @@ local sources = {
   --
   -- 		if current_venv then
   -- 			venv = current_venv
-  -- 			vim.notify("Current VENV defined as " .. current_venv .. " ")
+  -- 			vim.api.nvim_echo({{ "Current VENV defined as " .. current_venv .. " ", "WarningMsg" }}, true, {})
   -- 		else
   -- 			venv = default_venv
-  -- 			vim.notify("Current VENV NOT defined, using default (" .. default_venv .. ") ")
+  -- 			vim.api.nvim_echo({{ "Current VENV NOT defined, using default (" .. default_venv .. ") ", "WarningMsg" }}, true, {})
   -- 		end
   --
   -- 		local path = vim.fn.expand(venv .. "/bin/ruff")
@@ -187,11 +199,11 @@ local sources = {
   -- 		file_exists = helpers.get_file_exists(pyproject_toml_full_path)
   --
   -- 		if file_exists == false then
-  -- 			vim.notify("Could not find pyproject.toml, using default one.")
+  -- 			vim.api.nvim_echo({{ "Could not find pyproject.toml, using default one.", "WarningMsg" }}, true, {})
   -- 			pyproject_toml_full_path = default_pyproject_toml
   -- 		end
   --
-  -- 		vim.notify("Using pyproject.toml from: " .. pyproject_toml_full_path)
+  -- 		vim.api.nvim_echo({{ "Using pyproject.toml from: " .. pyproject_toml_full_path, "WarningMsg" }}, true, {})
   --
   -- 		return {
   -- 			"check",
@@ -213,10 +225,18 @@ local sources = {
       local skip_black_file = project_root .. "/" .. "skip-black"
       local skip_black_file_exists = helpers.get_file_exists(skip_black_file)
       if skip_black_file_exists == true then
-        vim.notify("skip-black file found on project root, black will be disabled for this file.")
+        vim.api.nvim_echo(
+          { { "skip-black file found on project root, black will be disabled for this file.", "WarningMsg" } },
+          true,
+          {}
+        )
         return false
       else
-        vim.notify("skip-black file NOT found on project root, so black will be enabled for this file.")
+        vim.api.nvim_echo(
+          { { "skip-black file NOT found on project root, so black will be enabled for this file.", "WarningMsg" } },
+          true,
+          {}
+        )
         return true
       end
     end,
@@ -243,10 +263,18 @@ local sources = {
       local skip_isort_file = project_root .. "/" .. "skip-isort"
       local skip_isort_file_exists = helpers.get_file_exists(skip_isort_file)
       if skip_isort_file_exists == true then
-        vim.notify("skip-isort file found on project root, isort will be disabled for this file.")
+        vim.api.nvim_echo(
+          { { "skip-isort file found on project root, isort will be disabled for this file.", "WarningMsg" } },
+          true,
+          {}
+        )
         return false
       else
-        vim.notify("skip-isort file NOT found on project root, so isort will be enabled for this file.")
+        vim.api.nvim_echo(
+          { { "skip-isort file NOT found on project root, so isort will be enabled for this file.", "WarningMsg" } },
+          true,
+          {}
+        )
         return true
       end
     end,
@@ -273,10 +301,10 @@ local sources = {
   -- 		local enable_flake8_file = project_root .. "/" .. "enable-flake8"
   -- 		local enable_flake8_file_exists = helpers.get_file_exists(enable_flake8_file)
   -- 		if enable_flake8_file_exists == true then
-  -- 			vim.notify("enable-flake8 file found on project root, so flake8 will be enabled for this file.")
+  -- 			vim.api.nvim_echo({{ "enable-flake8 file found on project root, so flake8 will be enabled for this file.", "WarningMsg" }}, true, {})
   -- 			return true
   -- 		else
-  -- 			vim.notify("enable-flake8 file NOT found on project root, so flake8 will be disabled for this file.")
+  -- 			vim.api.nvim_echo({{ "enable-flake8 file NOT found on project root, so flake8 will be disabled for this file.", "WarningMsg" }}, true, {})
   -- 			return false
   -- 		end
   -- 	end,
