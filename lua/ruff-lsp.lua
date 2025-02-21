@@ -7,7 +7,7 @@ vim.lsp.set_log_level("debug") -- change to "debug" for troubleshooting
 lsp.ruff.setup({
   init_options = {
     settings = { -- https://docs.astral.sh/ruff/editors/settings/#settings
-      -- configuration = "~/path/to/ruff.toml",
+      -- configuration = "~/path/to/ruff.toml",  -- https://docs.astral.sh/ruff/configuration/
       lineLength = 100,
       organizeImports = true,
       showSyntaxErrors = true,
