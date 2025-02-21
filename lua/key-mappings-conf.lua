@@ -302,18 +302,12 @@ which_key.add({
   { "<leader>lta", ":Telescope builtin<cr>", desc = "all commands" },
   -- messages & notifications
   { "<leader>m", group = "messages & notifications" },
-  { "<leader>mb", ":Telescope notify<cr>", desc = "browse history" },
-  { "<leader>mc", ":Noice dismiss<cr>", desc = "close all" },
-  { "<leader>md", ":Noice disable<cr>", desc = "disable noice plugin" },
-  { "<leader>me", ":Noice enable<cr>", desc = "enable noice plugin" },
-  { "<leader>mh", ":Noice history<cr>", desc = "show history" },
-  { "<leader>ml", ":Noice last<cr>", desc = "last" },
+  { "<leader>mm", ":messages<cr>", desc = "show" },
   {
     "<leader>mr",
     ':lua require("tiagoprn.toggle_redir").toggle()<cr>',
     desc = "toggle redirecting messages to file - NOT real time (toggle OFF to stop and see the contents)",
   },
-  { "<leader>mx", ":Noice errors<cr>", desc = "only error messages (on a split, last on top)" },
   -- navigation (code, hop, marks, lists etc)
   { "<leader>n", group = "navigation (code, hop, marks, lists etc)" },
   { "<leader>nC", ":lua require'aerial'.prev_up()<cr>", desc = "aerial go to previous class" },
