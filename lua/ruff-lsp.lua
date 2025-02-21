@@ -5,6 +5,15 @@ local lsp = require("lspconfig")
 vim.lsp.set_log_level("debug") -- change to "debug" for troubleshooting
 
 lsp.ruff.setup({
+  init_options = {
+    settings = { -- https://docs.astral.sh/ruff/editors/settings/#settings
+      -- configuration = "~/path/to/ruff.toml",
+      lineLength = 100,
+      organizeImports = true,
+      showSyntaxErrors = true,
+      configurationPreference = "filesystemFirst", -- https://docs.astral.sh/ruff/editors/settings/#configurationpreference
+    },
+  },
   capabilities = require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities()),
   cmd = { vim.fn.getenv("HOME") .. "/.pyenv/versions/neovim/bin/ruff", "server" },
   on_attach = function(client, bufnr)
@@ -55,6 +64,14 @@ lsp.ruff.setup({
         },
       })
     end, { buffer = bufnr, desc = "Format selection with Ruff" })
+
+    vim.keymap.set("n", "<leader>cf", function()
+      vim.lsp.buf.format({
+        async = true,
+      })
+
+      vim.api.nvim_echo({ { "ruff: buffer successfully formatted!", "WarningMsg" } }, true, {})
+    end, { buffer = bufnr, desc = "Format whole buffer with Ruff" })
   end,
   init_options = {
     settings = {
