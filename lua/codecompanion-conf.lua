@@ -41,7 +41,7 @@ codecompanion.setup({
         },
         schema = {
           model = {
-            default = "claude-3-5-sonnet-20241022", -- check more using my curl navi cheat for anthropic
+            default = "claude-3-7-sonnet-20250219 ", -- check more using my curl navi cheat for anthropic (previous: claude-3-5-sonnet-20241022)
           },
         },
       })
