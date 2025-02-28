@@ -5,6 +5,11 @@ vim.g.mapleader = " "
 
 vim.cmd("syntax on")
 
+-- Map <C-t> to a no-op in normal, visual and mode
+vim.api.nvim_set_keymap("n", "<C-t>", "<Nop>", { noremap = true, silent = true })
+vim.api.nvim_set_keymap("v", "<C-t>", "<Nop>", { noremap = true, silent = true })
+vim.api.nvim_set_keymap("i", "<C-t>", "<Nop>", { noremap = true, silent = true })
+
 vim.o.title = true
 vim.o.history = 1000 -- remember more commands and search history
 
