@@ -157,8 +157,6 @@ vim.cmd("source $HOME/.config/nvim/functions.vim")
 vim.cmd("source $HOME/.config/nvim/commands.vim")
 vim.cmd("source $HOME/.config/nvim/abbreviations.vim")
 
--- Disabled, since vim file was converted to lua (./lua/hooks.lua). Remove this line and hooks.vim after some time.
--- vim.cmd("source $HOME/.config/nvim/hooks.vim")
 require("custom_hooks")
 
 -- Bootstrap lazy.nvim
