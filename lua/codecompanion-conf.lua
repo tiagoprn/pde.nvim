@@ -6,6 +6,10 @@ if not status_ok then
 end
 
 codecompanion.setup({
+  -- useful command: ":checkhealth codecompanion"
+  -- opts = {
+  --   log_level = "DEBUG", -- or "TRACE", it is located at: "$HOME/.local/state/nvim/codecompanion.log"
+  -- },
   display = {
     action_palette = {
       width = 95,

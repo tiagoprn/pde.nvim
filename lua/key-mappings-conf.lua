@@ -208,7 +208,32 @@ which_key.add({
   { "<leader>ec", ":Telescope colorscheme<cr>", desc = "telescope browse color schemes" },
   { "<leader>eh", ":Telescope help_tags<cr>", desc = "telescope search tag on nvim help (builtins and plugins)" },
   -- files, buffers, tabs & windows
+  -- -- files
   { "<leader>f", group = "files, buffers, tabs & windows" },
+  {
+    "<leader>fc",
+    "<cmd>lua require('tiagoprn.buffer_utils').save_buffer_copy_to_tmp()<cr>",
+    desc = "Save buffer copy to /tmp",
+  },
+  {
+    "<leader>ff",
+    ":Telescope find_files find_command=fd,-H,-E,.git prompt_prefix=fd: <cr>",
+    desc = "telescope open files",
+  },
+  {
+    "<leader>fg",
+    ":<cmd>lua require('tiagoprn.code_utils').open_git_changed_files_with_telescope()<cr>",
+    desc = "(git) telescope open changed files",
+  },
+
+  { "<leader>fo", ":!gedit %<cr>", desc = "open current file on gedit" },
+  {
+    "<leader>fr",
+    ":Easypick recent_files_on_current_folder<cr>",
+    desc = "telescope open files changed recently (<=14 days) ",
+  },
+  { "<leader>fs", ":SearchOnOpenFiles<cr>", desc = "search on open files" },
+  -- -- buffers
   { "<leader>fb", group = "buffers" },
   { "<leader>fbK", ":bp<bar>sp<bar>bn<bar>bd<cr>", desc = "close & keep window" },
   { "<leader>fbk", ":bw<Enter>", desc = "close" },
@@ -230,27 +255,11 @@ which_key.add({
     desc = "buffer_manager save to file",
   },
   { "<leader>fbw", ":bufdo w!<cr>", desc = "save all" },
-  {
-    "<leader>ff",
-    ":Telescope find_files find_command=fd,-H,-E,.git prompt_prefix=fd: <cr>",
-    desc = "telescope open files",
-  },
-  {
-    "<leader>fg",
-    ":<cmd>lua require('tiagoprn.code_utils').open_git_changed_files_with_telescope()<cr>",
-    desc = "(git) telescope open changed files",
-  },
-
-  { "<leader>fo", ":!gedit %<cr>", desc = "open current file on gedit" },
-  {
-    "<leader>fr",
-    ":Easypick recent_files_on_current_folder<cr>",
-    desc = "telescope open files changed recently (<=14 days) ",
-  },
-  { "<leader>fs", ":SearchOnOpenFiles<cr>", desc = "search on open files" },
+  -- -- tabs
   { "<leader>ft", group = "tabs" },
   { "<leader>ftc", ":tabclose<cr>", desc = "close" },
   { "<leader>ftn", ":tabnew<cr>", desc = "new" },
+  -- -- windows
   { "<leader>fw", group = "windows" },
   { "<leader>fwV", ":vnew", desc = "empty buffer on new vertical split" },
   { "<leader>fwX", ":new", desc = "empty buffer on new horizontal split" },

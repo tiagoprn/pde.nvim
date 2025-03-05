@@ -308,7 +308,7 @@ require("lazy").setup({
 
   {
     "olimorris/codecompanion.nvim",
-    version = "v12.13.3", -- pinning previous stable version here until a new release fixes https://github.com/olimorris/codecompanion.nvim/issues/1046
+    -- version = "v12.13.3", -- pinning previous stable version here until a new release fixes https://github.com/olimorris/codecompanion.nvim/issues/1046
     dependencies = {
       "nvim-lua/plenary.nvim",
       "nvim-treesitter/nvim-treesitter",
