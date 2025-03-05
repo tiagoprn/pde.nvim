@@ -5,6 +5,10 @@ if not status_ok then
   return
 end
 
+-- I can use this configuration as a reference:
+-- https://github.com/jellydn/my-nvim-ide/blob/main/lua/plugins/extras/codecompanion.lua
+-- (discovered it on this video: https://www.youtube.com/watch?v=KbWI4ilHKv4)
+
 codecompanion.setup({
   -- useful command: ":checkhealth codecompanion"
   -- opts = {
