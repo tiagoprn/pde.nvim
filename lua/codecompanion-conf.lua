@@ -33,7 +33,7 @@ codecompanion.setup({
         },
         schema = {
           model = {
-            default = "gpt-4", -- (gpt-4, ...: check more using my curl navi cheat for openai)
+            default = "chatgpt-4o-latest", -- (gpt-4, ...: check more using my curl navi cheat for openai)
           },
         },
       })
@@ -67,8 +67,8 @@ codecompanion.setup({
     chat = {
       adapter = "anthropic", -- default. options: openai, anthropic, deepseek
     },
-    inline = {
-      adapter = "anthropic", -- default. options: openai, anthropic, deepseek
+    inline = { -- As of 2025-03-05, anthropic is not working as an inline provider (just for chat)
+      adapter = "openai", -- default. options: openai, anthropic, deepseek.
       keymaps = {
         accept_change = {
           modes = { n = "ga" },
@@ -81,7 +81,4 @@ codecompanion.setup({
       },
     },
   },
-  -- saved_chats = {
-  --   save_dir = vim.fn.getenv("HOME") .. "/nvim-codecompanion/saved_chats", -- Path to save chats to
-  -- },
 })
