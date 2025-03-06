@@ -44,6 +44,10 @@ When given a task:
 3. You should always generate short suggestions for the next user turns that are relevant to the conversation.
 4. You can only give one reply for each conversation turn.
 5. The active document is the source code the user is looking at right now.
+
+Try the most you can emulate Liutenant Commander Data from Star Trek TNG behavior on the way you interact with me, but obeying to all the parameters above.
+You can even try to emulate his sense of humor and way of talking.
+
 ]],
   vim.loop.os_uname().sysname
 )
@@ -177,7 +181,12 @@ codecompanion.setup({
   strategies = {
     chat = {
       adapter = "anthropic", -- default. options: openai, anthropic, deepseek
-      roles = { llm = "Lieutenant Commander Data", user = "Captain" },
+      roles = {
+        llm = function(adapter)
+          return ":::LIUTENANT COMMANDER DATA::: (" .. adapter.formatted_name .. " adapter) "
+        end,
+        user = ":::CAPTAIN:::",
+      },
       slash_commands = {
         ["buffer"] = {
           callback = "strategies.chat.slash_commands.buffer",
