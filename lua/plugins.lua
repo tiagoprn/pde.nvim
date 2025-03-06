@@ -313,6 +313,39 @@ require("lazy").setup({
       "nvim-lua/plenary.nvim",
       "nvim-treesitter/nvim-treesitter",
     },
+    config = function()
+      -- Custom hooks for this plugin (they are here because they only work after the plugin is loaded)
+      -- reference: <https://codecompanion.olimorris.dev/usage/events>
+
+      local group = vim.api.nvim_create_augroup("CodeCompanionHooks", {})
+
+      vim.api.nvim_create_autocmd({ "User" }, {
+        pattern = "CodeCompanionInline*",
+        group = group,
+        callback = function(request)
+          if request.match == "CodeCompanionInlineFinished" then
+            -- Format the buffer after the inline request has completed
+            -- require("conform").format({ bufnr = request.buf })
+            print("CodeCompanion: Inline request has completed")
+          end
+        end,
+      })
+
+      vim.api.nvim_create_autocmd({ "User" }, {
+        pattern = "CodeCompanionRequest*",
+        group = group,
+        callback = function(request)
+          if request.match == "CodeCompanionRequestStarted" then
+            print("Sending request to AI...")
+          end
+          if request.match == "CodeCompanionRequestFinished" then
+            print("AI responded.")
+            -- TODO: add code here to save the current buffer to a file
+            -- <https://codecompanion.olimorris.dev/usage/events#event-data>
+          end
+        end,
+      })
+    end,
   },
 
   -- LANGUAGE SERVERS - begin
