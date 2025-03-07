@@ -16,10 +16,10 @@ for _, name in ipairs({
   "explain", -- chat, has_system_prompt
   "explain_code", -- chat, has_system_prompt
   "inline_document", -- inline
-  "naming", -- inline
-  "refactor", -- inline, has_system_prompt
+  "inline_naming", -- inline
+  "inline_refactor", -- inline, has_system_prompt
   "refactor_code", -- chat, has_system_prompt
-  "review", -- inline, has_system_prompt
+  "inline_review", -- inline, has_system_prompt
   "review_code", -- chat, has_system_prompt
 }) do
   prompt_library[name] = require("prompts." .. name)
