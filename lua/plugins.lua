@@ -331,6 +331,11 @@ require("lazy").setup({
         end,
       })
 
+      -- Create a global table to store conversation IDs if it doesn't exist
+      if not _G.codecompanion_conversations then
+        _G.codecompanion_conversations = {}
+      end
+
       vim.api.nvim_create_autocmd({ "User" }, {
         pattern = "CodeCompanionRequest*",
         group = group,
@@ -340,8 +345,85 @@ require("lazy").setup({
           end
           if request.match == "CodeCompanionRequestFinished" then
             print("AI responded.")
-            -- TODO: add code here to save the current buffer to a file
-            -- <https://codecompanion.olimorris.dev/usage/events#event-data>
+
+            -- This implementation:
+            --
+            -- 1. Creates a global table to track conversation IDs across buffer numbers
+            -- 2. When a new conversation starts in a buffer, it generates a unique ID using:
+            --    - Buffer number
+            --    - Process ID (to distinguish between different Vim instances)
+            --    - Timestamp (for additional uniqueness)
+            -- 3. Reuses the same conversation ID for subsequent responses in the same buffer
+            -- 4. Saves all interactions from the same conversation to the same file
+            -- 5. Checks `request.data.strategy` and skips saving if it's not a full "chat" (e.g. inline mode)
+            -- 6. Adds an additional check to see if the buffer has meaningful content:
+            --    - Skips empty buffers
+            --    - Skips buffers that only contain metadata without actual conversation
+            -- 7. Only proceeds with saving if there's a real chat conversation to save
+            --
+            -- This approach ensures:
+            -- - Each conversation has a truly unique ID even across different Vim sessions
+            -- - All interactions within the same conversation are saved to the same file
+            -- - The file is updated with each new response
+
+            -- Skip inline chats - only process full chat conversations
+            if request.data.strategy ~= "chat" then
+              print("Skipping save for inline chat")
+              return
+            end
+
+            -- Check if the buffer has content before saving
+            local current_buf = vim.api.nvim_get_current_buf()
+            local lines = vim.api.nvim_buf_get_lines(current_buf, 0, -1, false)
+            local content = table.concat(lines, "\n")
+
+            -- Skip if the buffer is empty or only contains metadata
+            if content:match("^%s*$") or (content:match("^# CodeCompanion Chat") and not content:match("Human:")) then
+              print("Skipping save for empty chat")
+              return
+            end
+
+            -- Create the directory if it doesn't exist
+            local save_dir = vim.fn.expand("$HOME/.local/share/nvim/code-companion-chat-history")
+            if vim.fn.isdirectory(save_dir) == 0 then
+              vim.fn.mkdir(save_dir, "p")
+            end
+
+            local bufnr = request.data.bufnr
+
+            -- Check if we already have a conversation ID for this buffer
+            if not _G.codecompanion_conversations[bufnr] then
+              -- Generate a new conversation ID using buffer number and process ID
+              local pid = vim.fn.getpid()
+              -- Add formatted date timestamp as requested (YYYYMMDD-HHMMSS)
+              local formatted_date = os.date("%Y%m%d-%H%M%S")
+              _G.codecompanion_conversations[bufnr] = string.format("buf%d_pid%d_%s", bufnr, pid, formatted_date)
+            end
+
+            local conversation_id = _G.codecompanion_conversations[bufnr]
+
+            -- Construct the filename
+            local filename = save_dir .. "/codecompanion." .. conversation_id .. ".txt"
+
+            -- Add metadata at the top of the file
+            local metadata = string.format(
+              "# CodeCompanion Chat\n# Date: %s\n# Model: %s\n# Buffer: %d\n# Conversation ID: %s\n\n",
+              os.date("%Y-%m-%d %H:%M:%S"),
+              request.data.adapter.model,
+              bufnr,
+              conversation_id
+            )
+            content = metadata .. content
+
+            -- Write to file
+            local file = io.open(filename, "w")
+            if file then
+              file:write(content)
+              file:close()
+              print("Chat saved to: " .. filename)
+            else
+              print("Error: Could not save chat history")
+            end
           end
         end,
       })
