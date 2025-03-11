@@ -144,7 +144,7 @@ Example architectures you could suggest:
 For each architecture suggestion, explain:
 
 - a brief summary on how it works
-- how to implement it on a python project (suggesting a python framework from the list above - or another one when it fits): how to organize the classes into python modules)
+- how to implement it on a python project (suggesting a python framework from the list above - or another one when it fits): how to organize the classes into python modules
 - the benefits and drawbacks in terms of: complexity, development time and, if any, infrastructure costs when deploying to production.
 
 Also, from one of them, I want you to point the one that would be used by most python experienced developers on a real-world scenario,
