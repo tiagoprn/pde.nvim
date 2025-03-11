@@ -11,17 +11,17 @@ local system = require("prompts.system")
 
 local prompt_library = {}
 for _, name in ipairs({
-  "better_naming", -- chat, has_system_prompt
-  "document", -- chat
-  "explain", -- chat, has_system_prompt
+  "code_better_naming", -- chat, has_system_prompt
+  "code_document", -- chat
+  "code_explain", -- chat, has_system_prompt
+  "code_inline_document", -- inline
+  "code_inline_naming", -- inline
+  "code_inline_refactor", -- inline, has_system_prompt
+  "code_inline_review", -- inline, has_system_prompt
+  "code_refactor", -- chat, has_system_prompt
+  "code_review", -- chat, has_system_prompt
+  "code_suggest_architecture", -- chat, has_system_prompt
   "explain_code", -- chat, has_system_prompt
-  "inline_document", -- inline
-  "inline_naming", -- inline
-  "inline_refactor", -- inline, has_system_prompt
-  "refactor_code", -- chat, has_system_prompt
-  "inline_review", -- inline, has_system_prompt
-  "review_code", -- chat, has_system_prompt
-  "suggest_architecture", -- chat, has_system_prompt
 }) do
   prompt_library[name] = require("prompts." .. name)
 end

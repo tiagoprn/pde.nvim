@@ -1,11 +1,11 @@
 local system = require("prompts.system")
 
 return {
-  strategy = "chat",
-  description = "Write documentation for code  -- chat",
+  strategy = "inline",
+  description = "Give better naming for the provided code snippet  -- inline",
   opts = {
     modes = { "v" },
-    short_name = "doc",
+    short_name = "code-inline-name",
     auto_submit = true,
     user_prompt = false,
     stop_context_insertion = true,
@@ -16,7 +16,7 @@ return {
       content = function(context)
         local code = require("codecompanion.helpers.actions").get_code(context.start_line, context.end_line)
 
-        return "Please brief how it works and provide documentation in comment code for the following code. Also suggest to have better naming to improve readability.\n\n```"
+        return "Please provide better names for the following variables and functions:\n\n```"
           .. context.filetype
           .. "\n"
           .. code

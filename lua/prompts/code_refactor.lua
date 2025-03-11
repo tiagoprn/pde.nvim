@@ -4,7 +4,7 @@ return {
   strategy = "chat",
   description = "Refactor the provided code snippet  -- chat, has_system_prompt",
   opts = {
-    short_name = "refactor-code",
+    short_name = "code-refac",
     auto_submit = false,
     is_slash_cmd = true,
   },

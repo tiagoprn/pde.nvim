@@ -397,7 +397,7 @@ require("lazy").setup({
               local pid = vim.fn.getpid()
               -- Add formatted date timestamp as requested (YYYYMMDD-HHMMSS)
               local formatted_date = os.date("%Y%m%d-%H%M%S")
-              _G.codecompanion_conversations[bufnr] = string.format("buf%d_pid%d_%s", bufnr, pid, formatted_date)
+              _G.codecompanion_conversations[bufnr] = string.format("%s.buf%d.pid%d", formatted_date, bufnr, pid)
             end
 
             local conversation_id = _G.codecompanion_conversations[bufnr]

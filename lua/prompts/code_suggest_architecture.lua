@@ -4,7 +4,7 @@ return {
   strategy = "chat",
   description = "Suggest code architecture given a general use case  -- chat, has_system_prompt",
   opts = {
-    short_name = "suggest-architecture",
+    short_name = "code-arch",
     auto_submit = true,
     is_slash_cmd = true,
   },

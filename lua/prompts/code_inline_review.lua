@@ -2,10 +2,10 @@ local system = require("prompts.system")
 
 return {
   strategy = "inline",
-  description = "Refactor the provided code snippet  -- inline, has_system_prompt",
+  description = "Review the provided code snippet  -- inline, has_system_prompt",
   opts = {
     modes = { "v" },
-    short_name = "refactor",
+    short_name = "code-inline-rev",
     auto_submit = true,
     user_prompt = false,
     stop_context_insertion = true,
@@ -13,7 +13,7 @@ return {
   prompts = {
     {
       role = "system",
-      content = system.CODE_REFACTOR,
+      content = system.CODE_REVIEW,
       opts = {
         visible = false,
       },
@@ -23,7 +23,7 @@ return {
       content = function(context)
         local code = require("codecompanion.helpers.actions").get_code(context.start_line, context.end_line)
 
-        return "Please refactor the following code to improve its clarity and readability:\n\n```"
+        return "Please review the following code and provide suggestions for improvement then refactor the following code to improve its clarity and readability:\n\n```"
           .. context.filetype
           .. "\n"
           .. code

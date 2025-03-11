@@ -4,7 +4,7 @@ return {
   strategy = "chat",
   description = "Give better naming for the provided code snippet  -- chat, has_system_prompt",
   opts = {
-    short_name = "better-naming",
+    short_name = "code-name",
     auto_submit = false,
     is_slash_cmd = true,
   },

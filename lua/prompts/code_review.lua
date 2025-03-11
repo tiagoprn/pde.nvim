@@ -4,7 +4,7 @@ return {
   strategy = "chat",
   description = "Review code and provide suggestions for improvement  -- chat, has_system_prompt",
   opts = {
-    short_name = "review-code",
+    short_name = "code-rev",
     auto_submit = false,
     is_slash_cmd = true,
   },

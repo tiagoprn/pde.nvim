@@ -5,7 +5,7 @@ return {
   description = "Add documentation for code  -- inline",
   opts = {
     modes = { "v" },
-    short_name = "inline-doc",
+    short_name = "code-inline-doc",
     auto_submit = true,
     user_prompt = false,
     stop_context_insertion = true,
