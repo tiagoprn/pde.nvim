@@ -11,17 +11,17 @@ local system = require("prompts.system")
 
 local prompt_library = {}
 for _, name in ipairs({
-  "code_better_naming", -- chat, has_system_prompt
-  "code_document", -- chat
-  "code_explain", -- chat, has_system_prompt
   "code_inline_document", -- inline
+  "code_inline_explain", -- inline, has_system_prompt
   "code_inline_naming", -- inline
   "code_inline_refactor", -- inline, has_system_prompt
   "code_inline_review", -- inline, has_system_prompt
+  "code_better_naming", -- chat, has_system_prompt
+  "code_document", -- chat
   "code_refactor", -- chat, has_system_prompt
   "code_review", -- chat, has_system_prompt
   "code_suggest_architecture", -- chat, has_system_prompt
-  "explain_code", -- chat, has_system_prompt
+  "code_explain", -- chat, has_system_prompt
   -- TODO: migrate from dot_files/AI-PROMPTS:
   -- [ ] code_scan_vulnerabilities
   -- [ ] code_bootstrap_python_script_

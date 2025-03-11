@@ -2,14 +2,11 @@ local system = require("prompts.system")
 
 return {
   strategy = "chat",
-  description = "Explain how code in a buffer works  -- chat, has_system_prompt",
+  description = "Explain how code works  -- chat, has_system_prompt",
   opts = {
-    default_prompt = true,
-    modes = { "v" },
-    short_name = "code-explain",
-    auto_submit = true,
-    user_prompt = false,
-    stop_context_insertion = true,
+    short_name = "explain-code",
+    auto_submit = false,
+    is_slash_cmd = true,
   },
   prompts = {
     {
@@ -21,14 +18,7 @@ return {
     },
     {
       role = "user",
-      content = function(context)
-        local code = require("codecompanion.helpers.actions").get_code(context.start_line, context.end_line)
-
-        return "Please explain how the following code works:\n\n```" .. context.filetype .. "\n" .. code .. "\n```\n\n"
-      end,
-      opts = {
-        contains_code = true,
-      },
+      content = [[Please explain how the following code works.]],
     },
   },
 }
