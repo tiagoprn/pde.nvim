@@ -11,27 +11,27 @@ local system = require("prompts.system")
 
 local prompt_library = {}
 for _, name in ipairs({
+  -- code-related prompts
   "code_inline_document", -- inline
   "code_inline_explain", -- inline, has_system_prompt
   "code_inline_naming", -- inline
   "code_inline_refactor", -- inline, has_system_prompt
   "code_inline_review", -- inline, has_system_prompt
+  "code_inline_scan_vulnerabilities", -- inline, has_system_prompt
   "code_better_naming", -- chat, has_system_prompt
   "code_document", -- chat
   "code_refactor", -- chat, has_system_prompt
   "code_review", -- chat, has_system_prompt
   "code_suggest_architecture", -- chat, has_system_prompt
   "code_explain", -- chat, has_system_prompt
-  -- TODO: migrate from dot_files/AI-PROMPTS:
-  -- [ ] code_scan_vulnerabilities
-  -- [ ] code_bootstrap_python_script_
-  -- [ ] code_bootstap_single_page_html_css_js
-  -- [ ] text_translate_portuguese_to_english
-  -- [ ] text_translate_english_to_portuguese
-  -- [ ] text_spell_check_and_grammar_correction
-  -- [ ] text_summarize
-  -- [ ] text_generate_memory_summary_from_conversation
-  -- [ ] text_create_flashcard
+  -- text-related prompts (migrated from dot_files/AI-PROMPTS)
+  "text_translate_portuguese_to_english", -- chat, has_system_prompt
+  "text_translate_english_to_portuguese", -- chat, has_system_prompt
+  "text_spell_check_and_grammar_correction", -- chat, has_system_prompt
+  "text_summarize", -- chat, has_system_prompt
+  "text_generate_memory_summary_from_conversation", -- chat, has_system_prompt
+  "text_create_flashcards", -- chat, has_system_prompt
+  -- TODO: create inline versions of the text-related chat prompts above
 }) do
   prompt_library[name] = require("prompts." .. name)
 end
