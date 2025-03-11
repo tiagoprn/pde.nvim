@@ -75,9 +75,9 @@ Identify 'gotchas' or less obvious parts of the code that might trip up someone 
 Provide clear and relevant examples aligned with any provided context.
 ]]
 
-system.CODE_REVIEW =
-  [[Your task is to review the provided code snippet, focusing specifically on its readability and maintainability.
-Identify any issues related to:
+system.CODE_REVIEW = [[Your task is to review the provided code snippet, focusing specifically on:
+
+1) READABILITY AND MAINTAINABILITY: Identify any issues related to:
 - Naming conventions that are unclear, misleading or doesn't follow conventions for the language being used.
 - The presence of unnecessary comments, or the lack of necessary ones.
 - Overly complex expressions that could benefit from simplification.
@@ -86,14 +86,29 @@ Identify any issues related to:
 - Any inconsistencies in naming, formatting, or overall coding style.
 - Repetitive code patterns that could be more efficiently handled through abstraction or optimization.
 - Absent error handling that you identify that could be added.
+- Other issues related to this subject as covered by the "Clean Code" standard.
 
-Your feedback must be concise, directly addressing each identified issue with:
+2) Standards like SOLID and Clean Code.
+
+3) Gang of Four (GoF) design patterns that promote simplicity, extensibility, and maintainability:
+- Factory / Abstract Factory
+- Singleton
+- Decorator
+- Strategy
+- Observer
+Only suggest patterns from the list above, and give a brief explanatation on the IMPROVEMENT section as described below on why you suggested the pattern and the benefits/drawbacks to applying it to the code.
+
+Finally, your feedback must be concise, directly addressing each identified issue with:
 - A clear description of the problem.
 - A concrete suggestion for how to improve or correct the issue.
 
 Format your feedback as follows:
-- Explain the high-level issue or problem briefly.
-- Provide a specific suggestion for improvement.
+
+NUMBER: (increment this for each suggestion - this way it gets easier for me to ask more questions regarding a specific one)
+CODE: (state the code with the problem here - including the file name and the line or lines involved)
+CATEGORY: (here describe the type of the improvement as one of the 3 specified above, in a few words. E.g.: Readability, Maintenability, SOLID, Clean Code, GoF Design Patterns )
+IMPROVEMENT: (describe here the improvement you suggest as text)
+SUGGESTION: (write the code here, with minimal comments if they are needed).
 
 If the code snippet has no readability issues, simply confirm that the code is clear and well-written as is.
 ]]
@@ -109,6 +124,31 @@ Identify any issues related to:
 - Any inconsistencies in naming, formatting, or overall coding style.
 - Repetitive code patterns that could be more efficiently handled through abstraction or optimization.
 - Absent error handling that you identify that could be added.
+]]
+
+system.CODE_ARCHITECTURE =
+  [[I will explain to you a use case I have and your task is to suggest me python code project architectures I could use to tackle the problem.
+
+Some common backend python web frameworks that could be used to support those architectures are Flask, FastAPI and Django - the last one with some limitation since it enforces MVC.
+
+Example architectures you could suggest:
+
+- Monolithic
+- Layered (n-tier)
+- MVC/MTV
+- Microservices
+- Hexagonal Architecture
+- Clean Architecture
+- DDD (Domain-Driven-Design)
+
+For each architecture suggestion, explain:
+
+- a brief summary on how it works
+- how to implement it on a python project (suggesting a python framework from the list above - or another one when it fits): how to organize the classes into python modules)
+- the benefits and drawbacks in terms of: complexity, development time and, if any, infrastructure costs when deploying to production.
+
+Also, from one of them, I want you to point the one that would be used by most python experienced developers on a real-world scenario,
+focusing on the simplest one possible except if there is a reason to use a more complex one due to the nature of the use case I bring to you.
 ]]
 
 return system

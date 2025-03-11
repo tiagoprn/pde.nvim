@@ -21,6 +21,7 @@ for _, name in ipairs({
   "refactor_code", -- chat, has_system_prompt
   "inline_review", -- inline, has_system_prompt
   "review_code", -- chat, has_system_prompt
+  "suggest_architecture", -- chat, has_system_prompt
 }) do
   prompt_library[name] = require("prompts." .. name)
 end
