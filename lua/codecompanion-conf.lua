@@ -22,6 +22,16 @@ for _, name in ipairs({
   "code_review", -- chat, has_system_prompt
   "code_suggest_architecture", -- chat, has_system_prompt
   "explain_code", -- chat, has_system_prompt
+  -- TODO: migrate from dot_files/AI-PROMPTS:
+  -- [ ] code_scan_vulnerabilities
+  -- [ ] code_bootstrap_python_script_
+  -- [ ] code_bootstap_single_page_html_css_js
+  -- [ ] text_translate_portuguese_to_english
+  -- [ ] text_translate_english_to_portuguese
+  -- [ ] text_spell_check_and_grammar_correction
+  -- [ ] text_summarize
+  -- [ ] text_generate_memory_summary_from_conversation
+  -- [ ] text_create_flashcard
 }) do
   prompt_library[name] = require("prompts." .. name)
 end
