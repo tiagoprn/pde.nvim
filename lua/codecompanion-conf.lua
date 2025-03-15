@@ -24,6 +24,8 @@ for _, name in ipairs({
   "code_review", -- chat, has_system_prompt
   "code_suggest_architecture", -- chat, has_system_prompt
   "code_explain", -- chat, has_system_prompt
+  "code_bootstrap_python_script", -- chat, has_system_prompt
+  "code_bootstrap_single_page_html_css_js", -- chat, has_system_prompt
   -- text-related prompts (migrated from dot_files/AI-PROMPTS)
   "text_translate_portuguese_to_english", -- chat, has_system_prompt
   "text_translate_english_to_portuguese", -- chat, has_system_prompt
