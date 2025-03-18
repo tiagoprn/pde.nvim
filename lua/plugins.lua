@@ -14,6 +14,14 @@ require("lazy").setup({
   -- Buffer manager that has an UI similar to harpoon
   { "j-morano/buffer_manager.nvim" },
 
+  -- quickfix persistance - save/load
+  {
+    "brunobmello25/persist-quickfix.nvim",
+    opts = {
+      storage_dir = vim.fn.stdpath("data") .. "/persist-quickfix",
+    },
+  },
+
   -- Makes vim.ui.select and vim.ui.input prettier
   { "stevearc/dressing.nvim" },
 

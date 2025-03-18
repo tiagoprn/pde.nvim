@@ -220,6 +220,7 @@ require("obsidian-conf")
 -- require("avante-conf")
 require("oil-conf")
 require("codecompanion-conf")
+require("persist-quickfix-conf")
 
 -- Source additional Vimscript plugin configurations
 -- TODO: these need to be converted to Lua

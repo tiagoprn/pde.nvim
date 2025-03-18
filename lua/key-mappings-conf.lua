@@ -357,14 +357,19 @@ which_key.add({
   { "<leader>Pr", ":RunPythonScriptOnCurrentLine<cr>", desc = "run python script on current line" },
   -- quickfix
   { "<leader>q", group = "quickfix" },
-  { "<leader>qb", ":Telescope quickfix<cr>", desc = "telescope browse" },
-  { "<leader>qe", ":clast<cr>", desc = "end" },
-  { "<leader>qh", ":Telescope quickfixhistory<cr>", desc = "telescope browse history" },
+  { "<leader>q9", ":clast<cr>", desc = "end" },
   { "<leader>ql", ":colder<cr>", desc = "older" },
   { "<leader>qn", ":cnewer<cr>", desc = "newer" },
   { "<leader>qo", ":copen<cr>", desc = "open" },
+  { "<leader>qe", group = "persistance (load, save and delete from file)" },
+  { "<leader>qel", "<cmd>lua require('persist-quickfix-conf').load()<cr>", desc = "load" },
+  { "<leader>qes", "<cmd>lua require('persist-quickfix-conf').save()<cr>", desc = "save" },
+  { "<leader>qex", "<cmd>lua require('persist-quickfix-conf').delete()<cr>", desc = "delete" },
   { "<leader>qq", ":cclose<cr>", desc = "close" },
-  { "<leader>qs", ":cfirst<cr>", desc = "start" },
+  { "<leader>q1", ":cfirst<cr>", desc = "start" },
+  { "<leader>qt", group = "telescope" },
+  { "<leader>qtb", ":Telescope quickfix<cr>", desc = "telescope browse" },
+  { "<leader>qth", ":Telescope quickfixhistory<cr>", desc = "telescope browse history" },
   -- redo
   { "<leader>r", ":redo<cr>", desc = "redo changes" },
   -- save current buffer
