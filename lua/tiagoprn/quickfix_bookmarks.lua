@@ -1,5 +1,19 @@
 local M = {}
 
+-- Helper function to display messages in Neovim's message area
+local function echo_msg(msg, level)
+  local hl_group = "Normal"
+  if level == vim.log.levels.ERROR then
+    hl_group = "ErrorMsg"
+  elseif level == vim.log.levels.WARN then
+    hl_group = "WarningMsg"
+  elseif level == vim.log.levels.INFO then
+    hl_group = "Comment"
+  end
+
+  vim.api.nvim_echo({ { msg, hl_group } }, true, {})
+end
+
 function M.add_bookmark()
   -- Get current folder name
   local cwd = vim.fn.expand("%:p:h:t") -- Gets the directory name only
@@ -23,7 +37,7 @@ function M.add_bookmark()
   -- Prevent duplicate bookmarks
   for _, item in ipairs(items) do
     if item.filename == new_entry.filename and item.lnum == new_entry.lnum then
-      vim.notify("Bookmark already exists: " .. new_entry.filename .. ":" .. new_entry.lnum, vim.log.levels.WARN)
+      echo_msg("Bookmark already exists: " .. new_entry.filename .. ":" .. new_entry.lnum, vim.log.levels.WARN)
       return
     end
   end
@@ -43,7 +57,7 @@ function M.add_bookmark()
   end
 
   -- Notify user
-  vim.notify(
+  echo_msg(
     "Bookmark added to " .. list_name .. ": " .. new_entry.filename .. ":" .. new_entry.lnum,
     vim.log.levels.INFO
   )
@@ -58,12 +72,29 @@ local function remove_bookmark_by_entry(selected_entry)
   local qflist = vim.fn.getqflist()
   local items = qflist or {}
 
-  -- Filter out the selected entry
-  local new_qflist = vim.tbl_filter(function(item)
-    return not (item.filename == selected_entry.filename and item.lnum == selected_entry.lnum)
-  end, items)
+  -- Track if we found and removed the bookmark
+  local found = false
+  local new_qflist = {}
 
-  if #new_qflist < #items then
+  for _, item in ipairs(items) do
+    -- Get the actual filename from bufnr if needed
+    local item_filename = item.filename
+    if not item_filename or item_filename == "" then
+      if item.bufnr and item.bufnr > 0 then
+        item_filename = vim.api.nvim_buf_get_name(item.bufnr)
+      end
+    end
+
+    -- Check if this is the item to remove
+    if item_filename == selected_entry.filename and item.lnum == selected_entry.lnum then
+      found = true
+      -- Skip this item (don't add to new_qflist)
+    else
+      table.insert(new_qflist, item)
+    end
+  end
+
+  if found then
     -- Set quickfix list first (removes the item)
     vim.fn.setqflist(new_qflist, "r")
 
@@ -75,28 +106,47 @@ local function remove_bookmark_by_entry(selected_entry)
     -- Then update quickfix list metadata
     vim.fn.setqflist({}, "r", { title = list_name })
 
-    vim.notify("Bookmark removed: " .. selected_entry.filename .. ":" .. selected_entry.lnum, vim.log.levels.WARN)
+    echo_msg("Bookmark removed: " .. selected_entry.filename .. ":" .. selected_entry.lnum, vim.log.levels.WARN)
   else
-    vim.notify("Bookmark not found", vim.log.levels.WARN)
+    echo_msg("Bookmark not found. Please check if the file path matches exactly.", vim.log.levels.WARN)
   end
 end
 
-local actions = require("telescope.actions")
-local action_state = require("telescope.actions.state")
-
 function M.delete_quickfix_item_with_telescope()
+  -- Import these inside the function to ensure they're available
+  local actions = require("telescope.actions")
+  local action_state = require("telescope.actions.state")
+
   require("telescope.builtin").quickfix({
-    attach_mappings = function(_, map)
-      local function delete_selected_bookmark(prompt_bufnr)
+    prompt_title = "Bookmarks (dd or <C-d> to delete)",
+    attach_mappings = function(prompt_bufnr, map)
+      -- Simplified delete function
+      local function delete_selected_bookmark(bufnr)
         local selection = action_state.get_selected_entry()
-        if selection then
-          remove_bookmark_by_entry(selection)
-          actions.close(prompt_bufnr)
-        else
-          vim.notify("No bookmark selected", vim.log.levels.WARN)
+
+        if not selection then
+          echo_msg("No bookmark selected", vim.log.levels.WARN)
+          return
+        end
+
+        -- Convert Telescope selection to the format expected by remove_bookmark_by_entry
+        local entry = {
+          filename = selection.filename or selection.value.filename,
+          lnum = selection.lnum or selection.value.lnum,
+          col = selection.col or selection.value.col,
+        }
+
+        -- Simple confirmation using vim.fn.confirm
+        local choice = vim.fn.confirm("Delete bookmark: " .. entry.filename .. ":" .. entry.lnum .. "?", "&Yes\n&No", 2)
+
+        if choice == 1 then -- Yes
+          remove_bookmark_by_entry(entry)
+          -- Simply close the telescope window
+          actions.close(bufnr)
         end
       end
 
+      -- Add mappings
       map("i", "<C-d>", delete_selected_bookmark)
       map("n", "dd", delete_selected_bookmark)
 
@@ -117,7 +167,7 @@ function M.set_current_quickfix_as_bookmarks()
   vim.g["quickfix_" .. list_name] = qflist
 
   -- Notify user
-  vim.notify("Quickfix list saved as: " .. list_name, vim.log.levels.INFO)
+  echo_msg("Quickfix list saved as: " .. list_name, vim.log.levels.INFO)
 end
 
 return M
