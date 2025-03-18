@@ -278,33 +278,45 @@ which_key.add({
   { "<leader>gk", ":Gitsigns prev_hunk<cr>", desc = "go to previous changed hunk" },
   { "<leader>gt", ":!tmux select-window -t git<cr>", desc = "go to gitui tmux window" },
   -- BOOKMARKS
-  { "<leader>k", group = "BOOKMARKS (spelunk)" },
-  {
-    "<leader>k*",
-    '<cmd>lua require("spelunk").new_stack()<cr>',
-    desc = "[spelunky.nvim] create new stack",
-  },
-  {
-    "<leader>kr",
-    '<cmd>lua require("spelunk").edit_current_stack()<cr>',
-    desc = "[spelunky.nvim] rename current stack",
-  },
+  { "<leader>k", group = "BOOKMARKS on quickfix list" },
+  { "<leader>ka", "<cmd>lua require('tiagoprn.quickfix_bookmarks').add_bookmark()<cr>", desc = "Add Bookmark" },
   {
     "<leader>kx",
-    '<cmd>lua require("spelunk").delete_current_stack()<cr>',
-    desc = "[spelunky.nvim] delete current stack",
+    "<cmd>lua require('tiagoprn.quickfix_bookmarks').delete_quickfix_item_with_telescope()<cr>",
+    desc = "Remove Bookmark",
   },
   {
-    "<leader>k]",
-    '<cmd>lua require("spelunk").next_stack()<cr>',
-    desc = "[spelunky.nvim] move to next stack",
+    "<leader>kq",
+    "<cmd>lua require('tiagoprn.quickfix_bookmarks').set_current_quickfix_as_bookmarks()<cr>",
+    desc = "Set current quickfix as bookmarks",
   },
-
-  {
-    "<leader>k[",
-    '<cmd>lua require("spelunk").prev_stack()<cr>',
-    desc = "[spelunky.nvim] move to previous stack",
-  },
+  -- { "<leader>k", group = "BOOKMARKS (spelunk)" },
+  -- {
+  --   "<leader>k*",
+  --   '<cmd>lua require("spelunk").new_stack()<cr>',
+  --   desc = "[spelunky.nvim] create new stack",
+  -- },
+  -- {
+  --   "<leader>kr",
+  --   '<cmd>lua require("spelunk").edit_current_stack()<cr>',
+  --   desc = "[spelunky.nvim] rename current stack",
+  -- },
+  -- {
+  --   "<leader>kx",
+  --   '<cmd>lua require("spelunk").delete_current_stack()<cr>',
+  --   desc = "[spelunky.nvim] delete current stack",
+  -- },
+  -- {
+  --   "<leader>k]",
+  --   '<cmd>lua require("spelunk").next_stack()<cr>',
+  --   desc = "[spelunky.nvim] move to next stack",
+  -- },
+  --
+  -- {
+  --   "<leader>k[",
+  --   '<cmd>lua require("spelunk").prev_stack()<cr>',
+  --   desc = "[spelunky.nvim] move to previous stack",
+  -- },
   -- launchers
   { "<leader>l", group = "launchers" },
   { "<leader>lt", group = "telescope" },
