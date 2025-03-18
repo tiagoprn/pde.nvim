@@ -290,33 +290,6 @@ which_key.add({
     "<cmd>lua require('tiagoprn.quickfix_bookmarks').set_current_quickfix_as_bookmarks()<cr>",
     desc = "Set current quickfix as bookmarks",
   },
-  -- { "<leader>k", group = "BOOKMARKS (spelunk)" },
-  -- {
-  --   "<leader>k*",
-  --   '<cmd>lua require("spelunk").new_stack()<cr>',
-  --   desc = "[spelunky.nvim] create new stack",
-  -- },
-  -- {
-  --   "<leader>kr",
-  --   '<cmd>lua require("spelunk").edit_current_stack()<cr>',
-  --   desc = "[spelunky.nvim] rename current stack",
-  -- },
-  -- {
-  --   "<leader>kx",
-  --   '<cmd>lua require("spelunk").delete_current_stack()<cr>',
-  --   desc = "[spelunky.nvim] delete current stack",
-  -- },
-  -- {
-  --   "<leader>k]",
-  --   '<cmd>lua require("spelunk").next_stack()<cr>',
-  --   desc = "[spelunky.nvim] move to next stack",
-  -- },
-  --
-  -- {
-  --   "<leader>k[",
-  --   '<cmd>lua require("spelunk").prev_stack()<cr>',
-  --   desc = "[spelunky.nvim] move to previous stack",
-  -- },
   -- launchers
   { "<leader>l", group = "launchers" },
   { "<leader>lt", group = "telescope" },

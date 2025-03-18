@@ -19,6 +19,56 @@ require("lazy").setup({
     "brunobmello25/persist-quickfix.nvim",
     opts = {
       storage_dir = vim.fn.stdpath("data") .. "/persist-quickfix",
+      selector = function(items, callback)
+        local pickers = require("telescope.pickers")
+        local finders = require("telescope.finders")
+        local conf = require("telescope.config").values
+        local actions = require("telescope.actions")
+        local action_state = require("telescope.actions.state")
+        local previewers = require("telescope.previewers")
+
+        -- Custom previewer using jq
+        local jq_previewer = previewers.new_termopen_previewer({
+          get_command = function(entry)
+            -- You can customize the jq command here
+
+            -- For example, to pretty-print the entire file:
+            -- return { "jq", ".", entry.path }
+
+            -- Or to extract specific fields:
+            -- local jq_query = ".[] | {filepath: .filepath, lnum: .lnum, col: .col, text: .text}"
+            local jq_query = '.[] | "\\(.filepath):\\(.lnum):\\(.col): \\(.text)"'
+            return { "jq", jq_query, entry.path }
+          end,
+        })
+
+        pickers
+          .new({}, {
+            prompt_title = "Quickfix Lists",
+            finder = finders.new_table({
+              results = items,
+              entry_maker = function(entry)
+                return {
+                  value = entry,
+                  display = entry,
+                  ordinal = entry,
+                  path = vim.fn.stdpath("data") .. "/persist-quickfix/" .. entry,
+                }
+              end,
+            }),
+            sorter = conf.generic_sorter({}),
+            previewer = jq_previewer,
+            attach_mappings = function(prompt_bufnr, map)
+              actions.select_default:replace(function()
+                local selection = action_state.get_selected_entry()
+                actions.close(prompt_bufnr)
+                callback(selection.value)
+              end)
+              return true
+            end,
+          })
+          :find()
+      end,
     },
   },
 
@@ -69,15 +119,6 @@ require("lazy").setup({
   },
   -- Icons
   { "kyazdani42/nvim-web-devicons" },
-
-  -- bookmarks (use instead of marks, better UX and supports annotating on the lines)
-  -- {
-  --   "EvWilson/spelunk.nvim",
-  --   dependencies = {
-  --     "nvim-lua/plenary.nvim", -- For window drawing utilities
-  --     "nvim-telescope/telescope.nvim", -- Optional: for fuzzy search capabilities
-  --   },
-  -- },
 
   -- Status line
   {
