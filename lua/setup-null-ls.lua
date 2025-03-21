@@ -73,6 +73,9 @@ null_ls.register(my_custom_source_01)
 
 local sources = {
   my_custom_source_01,
+
+  -- DIAGNOSTICS (LINTERS)
+
   null_ls.builtins.diagnostics.pylint.with({
     condition = function(utils)
       -- https://github.com/jose-elias-alvarez/null-ls.nvim/blob/main/doc/BUILTIN_CONFIG.md#condition
@@ -82,18 +85,18 @@ local sources = {
         return false
       end
 
-      local skip_pylint_file = project_root .. "/" .. "skip-pylint"
-      local skip_pylint_file_exists = helpers.get_file_exists(skip_pylint_file)
-      if skip_pylint_file_exists == true then
+      local trigg_pylint_file = project_root .. "/" .. "trigg-pylint"
+      local trigg_pylint_file_exists = helpers.get_file_exists(trigg_pylint_file)
+      if trigg_pylint_file_exists == false then
         vim.api.nvim_echo(
-          { { "skip-pylint file found on project root, pylint will be disabled for this file.", "WarningMsg" } },
+          { { "trigg-pylint file NOT found on project root, pylint will be disabled for this file.", "WarningMsg" } },
           true,
           {}
         )
         return false
       else
         vim.api.nvim_echo(
-          { { "skip-pylint file NOT found on project root, so pylint will be enabled for this file.", "WarningMsg" } },
+          { { "trigg-pylint file found on project root, so pylint will be enabled for this file.", "WarningMsg" } },
           true,
           {}
         )
@@ -150,69 +153,85 @@ local sources = {
       }
     end,
   }),
-  -- null_ls.builtins.diagnostics.ruff.with({
-  -- 	condition = function(utils)
-  -- 		-- https://github.com/jose-elias-alvarez/null-ls.nvim/blob/main/doc/BUILTIN_CONFIG.md#condition
+
+  -- require("none-ls.diagnostics.ruff").with({  -- https://github.com/nvimtools/none-ls-extras.nvim?tab=readme-ov-file#setup
+  --   condition = function(utils)
+  --     -- https://github.com/jose-elias-alvarez/null-ls.nvim/blob/main/doc/BUILTIN_CONFIG.md#condition
   --
-  -- 		local filetype = vim.bo.filetype
-  -- 		if filetype ~= "python" then
-  -- 			return false
-  -- 		end
+  --     local filetype = vim.bo.filetype
+  --     if filetype ~= "python" then
+  --       return false
+  --     end
   --
-  -- 		local skip_ruff_file = project_root .. "/" .. "skip-ruff"
-  -- 		local skip_ruff_file_exists = helpers.get_file_exists(skip_ruff_file)
-  -- 		if skip_ruff_file_exists == true then
-  -- 			vim.api.nvim_echo({{ "skip-ruff file found on project root, ruff will be disabled for this file.", "WarningMsg" }}, true, {})
-  -- 			return false
-  -- 		else
-  -- 			vim.api.nvim_echo({{ "skip-ruff file NOT found on project root, so ruff will be enabled for this file.", "WarningMsg" }}, true, {})
-  -- 			return true
-  -- 		end
-  -- 	end,
-  -- 	command = function()
-  -- 		local default_venv = "~/.pyenv/versions/neovim"
+  --     local trigg_ruff_file = project_root .. "/" .. "trigg-ruff"
+  --     local trigg_ruff_file_exists = helpers.get_file_exists(trigg_ruff_file)
+  --     if trigg_ruff_file_exists == false then
+  --       vim.api.nvim_echo(
+  --         { { "trigg-ruff file NOT found on project root, ruff will be disabled for this file.", "WarningMsg" } },
+  --         true,
+  --         {}
+  --       )
+  --       return false
+  --     else
+  --       vim.api.nvim_echo(
+  --         { { "trigg-ruff file found on project root, so ruff will be enabled for this file.", "WarningMsg" } },
+  --         true,
+  --         {}
+  --       )
+  --       return true
+  --     end
+  --   end,
+  --   command = function()
+  --     local default_venv = "~/.pyenv/versions/neovim"
   --
-  -- 		local current_venv = vim.env.VIRTUAL_ENV
+  --     local current_venv = vim.env.VIRTUAL_ENV
   --
-  -- 		local venv = ""
+  --     local venv = ""
   --
-  -- 		if current_venv then
-  -- 			venv = current_venv
-  -- 			vim.api.nvim_echo({{ "Current VENV defined as " .. current_venv .. " ", "WarningMsg" }}, true, {})
-  -- 		else
-  -- 			venv = default_venv
-  -- 			vim.api.nvim_echo({{ "Current VENV NOT defined, using default (" .. default_venv .. ") ", "WarningMsg" }}, true, {})
-  -- 		end
+  --     if current_venv then
+  --       venv = current_venv
+  --       vim.api.nvim_echo({ { "Current VENV defined as " .. current_venv .. " ", "WarningMsg" } }, true, {})
+  --     else
+  --       venv = default_venv
+  --       vim.api.nvim_echo(
+  --         { { "Current VENV NOT defined, using default (" .. default_venv .. ") ", "WarningMsg" } },
+  --         true,
+  --         {}
+  --       )
+  --     end
   --
-  -- 		local path = vim.fn.expand(venv .. "/bin/ruff")
-  -- 		-- print("Current virtualenv is " .. venv)
-  -- 		-- print("Current path is " .. path)
+  --     local path = vim.fn.expand(venv .. "/bin/ruff")
+  --     print("Current virtualenv is " .. venv)
+  --     print("Current path is " .. path)
   --
-  -- 		return path
-  -- 	end,
-  -- 	extra_args = function()
-  -- 		local pyproject_toml_file = "pyproject.toml"
-  -- 		local default_pyproject_toml = "/storage/src/devops/python/default_configs/pyproject.toml"
-  -- 		local project_root = vim.fn.getcwd()
-  -- 		local pyproject_toml_full_path = project_root .. "/" .. pyproject_toml_file
+  --     return path
+  --   end,
+  --   extra_args = function()
+  --     local pyproject_toml_file = "pyproject.toml"
+  --     local default_pyproject_toml = "/storage/src/devops/python/default_configs/pyproject.toml"
+  --     local project_root = vim.fn.getcwd()
+  --     local pyproject_toml_full_path = project_root .. "/" .. pyproject_toml_file
   --
-  -- 		file_exists = helpers.get_file_exists(pyproject_toml_full_path)
+  --     file_exists = helpers.get_file_exists(pyproject_toml_full_path)
   --
-  -- 		if file_exists == false then
-  -- 			vim.api.nvim_echo({{ "Could not find pyproject.toml, using default one.", "WarningMsg" }}, true, {})
-  -- 			pyproject_toml_full_path = default_pyproject_toml
-  -- 		end
+  --     if file_exists == false then
+  --       vim.api.nvim_echo({ { "Could not find pyproject.toml, using default one.", "WarningMsg" } }, true, {})
+  --       pyproject_toml_full_path = default_pyproject_toml
+  --     end
   --
-  -- 		vim.api.nvim_echo({{ "Using pyproject.toml from: " .. pyproject_toml_full_path, "WarningMsg" }}, true, {})
+  --     vim.api.nvim_echo({ { "Using pyproject.toml from: " .. pyproject_toml_full_path, "WarningMsg" } }, true, {})
   --
-  -- 		return {
-  -- 			"check",
-  -- 			"--config",
-  -- 			pyproject_toml_full_path,
-  -- 			"$FILENAME",
-  -- 		}
-  -- 	end,
+  --     return {
+  --       "check",
+  --       "--config",
+  --       pyproject_toml_full_path,
+  --       "$FILENAME",
+  --     }
+  --   end,
   -- }),
+
+  -- FORMATTERS
+
   null_ls.builtins.formatting.black.with({
     condition = function(utils)
       -- https://github.com/jose-elias-alvarez/null-ls.nvim/blob/main/doc/BUILTIN_CONFIG.md#condition
@@ -222,18 +241,18 @@ local sources = {
         return false
       end
 
-      local skip_black_file = project_root .. "/" .. "skip-black"
-      local skip_black_file_exists = helpers.get_file_exists(skip_black_file)
-      if skip_black_file_exists == true then
+      local trigg_black_file = project_root .. "/" .. "trigg-black"
+      local trigg_black_file_exists = helpers.get_file_exists(trigg_black_file)
+      if trigg_black_file_exists == false then
         vim.api.nvim_echo(
-          { { "skip-black file found on project root, black will be disabled for this file.", "WarningMsg" } },
+          { { "trigg-black file found NOT on project root, black will be disabled for this file.", "WarningMsg" } },
           true,
           {}
         )
         return false
       else
         vim.api.nvim_echo(
-          { { "skip-black file NOT found on project root, so black will be enabled for this file.", "WarningMsg" } },
+          { { "trigg-black file found on project root, so black will be enabled for this file.", "WarningMsg" } },
           true,
           {}
         )
@@ -251,6 +270,7 @@ local sources = {
       return { "--line-length", "79", "--skip-string-normalization" }
     end,
   }),
+
   null_ls.builtins.formatting.isort.with({
     condition = function(utils)
       -- https://github.com/jose-elias-alvarez/null-ls.nvim/blob/main/doc/BUILTIN_CONFIG.md#condition
@@ -260,18 +280,18 @@ local sources = {
         return false
       end
 
-      local skip_isort_file = project_root .. "/" .. "skip-isort"
-      local skip_isort_file_exists = helpers.get_file_exists(skip_isort_file)
-      if skip_isort_file_exists == true then
+      local trigg_isort_file = project_root .. "/" .. "trigg-isort"
+      local trigg_isort_file_exists = helpers.get_file_exists(trigg_isort_file)
+      if trigg_isort_file_exists == false then
         vim.api.nvim_echo(
-          { { "skip-isort file found on project root, isort will be disabled for this file.", "WarningMsg" } },
+          { { "trigg-isort file NOT found on project root, isort will be disabled for this file.", "WarningMsg" } },
           true,
           {}
         )
         return false
       else
         vim.api.nvim_echo(
-          { { "skip-isort file NOT found on project root, so isort will be enabled for this file.", "WarningMsg" } },
+          { { "trigg-isort file found on project root, so isort will be enabled for this file.", "WarningMsg" } },
           true,
           {}
         )
@@ -289,6 +309,7 @@ local sources = {
       return { "-m", "3", "--trailing-comma", "--use-parentheses", "honor-noqa" }
     end,
   }),
+
   -- null_ls.builtins.diagnostics.flake8.with({
   -- 	condition = function(utils)
   -- 		-- https://github.com/jose-elias-alvarez/null-ls.nvim/blob/main/doc/BUILTIN_CONFIG.md#condition
@@ -316,10 +337,12 @@ local sources = {
   --   command = "shellcheck",
   --   extra_args = { "-f", "gcc", "-x" },
   -- }),
+
   null_ls.builtins.formatting.shfmt.with({
     command = "shfmt",
     extra_args = { "-ci", "-s", "-bn", "-i", "4" },
   }),
+
   null_ls.builtins.formatting.stylua.with({
     command = vim.fn.expand("~/.cargo/bin/stylua"),
 

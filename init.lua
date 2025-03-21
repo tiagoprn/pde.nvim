@@ -182,8 +182,9 @@ require("plugins")
 require("surround-conf")
 require("nvim-cmp")
 -- require('lua-lsp')
-require("python-lsp")
-require("ruff-lsp")
+--
+require("python-lsps")
+
 require("bash-lsp")
 require("lsp-saga")
 require("setup-null-ls")

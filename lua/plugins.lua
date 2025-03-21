@@ -487,7 +487,12 @@ require("lazy").setup({
   { "glepnir/lspsaga.nvim", after = "nvim-lspconfig" },
 
   -- LSP diagnostics and code actions
-  { "nvimtools/none-ls.nvim" }, -- originally "jose-elias-alvarez/null-ls.nvim"
+  { -- originally "jose-elias-alvarez/null-ls.nvim"
+    "nvimtools/none-ls.nvim",
+    dependencies = {
+      "nvimtools/none-ls-extras.nvim",
+    },
+  },
 
   -- Treesitter
   {
