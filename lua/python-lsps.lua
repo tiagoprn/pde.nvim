@@ -4,6 +4,32 @@ local lsp = require("lspconfig")
 -- The lsp log file is at ~/.local/share/nvim/lsp.log
 vim.lsp.set_log_level("debug") -- change to "debug" for troubleshooting
 
+-- Below customizes how diagnostics are shown
+vim.diagnostic.config({
+  -- -- Enable INLINE diagnostic details
+  -- virtual_text = {
+  --   prefix = "●", -- You can choose any symbol or string
+  --   format = function(diagnostic)
+  --     return string.format("%s [%s]", diagnostic.message, diagnostic.source)
+  --   end,
+  -- },
+
+  -- ... or ...
+
+  -- Enable diagnostic details on a SEPARATE LINE
+  virtual_lines = {
+    only_current_line = false, -- set to true to show messages only for the current line
+    format = function(diagnostic)
+      return string.format("%s [%s]", diagnostic.message, diagnostic.source)
+    end,
+  },
+
+  signs = true,
+  underline = true,
+  update_in_insert = false,
+  severity_sort = true,
+})
+
 -- assumes python-language-server[all] installed from pip
 -- lsp.pylsp.setup({
 -- 	capabilities = require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities()),
@@ -74,6 +100,7 @@ lsp.jedi_language_server.setup({
 })
 
 lsp.ruff.setup({
+  offset_encoding = "utf-16", -- forces ruff to use UTF-16
   init_options = {
     settings = { -- https://docs.astral.sh/ruff/editors/settings/#settings
       -- configuration = "~/path/to/ruff.toml",  -- https://docs.astral.sh/ruff/configuration/
@@ -81,9 +108,23 @@ lsp.ruff.setup({
       organizeImports = true,
       showSyntaxErrors = true,
       configurationPreference = "filesystemFirst", -- https://docs.astral.sh/ruff/editors/settings/#configurationpreference
+      -- Any extra CLI arguments for `ruff` go here.
+      -- change "logLevel" to "debug" below for troubleshooting
+      logLevel = "debug",
+      logFile = vim.fn.getenv("HOME") .. "/.local/share/nvim/ruff.log",
+      args = {},
     },
   },
-  capabilities = require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities()),
+  capabilities = (function()
+    local cap = vim.lsp.protocol.make_client_capabilities()
+    cap = vim.tbl_deep_extend("force", cap, {
+      offsetEncoding = { "utf-16" },
+      general = {
+        positionEncodings = { "utf-16" },
+      },
+    })
+    return cap
+  end)(),
   cmd = { vim.fn.getenv("HOME") .. "/.pyenv/versions/neovim/bin/ruff", "server" },
   on_attach = function(client, bufnr)
     -- NOTE: do not enable full file automatic formatting on save because of existing codebases
@@ -112,19 +153,6 @@ lsp.ruff.setup({
       end,
     })
 
-    -- Optional: Show diagnostics in a floating window on cursor hover
-    vim.api.nvim_create_autocmd("CursorHold", {
-      buffer = bufnr,
-      callback = function()
-        vim.diagnostic.open_float(nil, {
-          focusable = false,
-          close_events = { "BufLeave", "CursorMoved", "InsertEnter", "FocusLost" },
-          source = "always",
-          scope = "cursor",
-        })
-      end,
-    })
-
     -- mapping to format the selection with ruff
     vim.keymap.set("v", "<leader>cf", function()
       vim.lsp.buf.format({
@@ -144,14 +172,5 @@ lsp.ruff.setup({
       vim.api.nvim_echo({ { "ruff: buffer successfully formatted!", "WarningMsg" } }, true, {})
     end, { buffer = bufnr, desc = "Format whole buffer with Ruff" })
   end,
-  init_options = {
-    settings = {
-      -- Any extra CLI arguments for `ruff` go here.
-      -- change "logLevel" to "debug" below for troubleshooting
-      logLevel = "debug",
-      logFile = vim.fn.getenv("HOME") .. "/.local/share/nvim/ruff.log",
-      args = {},
-    },
-  },
   single_file_support = true,
 })
