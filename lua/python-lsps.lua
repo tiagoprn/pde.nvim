@@ -183,7 +183,7 @@ lsp.ruff.setup({
         async = true,
       })
 
-      vim.api.nvim_echo({ { "ruff: buffer successfully formatted!", "WarningMsg" } }, true, {})
+      vim.cmd('echomsg "ruff: buffer successfully formatted!"')
     end, { buffer = bufnr, desc = "Format whole buffer with Ruff" })
   end,
   single_file_support = true,

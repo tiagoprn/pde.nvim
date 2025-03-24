@@ -88,18 +88,10 @@ local sources = {
       local trigg_pylint_file = project_root .. "/" .. "trigg-pylint"
       local trigg_pylint_file_exists = helpers.get_file_exists(trigg_pylint_file)
       if trigg_pylint_file_exists == false then
-        vim.api.nvim_echo(
-          { { "trigg-pylint file NOT found on project root, pylint will be disabled for this file.", "WarningMsg" } },
-          true,
-          {}
-        )
+        vim.cmd('echomsg "trigg-pylint file NOT found on project root, pylint will be disabled for this file."')
         return false
       else
-        vim.api.nvim_echo(
-          { { "trigg-pylint file found on project root, so pylint will be enabled for this file.", "WarningMsg" } },
-          true,
-          {}
-        )
+        vim.cmd('echomsg "trigg-pylint file found on project root, so pylint will be enabled for this file."')
         return true
       end
     end,
@@ -112,14 +104,10 @@ local sources = {
 
       if current_venv then
         venv = current_venv
-        vim.api.nvim_echo({ { "Current VENV defined as " .. current_venv .. " ", "WarningMsg" } }, true, {})
+        vim.cmd('echomsg "Current VENV defined as ' .. current_venv .. '"')
       else
         venv = default_venv
-        vim.api.nvim_echo(
-          { { "Current VENV NOT defined, using default (" .. default_venv .. ") ", "WarningMsg" } },
-          true,
-          {}
-        )
+        vim.cmd('echomsg "Current VENV NOT defined, using default (' .. default_venv .. ')"')
       end
 
       local path = vim.fn.expand(venv .. "/bin/pylint")
@@ -137,11 +125,11 @@ local sources = {
       file_exists = helpers.get_file_exists(pylintrc_full_path)
 
       if file_exists == false then
-        vim.api.nvim_echo({ { "Could not find .pylintrc, using default one.", "WarningMsg" } }, true, {})
+        vim.cmd('echomsg "Could not find .pylintrc, using default one."')
         pylintrc_full_path = default_pylintrc
       end
 
-      vim.api.nvim_echo({ { "Using .pylintrc from: " .. pylintrc_full_path, "WarningMsg" } }, true, {})
+      vim.cmd('echomsg "Using .pylintrc from: ' .. pylintrc_full_path .. '"')
 
       return {
         "--rcfile",
@@ -244,18 +232,10 @@ local sources = {
       local trigg_black_file = project_root .. "/" .. "trigg-black"
       local trigg_black_file_exists = helpers.get_file_exists(trigg_black_file)
       if trigg_black_file_exists == false then
-        vim.api.nvim_echo(
-          { { "trigg-black file found NOT on project root, black will be disabled for this file.", "WarningMsg" } },
-          true,
-          {}
-        )
+        vim.cmd('echomsg "trigg-black file found NOT on project root, black will be disabled for this file."')
         return false
       else
-        vim.api.nvim_echo(
-          { { "trigg-black file found on project root, so black will be enabled for this file.", "WarningMsg" } },
-          true,
-          {}
-        )
+        vim.cmd('echomsg "trigg-black file found on project root, so black will be enabled for this file."')
         return true
       end
     end,
@@ -283,18 +263,10 @@ local sources = {
       local trigg_isort_file = project_root .. "/" .. "trigg-isort"
       local trigg_isort_file_exists = helpers.get_file_exists(trigg_isort_file)
       if trigg_isort_file_exists == false then
-        vim.api.nvim_echo(
-          { { "trigg-isort file NOT found on project root, isort will be disabled for this file.", "WarningMsg" } },
-          true,
-          {}
-        )
+        vim.cmd('echomsg "trigg-isort file NOT found on project root, isort will be disabled for this file."')
         return false
       else
-        vim.api.nvim_echo(
-          { { "trigg-isort file found on project root, so isort will be enabled for this file.", "WarningMsg" } },
-          true,
-          {}
-        )
+        vim.cmd('echomsg "trigg-isort file found on project root, so isort will be enabled for this file."')
         return true
       end
     end,
