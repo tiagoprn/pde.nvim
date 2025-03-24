@@ -26,7 +26,7 @@ vim.opt.formatoptions:append("j") -- Remove comment leader when joining comment 
 
 -- When the cursor moves outside the viewport of the current window, the buffer scrolls a single
 -- line to keep the cursor in view. Setting the option below will start the scrolling x lines
--- before the border, keeping more context around where you’re working.
+-- before the border, keeping more context around where you're working.
 vim.o.scrolloff = 3
 
 -- Change the sound beep on errors to screen flashing
@@ -58,7 +58,7 @@ if vim.fn.executable("wl-copy") == 1 and vim.fn.executable("wl-paste") == 1 then
     },
     cache_enabled = 0,
   }
-  vim.notify("Using Wayland clipboard configuration", vim.log.levels.INFO)
+  vim.cmd('echomsg "Using Wayland clipboard configuration"')
 elseif vim.fn.executable("tmux") == 1 and vim.env.TMUX ~= nil then
   -- Use tmux clipboard commands if tmux is installed and inside a tmux session
   vim.o.clipboard = "unnamedplus"
@@ -74,12 +74,12 @@ elseif vim.fn.executable("tmux") == 1 and vim.env.TMUX ~= nil then
     },
     cache_enabled = 0,
   }
-  vim.notify("Using Tmux clipboard configuration", vim.log.levels.INFO)
+  vim.cmd('echomsg "Using Tmux clipboard configuration"')
 else
   -- Fallback to default clipboard behavior
   vim.o.clipboard = "unnamedplus"
   vim.g.clipboard = nil
-  vim.notify("Using default clipboard configuration", vim.log.levels.INFO)
+  vim.cmd('echomsg "Using default clipboard configuration"')
 end
 
 -- Disable backup and swap files - they trigger too many events for file system watchers
@@ -158,6 +158,12 @@ vim.cmd("source $HOME/.config/nvim/commands.vim")
 vim.cmd("source $HOME/.config/nvim/abbreviations.vim")
 
 require("custom_hooks")
+
+-- Check if a Python virtualenv is activated
+if vim.env.VIRTUAL_ENV then
+  local venv_name = vim.fn.fnamemodify(vim.env.VIRTUAL_ENV, ":t")
+  vim.cmd('echomsg "Python virtualenv active: ' .. venv_name .. '"')
+end
 
 -- Bootstrap lazy.nvim
 local lazy_path = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"

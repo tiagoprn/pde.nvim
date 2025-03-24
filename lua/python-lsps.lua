@@ -30,6 +30,20 @@ vim.diagnostic.config({
   severity_sort = true,
 })
 
+-- Hide diagnostics when entering insert mode
+vim.api.nvim_create_autocmd("InsertEnter", {
+  callback = function()
+    vim.diagnostic.hide(nil, 0) -- hides diagnostics for the current buffer (id 0)
+  end,
+})
+
+-- Show diagnostics when leaving insert mode
+vim.api.nvim_create_autocmd("InsertLeave", {
+  callback = function()
+    vim.diagnostic.show(nil, 0) -- shows diagnostics for the current buffer
+  end,
+})
+
 -- assumes python-language-server[all] installed from pip
 -- lsp.pylsp.setup({
 -- 	capabilities = require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities()),
