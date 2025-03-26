@@ -1,3 +1,4 @@
+-- THIS WAS CHANGED TO USE BLINK.CMP, MUST BE REMOVED IN FUTURE VERSIONS
 -- Setup nvim-cmp.
 local cmp = require("cmp")
 local snippy = require("snippy")

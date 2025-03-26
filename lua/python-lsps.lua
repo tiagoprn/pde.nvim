@@ -44,33 +44,12 @@ vim.api.nvim_create_autocmd("InsertLeave", {
   end,
 })
 
--- assumes python-language-server[all] installed from pip
--- lsp.pylsp.setup({
--- 	capabilities = require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities()),
--- 	cmd = { vim.fn.getenv("HOME") .. "/.pyenv/versions/neovim/bin/pylsp" },
--- 	-- disabled formatting capabilities because they are provided py
--- 	-- null-ls, which has configuration for all languages.
--- 	on_attach = function(client, bufnr)
--- 		client.server_capabilities.document_formatting = false
--- 		client.server_capabilities.document_range_formatting = false
--- 		client.server_capabilities.document_diagnostics = false
--- 	end,
--- 	settings = {
--- 		pylsp = {
--- 			-- disabling below because I use null-ls for that
--- 			plugins = {
--- 				pyflakes = { enabled = false },
--- 				flake8 = { enabled = false },
--- 				pylint = { enabled = false },
--- 				isort = { enabled = false },
--- 				pycodestyle = { enabled = false },
--- 			},
--- 		},
--- 	},
--- })
-
 lsp.jedi_language_server.setup({
-  capabilities = require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities()),
+  capabilities = function()
+    local cap = vim.lsp.protocol.make_client_capabilities()
+    cap = vim.tbl_deep_extend("force", cap, require("blink.cmp").get_lsp_capabilities({}, false))
+    return cap
+  end,
   cmd = {
     vim.fn.getenv("HOME") .. "/.pyenv/versions/neovim/bin/jedi-language-server",
     -- "-v",
@@ -131,6 +110,9 @@ lsp.ruff.setup({
   },
   capabilities = (function()
     local cap = vim.lsp.protocol.make_client_capabilities()
+
+    cap = vim.tbl_deep_extend("force", cap, require("blink.cmp").get_lsp_capabilities({}, false))
+
     cap = vim.tbl_deep_extend("force", cap, {
       offsetEncoding = { "utf-16" },
       general = {

@@ -16,7 +16,8 @@ obsidian.setup({
   },
   new_notes_location = "notes_subdir",
   completion = {
-    nvim_cmp = true,
+    -- nvim_cmp = true,
+    blink = true,
     min_chars = 2,
     prepend_note_id = true,
   },

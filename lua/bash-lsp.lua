@@ -1,6 +1,7 @@
 -- Add additional capabilities supported by nvim-cmp
 local capabilities = vim.lsp.protocol.make_client_capabilities()
-capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities)
+
+capabilities = vim.tbl_deep_extend("force", capabilities, require("blink.cmp").get_lsp_capabilities({}, false))
 
 -- to try to solve codeAction problem, I got the code snippets below:
 -- (the solution was to use a properly supported fork )
@@ -10,5 +11,5 @@ capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities)
 -- https://github.com/kosayoda/nvim-lightbulb/issues/20
 
 require("lspconfig").bashls.setup({
-	capabilities = capabilities,
+  capabilities = capabilities,
 })
