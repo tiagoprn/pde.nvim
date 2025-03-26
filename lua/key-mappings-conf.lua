@@ -546,12 +546,6 @@ map.set("v", "<leader>aip", ":CodeCompanion<cr>", { desc = "CODE COMPANION - Run
 --> INSERT mode
 map.set("i", "<C-right>", "<Esc>:tabnext<cr>", { desc = "go to next tab" })
 map.set("i", "<C-left>", "<Esc>:tabprevious<cr>", { desc = "go to previous tab" })
-map.set(
-  "i",
-  "<C-s>",
-  "<cmd>lua require'snippy'.complete()<cr>",
-  { desc = "show all available snippets for current filetype" }
-)
 
 -- --
 -- 3) DYNAMIC (programatic) MAPPINGS
