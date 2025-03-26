@@ -45,11 +45,11 @@ vim.api.nvim_create_autocmd("InsertLeave", {
 })
 
 lsp.jedi_language_server.setup({
-  capabilities = function()
+  capabilities = (function()
     local cap = vim.lsp.protocol.make_client_capabilities()
     cap = vim.tbl_deep_extend("force", cap, require("blink.cmp").get_lsp_capabilities({}, false))
     return cap
-  end,
+  end)(), -- Execute the function immediately to return the capabilities table
   cmd = {
     vim.fn.getenv("HOME") .. "/.pyenv/versions/neovim/bin/jedi-language-server",
     -- "-v",
