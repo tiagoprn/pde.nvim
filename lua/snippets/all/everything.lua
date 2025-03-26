@@ -1,12 +1,12 @@
 local ls = require("luasnip")
-local s = ls.snippet
+local new_snippet = ls.snippet
 local i = ls.insert_node
 local f = ls.function_node
 local fmt = require("luasnip.extras.fmt").fmt
 
 local snippet = {
   all = {
-    s(
+    new_snippet(
       "code",
       fmt(
         [[
@@ -17,37 +17,37 @@ local snippet = {
         { i(1, "bash"), i(2) }
       )
     ),
-    s(
+    new_snippet(
       "timestamp",
       f(function()
         return os.date("%Y-%m-%d %H:%M:%S")
       end)
     ),
-    s(
+    new_snippet(
       "today",
       f(function()
         return os.date("%Y-%m-%d")
       end)
     ),
-    s(
+    new_snippet(
       "hh",
       f(function()
         return os.date("%H:%M")
       end)
     ),
-    s(
+    new_snippet(
       "dm",
       f(function()
         return os.date("%d/%m")
       end)
     ),
-    s(
+    new_snippet(
       "dma",
       f(function()
         return os.date("%d/%m/%Y")
       end)
     ),
-    s(
+    new_snippet(
       "sig",
       fmt(
         [[
@@ -61,7 +61,7 @@ twitter.com/tiagoprn
         { i(1) }
       )
     ),
-    s(
+    new_snippet(
       "post",
       fmt(
         [[
@@ -90,7 +90,7 @@ draft: true
         }
       )
     ),
-    s(
+    new_snippet(
       "short",
       i(
         1,
@@ -110,7 +110,7 @@ draft: true
 ${4}]]
       )
     ),
-    s(
+    new_snippet(
       "bib-note",
       i(
         1,
@@ -130,7 +130,7 @@ draft: true
 ${4}]]
       )
     ),
-    s(
+    new_snippet(
       "flashcard_writeloop",
       i(
         1,
@@ -149,7 +149,7 @@ draft: true
 ${4}]]
       )
     ),
-    s(
+    new_snippet(
       "recall-flashcard-new",
       i(
         1,
@@ -163,7 +163,7 @@ AR: ${4:type the reverse answer here (turn the original question into the answer
 Tags: ${5:tag1, tag2, ...}]]
       )
     ),
-    s(
+    new_snippet(
       "recall-tracking-file-entry",
       i(
         1,
@@ -172,7 +172,7 @@ Tags: ${5:tag1, tag2, ...}]]
 - ${2: card_id, card_direction(A/AR), status, current_interval, next_review_date}]]
       )
     ),
-    s(
+    new_snippet(
       "recall-tracking-file",
       i(
         1,
@@ -186,7 +186,7 @@ Tags: ${5:tag1, tag2, ...}]]
 recall-tracking-file-entry]]
       )
     ),
-    s(
+    new_snippet(
       "zettelkasten",
       i(
         1,
@@ -201,7 +201,7 @@ links: [${3}]
 ${4}]]
       )
     ),
-    s(
+    new_snippet(
       "journal",
       i(
         1,
@@ -213,8 +213,8 @@ deep_work: [""]
 ---]]
       )
     ),
-    s("journal-task-vlink", i(1, [[	r/0:00:00/vfname]])),
-    s(
+    new_snippet("journal-task-vlink", i(1, [[	r/0:00:00/vfname]])),
+    new_snippet(
       "journal-task-daily",
       i(
         1,
@@ -235,7 +235,7 @@ TBD
 - [ ] rnote: Draw a diagram with the tables involved, if that is the case]]
       )
     ),
-    s(
+    new_snippet(
       "journal-task-branch",
       i(
         1,
@@ -243,8 +243,8 @@ TBD
 - "${1:branch-name}" - created on `strftime("%Y-%m-%d")`, derived from "${2:derived-branch-name}" at commit "${3:derived-branch-commit-hash}" (merged into "${4:merged-branch-name}" on YYYY-MM-DD)]]
       )
     ),
-    s("journal-task-pull-request", i(1, [[	- [ ] <${1:"git-pull-request-url"}>]])),
-    s(
+    new_snippet("journal-task-pull-request", i(1, [[	- [ ] <${1:"git-pull-request-url"}>]])),
+    new_snippet(
       "journal-task",
       i(
         1,
@@ -288,11 +288,11 @@ journal-task-branch
 journal-task-pull-request]]
       )
     ),
-    s("link-markdown", i(1, [[	[${2:description}](${1:url})]])),
-    s("item-markdown", i(1, [[	- [ ] ${1}]])),
-    s("task_status", i(1, [[	${1|recurring,created,wip,paused,finished,archived|}]])),
-    s("task_effort", i(1, [[	${1|quick-win,small,epic|}]])),
-    s(
+    new_snippet("link-markdown", i(1, [[	[${2:description}](${1:url})]])),
+    new_snippet("item-markdown", i(1, [[	- [ ] ${1}]])),
+    new_snippet("task_status", i(1, [[	${1|recurring,created,wip,paused,finished,archived|}]])),
+    new_snippet("task_effort", i(1, [[	${1|quick-win,small,epic|}]])),
+    new_snippet(
       "task",
       i(
         1,
@@ -331,7 +331,7 @@ N/A
 N/A]]
       )
     ),
-    s(
+    new_snippet(
       "qheader",
       i(
         1,
@@ -345,7 +345,7 @@ type: Journal
 ${1}]]
       )
     ),
-    s(
+    new_snippet(
       "book_notes_body",
       i(
         1,
@@ -400,8 +400,8 @@ ${4:(on books that are so great that there are many things to remember, here go 
 ]]
       )
     ),
-    s("gcommit", i(1, [[	feat: updated repository on `strftime("%Y-%m-%d %H:%M:%S")` ${1}]])),
-    s(
+    new_snippet("gcommit", i(1, [[	feat: updated repository on `strftime("%Y-%m-%d %H:%M:%S")` ${1}]])),
+    new_snippet(
       "test_report",
       i(
         1,
@@ -417,9 +417,12 @@ ${4:(on books that are so great that there are many things to remember, here go 
 - file: <report.txt>]]
       )
     ),
-    s("prompt_code_explain", i(1, [[  Can you explain the code above to me?]])),
-    s("prompt_unit_test", i(1, [[  Can you output a unit test for the happy path on the code above using pytest?]])),
-    s(
+    new_snippet("prompt_code_explain", i(1, [[  Can you explain the code above to me?]])),
+    new_snippet(
+      "prompt_unit_test",
+      i(1, [[  Can you output a unit test for the happy path on the code above using pytest?]])
+    ),
+    new_snippet(
       "prompt_refactor",
       i(
         1,
