@@ -6,7 +6,6 @@ local fmt = require("luasnip.extras.fmt").fmt
 
 local snippet = {
   all = {
-    s("#", i(1, [[]])),
     s(
       "code",
       fmt(
