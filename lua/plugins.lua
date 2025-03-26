@@ -88,7 +88,6 @@ require("lazy").setup({
   { "kylechui/nvim-surround" },
 
   -- Snippets
-  -- { "dcampos/nvim-snippy" },
   {
     "L3MON4D3/LuaSnip",
     -- follow latest release.
@@ -98,12 +97,35 @@ require("lazy").setup({
     config = function()
       local ls = require("luasnip")
 
-      -- Load snippets from ~/.config/nvim/lua/snippets
-      require("luasnip.loaders.from_lua").lazy_load({
-        paths = vim.fn.expand("~/.config/nvim/lua/snippets"),
-      })
+      -- LOAD SNIPPETS from ~/.config/nvim/lua/snippets/<filetype>/*.lua
+      -- -- 1) We'll grab all .lua files under `lua/snippets/**` (including subfolders).
+      local snippet_files = vim.fn.globpath(
+        vim.fn.stdpath("config") .. "/lua/snippets",
+        "**/*.lua", -- '**/*.lua' means "search subdirectories for .lua files"
+        false,
+        true
+      )
 
-      -- Keybindings for jumping in snippets
+      -- -- 2) Prepare a table to accumulate all snippets, grouped by filetype.
+      local filetype_snippets = {}
+
+      for _, file in ipairs(snippet_files) do
+        vim.cmd('echomsg "Processing file: ' .. vim.fn.fnameescape(file) .. ' [WAIT]"')
+        local snippet_data = dofile(file) -- e.g. { all = {...}, python = {...}, lua = {...} }
+        for ft, snippets_for_ft in pairs(snippet_data) do
+          filetype_snippets[ft] = filetype_snippets[ft] or {}
+          vim.list_extend(filetype_snippets[ft], snippets_for_ft)
+        end
+        vim.cmd('echomsg "Processing file: ' .. vim.fn.fnameescape(file) .. ' [DONE]"')
+      end
+
+      -- -- 3) Now load them into LuaSnip
+      for ft, snippets in pairs(filetype_snippets) do
+        ls.add_snippets(ft, snippets)
+      end
+
+      -- KEYBINDINGS
+      -- -- jump in snippets
       vim.keymap.set({ "i", "s" }, "<Tab>", function()
         if ls.expand_or_jumpable() then
           ls.expand_or_jump()
@@ -120,7 +142,7 @@ require("lazy").setup({
         end
       end, { silent = true })
 
-      -- Optional: cycle through choices with Ctrl+e
+      -- -- cycle through choices with Ctrl+e
       vim.keymap.set("i", "<C-e>", function()
         if ls.choice_active() then
           ls.change_choice(1)
