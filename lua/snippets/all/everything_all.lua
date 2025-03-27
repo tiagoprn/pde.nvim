@@ -4,6 +4,8 @@ local i = ls.insert_node
 local f = ls.function_node
 local fmt = require("luasnip.extras.fmt").fmt
 
+-- TODO: change all snippets here that use "strftime" to use the lua function returning the date/time as it was done with the snippet "journal"
+
 local snippet = {
   all = {
     new_snippet(
@@ -40,20 +42,6 @@ local snippet = {
       f(function()
         return os.date("%d/%m/%Y")
       end)
-    ),
-    new_snippet(
-      "sig",
-      fmt(
-        [[
-{}
-
----
-Tiago Paranhos Lima - Senior Software Engineer (python)
-https://tiagopr.nl
-twitter.com/tiagoprn
-]],
-        { i(1) }
-      )
     ),
     new_snippet(
       "post",
@@ -197,14 +185,19 @@ ${4}]]
     ),
     new_snippet(
       "journal",
-      i(
-        1,
+      fmt(
         [[
 ---
-date: `strftime("%Y-%m-%d")`
-hours: [${1:"`strftime("%H:%M")`"}]
+date: {}
+hours: ["{}"]
 deep_work: [""]
----]]
+---]],
+        {
+          f(function()
+            return os.date("%Y-%m-%d")
+          end),
+          i(1, os.date("%H:%M")),
+        }
       )
     ),
     new_snippet("journal-task-vlink", i(1, [[	r/0:00:00/vfname]])),
