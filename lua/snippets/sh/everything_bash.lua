@@ -3,6 +3,7 @@ local new_snippet = ls.snippet
 local i = ls.insert_node
 local t = ls.text_node
 local fmt = require("luasnip.extras.fmt").fmt
+local s = ls.s -- for clarity in new format
 
 local snippet = {
   sh = {
@@ -11,7 +12,14 @@ local snippet = {
 
     new_snippet("env", t("#!/usr/bin/env bash")),
 
-    new_snippet("var_value_equals", t("VARIABLE_NAME=value")),
+    -- Use fmt with simpler braces
+    s(
+      "var_value_equals",
+      fmt("{}={}", {
+        i(1, "VARIABLE_NAME"),
+        i(2, "value"),
+      })
+    ),
 
     new_snippet(
       "argument_from_script_with_default_value",
@@ -38,18 +46,33 @@ local snippet = {
 
     new_snippet("exit_code_last_command", t('EXIT_CODE=$?\necho -e "EXIT_CODE=$EXIT_CODE"')),
 
-    new_snippet("echo_date", t('echo "[$(date +%r)]----> MESSAGE"')),
-
-    new_snippet("multiline_comment", t(": '\nTEXT\n'")),
-
-    new_snippet(
-      "if_file_exists",
-      t('if [ -f "FILE" ]; then\n\techo "File exists \\o/"\nelse\n\techo "File DOES NOT exist :("\nfi')
+    -- Use simple fmt with proper escaping for echo
+    s(
+      "echo_date",
+      fmt('echo "[$(date +%r)]----> {}"', {
+        i(1, "MESSAGE"),
+      })
     ),
 
-    new_snippet(
+    s(
+      "multiline_comment",
+      fmt(": '\n{}\n'", {
+        i(1, "TEXT"),
+      })
+    ),
+
+    s(
+      "if_file_exists",
+      fmt('if [ -f "{}" ]; then\n\techo "File exists \\o/"\nelse\n\techo "File DOES NOT exist :("\nfi', {
+        i(1, "FILE"),
+      })
+    ),
+
+    s(
       "if_directory_exists",
-      t('if [ -d "DIRECTORY" ]; then\n\techo "Directory exists \\o/"\nelse\n\techo "Directory DOES NOT exist :("\nfi')
+      fmt('if [ -d "{}" ]; then\n\techo "Directory exists \\o/"\nelse\n\techo "Directory DOES NOT exist :("\nfi', {
+        i(1, "DIRECTORY"),
+      })
     ),
 
     new_snippet(
@@ -78,9 +101,22 @@ local snippet = {
       )
     ),
 
-    new_snippet("case", t("case word in\n\tpattern )\n\t\t;;\nesac")),
+    s(
+      "case",
+      fmt("case {} in\n\t{} )\n\t\t{};;\nesac", {
+        i(1, "word"),
+        i(2, "pattern"),
+        i(0, ""),
+      })
+    ),
 
-    new_snippet("elif", t("elif [[ condition ]]; then\n\t#statements")),
+    s(
+      "elif",
+      fmt("elif {}; then\n\t{}", {
+        i(1, "[[ condition ]]"),
+        i(0, "#statements"),
+      })
+    ),
 
     new_snippet(
       "script_args",
@@ -105,7 +141,13 @@ local snippet = {
       )
     ),
 
-    new_snippet("for", t("for (( i = 0; i < 10; i++ )); do\n\t#statements\ndone")),
+    s(
+      "for",
+      fmt("for (( i = 0; i < {}; i++ )); do\n\t{}\ndone", {
+        i(1, "10"),
+        i(0, "#statements"),
+      })
+    ),
 
     new_snippet("press_any_key_to_continue", t('read -n 1 -s -r -p "Press any key to continue..."')),
 
@@ -141,15 +183,47 @@ local snippet = {
       )
     ),
 
-    new_snippet("here", t("<<-'TOKEN'\n\t\nTOKEN")),
+    s(
+      "here",
+      fmt("<<-{}\n\t{}\n{}", {
+        i(1, "'TOKEN'"),
+        i(2, ""),
+        i(3, "TOKEN"),
+      })
+    ),
 
-    new_snippet("if", t("if [[ condition ]]; then\n\t#statements\nfi")),
+    s(
+      "if",
+      fmt("if {}; then\n\t{}\nfi", {
+        i(1, "[[ condition ]]"),
+        i(0, "#statements"),
+      })
+    ),
 
-    new_snippet("until", t("until [[ condition ]]; do\n\t#statements\ndone")),
+    s(
+      "until",
+      fmt("until {}; do\n\t{}\ndone", {
+        i(1, "[[ condition ]]"),
+        i(0, "#statements"),
+      })
+    ),
 
-    new_snippet("while", t("while [[ condition ]]; do\n\t#statements\ndone")),
+    s(
+      "while",
+      fmt("while {}; do\n\t{}\ndone", {
+        i(1, "[[ condition ]]"),
+        i(0, "#statements"),
+      })
+    ),
 
-    new_snippet("fun", t("function name() {\n\t\n}")),
+    s(
+      "fun",
+      fmt("function {}({}) {{\n\t{}\n}}", {
+        i(1, "name"),
+        i(2, ""),
+        i(0, ""),
+      })
+    ),
 
     new_snippet("datesh", t('TIMESTAMP="$(date "+%Y%m%d.%H%M.%S")"')),
 
@@ -167,7 +241,12 @@ local snippet = {
       )
     ),
 
-    new_snippet("aliases_enable", t("shopt -s expand_aliases\nsource $HOME/.bashrc\n\n")),
+    s(
+      "aliases_enable",
+      fmt("shopt -s expand_aliases\nsource $HOME/.bashrc\n\n{}", {
+        i(0, ""),
+      })
+    ),
 
     new_snippet(
       "return_code",
