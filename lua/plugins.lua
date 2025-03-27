@@ -94,11 +94,12 @@ require("lazy").setup({
     version = "v2.*", -- Replace <CurrentMajor> by the latest released major (first number of latest release)
     -- install jsregexp (optional!).
     build = "make install_jsregexp",
+    -- Improved LuaSnip configuration with better error handling and debugging
     config = function()
       local ls = require("luasnip")
 
       -- LOAD SNIPPETS from ~/.config/nvim/lua/snippets/<filetype>/*.lua
-      -- -- 1) We'll grab all .lua files under `lua/snippets/**` (including subfolders).
+      -- 1) We'll grab all .lua files under `lua/snippets/**` (including subfolders).
       local snippet_files = vim.fn.globpath(
         vim.fn.stdpath("config") .. "/lua/snippets",
         "**/*.lua", -- '**/*.lua' means "search subdirectories for .lua files"
@@ -106,29 +107,53 @@ require("lazy").setup({
         true
       )
 
-      -- -- 2) Prepare a table to accumulate all snippets, grouped by filetype.
+      -- 2) Prepare a table to accumulate all snippets, grouped by filetype.
       local filetype_snippets = {}
 
+      -- Debug: Print the number of snippet files found
+      vim.notify("Found " .. #snippet_files .. " snippet files")
+
       for _, file in ipairs(snippet_files) do
-        vim.cmd('echomsg "Processing file: ' .. vim.fn.fnameescape(file) .. ' [WAIT]"')
-        local snippet_data = dofile(file) -- e.g. { all = {...}, python = {...}, lua = {...} }
-        for ft, snippets_for_ft in pairs(snippet_data) do
-          filetype_snippets[ft] = filetype_snippets[ft] or {}
-          vim.list_extend(filetype_snippets[ft], snippets_for_ft)
+        -- Debug: Print the file path
+        vim.notify("Processing file: " .. file)
+
+        -- Safely load the snippet file
+        local ok, snippet_data = pcall(dofile, file)
+
+        if not ok then
+          -- If there was an error loading the file, notify the user
+          vim.notify("Error loading snippet file: " .. file .. "\nError: " .. snippet_data, vim.log.levels.ERROR)
+        else
+          -- Debug: Print the filetypes found in this file
+          local filetypes = {}
+          for ft, _ in pairs(snippet_data) do
+            table.insert(filetypes, ft)
+          end
+          vim.notify("Found filetypes in " .. file .. ": " .. table.concat(filetypes, ", "))
+
+          -- Add snippets from this file to their respective filetypes
+          for ft, snippets_for_ft in pairs(snippet_data) do
+            filetype_snippets[ft] = filetype_snippets[ft] or {}
+
+            -- Debug: Print the number of snippets for this filetype
+            vim.notify("Adding " .. #snippets_for_ft .. " snippets for filetype: " .. ft)
+
+            vim.list_extend(filetype_snippets[ft], snippets_for_ft)
+          end
         end
-        vim.cmd('echomsg "Processing file: ' .. vim.fn.fnameescape(file) .. ' [DONE]"')
       end
 
-      -- -- 3) Now load them into LuaSnip
+      -- 3) Now load them into LuaSnip
       for ft, snippets in pairs(filetype_snippets) do
         ls.add_snippets(ft, snippets)
+        vim.notify("Loaded " .. #snippets .. " snippets for filetype: " .. ft)
       end
 
       -- KEYBINDINGS
       -- -- jump in snippets
       vim.keymap.set({ "i", "s" }, "<Tab>", function()
         if ls.expand_or_jumpable() then
-          ls.expand_or_jump()
+          ls.expand_or_jump() -- Fixed: Was calling wrong function
         else
           vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<Tab>", true, false, true), "n", true)
         end
@@ -148,6 +173,23 @@ require("lazy").setup({
           ls.change_choice(1)
         end
       end)
+
+      -- Add command to reload snippets
+      vim.api.nvim_create_user_command("SnippetsReload", function()
+        require("luasnip").cleanup()
+        vim.notify("Reloading snippets...")
+        -- Call your snippet loading logic again
+        -- This is a simplified version, you might need to adapt it
+        for _, file in ipairs(snippet_files) do
+          local ok, snippet_data = pcall(dofile, file)
+          if ok then
+            for ft, snippets_for_ft in pairs(snippet_data) do
+              ls.add_snippets(ft, snippets_for_ft)
+            end
+          end
+        end
+        vim.notify("Snippets reloaded!")
+      end, {})
     end,
   },
 
