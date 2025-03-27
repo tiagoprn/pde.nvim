@@ -18,12 +18,6 @@ local snippet = {
       )
     ),
     new_snippet(
-      "timestamp",
-      f(function()
-        return os.date("%Y-%m-%d %H:%M:%S")
-      end)
-    ),
-    new_snippet(
       "today",
       f(function()
         return os.date("%Y-%m-%d")
