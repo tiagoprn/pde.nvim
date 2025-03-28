@@ -707,6 +707,7 @@ require("lazy").setup({
       -- elsewhere in your config, without redefining it, due to `opts_extend`
       sources = {
         default = {
+          "lazydev",
           "lsp",
           "path",
           "snippets",
@@ -717,6 +718,14 @@ require("lazy").setup({
           "cmdline",
           "codecompanion",
           "omni",
+        },
+        providers = {
+          lazydev = {
+            name = "LazyDev",
+            module = "lazydev.integrations.blink",
+            -- make lazydev completions top priority (see `:h blink.cmp`)
+            score_offset = 100,
+          },
         },
       },
 
@@ -764,7 +773,7 @@ require("lazy").setup({
         "luvit-meta/library",
         -- It can also be a table with trigger words / mods
         -- Only load luvit types when the `vim.uv` word is found
-        { path = "luvit-meta/library", words = { "vim%.uv" } },
+        { path = "${3rd}/luv/library", words = { "vim%.uv" } },
         -- always load the LazyVim library
         "LazyVim",
         -- Only load the lazyvim library when the `LazyVim` global is found
@@ -772,6 +781,9 @@ require("lazy").setup({
         -- Load the wezterm types when the `wezterm` module is required
         -- Needs `justinsgithub/wezterm-types` to be installed
         { path = "wezterm-types", mods = { "wezterm" } },
+      },
+      integrations = {
+        lspconfig = true,
       },
       -- always enable unless `vim.g.lazydev_enabled = false`
       -- This is the default
