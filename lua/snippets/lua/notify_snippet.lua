@@ -5,7 +5,16 @@ local f = ls.function_node
 local fmt = require("luasnip.extras.fmt").fmt
 
 local snippet = {
-  all = {},
+  lua = {
+    new_snippet(
+      "notify",
+      fmt(
+        [[
+vim.notify("{}")]],
+        { i(1, "string") }
+      )
+    ),
+  },
 }
 
 return snippet
