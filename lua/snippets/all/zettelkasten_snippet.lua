@@ -8,17 +8,25 @@ local snippet = {
   all = {
     new_snippet(
       "zettelkasten",
-      i(
-        1,
+      fmt(
         [[
 ---
-title: "${1}"
-date: `strftime("%Y-%m-%d %H:%M:%S")`
-tags: [${2:"tag1",}]
-links: [${3}]
+title: "{}"
+date: {}
+tags: [{}]
+links: [{}]
 ---
 
-${4}]]
+{}]],
+        {
+          i(1, ""),
+          f(function()
+            return os.date("%Y-%m-%d %H:%M:%S")
+          end),
+          i(2, '"tag1",'),
+          i(3, ""),
+          i(4, ""),
+        }
       )
     ),
   },

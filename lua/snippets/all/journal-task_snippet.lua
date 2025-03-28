@@ -4,20 +4,23 @@ local i = ls.insert_node
 local f = ls.function_node
 local fmt = require("luasnip.extras.fmt").fmt
 
+local function get_current_timestamp()
+  return os.date("%Y-%m-%d %H:%M:%S")
+end
+
 local snippet = {
   all = {
     new_snippet(
       "journal-task",
-      i(
-        1,
+      fmt(
         [[
 ---
-title: "${1}"
-date: `strftime("%Y-%m-%d %H:%M:%S")`
+title: "{}"
+date: {}
 due_at: ""
 started_at: "timestamp"
 closed_at: "timestamp"
-tags: [${2:"tag1",}]
+tags: [{}]
 links: []
 ---
 
@@ -47,7 +50,14 @@ journal-task-branch
 
 # PULL REQUESTS
 
-journal-task-pull-request]]
+journal-task-pull-request]],
+        {
+          i(1, ""),
+          f(function()
+            return get_current_timestamp()
+          end),
+          i(2, '"tag1",'),
+        }
       )
     ),
   },

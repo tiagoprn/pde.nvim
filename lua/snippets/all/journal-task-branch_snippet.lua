@@ -8,10 +8,18 @@ local snippet = {
   all = {
     new_snippet(
       "journal-task-branch",
-      i(
-        1,
+      fmt(
         [[
-- "${1:branch-name}" - created on `strftime("%Y-%m-%d")`, derived from "${2:derived-branch-name}" at commit "${3:derived-branch-commit-hash}" (merged into "${4:merged-branch-name}" on YYYY-MM-DD)]]
+- "{}" - created on {}, derived from "{}" at commit "{}" (merged into "{}" on YYYY-MM-DD)]],
+        {
+          i(1, "branch-name"),
+          f(function()
+            return os.date("%Y-%m-%d")
+          end),
+          i(2, "derived-branch-name"),
+          i(3, "derived-branch-commit-hash"),
+          i(4, "merged-branch-name"),
+        }
       )
     ),
   },

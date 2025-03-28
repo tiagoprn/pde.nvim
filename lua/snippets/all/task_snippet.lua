@@ -8,12 +8,11 @@ local snippet = {
   all = {
     new_snippet(
       "task",
-      i(
-        1,
+      fmt(
         [[
 ---
-goal: "${1:Goal}"
-created: "`strftime("%Y-%m-%d %H:%M:%S")`"
+goal: "{}"
+created: "{}"
 closed: ""
 effort: "task_effort"
 current_status: "task_status"
@@ -22,7 +21,7 @@ tags: []
 
 # DESCRIPTION
 
-${2:What needs to be done?}
+{}
 
 
 # CHECKLIST
@@ -42,7 +41,14 @@ N/A
 
 # TECHNICAL DISCOVERY
 
-N/A]]
+N/A]],
+        {
+          i(1, "Goal"),
+          f(function()
+            return os.date("%Y-%m-%d %H:%M:%S")
+          end),
+          i(2, "What needs to be done?"),
+        }
       )
     ),
   },

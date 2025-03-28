@@ -3,27 +3,37 @@ local new_snippet = ls.snippet
 local i = ls.insert_node
 local f = ls.function_node
 local fmt = require("luasnip.extras.fmt").fmt
+local rep = require("luasnip.extras").rep
 
 local snippet = {
   all = {
     new_snippet(
       "bib-note",
-      i(
-        1,
+      fmt(
         [[
 ---
 author: "Tiago Paranhos Lima"
-title: "${1}"
-date: `strftime("%Y-%m-%d")`
+title: "{}"
+date: {}
 categories: ["bibliographic-notes"]
-description: "${2}"
-tags: [${3:"tag1",}]
-references: [${4:"link1",}]
+description: "{}"
+tags: [{}]
+references: [{}]
 hidden: false
 draft: true
 ---
 
-${4}]]
+{}]],
+        {
+          i(1, ""),
+          f(function()
+            return os.date("%Y-%m-%d")
+          end),
+          i(2, ""),
+          i(3, '"tag1",'),
+          i(4, '"link1",'),
+          rep(4),
+        }
       )
     ),
   },

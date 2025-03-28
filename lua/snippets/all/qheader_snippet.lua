@@ -8,16 +8,24 @@ local snippet = {
   all = {
     new_snippet(
       "qheader",
-      i(
-        1,
+      fmt(
         [[
 ---
-created: `strftime("%Y-%m-%dT%H:%M:%S")`
-modified: `strftime("%Y-%m-%dT%H:%M:%S")`
+created: {}
+modified: {}
 type: Journal
 ---
 
-${1}]]
+{}]],
+        {
+          f(function()
+            return os.date("%Y-%m-%dT%H:%M:%S")
+          end),
+          f(function()
+            return os.date("%Y-%m-%dT%H:%M:%S")
+          end),
+          i(1, ""),
+        }
       )
     ),
   },

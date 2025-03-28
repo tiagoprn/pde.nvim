@@ -8,18 +8,25 @@ local snippet = {
   all = {
     new_snippet(
       "test_report",
-      i(
-        1,
+      fmt(
         [[
-- timestamp: `strftime("%Y-%m-%d %H:%M:%S")`
+- timestamp: {}
 
-- environment: ${1:development (my machine), ci, etc..}
+- environment: {}
 
-- branch: \`${2}\`
+- branch: `{}`
 
-- context: ${3:describe here the reason I ran the suite - e.g. after refactoring xyz}
+- context: {}
 
-- file: <report.txt>]]
+- file: <report.txt>]],
+        {
+          f(function()
+            return os.date("%Y-%m-%d %H:%M:%S")
+          end),
+          i(1, "development (my machine), ci, etc.."),
+          i(2, ""),
+          i(3, "describe here the reason I ran the suite - e.g. after refactoring xyz"),
+        }
       )
     ),
   },

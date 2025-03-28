@@ -8,10 +8,9 @@ local snippet = {
   all = {
     new_snippet(
       "journal-task-daily",
-      i(
-        1,
+      fmt(
         [[
-## `strftime("%Y-%m-%d")`
+## {}
 
 ### DID
 
@@ -23,8 +22,14 @@ TBD
 
 ### NEXT
 
-- [ ] ${1:"..."}
-- [ ] rnote: Draw a diagram with the tables involved, if that is the case]]
+- [ ] {}
+- [ ] rnote: Draw a diagram with the tables involved, if that is the case]],
+        {
+          f(function()
+            return os.date("%Y-%m-%d")
+          end),
+          i(1, "..."),
+        }
       )
     ),
   },

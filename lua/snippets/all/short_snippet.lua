@@ -8,22 +8,31 @@ local snippet = {
   all = {
     new_snippet(
       "short",
-      i(
-        1,
+      fmt(
         [[
 ---
 author: "Tiago Paranhos Lima"
-title: "${1}"
-date: `strftime("%Y-%m-%d")`
+title: "{}"
+date: {}
 categories: ["shorts"]
-description: "${2}"
-tags: [${3:"tag1",}]
-references: [${4:"link1",}]
+description: "{}"
+tags: [{}]
+references: [{}]
 hidden: false
 draft: true
 ---
 
-${4}]]
+{}]],
+        {
+          i(1, ""),
+          f(function()
+            return os.date("%Y-%m-%d")
+          end),
+          i(2, ""),
+          i(3, '"tag1",'),
+          i(4, '"link1",'),
+          i(5, ""),
+        }
       )
     ),
   },
