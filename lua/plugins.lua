@@ -114,8 +114,7 @@ require("lazy").setup({
       vim.notify("Found " .. #snippet_files .. " snippet files")
 
       for _, file in ipairs(snippet_files) do
-        -- Debug: Print the file path
-        vim.notify("Processing file: " .. file)
+        -- vim.notify("Processing file: " .. file)
 
         -- Safely load the snippet file
         local ok, snippet_data = pcall(dofile, file)
@@ -129,14 +128,14 @@ require("lazy").setup({
           for ft, _ in pairs(snippet_data) do
             table.insert(filetypes, ft)
           end
-          vim.notify("Found filetypes in " .. file .. ": " .. table.concat(filetypes, ", "))
+          -- vim.notify("Found filetypes in " .. file .. ": " .. table.concat(filetypes, ", "))
 
           -- Add snippets from this file to their respective filetypes
           for ft, snippets_for_ft in pairs(snippet_data) do
             filetype_snippets[ft] = filetype_snippets[ft] or {}
 
             -- Debug: Print the number of snippets for this filetype
-            vim.notify("Adding " .. #snippets_for_ft .. " snippets for filetype: " .. ft)
+            -- vim.notify("Adding " .. #snippets_for_ft .. " snippets for filetype: " .. ft)
 
             vim.list_extend(filetype_snippets[ft], snippets_for_ft)
           end
