@@ -187,7 +187,7 @@ require("tiagoprn.custom_commands")
 require("plugins")
 require("surround-conf")
 -- require("nvim-cmp")
--- require('lua-lsp')
+require("lua-lsp")
 --
 require("python-lsps")
 

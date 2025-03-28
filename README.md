@@ -82,14 +82,7 @@ NOTE: Treesitter parsers will be installed when neovim if first started through 
 #### lua
 
 - lua-language-server (previously called "sumneko"):
-    - Create folder (or delete existing contents on it when updating): `mkdir -p ~/.config/nvim/lua-language-server`
-    - Enter folder `~/.config/nvim/lua-language-server`
-	- Download a release from this page: <https://github.com/LuaLS/lua-language-server/releases>
-    - Uncompress the file with `tar xfzv`
-    - Check it is working and the version is the same you downloaded:
-    ``` bash
-    $ bin/lua-language-server --version
-    ```
+    - install with the nix package manager (see my repo <https://github.com/tiagoprn/nix-home-manager/blob/4541cc1d77d2aeae962d1620059b515760bb9b36/packages_list.nix#L8>)
 
 - stylua: install using rust package manager:
 ```bash
