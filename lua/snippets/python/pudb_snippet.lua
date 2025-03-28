@@ -7,12 +7,7 @@ local fmt = require("luasnip.extras.fmt").fmt
 
 local snippet = {
   python = {
-    new_snippet(
-      "pudb",
-      t([[
-__import__('pudb').set_trace()
-]])
-    ),
+    new_snippet("pudb", t("__import__('pudb').set_trace()")),
   },
 }
 
