@@ -9,11 +9,11 @@ local snippet = {
   python = {
     new_snippet(
       "today_and_date_objects",
-      t([[
-from datetime import datetime
-today = datetime.today().date()  # this returns a date (not datetime) object
-date_object = datetime(2023, 12, 31).date()  # this builds a date (not datetime) object, that can be compared with "today" above
-]])
+      t({
+        "from datetime import datetime",
+        "today = datetime.today().date()  # this returns a date (not datetime) object",
+        "date_object = datetime(2023, 12, 31).date()  # this builds a date (not datetime) object, that can be compared with 'today' above",
+      })
     ),
   },
 }

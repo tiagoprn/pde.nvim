@@ -9,10 +9,10 @@ local snippet = {
   python = {
     new_snippet(
       "dateobj",
-      t([[
-from datetime import datetime
-date_obj = datetime.strptime('2011-12-31 11:59:59', '%Y-%m-%d %H:%M:%S')
-]])
+      t({
+        "from datetime import datetime",
+        "date_obj = datetime.strptime('2011-12-31 11:59:59', '%Y-%m-%d %H:%M:%S')",
+      })
     ),
   },
 }

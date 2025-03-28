@@ -9,10 +9,10 @@ local snippet = {
   python = {
     new_snippet(
       "datestr",
-      t([[
-from datetime import datetime
-date_str = datetime.now().strftime('%Y-%m-%d %H:%M:%S.%f')
-]])
+      t({
+        "from datetime import datetime",
+        "date_str = datetime.now().strftime('%Y-%m-%d %H:%M:%S.%f')",
+      })
     ),
   },
 }
