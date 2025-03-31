@@ -63,7 +63,7 @@ function M.preview_and_open_snippet()
           require("telescope.actions").close(prompt_bufnr)
 
           if vim.fn.filereadable(full_file_path) == 1 then
-            vim.cmd("edit " .. vim.fn.fnameescape(full_file_path)) -- Open the selected file using the full path
+            vim.cmd("tabnew " .. vim.fn.fnameescape(full_file_path)) -- Open the selected file on a new tab using the full path
           else
             print("File does not exist: " .. full_file_path) -- Handle case when file doesn't exist
           end
