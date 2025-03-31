@@ -2,6 +2,7 @@ local lspconfig = require("lspconfig")
 
 -- Configuration for lua_ls (Lua language server)
 lspconfig.lua_ls.setup({
+  single_file_support = true,
   on_init = function(client)
     if client.workspace_folders then
       local path = client.workspace_folders[1].name

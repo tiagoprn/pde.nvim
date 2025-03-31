@@ -1,3 +1,42 @@
+local function tbl_index(list, value)
+  for k, v in pairs(list) do
+    if v == value then
+      return k
+    end
+  end
+  return -1
+end
+
+local kind_priority = vim.tbl_map(function(i)
+  return tbl_index(vim.lsp.protocol.CompletionItemKind, i)
+end, {
+  "Snippet",
+  "Method",
+  "Function",
+  "Constructor",
+  "Field",
+  "Variable",
+  "Class",
+  "Interface",
+  "Module",
+  "Property",
+  "Unit",
+  "Value",
+  "Enum",
+  "Keyword",
+  "Color",
+  "Reference",
+  "EnumMember",
+  "Constant",
+  "Struct",
+  "Event",
+  "Operator",
+  "TypeParameter",
+  "Folder",
+  "File",
+  "Text",
+})
+
 require("lazy").setup({
   -- Telescope
   {
@@ -738,7 +777,23 @@ require("lazy").setup({
       -- when the Rust fuzzy matcher is not available, by using `implementation = "prefer_rust"`
       --
       -- See the fuzzy documentation for more information
-      fuzzy = { implementation = "prefer_rust_with_warning" },
+      fuzzy = {
+        implementation = "prefer_rust_with_warning",
+        max_typos = function()
+          return 0
+        end,
+        sorts = {
+          "exact",
+          "score",
+          function(a, b)
+            return tbl_index(kind_priority, a.kind) < tbl_index(kind_priority, b.kind)
+          end,
+          function(a, b)
+            return #a.label < #b.label
+          end,
+          "sort_text",
+        },
+      },
     },
     opts_extend = { "sources.default" },
   },

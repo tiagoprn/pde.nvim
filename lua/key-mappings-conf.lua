@@ -67,7 +67,11 @@ which_key.add({
   { "<leader>aih", "<cmd>lua require('tiagoprn.forms').codecompanion_help()<cr>", desc = "help" },
   { "<F10>", ":CodeCompanionChat<cr>", desc = "Toggle" },
 
-  { "<leader>al", ":PrintLspSupportedRequests<cr>", desc = "print all supported requests on the current LSP server" },
+  {
+    "<leader>al",
+    ":PrintLspSupportedRequests<cr>",
+    desc = "print all supported requests on the current LSP server",
+  },
   { "<leader>at", group = "tmux" },
   {
     "<leader>ati",
@@ -206,7 +210,11 @@ which_key.add({
   -- etc
   { "<leader>e", group = "etc" },
   { "<leader>ec", ":Telescope colorscheme<cr>", desc = "telescope browse color schemes" },
-  { "<leader>eh", ":Telescope help_tags<cr>", desc = "telescope search tag on nvim help (builtins and plugins)" },
+  {
+    "<leader>eh",
+    ":Telescope help_tags<cr>",
+    desc = "telescope search tag on nvim help (builtins and plugins)",
+  },
   -- files, buffers, tabs & windows
   -- -- files
   { "<leader>f", group = "files, buffers, tabs & windows" },
@@ -277,6 +285,14 @@ which_key.add({
   { "<leader>gj", ":Gitsigns next_hunk<cr>", desc = "go to next changed hunk" },
   { "<leader>gk", ":Gitsigns prev_hunk<cr>", desc = "go to previous changed hunk" },
   { "<leader>gt", ":!tmux select-window -t git<cr>", desc = "go to gitui tmux window" },
+  -- snippets
+  { "<leader>i", group = "snippets" },
+  {
+    "<Leader>io",
+    '<cmd>lua require("tiagoprn.snippets_utils").preview_and_open_snippet()<cr>',
+    desc = "list all",
+  },
+
   -- BOOKMARKS
   { "<leader>k", group = "BOOKMARKS on quickfix list" },
   { "<leader>ka", "<cmd>lua require('tiagoprn.quickfix_bookmarks').add_bookmark()<cr>", desc = "Add Bookmark" },
@@ -339,7 +355,11 @@ which_key.add({
     ":EmbedValueFromPythonPrintableExpression<cr>",
     desc = "type printable / evaluable python expression to embed in current buffer",
   },
-  { "<leader>Pr", ":RunPythonScriptOnCurrentLine<cr>", desc = "run python script on current line" },
+  {
+    "<leader>Pr",
+    ":RunPythonScriptOnCurrentLine<cr>",
+    desc = "run python script on current line",
+  },
   -- quickfix
   { "<leader>q", group = "quickfix" },
   { "<leader>q9", ":clast<cr>", desc = "end" },
@@ -360,7 +380,11 @@ which_key.add({
   -- save current buffer
   { "<leader>s", ":w!<cr>", desc = "save current buffer" },
   -- source markdown
-  { "<leader>t", ":SourceMarkdown<cr>", desc = "source markdown configuration (remove conceal, etc)" },
+  {
+    "<leader>t",
+    ":SourceMarkdown<cr>",
+    desc = "source markdown configuration (remove conceal, etc)",
+  },
   -- undo changes
   { "<leader>u", ":undo<cr>", desc = "undo changes" },
   -- writing
@@ -394,7 +418,11 @@ which_key.add({
   { "<leader>wmy", ":MindCustomCopyNodeLinkIndexOnMainTree<cr>", desc = "tree - search a node and copy its' link" },
   { "<leader>wn", ":OpenPersonalDoc<cr>", desc = "open note" },
   { "<leader>ws", group = "spell" },
-  { "<leader>wsa", ":normal! mz[s1z=`z]<cr>", desc = "fix last misspelled word & jump back to where you were" },
+  {
+    "<leader>wsa",
+    ":normal! mz[s1z=`z]<cr>",
+    desc = "fix last misspelled word & jump back to where you were",
+  },
   { "<leader>wsb", ":set spelllang=en,pt_br<cr>", desc = "set to EN & PT_BR" },
   { "<leader>wse", ":set spelllang=en<cr>", desc = "set to EN" },
   { "<leader>wsl", ":set spelllang?<cr>", desc = "show current language" },
