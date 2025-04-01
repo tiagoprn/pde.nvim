@@ -7,12 +7,16 @@ end
 
 markview.setup({
   highlight_groups = "dark",
-  hybrid_modes = { "n" },
-  initial_state = false, -- show or do not show the preview when opening a file
+  preview = {
+    enable = false,
+    hybrid_modes = { "n" },
+  },
   checkboxes = {
     enable = true,
   },
-  list_items = {
-    enable = false,
+  markdown = {
+    list_items = {
+      enable = false,
+    },
   },
 })
