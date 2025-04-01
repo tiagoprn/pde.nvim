@@ -481,8 +481,20 @@ map.set("n", "<Down>", "<Nop>", { desc = "disable Down in normal mode" })
 map.set("n", "<Left>", "<Nop>", { desc = "disable Left in normal mode" })
 map.set("n", "<Right>", "<Nop>", { desc = "disable Right in normal mode" })
 
-map.set("n", "<C-j>", ":m .+1<cr>==", { desc = "move current line/selection down" })
-map.set("n", "<C-k>", ":m .-2<cr>==", { desc = "move current line/selection up" })
+map.set("n", "<M-j>", ":m .+1<cr>==", { desc = "move current line/selection down" })
+map.set("n", "<M-k>", ":m .-2<cr>==", { desc = "move current line/selection up" })
+
+map.set("n", "<C-k>", function()
+  vim.diagnostic.config({ virtual_lines = { current_line = true }, virtual_text = false })
+
+  vim.api.nvim_create_autocmd("CursorMoved", {
+    group = vim.api.nvim_create_augroup("line-diagnostics", { clear = true }),
+    callback = function()
+      vim.diagnostic.config({ virtual_lines = false, virtual_text = true })
+      return true
+    end,
+  })
+end, { desc = "details diagnostics on virtual lines" })
 
 map.set("n", "<C-right>", ":tabnext<cr>", { desc = "go to next tab" })
 map.set("n", "<C-left>", ":tabprevious<cr>", { desc = "go to previous tab" })

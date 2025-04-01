@@ -6,19 +6,13 @@ vim.lsp.set_log_level("debug") -- change to "debug" for troubleshooting
 
 -- Below customizes how diagnostics are shown
 vim.diagnostic.config({
-  -- -- Enable INLINE diagnostic details
-  -- virtual_text = {
-  --   prefix = "●", -- You can choose any symbol or string
-  --   format = function(diagnostic)
-  --     return string.format("%s [%s]", diagnostic.message, diagnostic.source)
-  --   end,
-  -- },
-
-  -- ... or ...
-
-  -- Enable diagnostic details on a SEPARATE LINE
-  virtual_lines = {
-    only_current_line = false, -- set to true to show messages only for the current line
+  -- Enable INLINE diagnostic details
+  --
+  -- IMPORTANT: there is a NORMAL MODE mapping on lua/key-mappings-conf.lua that expands
+  --            the diagnostics details into virtual lines with <C-k>
+  --
+  virtual_text = {
+    prefix = "●", -- You can choose any symbol or string
     format = function(diagnostic)
       return string.format("%s [%s]", diagnostic.message, diagnostic.source)
     end,
