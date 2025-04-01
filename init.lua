@@ -184,20 +184,17 @@ require("tiagoprn.custom_commands")
 
 -- --- PLUGINS
 
+require("lsp-common")
 require("plugins")
 require("surround-conf")
--- require("nvim-cmp")
 require("lua-lsp")
---
 require("python-lsps")
-
 require("bash-lsp")
 require("lsp-saga")
 require("setup-null-ls")
 require("treesitter-conf")
 require("tree")
 require("autopairs")
--- require("snippets")
 require("aerial-code-navigation")
 require("telescope-conf")
 require("gitsigns-conf")

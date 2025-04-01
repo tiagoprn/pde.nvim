@@ -701,7 +701,14 @@ require("lazy").setup({
       },
 
       completion = {
-        documentation = { auto_show = true },
+        documentation = {
+          auto_show = true,
+          window = {
+            border = "double",
+            max_width = math.floor(vim.o.columns * 0.7),
+            max_height = math.floor(vim.o.lines * 0.7),
+          },
+        },
         menu = { -- https://cmp.saghen.dev/recipes#nvim-web-devicons-lspkind
           draw = {
             components = {
@@ -770,7 +777,14 @@ require("lazy").setup({
 
       snippets = { preset = "luasnip" },
 
-      signature = { enabled = true },
+      signature = {
+        enabled = true,
+        window = {
+          border = "double",
+          max_width = math.floor(vim.o.columns * 0.7),
+          max_height = math.floor(vim.o.lines * 0.7),
+        },
+      },
 
       -- (Default) Rust fuzzy matcher for typo resistance and significantly better performance
       -- You may use a lua implementation instead by using `implementation = "lua"` or fallback to the lua implementation,
