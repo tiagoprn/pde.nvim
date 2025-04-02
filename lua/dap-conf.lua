@@ -139,7 +139,17 @@ table.insert(dap.configurations.python, {
   type = "python",
   request = "launch",
   program = "/storage/src/pde.nvim/python/dap_test.py", -- Hardcoded file path
-  pythonPath = get_debugpy_python_path(), -- use neovim venv for debugpy
+  pythonPath = function()
+    local venv = os.getenv("VIRTUAL_ENV")
+    if venv then
+      vim.notify("DAP: Using active virtualenv: " .. venv, vim.log.levels.INFO)
+      return venv .. "/bin/python"
+    else
+      vim.notify("No active virtualenv found, using system python", vim.log.levels.WARN)
+      return vim.fn.exepath("python")
+    end
+  end,
+  dap_python_debugger = get_debugpy_python_path(),
 })
 
 table.insert(dap.configurations.python, {
@@ -147,27 +157,24 @@ table.insert(dap.configurations.python, {
   type = "python",
   request = "launch",
   program = vim.fn.expand("%:p"), -- Directly expand the current file path
-  pythonPath = get_debugpy_python_path(), -- use neovim venv for debugpy
+  pythonPath = function()
+    local venv = os.getenv("VIRTUAL_ENV")
+    if venv then
+      vim.notify("DAP: Using active virtualenv: " .. venv, vim.log.levels.INFO)
+      return venv .. "/bin/python"
+    else
+      vim.notify("No active virtualenv found, using system python", vim.log.levels.WARN)
+      return vim.fn.exepath("python")
+    end
+  end,
+  dap_python_debugger = get_debugpy_python_path(),
 })
 
 table.insert(dap.configurations.python, {
   type = "python",
   request = "launch",
   name = "Pytest: Current File",
-  -- TODO: fix below: instead of program, I probably have to use another variable (module, code, etc?)
-  program = function()
-    -- Get pytest from the active virtualenv
-    local venv = os.getenv("VIRTUAL_ENV")
-    local pytest_path
-    if venv then
-      pytest_path = venv .. "/bin/pytest"
-      vim.notify("Using pytest from active virtualenv: " .. pytest_path, vim.log.levels.INFO)
-    else
-      pytest_path = vim.fn.exepath("pytest")
-      vim.notify("No active virtualenv found, using system pytest: " .. pytest_path, vim.log.levels.INFO)
-    end
-    return pytest_path
-  end,
+  module = "pytest", -- Use module instead of program
   args = function()
     local file_path = vim.fn.expand("%:p") -- Get absolute path of current file
     vim.notify("Running pytest on file: " .. file_path, vim.log.levels.INFO)
@@ -177,33 +184,47 @@ table.insert(dap.configurations.python, {
       file_path, -- Use explicit file path
     }
   end,
-  pythonPath = get_debugpy_python_path(), -- use neovim venv for debugpy
+  pythonPath = function()
+    -- Get the Python path from the active virtual environment for running pytest
+    local venv = os.getenv("VIRTUAL_ENV")
+    if venv then
+      vim.notify("Using pytest from active virtualenv: " .. venv, vim.log.levels.INFO)
+      return venv .. "/bin/python"
+    else
+      vim.notify("No active virtualenv found, using system python", vim.log.levels.WARN)
+      return vim.fn.exepath("python")
+    end
+  end,
+  dap_python_debugger = get_debugpy_python_path(),
 })
 
--- table.insert(dap.configurations.python, {
---   type = "python",
---   request = "launch",
---   name = "Pytest: With Expression",
---   module = "pytest",
---   args = function()
---     local expression = vim.fn.input("Test expression (-k): ")
---     return {
---       "-s",
---       "-vvv",
---       "-k",
---       expression,
---     }
---   end,
---   pythonPath = function()
---     -- Get the Python path from the active virtual environment
---     local venv = os.getenv("VIRTUAL_ENV")
---     if venv then
---       return venv .. "/bin/python"
---     else
---       return vim.fn.exepath("python")
---     end
---   end,
--- })
+table.insert(dap.configurations.python, {
+  type = "python",
+  request = "launch",
+  name = "Pytest: With Expression",
+  module = "pytest",
+  args = function()
+    local expression = vim.fn.input("Test expression (-k): ")
+    return {
+      "-s",
+      "-vvv",
+      "-k",
+      expression,
+    }
+  end,
+  pythonPath = function()
+    -- Get the Python path from the active virtual environment for running pytest
+    local venv = os.getenv("VIRTUAL_ENV")
+    if venv then
+      vim.notify("Using pytest from active virtualenv: " .. venv, vim.log.levels.INFO)
+      return venv .. "/bin/python"
+    else
+      vim.notify("No active virtualenv found, using system python", vim.log.levels.WARN)
+      return vim.fn.exepath("python")
+    end
+  end,
+  dap_python_debugger = get_debugpy_python_path(),
+})
 
 -- table.insert(dap.configurations.python, {
 --   type = "python",

@@ -271,21 +271,21 @@ which_key.add({
     "<cmd>lua require('dap-conf').finish_debugging_and_close_windows()<cr>",
     desc = "Terminate and close all windows",
   },
-  -- {
-  --   "<leader>dl",
-  --   "<cmd>lua require('dap').run_last()<cr>",
-  --   desc = "run last",
-  -- },
-  -- {
-  --   "<leader>du",
-  --   "<cmd>lua require('dapui').toggle()<cr>",
-  --   desc = "Toggle DAP UI",
-  -- },
+  {
+    "<leader>dl",
+    "<cmd>lua require('dap').run_last()<cr>",
+    desc = "run last",
+  },
   { "<leader>dt", group = "Pytest Debug (DAP)" },
   {
     "<leader>dtf",
     "<cmd>lua require('dap-conf').run_config_by_name('Pytest: Current File')<cr>",
     desc = "Current File",
+  },
+  {
+    "<leader>dte",
+    "<cmd>lua require('dap-conf').run_config_by_name('Pytest: With Expression')<cr>",
+    desc = "Expression (single class, method, or/and conditions, etc)",
   },
   -- etc
   { "<leader>e", group = "etc" },
