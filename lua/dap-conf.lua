@@ -141,6 +141,16 @@ dap.configurations.python = dap.configurations.python or {}
 -- })
 
 table.insert(dap.configurations.python, {
+  -- This configuration is the simplest one.
+  -- It can be used to validate dap is working to work on an pre-existing python file.
+  name = "Debug Sample File",
+  type = "python",
+  request = "launch",
+  program = "/storage/src/pde.nvim/python/dap_test.py", -- Hardcoded file path
+  pythonPath = vim.fn.expand("~/.pyenv/versions/neovim/bin/python"), -- use neovim venv for debugpy
+})
+
+table.insert(dap.configurations.python, {
   name = "Debug Test Simple",
   type = "python",
   request = "launch",
@@ -176,14 +186,6 @@ table.insert(dap.configurations.python, {
   end,
   -- Use neovim venv for debugpy
   pythonPath = vim.fn.expand("~/.pyenv/versions/neovim/bin/python"),
-})
-
-table.insert(dap.configurations.python, {
-  name = "Debug Specific File",
-  type = "python",
-  request = "launch",
-  program = "/tmp/dap_test.py", -- Hardcoded file path
-  pythonPath = vim.fn.expand("~/.pyenv/versions/neovim/bin/python"), -- Hardcoded Python path
 })
 
 -- table.insert(dap.configurations.python, {

@@ -237,12 +237,7 @@ which_key.add({
     desc = "Continue / Start",
   },
   {
-    "<leader>dm",
-    "<cmd>lua require('dap').test_method()<cr>",
-    desc = "Test Method",
-  },
-  {
-    "<leader>dv",
+    "<leader>dn",
     "<cmd>lua require('dap').step_over()<cr>",
     desc = "Step Over",
   },
@@ -256,32 +251,32 @@ which_key.add({
     "<cmd>lua require('dap').step_out()<cr>",
     desc = "Step Out",
   },
-  -- {
-  --   "<leader>dq",
-  --   "<cmd>lua require('dap').terminate()<cr>",
-  --   desc = "terminate debugging",
-  -- },
   {
     "<leader>dr",
     "<cmd>lua require('dap').repl.open()<cr>",
-    desc = "interactive REPL",
+    desc = "Interactive REPL",
   },
   {
-    "<leader>dl",
-    "<cmd>lua require('dap').run_last()<cr>",
-    desc = "run last",
+    "<leader>ds",
+    "<cmd>lua require('dap-conf').run_config_by_name('Debug Sample File')<cr>",
+    desc = "Debug Sample File",
   },
   {
-    "<leader>du",
-    "<cmd>lua require('dapui').toggle()<cr>",
-    desc = "Toggle DAP UI",
+    "<leader>dq",
+    "<cmd>lua require('dap-conf').finish_debugging_and_close_windows()<cr>",
+    desc = "Terminate and close all windows",
   },
+  -- {
+  --   "<leader>dl",
+  --   "<cmd>lua require('dap').run_last()<cr>",
+  --   desc = "run last",
+  -- },
+  -- {
+  --   "<leader>du",
+  --   "<cmd>lua require('dapui').toggle()<cr>",
+  --   desc = "Toggle DAP UI",
+  -- },
   { "<leader>dt", group = "Pytest Debug (DAP)" },
-  {
-    "<leader>dtd",
-    "<cmd>lua run_pytest_on_current_file()<cr>",
-    desc = "Run DAP Pytest Direct on Current File",
-  },
   {
     "<leader>dtf",
     "<cmd>lua require('dap').run({type='python', request='launch', name='Pytest: Current File'})<cr>",
@@ -301,16 +296,6 @@ which_key.add({
     "<leader>dtc",
     "<cmd>lua require('dap').run({type='python', request='launch', name='Debug Test Code'})<cr>",
     desc = "Debug Test Code",
-  },
-  {
-    "<leader>dtg",
-    "<cmd>lua require('dap-conf').run_config_by_name('Debug Specific File')<cr>",
-    desc = "Debug Specific File (/tmp/dap_test.py)",
-  },
-  {
-    "<leader>dq",
-    "<cmd>lua require('dap-conf').finish_debugging_and_close_windows()<cr>",
-    desc = "Terminate debugging and close all windows",
   },
   -- etc
   { "<leader>e", group = "etc" },
