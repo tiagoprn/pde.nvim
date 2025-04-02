@@ -132,14 +132,6 @@ check_debugpy_installation_detailed()
 
 dap.configurations.python = dap.configurations.python or {}
 
--- table.insert(dap.configurations.python, {
---   name = "Debug Test",
---   type = "python",
---   request = "launch",
---   program = "${file}", -- Use a string instead of a function
---   pythonPath = get_debugpy_python_path,
--- })
-
 table.insert(dap.configurations.python, {
   -- This configuration is the simplest one.
   -- It can be used to validate dap is working to work on an pre-existing python file.
@@ -147,11 +139,11 @@ table.insert(dap.configurations.python, {
   type = "python",
   request = "launch",
   program = "/storage/src/pde.nvim/python/dap_test.py", -- Hardcoded file path
-  pythonPath = vim.fn.expand("~/.pyenv/versions/neovim/bin/python"), -- use neovim venv for debugpy
+  pythonPath = get_debugpy_python_path(), -- use neovim venv for debugpy
 })
 
 table.insert(dap.configurations.python, {
-  name = "Debug Test Simple",
+  name = "Debug Current File",
   type = "python",
   request = "launch",
   program = vim.fn.expand("%:p"), -- Directly expand the current file path
@@ -162,6 +154,7 @@ table.insert(dap.configurations.python, {
   type = "python",
   request = "launch",
   name = "Pytest: Current File",
+  -- TODO: fix below: instead of program, I probably have to use another variable to run pytest
   program = function()
     -- Get pytest from the active virtualenv
     local venv = os.getenv("VIRTUAL_ENV")
@@ -184,16 +177,32 @@ table.insert(dap.configurations.python, {
       file_path, -- Use explicit file path
     }
   end,
-  -- Use neovim venv for debugpy
-  pythonPath = vim.fn.expand("~/.pyenv/versions/neovim/bin/python"),
+  pythonPath = get_debugpy_python_path(), -- Call the function directly
 })
 
 -- table.insert(dap.configurations.python, {
---   name = "Debug Test Code",
 --   type = "python",
 --   request = "launch",
---   code = "import sys; print(f'Python version: {sys.version}'); print('Debug Test Code works!')",
---   pythonPath = get_debugpy_python_path(),
+--   name = "Pytest: With Expression",
+--   module = "pytest",
+--   args = function()
+--     local expression = vim.fn.input("Test expression (-k): ")
+--     return {
+--       "-s",
+--       "-vvv",
+--       "-k",
+--       expression,
+--     }
+--   end,
+--   pythonPath = function()
+--     -- Get the Python path from the active virtual environment
+--     local venv = os.getenv("VIRTUAL_ENV")
+--     if venv then
+--       return venv .. "/bin/python"
+--     else
+--       return vim.fn.exepath("python")
+--     end
+--   end,
 -- })
 
 -- table.insert(dap.configurations.python, {
@@ -234,31 +243,6 @@ table.insert(dap.configurations.python, {
 --     "main:app",
 --     "--reload",
 --   },
---   pythonPath = function()
---     -- Get the Python path from the active virtual environment
---     local venv = os.getenv("VIRTUAL_ENV")
---     if venv then
---       return venv .. "/bin/python"
---     else
---       return vim.fn.exepath("python")
---     end
---   end,
--- })
-
--- table.insert(dap.configurations.python, {
---   type = "python",
---   request = "launch",
---   name = "Pytest: With Expression",
---   module = "pytest",
---   args = function()
---     local expression = vim.fn.input("Test expression (-k): ")
---     return {
---       "-s",
---       "-vvv",
---       "-k",
---       expression,
---     }
---   end,
 --   pythonPath = function()
 --     -- Get the Python path from the active virtual environment
 --     local venv = os.getenv("VIRTUAL_ENV")

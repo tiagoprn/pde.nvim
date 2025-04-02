@@ -262,6 +262,11 @@ which_key.add({
     desc = "Debug Sample File",
   },
   {
+    "<leader>df",
+    "<cmd>lua require('dap-conf').run_config_by_name('Debug Current File')<cr>",
+    desc = "Debug Current File",
+  },
+  {
     "<leader>dq",
     "<cmd>lua require('dap-conf').finish_debugging_and_close_windows()<cr>",
     desc = "Terminate and close all windows",
@@ -281,21 +286,6 @@ which_key.add({
     "<leader>dtf",
     "<cmd>lua require('dap').run({type='python', request='launch', name='Pytest: Current File'})<cr>",
     desc = "Current File",
-  },
-  {
-    "<leader>dtt",
-    "<cmd>lua require('dap').run({type='python', request='launch', name='Debug Test'})<cr>",
-    desc = "Debug Test",
-  },
-  {
-    "<leader>dts",
-    "<cmd>lua require('dap').run({type='python', request='launch', name='Debug Test Simple'})<cr>",
-    desc = "Debug Test Simple",
-  },
-  {
-    "<leader>dtc",
-    "<cmd>lua require('dap').run({type='python', request='launch', name='Debug Test Code'})<cr>",
-    desc = "Debug Test Code",
   },
   -- etc
   { "<leader>e", group = "etc" },
