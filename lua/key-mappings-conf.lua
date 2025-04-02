@@ -192,7 +192,11 @@ which_key.add({
     ":Telescope import<cr>",
     desc = "search for import on project and add to the top imports on this module",
   },
-  { "<leader>cq", "<cmd>lua vim.diagnostic.setqflist()<cr>", desc = "send linter/diagnostics to quickfix list" },
+  {
+    "<leader>cq",
+    "<cmd>lua vim.diagnostic.setqflist()<cr>",
+    desc = "send linter/diagnostics to quickfix list",
+  },
   {
     "<leader>cr",
     ":Telescope lsp_references<cr>",
@@ -204,12 +208,97 @@ which_key.add({
     desc = "Python Project Search: search and open a python class, method or function",
   },
   { "<leader>ct", group = "treesitter" },
-  { "<leader>ctn", ":TSNodeUnderCursor<cr>", desc = "current node info" },
-  { "<leader>ctp", ":TSPlaygroundToggle<cr>", desc = "toggle playground" },
-  { "<leader>cu", ":NullLsInfo <cr>", desc = "null-ls info" },
+  {
+    "<leader>ctn",
+    ":TSNodeUnderCursor<cr>",
+    desc = "current node info",
+  },
+  {
+    "<leader>ctp",
+    ":TSPlaygroundToggle<cr>",
+    desc = "toggle playground",
+  },
+  {
+    "<leader>cu",
+    ":NullLsInfo <cr>",
+    desc = "null-ls info",
+  },
+
+  -- debugging (nvim-dap)
+  { "<leader>d", group = "debugging (DAP)" },
+  {
+    "<leader>db",
+    "<cmd>lua require('dap').toggle_breakpoint()<cr>",
+    desc = "Toggle breakpoint",
+  },
+  {
+    "<leader>dc",
+    "<cmd>lua require('dap').continue()<cr>",
+    desc = "Continue / Start",
+  },
+  {
+    "<leader>dm",
+    "<cmd>lua require('dap').test_method()<cr>",
+    desc = "Test Method",
+  },
+  {
+    "<leader>dv",
+    "<cmd>lua require('dap').step_over()<cr>",
+    desc = "Step Over",
+  },
+  {
+    "<leader>di",
+    "<cmd>lua require('dap').step_into()<cr>",
+    desc = "Step Into",
+  },
+  {
+    "<leader>do",
+    "<cmd>lua require('dap').step_out()<cr>",
+    desc = "Step Out",
+  },
+  {
+    "<leader>dq",
+    "<cmd>lua require('dap').terminate()<cr>",
+    desc = "terminate debugging",
+  },
+  {
+    "<leader>dr",
+    "<cmd>lua require('dap').repl.open()<cr>",
+    desc = "interactive REPL",
+  },
+  {
+    "<leader>dl",
+    "<cmd>lua require('dap').run_last()<cr>",
+    desc = "run last",
+  },
+  {
+    "<leader>du",
+    "<cmd>lua require('dapui').toggle()<cr>",
+    desc = "Toggle DAP UI",
+  },
+  {
+    "<leader>ddf",
+    "<cmd>lua require('dap').run({type='python', request='launch', name='Flask'})<cr>",
+    desc = "Debug Flask App",
+  },
+  {
+    "<leader>ddj",
+    "<cmd>lua require('dap').run({type='python', request='launch', name='Django'})<cr>",
+    desc = "Debug Django App",
+  },
+  {
+    "<leader>dda",
+    "<cmd>lua require('dap').run({type='python', request='launch', name='FastAPI'})<cr>",
+    desc = "Debug FastAPI App",
+  },
+
   -- etc
   { "<leader>e", group = "etc" },
-  { "<leader>ec", ":Telescope colorscheme<cr>", desc = "telescope browse color schemes" },
+  {
+    "<leader>ec",
+    ":Telescope colorscheme<cr>",
+    desc = "telescope browse color schemes",
+  },
   {
     "<leader>eh",
     ":Telescope help_tags<cr>",

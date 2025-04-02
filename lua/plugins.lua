@@ -836,6 +836,7 @@ require("lazy").setup({
         { path = "${3rd}/luv/library", words = { "vim%.uv" } },
         -- Include your installed plugins
         "lazy.nvim",
+        "nvim-dap-ui",
         -- Automatically load any plugin you're developing
         -- vim.fn.expand("~/projects/my-plugin"),
       },
@@ -848,6 +849,17 @@ require("lazy").setup({
       },
       -- This ensures lazydev is always active for Lua files
       enabled = true,
+    },
+  },
+
+  -- DEBUGGING
+  {
+    "rcarriga/nvim-dap-ui",
+    dependencies = {
+      "mfussenegger/nvim-dap",
+      "theHamsta/nvim-dap-virtual-text",
+      "nvim-neotest/nvim-nio",
+      "mfussenegger/nvim-dap-python",
     },
   },
 
