@@ -521,15 +521,27 @@ require("lazy").setup({
         _G.codecompanion_conversations = {}
       end
 
+      local request_times = {}
+
       vim.api.nvim_create_autocmd({ "User" }, {
         pattern = "CodeCompanionRequest*",
         group = group,
         callback = function(request)
           if request.match == "CodeCompanionRequestStarted" then
-            print("Sending request to AI...")
+            vim.notify("Sending request to AI...")
+
+            -- Store the start time with the request ID as the key
+            request_times[request.data.id] = vim.loop.hrtime()
           end
           if request.match == "CodeCompanionRequestFinished" then
-            print("AI responded.")
+            local start_time = request_times[request.data.id]
+            if start_time then
+              -- Calculate the duration in seconds
+              local duration = (vim.loop.hrtime() - start_time) / 1e9
+              vim.notify(string.format("AI request completed in %.2f seconds", duration))
+              -- Remove the recorded start time
+              request_times[request.data.id] = nil
+            end
 
             -- This implementation:
             --
