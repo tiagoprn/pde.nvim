@@ -147,14 +147,14 @@ table.insert(dap.configurations.python, {
   type = "python",
   request = "launch",
   program = vim.fn.expand("%:p"), -- Directly expand the current file path
-  pythonPath = get_debugpy_python_path(), -- Call the function directly
+  pythonPath = get_debugpy_python_path(), -- use neovim venv for debugpy
 })
 
 table.insert(dap.configurations.python, {
   type = "python",
   request = "launch",
   name = "Pytest: Current File",
-  -- TODO: fix below: instead of program, I probably have to use another variable to run pytest
+  -- TODO: fix below: instead of program, I probably have to use another variable (module, code, etc?)
   program = function()
     -- Get pytest from the active virtualenv
     local venv = os.getenv("VIRTUAL_ENV")
@@ -177,7 +177,7 @@ table.insert(dap.configurations.python, {
       file_path, -- Use explicit file path
     }
   end,
-  pythonPath = get_debugpy_python_path(), -- Call the function directly
+  pythonPath = get_debugpy_python_path(), -- use neovim venv for debugpy
 })
 
 -- table.insert(dap.configurations.python, {

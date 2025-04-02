@@ -284,7 +284,7 @@ which_key.add({
   { "<leader>dt", group = "Pytest Debug (DAP)" },
   {
     "<leader>dtf",
-    "<cmd>lua require('dap').run({type='python', request='launch', name='Pytest: Current File'})<cr>",
+    "<cmd>lua require('dap-conf').run_config_by_name('Pytest: Current File')<cr>",
     desc = "Current File",
   },
   -- etc
