@@ -3,7 +3,24 @@ local lspconfig = require("lspconfig")
 -- Configuration for lua_ls (Lua language server)
 lspconfig.lua_ls.setup({
   single_file_support = true,
+  -- Force single file mode
+  root_dir = function(fname)
+    return nil -- Forces single file mode by not finding a root
+  end,
   on_init = function(client)
+    -- Limit workspace folders to just the current file's directory
+    client.config.capabilities = client.config.capabilities or vim.lsp.protocol.make_client_capabilities()
+    client.config.capabilities.workspace = client.config.capabilities.workspace or {}
+    client.config.capabilities.workspace.workspaceFolders = false
+    client.config.capabilities.workspace.fileOperations = {
+      didCreate = false,
+      willCreate = false,
+      didRename = false,
+      willRename = false,
+      didDelete = false,
+      willDelete = false,
+    }
+
     if client.workspace_folders then
       local path = client.workspace_folders[1].name
       if
@@ -38,6 +55,10 @@ lspconfig.lua_ls.setup({
           "${3rd}/luv/library",
         },
         checkThirdParty = false, -- Disable annoying prompts
+        -- -- Limit workspace scope
+        -- maxPreload = 0,
+        -- preloadFileSize = 0,
+        -- ignoreSubmodules = true,
       },
       telemetry = {
         enable = false,
@@ -48,6 +69,13 @@ lspconfig.lua_ls.setup({
     })
   end,
   settings = {
-    Lua = {},
+    Lua = {
+      workspace = {
+        -- Additional workspace limitations
+        ignoreDir = vim.fn.getcwd(), -- Ignore the workspace root directory
+        maxPreload = 0, -- Disable preloading
+        preloadFileSize = 0, -- Disable preloading
+      },
+    },
   },
 })

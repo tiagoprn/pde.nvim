@@ -256,11 +256,11 @@ which_key.add({
     "<cmd>lua require('dap').step_out()<cr>",
     desc = "Step Out",
   },
-  {
-    "<leader>dq",
-    "<cmd>lua require('dap').terminate()<cr>",
-    desc = "terminate debugging",
-  },
+  -- {
+  --   "<leader>dq",
+  --   "<cmd>lua require('dap').terminate()<cr>",
+  --   desc = "terminate debugging",
+  -- },
   {
     "<leader>dr",
     "<cmd>lua require('dap').repl.open()<cr>",
@@ -304,23 +304,13 @@ which_key.add({
   },
   {
     "<leader>dtg",
-    "<cmd>lua require('dap').run({type='python', request='launch', name='Debug Specific File'})<cr>",
-    desc = "Debug Specific File",
+    "<cmd>lua require('dap-conf').run_config_by_name('Debug Specific File')<cr>",
+    desc = "Debug Specific File (/tmp/dap_test.py)",
   },
   {
-    "<leader>ddf",
-    "<cmd>lua require('dap').run({type='python', request='launch', name='Flask'})<cr>",
-    desc = "Debug Flask App",
-  },
-  {
-    "<leader>ddj",
-    "<cmd>lua require('dap').run({type='python', request='launch', name='Django'})<cr>",
-    desc = "Debug Django App",
-  },
-  {
-    "<leader>dda",
-    "<cmd>lua require('dap').run({type='python', request='launch', name='FastAPI'})<cr>",
-    desc = "Debug FastAPI App",
+    "<leader>dq",
+    "<cmd>lua require('dap-conf').finish_debugging_and_close_windows()<cr>",
+    desc = "Terminate debugging and close all windows",
   },
   -- etc
   { "<leader>e", group = "etc" },
