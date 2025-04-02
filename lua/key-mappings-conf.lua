@@ -276,27 +276,17 @@ which_key.add({
     "<cmd>lua require('dapui').toggle()<cr>",
     desc = "Toggle DAP UI",
   },
-  {
-    "<leader>ddf",
-    "<cmd>lua require('dap').run({type='python', request='launch', name='Flask'})<cr>",
-    desc = "Debug Flask App",
-  },
-  {
-    "<leader>ddj",
-    "<cmd>lua require('dap').run({type='python', request='launch', name='Django'})<cr>",
-    desc = "Debug Django App",
-  },
-  {
-    "<leader>dda",
-    "<cmd>lua require('dap').run({type='python', request='launch', name='FastAPI'})<cr>",
-    desc = "Debug FastAPI App",
-  },
   { "<leader>dt", group = "Pytest Debug (DAP)" },
-  -- {
-  --   "<leader>dtf",
-  --   "<cmd>lua require('dap').run({type='python', request='launch', name='Pytest: Current File'})<cr>",
-  --   desc = "Current File",
-  -- },
+  {
+    "<leader>dtd",
+    "<cmd>lua run_pytest_on_current_file()<cr>",
+    desc = "Run DAP Pytest Direct on Current File",
+  },
+  {
+    "<leader>dtf",
+    "<cmd>lua require('dap').run({type='python', request='launch', name='Pytest: Current File'})<cr>",
+    desc = "Current File",
+  },
   {
     "<leader>dtt",
     "<cmd>lua require('dap').run({type='python', request='launch', name='Debug Test'})<cr>",
@@ -313,9 +303,24 @@ which_key.add({
     desc = "Debug Test Code",
   },
   {
-    "<leader>dtf",
+    "<leader>dtg",
     "<cmd>lua require('dap').run({type='python', request='launch', name='Debug Specific File'})<cr>",
     desc = "Debug Specific File",
+  },
+  {
+    "<leader>ddf",
+    "<cmd>lua require('dap').run({type='python', request='launch', name='Flask'})<cr>",
+    desc = "Debug Flask App",
+  },
+  {
+    "<leader>ddj",
+    "<cmd>lua require('dap').run({type='python', request='launch', name='Django'})<cr>",
+    desc = "Debug Django App",
+  },
+  {
+    "<leader>dda",
+    "<cmd>lua require('dap').run({type='python', request='launch', name='FastAPI'})<cr>",
+    desc = "Debug FastAPI App",
   },
   -- etc
   { "<leader>e", group = "etc" },

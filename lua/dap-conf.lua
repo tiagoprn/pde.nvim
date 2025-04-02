@@ -20,7 +20,66 @@ vim.notify("DAP configuration loading", vim.log.levels.INFO)
 local dapui = require("dapui")
 local dap_vt = require("nvim-dap-virtual-text")
 
-_G.debug_specific_file_direct = function()
+_G.run_pytest_on_current_file = function() -- on key-mappings-conf
+  local dap = require("dap")
+
+  vim.notify("Running pytest on current file", vim.log.levels.INFO)
+
+  local file_path = vim.fn.expand("%:p")
+
+  -- Get pytest from the active virtualenv
+  local venv = os.getenv("VIRTUAL_ENV")
+  local pytest_path
+  if venv then
+    pytest_path = venv .. "/bin/pytest"
+    vim.notify("Using pytest from active virtualenv: " .. pytest_path, vim.log.levels.INFO)
+  else
+    pytest_path = vim.fn.exepath("pytest")
+    vim.notify("No active virtualenv found, using system pytest: " .. pytest_path, vim.log.levels.INFO)
+  end
+
+  local config = {
+    type = "python",
+    request = "launch",
+    name = "Pytest Direct",
+    program = pytest_path,
+    args = {
+      "-s",
+      "-vvv",
+      file_path,
+    },
+    -- Use neovim venv for debugpy
+    pythonPath = vim.fn.expand("~/.pyenv/versions/neovim/bin/python"),
+  }
+
+  -- Write the configuration to a file
+  local config_file = io.open("/tmp/pytest_config.txt", "w")
+  if config_file then
+    config_file:write("Pytest config:\n")
+    config_file:write(vim.inspect(config))
+    config_file:close()
+    vim.notify("Pytest config written to /tmp/pytest_config.txt", vim.log.levels.INFO)
+  end
+
+  -- Try to run with this configuration
+  local status, err = pcall(function()
+    dap.run(config)
+  end)
+
+  if not status then
+    -- Write the error to a file
+    local error_file = io.open("/tmp/pytest_error.txt", "w")
+    if error_file then
+      error_file:write("Error running pytest: " .. tostring(err))
+      error_file:close()
+      vim.notify("Error details written to /tmp/pytest_error.txt", vim.log.levels.ERROR)
+    else
+      vim.notify("Failed to write error details to file", vim.log.levels.ERROR)
+    end
+  end
+end
+
+_G.debug_specific_file_direct = function() -- firt working example, instructions on the end of this file
   vim.notify("Attempting direct debug of specific file", vim.log.levels.INFO)
 
   local config = {
@@ -60,7 +119,7 @@ _G.debug_specific_file_direct = function()
   end
 end
 
-_G.run_python_file_directly = function()
+_G.run_python_file_directly = function() -- on the end of this file
   local file_path = "/tmp/dap_test.py"
   local python_path = vim.fn.expand("~/.pyenv/versions/neovim/bin/python")
 
@@ -81,52 +140,53 @@ _G.run_python_file_directly = function()
     vim.notify("Failed to write Python output to file", vim.log.levels.ERROR)
   end
 end
-_G.inspect_dap_adapter = function()
-  local dap = require("dap")
 
-  -- Write to a file instead of using notifications
-  local file = io.open("/tmp/dap_debug_info.txt", "w")
-  if file then
-    file:write("DAP Adapters:\n")
-    file:write(vim.inspect(dap.adapters))
-    file:write("\n\nDAP Configurations:\n")
-    file:write(vim.inspect(dap.configurations))
-    file:close()
-    vim.notify("DAP debug info written to /tmp/dap_debug_info.txt", vim.log.levels.INFO)
-  else
-    vim.notify("Failed to write DAP debug info to file", vim.log.levels.ERROR)
-  end
-end
+-- _G.inspect_dap_adapter = function()
+--   local dap = require("dap")
+--
+--   -- Write to a file instead of using notifications
+--   local file = io.open("/tmp/dap_debug_info.txt", "w")
+--   if file then
+--     file:write("DAP Adapters:\n")
+--     file:write(vim.inspect(dap.adapters))
+--     file:write("\n\nDAP Configurations:\n")
+--     file:write(vim.inspect(dap.configurations))
+--     file:close()
+--     vim.notify("DAP debug info written to /tmp/dap_debug_info.txt", vim.log.levels.INFO)
+--   else
+--     vim.notify("Failed to write DAP debug info to file", vim.log.levels.ERROR)
+--   end
+-- end
 
-_G.run_debug_test = function()
-  vim.notify("Running Debug Test configuration", vim.log.levels.INFO)
-  local status, err = pcall(function()
-    dap.run({
-      type = "python",
-      request = "launch",
-      name = "Debug Test",
-    })
-  end)
+-- _G.run_debug_test = function()
+--   vim.notify("Running Debug Test configuration", vim.log.levels.INFO)
+--   local status, err = pcall(function()
+--     dap.run({
+--       type = "python",
+--       request = "launch",
+--       name = "Debug Test",
+--     })
+--   end)
+--
+--   if not status then
+--     vim.notify("Error running Debug Test: " .. tostring(err), vim.log.levels.ERROR)
+--   end
+-- end
 
-  if not status then
-    vim.notify("Error running Debug Test: " .. tostring(err), vim.log.levels.ERROR)
-  end
-end
-
-_G.run_debug_test_simple = function()
-  vim.notify("Running Debug Test Simple configuration", vim.log.levels.INFO)
-  local status, err = pcall(function()
-    dap.run({
-      type = "python",
-      request = "launch",
-      name = "Debug Test Simple",
-    })
-  end)
-
-  if not status then
-    vim.notify("Error running Debug Test Simple: " .. tostring(err), vim.log.levels.ERROR)
-  end
-end
+-- _G.run_debug_test_simple = function()
+--   vim.notify("Running Debug Test Simple configuration", vim.log.levels.INFO)
+--   local status, err = pcall(function()
+--     dap.run({
+--       type = "python",
+--       request = "launch",
+--       name = "Debug Test Simple",
+--     })
+--   end)
+--
+--   if not status then
+--     vim.notify("Error running Debug Test Simple: " .. tostring(err), vim.log.levels.ERROR)
+--   end
+-- end
 
 local function get_debugpy_python_path()
   local neovim_venv_path = vim.fn.expand("~/.pyenv/versions/neovim/bin/python")
@@ -134,7 +194,6 @@ local function get_debugpy_python_path()
   return neovim_venv_path
 end
 
--- Add this to your dap-conf.lua to check debugpy installation
 local function check_debugpy_installation()
   local cmd = vim.fn.expand("~/.pyenv/versions/neovim/bin/python")
     .. " -c \"import debugpy; print('debugpy is installed')\" 2>&1"
@@ -150,7 +209,6 @@ local function check_debugpy_installation()
   end
 end
 
--- Call this function when loading the configuration
 check_debugpy_installation()
 
 local function verify_python_path()
@@ -163,20 +221,8 @@ local function verify_python_path()
   vim.notify("Python version check: " .. result, vim.log.levels.INFO)
 end
 
-local function verify_dap_python_setup()
-  local status, err = pcall(function()
-    local dap_python = require("dap-python")
-    vim.notify("DAP Python setup path: " .. vim.inspect(dap_python._path), vim.log.levels.INFO)
-  end)
-
-  if not status then
-    vim.notify("Error checking DAP Python setup: " .. tostring(err), vim.log.levels.ERROR)
-  end
-end
-
 verify_python_path()
 
--- Add this to your dap-conf.lua
 local function verify_dap_python_setup()
   local status, err = pcall(function()
     local dap_python = require("dap-python")
@@ -249,13 +295,13 @@ dap_python.test_runner = "pytest"
 -- Add configurations for Flask/Django/FastAPI
 dap.configurations.python = dap.configurations.python or {}
 
-table.insert(dap.configurations.python, {
-  name = "Debug Test",
-  type = "python",
-  request = "launch",
-  program = "${file}", -- Use a string instead of a function
-  pythonPath = get_debugpy_python_path,
-})
+-- table.insert(dap.configurations.python, {
+--   name = "Debug Test",
+--   type = "python",
+--   request = "launch",
+--   program = "${file}", -- Use a string instead of a function
+--   pythonPath = get_debugpy_python_path,
+-- })
 
 table.insert(dap.configurations.python, {
   name = "Debug Test Simple",
@@ -265,13 +311,13 @@ table.insert(dap.configurations.python, {
   pythonPath = get_debugpy_python_path(), -- Call the function directly
 })
 
-table.insert(dap.configurations.python, {
-  name = "Debug Test Code",
-  type = "python",
-  request = "launch",
-  code = "import sys; print(f'Python version: {sys.version}'); print('Debug Test Code works!')",
-  pythonPath = get_debugpy_python_path(),
-})
+-- table.insert(dap.configurations.python, {
+--   name = "Debug Test Code",
+--   type = "python",
+--   request = "launch",
+--   code = "import sys; print(f'Python version: {sys.version}'); print('Debug Test Code works!')",
+--   pythonPath = get_debugpy_python_path(),
+-- })
 
 table.insert(dap.configurations.python, {
   name = "Debug Specific File",
@@ -281,100 +327,109 @@ table.insert(dap.configurations.python, {
   pythonPath = vim.fn.expand("~/.pyenv/versions/neovim/bin/python"), -- Hardcoded Python path
 })
 
-table.insert(dap.configurations.python, {
-  type = "python",
-  request = "launch",
-  name = "Flask",
-  module = "flask",
-  args = {
-    "run",
-    "--no-debugger",
-    "--no-reload",
-  },
-  env = {
-    FLASK_APP = "${file}",
-    FLASK_ENV = "development",
-  },
-  jinja = true,
-})
+-- table.insert(dap.configurations.python, {
+--   type = "python",
+--   request = "launch",
+--   name = "Flask",
+--   module = "flask",
+--   args = {
+--     "run",
+--     "--no-debugger",
+--     "--no-reload",
+--   },
+--   env = {
+--     FLASK_APP = "${file}",
+--     FLASK_ENV = "development",
+--   },
+--   jinja = true,
+-- })
 
-table.insert(dap.configurations.python, {
-  type = "python",
-  request = "launch",
-  name = "Django",
-  program = "${workspaceFolder}/manage.py",
-  args = {
-    "runserver",
-    "--noreload",
-  },
-  django = true,
-})
+-- table.insert(dap.configurations.python, {
+--   type = "python",
+--   request = "launch",
+--   name = "Django",
+--   program = "${workspaceFolder}/manage.py",
+--   args = {
+--     "runserver",
+--     "--noreload",
+--   },
+--   django = true,
+-- })
 
-table.insert(dap.configurations.python, {
-  type = "python",
-  request = "launch",
-  name = "FastAPI",
-  module = "uvicorn",
-  args = {
-    "main:app",
-    "--reload",
-  },
-  pythonPath = function()
-    -- Get the Python path from the active virtual environment
-    local venv = os.getenv("VIRTUAL_ENV")
-    if venv then
-      return venv .. "/bin/python"
-    else
-      return vim.fn.exepath("python")
-    end
-  end,
-})
+-- table.insert(dap.configurations.python, {
+--   type = "python",
+--   request = "launch",
+--   name = "FastAPI",
+--   module = "uvicorn",
+--   args = {
+--     "main:app",
+--     "--reload",
+--   },
+--   pythonPath = function()
+--     -- Get the Python path from the active virtual environment
+--     local venv = os.getenv("VIRTUAL_ENV")
+--     if venv then
+--       return venv .. "/bin/python"
+--     else
+--       return vim.fn.exepath("python")
+--     end
+--   end,
+-- })
 
 table.insert(dap.configurations.python, {
   type = "python",
   request = "launch",
   name = "Pytest: Current File",
   program = function()
-    local pytest_path = vim.fn.exepath("pytest")
-    vim.notify("DAP Debug - pytest path: " .. tostring(pytest_path), vim.log.levels.INFO)
+    -- Get pytest from the active virtualenv
+    local venv = os.getenv("VIRTUAL_ENV")
+    local pytest_path
+    if venv then
+      pytest_path = venv .. "/bin/pytest"
+      vim.notify("Using pytest from active virtualenv: " .. pytest_path, vim.log.levels.INFO)
+    else
+      pytest_path = vim.fn.exepath("pytest")
+      vim.notify("No active virtualenv found, using system pytest: " .. pytest_path, vim.log.levels.INFO)
+    end
     return pytest_path
   end,
   args = function()
     local file_path = vim.fn.expand("%:p") -- Get absolute path of current file
-    vim.notify("DAP Debug - file path: " .. tostring(file_path), vim.log.levels.INFO)
+    vim.notify("Running pytest on file: " .. file_path, vim.log.levels.INFO)
     return {
       "-s", -- Allow print statements to be displayed
       "-vvv", -- Very verbose output
-      file_path, -- Use explicit file path instead of ${file}
+      file_path, -- Use explicit file path
     }
   end,
-  pythonPath = get_debugpy_python_path,
+  -- Use neovim venv for debugpy
+  pythonPath = vim.fn.expand("~/.pyenv/versions/neovim/bin/python"),
 })
 
-table.insert(dap.configurations.python, {
-  type = "python",
-  request = "launch",
-  name = "Pytest: With Expression",
-  module = "pytest",
-  args = function()
-    local expression = vim.fn.input("Test expression (-k): ")
-    return {
-      "-s",
-      "-vvv",
-      "-k",
-      expression,
-    }
-  end,
-  pythonPath = function()
-    -- Get the Python path from the active virtual environment
-    local venv = os.getenv("VIRTUAL_ENV")
-    if venv then
-      return venv .. "/bin/python"
-    else
-      return vim.fn.exepath("python")
-    end
-  end,
-})
+-- table.insert(dap.configurations.python, {
+--   type = "python",
+--   request = "launch",
+--   name = "Pytest: With Expression",
+--   module = "pytest",
+--   args = function()
+--     local expression = vim.fn.input("Test expression (-k): ")
+--     return {
+--       "-s",
+--       "-vvv",
+--       "-k",
+--       expression,
+--     }
+--   end,
+--   pythonPath = function()
+--     -- Get the Python path from the active virtual environment
+--     local venv = os.getenv("VIRTUAL_ENV")
+--     if venv then
+--       return venv .. "/bin/python"
+--     else
+--       return vim.fn.exepath("python")
+--     end
+--   end,
+-- })
 
 -- Event Listeners
 
