@@ -291,7 +291,32 @@ which_key.add({
     "<cmd>lua require('dap').run({type='python', request='launch', name='FastAPI'})<cr>",
     desc = "Debug FastAPI App",
   },
-
+  { "<leader>dt", group = "Pytest Debug (DAP)" },
+  -- {
+  --   "<leader>dtf",
+  --   "<cmd>lua require('dap').run({type='python', request='launch', name='Pytest: Current File'})<cr>",
+  --   desc = "Current File",
+  -- },
+  {
+    "<leader>dtt",
+    "<cmd>lua require('dap').run({type='python', request='launch', name='Debug Test'})<cr>",
+    desc = "Debug Test",
+  },
+  {
+    "<leader>dts",
+    "<cmd>lua require('dap').run({type='python', request='launch', name='Debug Test Simple'})<cr>",
+    desc = "Debug Test Simple",
+  },
+  {
+    "<leader>dtc",
+    "<cmd>lua require('dap').run({type='python', request='launch', name='Debug Test Code'})<cr>",
+    desc = "Debug Test Code",
+  },
+  {
+    "<leader>dtf",
+    "<cmd>lua require('dap').run({type='python', request='launch', name='Debug Specific File'})<cr>",
+    desc = "Debug Specific File",
+  },
   -- etc
   { "<leader>e", group = "etc" },
   {
