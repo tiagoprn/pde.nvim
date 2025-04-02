@@ -278,14 +278,19 @@ which_key.add({
   },
   { "<leader>dt", group = "Pytest Debug (DAP)" },
   {
-    "<leader>dtf",
-    "<cmd>lua require('dap-conf').run_config_by_name('Pytest: Current File')<cr>",
-    desc = "Current File",
+    "<leader>dtc",
+    "<cmd>lua require('dap-conf').run_config_by_name('Pytest: Current Test Function')<cr>",
+    desc = "Test at Cursor (treesitter)",
   },
   {
     "<leader>dte",
     "<cmd>lua require('dap-conf').run_config_by_name('Pytest: With Expression')<cr>",
     desc = "Expression (single class, method, or/and conditions, etc)",
+  },
+  {
+    "<leader>dtf",
+    "<cmd>lua require('dap-conf').run_config_by_name('Pytest: Current File')<cr>",
+    desc = "Current File",
   },
   -- etc
   { "<leader>e", group = "etc" },

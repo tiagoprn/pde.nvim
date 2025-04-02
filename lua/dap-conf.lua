@@ -128,6 +128,100 @@ verify_dap_python_setup()
 
 check_debugpy_installation_detailed()
 
+-- HELPER FUNCTIONS
+
+local function get_current_test_name()
+  -- Get the current node under cursor using Treesitter
+  local current_node = vim.treesitter.get_node()
+  if not current_node then
+    vim.notify("No treesitter node found at cursor position", vim.log.levels.WARN)
+    return nil
+  end
+
+  -- Navigate up the tree to find either a function definition or a method definition
+  local node = current_node
+  local is_method = false
+  local class_name = nil
+
+  while node do
+    local node_type = node:type()
+
+    -- Check if we're in a method definition
+    if node_type == "function_definition" then
+      -- Found a function, check if it's inside a class
+      local parent = node:parent()
+      if parent and parent:type() == "class_definition" then
+        is_method = true
+
+        -- Get the class name
+        for i = 0, parent:child_count() - 1 do
+          local child = parent:child(i)
+          if child and child:type() == "identifier" then
+            class_name = vim.treesitter.get_node_text(child, 0)
+            break
+          end
+        end
+      end
+      break
+    elseif node_type == "class_definition" then
+      -- If we're directly on a class definition, store it and continue looking for a method
+      class_name = nil
+      for i = 0, node:child_count() - 1 do
+        local child = node:child(i)
+        if child and child:type() == "identifier" then
+          class_name = vim.treesitter.get_node_text(child, 0)
+          break
+        end
+      end
+    end
+
+    node = node:parent()
+  end
+
+  if not node then
+    vim.notify("No function or method definition found", vim.log.levels.WARN)
+    return nil
+  end
+
+  -- Get the function/method name
+  local func_name = nil
+  for i = 0, node:child_count() - 1 do
+    local child = node:child(i)
+    if child and child:type() == "identifier" then
+      func_name = vim.treesitter.get_node_text(child, 0)
+      break
+    end
+  end
+
+  if not func_name then
+    vim.notify("No function or method name found", vim.log.levels.WARN)
+    return nil
+  end
+
+  -- Check if it's a test function/method (starts with 'test_')
+  if func_name:match("^test_") then
+    if is_method and class_name then
+      -- For methods, return both class and method name for pytest
+      local full_name = class_name .. "::" .. func_name
+      vim.notify("Found test method: " .. full_name, vim.log.levels.INFO)
+      return full_name
+    else
+      -- For standalone functions
+      vim.notify("Found test function: " .. func_name, vim.log.levels.INFO)
+      return func_name
+    end
+  elseif class_name and class_name:match("^Test") then
+    -- If the class name starts with "Test" but the method doesn't start with "test_",
+    -- it might still be a test method in some frameworks
+    local full_name = class_name .. "::" .. func_name
+    vim.notify("Found potential test method in test class: " .. full_name, vim.log.levels.INFO)
+    return full_name
+  end
+
+  vim.notify("No test function or method name found", vim.log.levels.WARN)
+  return nil
+end
+
 -- DAP CONFIGURATIONS (PROFILES TO RUN DAP)
 
 dap.configurations.python = dap.configurations.python or {}
@@ -210,6 +304,40 @@ table.insert(dap.configurations.python, {
       "-vvv",
       "-k",
       expression,
+    }
+  end,
+  pythonPath = function()
+    -- Get the Python path from the active virtual environment for running pytest
+    local venv = os.getenv("VIRTUAL_ENV")
+    if venv then
+      vim.notify("Using pytest from active virtualenv: " .. venv, vim.log.levels.INFO)
+      return venv .. "/bin/python"
+    else
+      vim.notify("No active virtualenv found, using system python", vim.log.levels.WARN)
+      return vim.fn.exepath("python")
+    end
+  end,
+  dap_python_debugger = get_debugpy_python_path(),
+})
+
+table.insert(dap.configurations.python, {
+  type = "python",
+  request = "launch",
+  name = "Pytest: Current Test Function",
+  module = "pytest",
+  args = function()
+    local test_name = get_current_test_name()
+    if not test_name then
+      -- Fallback to manual input if we couldn't detect the test name
+      test_name = vim.fn.input("Test function name: ")
+    end
+
+    return {
+      "-s",
+      "-vvv",
+      "-k",
+      test_name,
+      vim.fn.expand("%:p"), -- Current file path
     }
   end,
   pythonPath = function()
