@@ -276,6 +276,22 @@ which_key.add({
     "<cmd>lua require('dap').run_last()<cr>",
     desc = "run last",
   },
+  { "<leader>dw", group = "Add watch" },
+  {
+    "<leader>dww",
+    function()
+      require("dapui").elements.watches.add()
+    end,
+    desc = "Current Word (variable, property, etc...)",
+  },
+  {
+    "<leader>dwe",
+    function()
+      local expr = vim.fn.input("Expression to watch: ")
+      require("dapui").elements.watches.add(expr)
+    end,
+    desc = "Expression (with prompt)",
+  },
   { "<leader>dt", group = "Pytest Debug (DAP)" },
   {
     "<leader>dtc",
