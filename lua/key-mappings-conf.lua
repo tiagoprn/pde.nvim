@@ -326,16 +326,33 @@ which_key.add({
     desc = "(git) telescope open changed files",
   },
 
-  { "<leader>fo", ":!gedit %<cr>", desc = "open current file on gedit" },
+  {
+    "<leader>fo",
+    ":!gedit %<cr>",
+    desc = "open current file on gedit",
+  },
   {
     "<leader>fr",
     ":Easypick recent_files_on_current_folder<cr>",
     desc = "telescope open files changed recently (<=14 days) ",
   },
-  { "<leader>fs", ":SearchOnOpenFiles<cr>", desc = "search on open files" },
+  {
+    "<leader>fs",
+    ":SearchOnOpenFiles<cr>",
+    desc = "search on open files",
+  },
   -- -- buffers
   { "<leader>fb", group = "buffers" },
-  { "<leader>fbK", ":bp<bar>sp<bar>bn<bar>bd<cr>", desc = "close & keep window" },
+  {
+    "<leader>fbc",
+    "<cmd> lua require('tiagoprn.buffer_utils').close_unshown_buffers()<cr>",
+    desc = "closed unshown buffers",
+  },
+  {
+    "<leader>fbK",
+    ":bp<bar>sp<bar>bn<bar>bd<cr>",
+    desc = "close & keep window",
+  },
   { "<leader>fbk", ":bw<Enter>", desc = "close" },
   {
     "<leader>fbl",

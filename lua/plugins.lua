@@ -345,7 +345,10 @@ require("lazy").setup({
       },
       {
         "<leader>Ss",
+
         function()
+          require("tiagoprn.buffer_utils").close_unshown_buffers()
+
           -- Get the current working directory
           local cwd = vim.fn.getcwd()
           -- Extract the root directory from the CWD

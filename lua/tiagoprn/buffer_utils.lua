@@ -194,4 +194,24 @@ function M.simple_zoom()
   })
 end
 
+function M.close_unshown_buffers()
+  -- closes all buffers that are not visible on windows
+
+  vim.cmd("redraw") -- make sure window info is current
+
+  local visible_bufs = {}
+  for _, win in ipairs(vim.api.nvim_list_wins()) do
+    local buf = vim.api.nvim_win_get_buf(win)
+    visible_bufs[buf] = true
+  end
+
+  for _, buf in ipairs(vim.api.nvim_list_bufs()) do
+    if vim.api.nvim_buf_is_loaded(buf) and not visible_bufs[buf] then
+      pcall(vim.api.nvim_buf_delete, buf, { force = true })
+    end
+  end
+
+  vim.notify("Unshown buffers were closed.")
+end
+
 return M
