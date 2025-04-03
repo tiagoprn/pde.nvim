@@ -176,4 +176,22 @@ function M.save_quickfix_to_tmp()
   return new_filename
 end
 
+function M.simple_zoom()
+  -- -- based on: https://www.reddit.com/r/neovim/comments/1jk9vkn/my_tmuxlike_zoom_solution/?share_id=Fs2UvsKRqAZEzTgAZX-4d&utm_name=androidcss
+  -- Creates a window-specific autocommand for the zoomed window.
+  -- This implements behaviour to return to the original window when closing a zoomed window,
+  -- but it applies only to the windows opened through the zoom command.
+  local winid = vim.api.nvim_get_current_win()
+  vim.cmd("tab split")
+  local new_winid = vim.api.nvim_get_current_win()
+
+  vim.api.nvim_create_autocmd("WinClosed", {
+    pattern = tostring(new_winid),
+    once = true,
+    callback = function()
+      vim.api.nvim_set_current_win(winid)
+    end,
+  })
+end
+
 return M

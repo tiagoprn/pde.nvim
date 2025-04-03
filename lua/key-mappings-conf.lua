@@ -14,6 +14,7 @@ which_key.setup({
   win = {
     border = "double",
   },
+  sort = { "local", "order", "alphanum", "mod" },
 })
 
 which_key.add({
@@ -33,7 +34,6 @@ which_key.add({
   { "<leader>aia", ":CodeCompanionActions<cr>", desc = "Select Action" },
   { "<leader>aih", "<cmd>lua require('tiagoprn.forms').codecompanion_help()<cr>", desc = "help" },
   { "<F10>", ":CodeCompanionChat<cr>", desc = "Toggle" },
-
   {
     "<leader>al",
     ":PrintLspSupportedRequests<cr>",
@@ -549,14 +549,22 @@ which_key.add({
   { "<leader>xn", ":set number! relativenumber!<cr>", desc = "line numbers on/off" },
   { "<leader>xl", ":set cursorline!<cr>", desc = "current line" },
   { "<leader>xr", ":set rnu!<cr>", desc = "relative line numbers" },
+  -- simple zoom (split current file into new tab)
+  {
+    "<leader>z",
+    "<cmd>lua require('tiagoprn.buffer_utils').simple_zoom()<cr>",
+    desc = "simple zoom (duplicates current window on new tab)",
+  },
   -- zen focus mode
-  { "<leader>z", group = "zen focus mode" },
-  { "<leader>zc", ":ZenCode<cr>", desc = "code full screen" },
-  { "<leader>zw", ":ZenWrite<cr>", desc = "write full screen" },
+  { "<leader>u", group = "zen focus mode" },
+  { "<leader>uc", ":ZenCode<cr>", desc = "code full screen" },
+  { "<leader>uw", ":ZenWrite<cr>", desc = "write full screen" },
   -- others
-  { "<leader><C-Space>", ":bufdo w! | :q!<cr>", desc = "save all buffers and quit" },
-  { "<leader><C-e>", ":e<cr>", desc = "reload file" },
+  { "<leader><C-e>", ":bufdo w! | :q!<cr>", desc = "save all buffers and quit" },
   { "<leader><C-q>", ":qa!<cr>", desc = "quit without saving" },
+  -- groups (that are mapped somewhere else - e.g. plugins.lua, etc...)
+  { "<C-Space>", group = "Go to window" },
+  { "<leader>S", group = "Sessions" },
 })
 
 -- --
@@ -685,8 +693,8 @@ map.set("i", "<C-left>", "<Esc>:tabprevious<cr>", { desc = "go to previous tab" 
 -- --
 -- Easier window switching with leader + Number
 -- Creates mappings like this: km.set("n", "<Leader>2", "2<C-W>w", { desc = "Move to Window 2" })
-for i = 1, 6 do
-  local lhs = "<Leader>" .. i
+for i = 1, 9 do
+  local lhs = "<C-Space>" .. i
   local rhs = i .. "<C-W>w"
   map.set("n", lhs, rhs, { desc = "Go to Window " .. i })
 end
