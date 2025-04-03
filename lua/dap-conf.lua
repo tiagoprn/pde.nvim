@@ -277,8 +277,8 @@ table.insert(dap.configurations.python, {
   name = "Pytest: Current File",
   module = "pytest", -- Use module instead of program
   args = function()
-    local file_path = vim.fn.expand("%:p") -- Get absolute path of current file
-    vim.notify("Running pytest on file: " .. file_path, vim.log.levels.INFO)
+    local file_name = vim.fn.expand("%:t") -- Get just the filename with extension
+    vim.notify("Running pytest on file: " .. file_name, vim.log.levels.INFO)
 
     local args = {}
 
@@ -296,8 +296,9 @@ table.insert(dap.configurations.python, {
     table.insert(args, "--no-summary") -- Reduce summary noise
     table.insert(args, "--capture=no") -- Don't capture stdout (allows interactive input)
 
-    -- Always add the absolute file path at the end
-    table.insert(args, file_path)
+    -- Use -k with the filename to filter tests
+    table.insert(args, "-k")
+    table.insert(args, file_name)
 
     return args
   end,
