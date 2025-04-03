@@ -11,130 +11,41 @@ local dap = require("dap")
 local dapui = require("dapui")
 local dap_vt = require("nvim-dap-virtual-text")
 
--- dap.set_log_level("TRACE") -- Set to 'TRACE' for maximum verbosity
-
-vim.notify("DAP configuration loading", vim.log.levels.INFO)
-
--- CONFIGURATION
-
-dap.adapters.python = {
-  type = "executable",
-  command = vim.fn.expand("~/.pyenv/versions/neovim/bin/python"),
-  args = { "-m", "debugpy.adapter" },
-}
-
-dapui.setup({
-  layouts = {
-    {
-      elements = {
-        { id = "scopes", size = 0.25 },
-        { id = "breakpoints", size = 0.25 },
-        { id = "stacks", size = 0.25 },
-        { id = "watches", size = 0.25 },
-      },
-      size = 40,
-      position = "left",
-    },
-    {
-      elements = {
-        { id = "console", size = 1.0 },
-      },
-      size = 0.2, -- 20% window height
-      position = "bottom",
-    },
-    {
-      elements = {
-        { id = "repl", size = 1.0 },
-      },
-      size = 0.2, -- 20% window height
-      position = "bottom",
-    },
-  },
-})
-
-dap_vt.setup({
-  commented = true, -- Show virtual text alongside comment
-  enabled = true,
-  all_frames = true,
-  virt_text_pos = "eol",
-})
-
--- mfussenegger/nvim-dap-python:
-dap_python.setup(vim.fn.expand("~/.pyenv/versions/neovim/bin/python"))
-dap_python.test_runner = "pytest"
-
-local function get_debugpy_python_path()
-  local neovim_venv_path = vim.fn.expand("~/.pyenv/versions/neovim/bin/python")
-  vim.notify("Using debugpy from: " .. neovim_venv_path, vim.log.levels.INFO)
-  return neovim_venv_path
-end
-
--- DEBUGGING LOGS
-
-local function verify_python_path()
-  local python_path = get_debugpy_python_path()
-  local cmd = python_path .. " --version 2>&1"
-  local handle = io.popen(cmd)
-  local result = handle:read("*a")
-  handle:close()
-
-  vim.notify("Python version check: " .. result, vim.log.levels.INFO)
-end
-
-local function check_debugpy_installation()
-  local cmd = vim.fn.expand("~/.pyenv/versions/neovim/bin/python")
-    .. " -c \"import debugpy; print('debugpy is installed')\" 2>&1"
-  local handle = io.popen(cmd)
-  local result = handle:read("*a")
-  handle:close()
-
-  if result:find("debugpy is installed") then
-    vim.notify("debugpy is properly installed in the neovim virtualenv", vim.log.levels.INFO)
-  else
-    vim.notify("debugpy is NOT installed in the neovim virtualenv. Error: " .. result, vim.log.levels.ERROR)
-    vim.notify("Install it with: ~/.pyenv/versions/neovim/bin/pip install debugpy", vim.log.levels.INFO)
-  end
-end
-
-local function verify_dap_python_setup()
-  local status, err = pcall(function()
-    local dap_python = require("dap-python")
-    vim.notify("DAP Python setup path: " .. vim.inspect(dap_python._path), vim.log.levels.INFO)
-  end)
-
-  if not status then
-    vim.notify("Error checking DAP Python setup: " .. tostring(err), vim.log.levels.ERROR)
-  end
-end
-
-local function check_debugpy_installation_detailed()
-  local python_path = vim.fn.expand("~/.pyenv/versions/neovim/bin/python")
-  local cmd = python_path
-    .. " -c \"import sys; import debugpy; print(f'debugpy version: {debugpy.__version__}'); print(f'debugpy path: {debugpy.__file__}'); print(f'Python path: {sys.executable}')\" 2>&1"
-  local handle = io.popen(cmd)
-  local result = handle:read("*a")
-  handle:close()
-
-  -- Write the output to a file
-  local output_file = io.open("/tmp/debugpy_info.txt", "w")
-  if output_file then
-    output_file:write(result)
-    output_file:close()
-    vim.notify("Debugpy info written to /tmp/debugpy_info.txt", vim.log.levels.INFO)
-  else
-    vim.notify("Failed to write debugpy info to file", vim.log.levels.ERROR)
-  end
-end
-
-check_debugpy_installation()
-
-verify_python_path()
-
-verify_dap_python_setup()
-
-check_debugpy_installation_detailed()
+local log_path = vim.fn.expand("~/.cache/nvim/dap.log")
+dap.set_log_level("TRACE") -- Set to 'TRACE' for maximum verbosity
+vim.notify("DAP logs (by default) are be written to: " .. log_path, vim.log.levels.INFO)
 
 -- HELPER FUNCTIONS
+
+local function get_project_python_path()
+  local venv = os.getenv("VIRTUAL_ENV")
+  if venv then
+    vim.notify("DAP: project virtualenv python path: " .. venv, vim.log.levels.INFO)
+    return venv .. "/bin/python"
+  else
+    vim.notify("DAP: no project virtualenv python path found, using system python", vim.log.levels.WARN)
+    return vim.fn.exepath("python")
+  end
+end
+
+local function get_debugpy_python_path()
+  local project_python_path = get_project_python_path()
+
+  -- if I can import debugpy from project_python_path, return project_python_path
+  local cmd = project_python_path .. " -c \"import debugpy; print('debugpy_available')\" 2>/dev/null"
+  local handle = io.popen(cmd)
+  local result = handle:read("*a")
+  handle:close()
+
+  if result:find("debugpy_available") then
+    vim.notify("Using debugpy from PROJECT: " .. project_python_path, vim.log.levels.INFO)
+    return project_python_path
+  end
+
+  local neovim_venv_path = vim.fn.expand("~/.pyenv/versions/neovim/bin/python")
+  vim.notify("Using debugpy from NEOVIM VENV: " .. neovim_venv_path, vim.log.levels.INFO)
+  return neovim_venv_path
+end
 
 local function get_current_test_name()
   -- Get the current node under cursor using Treesitter
@@ -228,6 +139,61 @@ local function get_current_test_name()
   return nil
 end
 
+-- CONFIGURATION
+
+vim.notify("Configuring DAP...[WAIT]", vim.log.levels.INFO)
+
+dap.adapters.python = {
+  type = "executable",
+  command = get_debugpy_python_path(),
+  args = { "-m", "debugpy.adapter" },
+  options = {
+    timeout = 30000, -- Timeout in milliseconds (30 seconds)
+  },
+}
+
+dapui.setup({
+  layouts = {
+    {
+      elements = {
+        { id = "scopes", size = 0.25 },
+        { id = "breakpoints", size = 0.25 },
+        { id = "stacks", size = 0.25 },
+        { id = "watches", size = 0.25 },
+      },
+      size = 40,
+      position = "left",
+    },
+    {
+      elements = {
+        { id = "console", size = 1.0 },
+      },
+      size = 0.2, -- 20% window height
+      position = "bottom",
+    },
+    {
+      elements = {
+        { id = "repl", size = 1.0 },
+      },
+      size = 0.2, -- 20% window height
+      position = "bottom",
+    },
+  },
+})
+
+dap_vt.setup({
+  commented = true, -- Show virtual text alongside comment
+  enabled = true,
+  all_frames = true,
+  virt_text_pos = "eol",
+})
+
+-- mfussenegger/nvim-dap-python:
+dap_python.setup(get_debugpy_python_path())
+dap_python.test_runner = "pytest"
+
+vim.notify("Configuring DAP...[DONE]", vim.log.levels.INFO)
+
 -- DAP CONFIGURATIONS (PROFILES TO RUN DAP)
 
 dap.configurations.python = dap.configurations.python or {}
@@ -239,17 +205,9 @@ table.insert(dap.configurations.python, {
   type = "python",
   request = "launch",
   program = "/storage/src/pde.nvim/python/dap_test.py", -- Hardcoded file path
-  pythonPath = function()
-    local venv = os.getenv("VIRTUAL_ENV")
-    if venv then
-      vim.notify("DAP: Using active virtualenv: " .. venv, vim.log.levels.INFO)
-      return venv .. "/bin/python"
-    else
-      vim.notify("No active virtualenv found, using system python", vim.log.levels.WARN)
-      return vim.fn.exepath("python")
-    end
-  end,
+  pythonPath = get_project_python_path(),
   dap_python_debugger = get_debugpy_python_path(),
+  timeout = 60000, -- 60 seconds timeout for this specific configuration
 })
 
 table.insert(dap.configurations.python, {
@@ -257,17 +215,9 @@ table.insert(dap.configurations.python, {
   type = "python",
   request = "launch",
   program = vim.fn.expand("%:p"), -- Directly expand the current file path
-  pythonPath = function()
-    local venv = os.getenv("VIRTUAL_ENV")
-    if venv then
-      vim.notify("DAP: Using active virtualenv: " .. venv, vim.log.levels.INFO)
-      return venv .. "/bin/python"
-    else
-      vim.notify("No active virtualenv found, using system python", vim.log.levels.WARN)
-      return vim.fn.exepath("python")
-    end
-  end,
+  pythonPath = get_project_python_path(),
   dap_python_debugger = get_debugpy_python_path(),
+  timeout = 60000, -- 60 seconds timeout for this specific configuration
 })
 
 table.insert(dap.configurations.python, {
@@ -288,18 +238,9 @@ table.insert(dap.configurations.python, {
     }
   end,
   console = "integratedTerminal", -- This is crucial for interactive debugging
-  pythonPath = function()
-    -- Get the Python path from the active virtual environment for running pytest
-    local venv = os.getenv("VIRTUAL_ENV")
-    if venv then
-      vim.notify("Using pytest from active virtualenv: " .. venv, vim.log.levels.INFO)
-      return venv .. "/bin/python"
-    else
-      vim.notify("No active virtualenv found, using system python", vim.log.levels.WARN)
-      return vim.fn.exepath("python")
-    end
-  end,
+  pythonPath = get_project_python_path(),
   dap_python_debugger = get_debugpy_python_path(),
+  timeout = 60000, -- 60 seconds timeout for this specific configuration
 })
 
 table.insert(dap.configurations.python, {
@@ -320,18 +261,9 @@ table.insert(dap.configurations.python, {
     }
   end,
   console = "integratedTerminal", -- This is crucial for interactive debugging
-  pythonPath = function()
-    -- Get the Python path from the active virtual environment for running pytest
-    local venv = os.getenv("VIRTUAL_ENV")
-    if venv then
-      vim.notify("Using pytest from active virtualenv: " .. venv, vim.log.levels.INFO)
-      return venv .. "/bin/python"
-    else
-      vim.notify("No active virtualenv found, using system python", vim.log.levels.WARN)
-      return vim.fn.exepath("python")
-    end
-  end,
+  pythonPath = get_project_python_path(),
   dap_python_debugger = get_debugpy_python_path(),
+  timeout = 60000, -- 60 seconds timeout for this specific configuration
 })
 
 table.insert(dap.configurations.python, {
@@ -358,18 +290,9 @@ table.insert(dap.configurations.python, {
     }
   end,
   console = "integratedTerminal", -- This is crucial for interactive debugging
-  pythonPath = function()
-    -- Get the Python path from the active virtual environment for running pytest
-    local venv = os.getenv("VIRTUAL_ENV")
-    if venv then
-      vim.notify("Using pytest from active virtualenv: " .. venv, vim.log.levels.INFO)
-      return venv .. "/bin/python"
-    else
-      vim.notify("No active virtualenv found, using system python", vim.log.levels.WARN)
-      return vim.fn.exepath("python")
-    end
-  end,
+  pythonPath = get_project_python_path(),
   dap_python_debugger = get_debugpy_python_path(),
+  timeout = 60000, -- 60 seconds timeout for this specific configuration
 })
 
 -- table.insert(dap.configurations.python, {
