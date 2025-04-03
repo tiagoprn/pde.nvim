@@ -1,5 +1,10 @@
--- This allows nvim to not crash if this plugin is not installed.
--- It would be great to extend this to my other plugins configuration.
+-- POTENTIAL FUTURE ENHANCEMENTS:
+--   1. **Remote Debugging Support**: Add configurations for attaching to remotely running Python processes
+--   2. **Conditional Breakpoints UI**: Add keybindings or functions to easily set conditional breakpoints
+--   3. **Custom Variable Display**: Enhance how complex variables are displayed in the UI
+--   4. **Log Points**: Add support for log points (breakpoints that log information without stopping execution)
+--   5. **Uncomment the Web Framework Configurations**: Enable the Flask/Django/FastAPI configurations if you work with these frameworks
+
 local status_ok, dap_python = pcall(require, "dap-python")
 if not status_ok then
   return
@@ -139,6 +144,52 @@ local function get_current_test_name()
   return nil
 end
 
+local function get_pytest_root_dir()
+  -- Searches for a file named "nvim-dap-pytest-rootdir",
+  -- which contains the name of the pytest root dir
+  -- we need to explicitly put it on the pytest command.
+
+  -- Try to find the root dir file in the current directory or any parent directory
+  local current_dir = vim.fn.getcwd()
+  local root_dir_file = "nvim-dap-pytest-rootdir"
+
+  -- Check if the file exists in the current directory
+  local file_path = current_dir .. "/" .. root_dir_file
+  if vim.fn.filereadable(file_path) == 1 then
+    local file = io.open(file_path, "r")
+    if file then
+      local content = file:read("*all"):gsub("%s+$", "") -- Trim whitespace
+      file:close()
+      if content and content ~= "" then
+        vim.notify("Found pytest root dir: " .. content, vim.log.levels.INFO)
+        return content
+      end
+    end
+  end
+
+  -- Check parent directories (up to 5 levels)
+  local dir = current_dir
+  for i = 1, 5 do
+    dir = vim.fn.fnamemodify(dir, ":h") -- Get parent directory
+    file_path = dir .. "/" .. root_dir_file
+    if vim.fn.filereadable(file_path) == 1 then
+      local file = io.open(file_path, "r")
+      if file then
+        local content = file:read("*all"):gsub("%s+$", "") -- Trim whitespace
+        file:close()
+        if content and content ~= "" then
+          vim.notify("Found pytest root dir: " .. content, vim.log.levels.INFO)
+          return content
+        end
+      end
+    end
+  end
+
+  -- No root dir file found, return nil
+  vim.notify("No pytest root dir file found, using default behavior", vim.log.levels.INFO)
+  return nil
+end
+
 -- CONFIGURATION
 
 vim.notify("Configuring DAP...[WAIT]", vim.log.levels.INFO)
@@ -228,14 +279,27 @@ table.insert(dap.configurations.python, {
   args = function()
     local file_path = vim.fn.expand("%:p") -- Get absolute path of current file
     vim.notify("Running pytest on file: " .. file_path, vim.log.levels.INFO)
-    return {
-      "-s", -- Allow print statements and interactive prompts
-      "-vvv", -- Very verbose output
-      "--no-header", -- Reduce header noise
-      "--no-summary", -- Reduce summary noise
-      "--capture=no", -- Don't capture stdout (allows interactive input)
-      file_path, -- Use explicit file path
-    }
+
+    local args = {}
+
+    -- If root dir is specified, add it as the first argument
+    local root_dir = get_pytest_root_dir()
+    if root_dir then
+      table.insert(args, root_dir)
+      vim.notify("Using pytest root dir: " .. root_dir, vim.log.levels.INFO)
+    end
+
+    -- Add the standard pytest options after the root dir
+    table.insert(args, "-s") -- Allow print statements and interactive prompts
+    table.insert(args, "-vvv") -- Very verbose output
+    table.insert(args, "--no-header") -- Reduce header noise
+    table.insert(args, "--no-summary") -- Reduce summary noise
+    table.insert(args, "--capture=no") -- Don't capture stdout (allows interactive input)
+
+    -- Always add the absolute file path at the end
+    table.insert(args, file_path)
+
+    return args
   end,
   console = "integratedTerminal", -- This is crucial for interactive debugging
   pythonPath = get_project_python_path(),
@@ -250,15 +314,28 @@ table.insert(dap.configurations.python, {
   module = "pytest",
   args = function()
     local expression = vim.fn.input("Test expression (-k): ")
-    return {
-      "-s", -- Allow print statements and interactive prompts
-      "-vvv", -- Very verbose output
-      "--no-header", -- Reduce header noise
-      "--no-summary", -- Reduce summary noise
-      "--capture=no", -- Don't capture stdout (allows interactive input)
-      "-k",
-      expression,
-    }
+
+    local args = {}
+
+    -- If root dir is specified, add it as the first argument
+    local root_dir = get_pytest_root_dir()
+    if root_dir then
+      table.insert(args, root_dir)
+      vim.notify("Using pytest root dir: " .. root_dir, vim.log.levels.INFO)
+    end
+
+    -- Add the standard pytest options after the root dir
+    table.insert(args, "-s") -- Allow print statements and interactive prompts
+    table.insert(args, "-vvv") -- Very verbose output
+    table.insert(args, "--no-header") -- Reduce header noise
+    table.insert(args, "--no-summary") -- Reduce summary noise
+    table.insert(args, "--capture=no") -- Don't capture stdout (allows interactive input)
+
+    -- Add the expression filter
+    table.insert(args, "-k")
+    table.insert(args, expression)
+
+    return args
   end,
   console = "integratedTerminal", -- This is crucial for interactive debugging
   pythonPath = get_project_python_path(),
@@ -278,16 +355,30 @@ table.insert(dap.configurations.python, {
       test_name = vim.fn.input("Test function name: ")
     end
 
-    return {
+    local root_dir = get_pytest_root_dir()
+    local args = {
       "-s", -- Allow print statements and interactive prompts
       "-vvv", -- Very verbose output
       "--no-header", -- Reduce header noise
       "--no-summary", -- Reduce summary noise
       "--capture=no", -- Don't capture stdout (allows interactive input)
-      "-k",
-      test_name,
-      vim.fn.expand("%:p"), -- Current file path
     }
+
+    -- If root dir is specified, add it before the -k argument
+    if root_dir then
+      table.insert(args, root_dir)
+    end
+
+    -- Add the test expression
+    table.insert(args, "-k")
+    table.insert(args, test_name)
+
+    -- Only add the file path if no root dir is specified
+    if not root_dir then
+      table.insert(args, vim.fn.expand("%:p")) -- Current file path
+    end
+
+    return args
   end,
   console = "integratedTerminal", -- This is crucial for interactive debugging
   pythonPath = get_project_python_path(),
