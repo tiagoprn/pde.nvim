@@ -219,6 +219,16 @@ which_key.add({
     desc = "Step Out",
   },
   {
+    "<leader>da",
+    "<cmd>lua require('dap').step_back()<cr>",
+    desc = "Step Back",
+  },
+  {
+    "<leader>dv",
+    "<cmd>lua require('dapui').eval(nil, { enter = true })<cr>",
+    desc = "inspect cursor variable/object details",
+  },
+  {
     "<leader>dr",
     "<cmd>lua require('dap').repl.open()<cr>",
     desc = "Interactive REPL",
@@ -234,9 +244,19 @@ which_key.add({
     desc = "Debug Current File",
   },
   {
+    "<leader>de",
+    "<cmd>lua require('dap').restart()<cr>",
+    desc = "restart",
+  },
+  {
     "<leader>dq",
     "<cmd>lua require('dap-conf').finish_debugging_and_close_windows()<cr>",
     desc = "Terminate and close all windows",
+  },
+  {
+    "<leader>du",
+    "<cmd>lua require('dap').run_to_cursor()<cr>",
+    desc = "run to cursor",
   },
   {
     "<leader>dl",
