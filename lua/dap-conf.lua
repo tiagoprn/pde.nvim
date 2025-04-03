@@ -37,14 +37,14 @@ dapui.setup({
     },
     {
       elements = {
-        { id = "repl", size = 1.0 },
+        { id = "console", size = 1.0 },
       },
       size = 0.2, -- 20% window height
       position = "bottom",
     },
     {
       elements = {
-        { id = "console", size = 1.0 },
+        { id = "repl", size = 1.0 },
       },
       size = 0.2, -- 20% window height
       position = "bottom",
@@ -279,11 +279,15 @@ table.insert(dap.configurations.python, {
     local file_path = vim.fn.expand("%:p") -- Get absolute path of current file
     vim.notify("Running pytest on file: " .. file_path, vim.log.levels.INFO)
     return {
-      "-s", -- Allow print statements to be displayed
+      "-s", -- Allow print statements and interactive prompts
       "-vvv", -- Very verbose output
+      "--no-header", -- Reduce header noise
+      "--no-summary", -- Reduce summary noise
+      "--capture=no", -- Don't capture stdout (allows interactive input)
       file_path, -- Use explicit file path
     }
   end,
+  console = "integratedTerminal", -- This is crucial for interactive debugging
   pythonPath = function()
     -- Get the Python path from the active virtual environment for running pytest
     local venv = os.getenv("VIRTUAL_ENV")
@@ -306,12 +310,16 @@ table.insert(dap.configurations.python, {
   args = function()
     local expression = vim.fn.input("Test expression (-k): ")
     return {
-      "-s",
-      "-vvv",
+      "-s", -- Allow print statements and interactive prompts
+      "-vvv", -- Very verbose output
+      "--no-header", -- Reduce header noise
+      "--no-summary", -- Reduce summary noise
+      "--capture=no", -- Don't capture stdout (allows interactive input)
       "-k",
       expression,
     }
   end,
+  console = "integratedTerminal", -- This is crucial for interactive debugging
   pythonPath = function()
     -- Get the Python path from the active virtual environment for running pytest
     local venv = os.getenv("VIRTUAL_ENV")
@@ -339,13 +347,17 @@ table.insert(dap.configurations.python, {
     end
 
     return {
-      "-s",
-      "-vvv",
+      "-s", -- Allow print statements and interactive prompts
+      "-vvv", -- Very verbose output
+      "--no-header", -- Reduce header noise
+      "--no-summary", -- Reduce summary noise
+      "--capture=no", -- Don't capture stdout (allows interactive input)
       "-k",
       test_name,
       vim.fn.expand("%:p"), -- Current file path
     }
   end,
+  console = "integratedTerminal", -- This is crucial for interactive debugging
   pythonPath = function()
     -- Get the Python path from the active virtual environment for running pytest
     local venv = os.getenv("VIRTUAL_ENV")
