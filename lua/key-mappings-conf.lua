@@ -10,19 +10,7 @@ end
 -- --
 which_key.setup({
   -- https://github.com/folke/which-key.nvim?tab=readme-ov-file#%EF%B8%8F-configuration
-  -- window = {
-  -- 	border = "single", -- none, single, double, shadow
-  -- },
-  -- layout = {
-  -- 	height = { min = 4, max = 25 }, -- min and max height of the columns
-  -- 	width = { min = 20, max = 80 }, -- min and max width of the columns
-  -- 	spacing = 3, -- spacing between columns
-  -- 	align = "center", -- align columns left, center or right
-  -- },
-  preset = "classic",
-  layout = {
-    width = { min = 20, max = 80 }, -- min and max width of the columns
-  },
+  preset = "helix",
   win = {
     border = "double",
   },
