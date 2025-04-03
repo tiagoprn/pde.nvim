@@ -37,10 +37,16 @@ dapui.setup({
     },
     {
       elements = {
-        { id = "repl", size = 0.5 },
-        { id = "console", size = 0.5 },
+        { id = "repl", size = 1.0 },
       },
-      size = 10,
+      size = 0.2, -- 20% window height
+      position = "bottom",
+    },
+    {
+      elements = {
+        { id = "console", size = 1.0 },
+      },
+      size = 0.2, -- 20% window height
       position = "bottom",
     },
   },
