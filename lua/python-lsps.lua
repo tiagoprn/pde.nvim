@@ -178,6 +178,16 @@ lsp.ruff.setup({
       end,
     })
 
+    -- mapping to force ruff diagnostics manually
+    vim.keymap.set("n", "<leader>cR", function()
+      vim.diagnostic.show(bufnr)
+      local uri = vim.uri_from_bufnr(bufnr)
+      client.request("textDocument/diagnostic", {
+        textDocument = { uri = uri },
+      }, nil, bufnr)
+      vim.notify("Ruff diagnostics refreshed")
+    end, { buffer = bufnr, desc = "ruff: refresh diagnostics" })
+
     -- mapping to format the selection with ruff
     vim.keymap.set("v", "<leader>cf", function()
       vim.lsp.buf.format({
@@ -187,15 +197,16 @@ lsp.ruff.setup({
           ["end"] = vim.api.nvim_buf_get_mark(0, ">"),
         },
       })
-    end, { buffer = bufnr, desc = "Format selection with Ruff" })
+    end, { buffer = bufnr, desc = "ruff: format selection" })
 
+    -- mapping to format the whole file with ruff
     vim.keymap.set("n", "<leader>cf", function()
       vim.lsp.buf.format({
         async = true,
       })
 
-      vim.cmd('echomsg "ruff: buffer successfully formatted!"')
-    end, { buffer = bufnr, desc = "Format whole buffer with Ruff" })
+      vim.notify("ruff: buffer successfully formatted")
+    end, { buffer = bufnr, desc = "ruff: format whole buffer" })
   end,
   single_file_support = true,
 })
