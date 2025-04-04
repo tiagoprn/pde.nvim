@@ -241,10 +241,15 @@ local sources = {
 
   null_ls.builtins.formatting.stylua.with({
     command = vim.fn.expand("~/.cargo/bin/stylua"),
-
     extra_args = {
-      "--config-path",
-      vim.fn.expand("~/.config/nvim/stylua.toml"),
+      "--column-width",
+      "120",
+      "--indent-type",
+      "Spaces",
+      "--indent-width",
+      "2",
+      "--quote-style",
+      "AutoPreferDouble",
     },
   }),
 }
