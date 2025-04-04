@@ -1,8 +1,6 @@
--- I want to create a slash command with codecompanion.nvim to be able to select a file from a specific path (path must be entered prior to open telescope to select the files).
--- The contents of the files I select with telescope will then be available as context for my future prompts.
--- I have an example of a custom prompt I created here on text_create_flashcards.lua.
--- The documention mentions that I need to create a new prompt and configure it as a slash commands here: https://codecompanion.olimorris.dev/extending/prompts.html .
--- Can you help me to implement this on this file?
+-- This creates a slash command with codecompanion.nvim to be able to select a file from a specific path (path must be entered prior to open telescope to select the file).
+-- The contents of the file I select with telescope will then be available as context for my future prompts.
+-- The official codecompanion documentation mentions that I need to create a new prompt and configure it as a slash commands here: https://codecompanion.olimorris.dev/extending/prompts.html .
 
 local telescope = require("telescope.builtin")
 local system = require("prompts.system")
@@ -133,6 +131,8 @@ return {
           return
         end
 
+        vim.notify("Building context message...[WAIT]")
+
         -- Build context message with file contents
         local context_message = "I'm adding the following file as context for our conversation:\n\n"
 
@@ -148,7 +148,8 @@ return {
         context_message = context_message
           .. "Please acknowledge that you've received these files and will use them as context for our future conversation."
 
-        vim.notify("Context message was set: " .. context_message)
+        vim.notify("Building context message...[DONE]")
+        vim.notify("context_message: " .. context_message)
 
         return context_message
       end,
