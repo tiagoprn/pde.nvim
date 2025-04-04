@@ -25,15 +25,20 @@ return {
     {
       role = "user",
       content = function()
-        local path = vim.fn.input("Enter directory path: ", vim.fn.getcwd())
+        local path = vim.fn.input("Enter directory path: ", "~/.local/share/nvim/code-companion-chat-history/")
         if not path or path == "" then
-          return nil
+          return "Operation cancelled."
+        end
+
+        -- Ensure the path ends with a slash
+        if path:sub(-1) ~= "/" then
+          path = path .. "/"
         end
 
         path = vim.fn.expand(path)
         if vim.fn.isdirectory(path) ~= 1 then
           vim.notify("Invalid directory path: " .. path, vim.log.levels.ERROR)
-          return nil
+          return "Invalid directory path: " .. path
         end
 
         -- Use telescope to select files
@@ -44,9 +49,23 @@ return {
         local actions = require("telescope.actions")
         local action_state = require("telescope.actions.state")
 
+        -- Create a finder that works with hidden files
+        local find_command
+        if vim.fn.executable("fd") == 1 then
+          find_command = { "fd", "--type", "f", "--hidden", "--exclude", ".git", ".", path }
+        elseif vim.fn.executable("rg") == 1 then
+          find_command = { "rg", "--files", "--hidden", "--glob", "!.git", path }
+        else
+          -- Fallback to a more reliable find command
+          find_command = { "find", path, "-type", "f", "-not", "-path", "*/\\.git/*" }
+        end
+
+        -- Create a completion flag
+        local selection_completed = false
+
         local picker = pickers.new({}, {
-          prompt_title = "Select Files to Add as Context",
-          finder = finders.new_oneshot_job({ "find", path, "-type", "f", "-not", "-path", "*/\\.*" }, {}),
+          prompt_title = "Select Files to Add as Context (Enter to select, Ctrl-D to finish)",
+          finder = finders.new_oneshot_job(find_command, {}),
           sorter = conf.generic_sorter({}),
           attach_mappings = function(prompt_bufnr, map)
             actions.select_default:replace(function()
@@ -61,6 +80,7 @@ return {
 
             -- Add custom mapping to confirm selection and close picker
             map("i", "<C-d>", function()
+              selection_completed = true
               actions.close(prompt_bufnr)
             end)
 
@@ -70,14 +90,14 @@ return {
 
         picker:find()
 
-        -- Wait for picker to close and process selected files
-        vim.wait(1000, function()
-          return not picker.prompt_bufnr
-        end)
+        -- Wait for selection to complete
+        vim.wait(30000, function()
+          return selection_completed
+        end, 100)
 
         if #selected_files == 0 then
           vim.notify("No files selected", vim.log.levels.WARN)
-          return nil
+          return "No files were selected."
         end
 
         -- Build context message with file contents
