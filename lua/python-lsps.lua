@@ -94,7 +94,7 @@ lsp.ruff.setup({
   init_options = {
     settings = { -- https://docs.astral.sh/ruff/editors/settings/#settings
       -- configuration = "~/path/to/ruff.toml",  -- https://docs.astral.sh/ruff/configuration/
-      lineLength = 100,
+      lineLength = 119,
       organizeImports = true,
       showSyntaxErrors = true,
       configurationPreference = "editorOnly", -- https://docs.astral.sh/ruff/editors/settings/#configurationpreference
