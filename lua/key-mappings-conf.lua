@@ -488,11 +488,17 @@ which_key.add({
   { "<leader>r", ":redo<cr>", desc = "redo changes" },
   -- save current buffer
   { "<leader>s", ":w!<cr>", desc = "save current buffer" },
-  -- source markdown
+  -- source files
+  { "<leader>t", group = "source" },
   {
-    "<leader>t",
+    "<leader>tn",
+    "<cmd>lua require('tiagoprn.code_utils').source_file()<cr>",
+    desc = "current lua file",
+  },
+  {
+    "<leader>tm",
     ":SourceMarkdown<cr>",
-    desc = "source markdown configuration (remove conceal, etc)",
+    desc = "markdown configuration (remove conceal, etc)",
   },
   -- undo changes
   { "<leader>u", ":undo<cr>", desc = "undo changes" },
