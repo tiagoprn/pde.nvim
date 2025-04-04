@@ -5,6 +5,11 @@
 local telescope = require("telescope.builtin")
 local system = require("prompts.system")
 
+-- Configuration
+local CONFIG = {
+  context_register = "w", -- Register to store file content
+}
+
 -- Function to recursively list all files under path, excluding directories
 local function get_all_files_in_dir(dir_name)
   -- dir_name e.g.: vim.fn.expand("~/.config/nvim/lua/snippets/")
@@ -27,7 +32,7 @@ return {
   description = "Add file as context to the current chat",
   opts = {
     short_name = "file-add-to-context",
-    auto_submit = true,
+    auto_submit = false, -- Manual submission
     is_slash_cmd = true,
   },
   prompts = {
@@ -41,8 +46,8 @@ return {
     {
       role = "user",
       content = function()
-        -- Create a global variable to store our result
-        _G.file_context_result = nil
+        -- Configuration variable for the register to use
+        local context_register = "w" -- Default to register 'w'
 
         local path = vim.fn.input("Enter directory path: ", "~/.local/share/nvim/code-companion-chat-history/")
         if not path or path == "" then
@@ -81,15 +86,12 @@ return {
           table.insert(display_names, display_name)
         end
 
-        -- Create a function to handle file selection and set the global result
+        -- Create a function to handle file selection
         _G.handle_file_selection = function(selection_value)
-          vim.notify("handle_fileselection ... WAIT")
           local full_file_path = display_to_path[selection_value]
 
           if vim.fn.filereadable(full_file_path) == 1 then
             local telescope_selected_file_path = vim.fn.fnameescape(full_file_path)
-
-            vim.notify("Building context message...")
 
             -- Build context message with file contents
             local context_message = "I'm adding the following file as context for our conversation:\n\n"
@@ -106,15 +108,19 @@ return {
             context_message = context_message
               .. "Please acknowledge that you've received these files and will use them as context for our future conversation."
 
-            vim.notify("Context message prepared successfully")
+            -- Store the result in the specified register
+            vim.fn.setreg(context_register, context_message)
 
-            -- Set the global result
-            _G.file_context_result = context_message
+            vim.notify(
+              "File context stored in register '"
+                .. context_register
+                .. "'. Use \""
+                .. context_register
+                .. "p to paste it."
+            )
           else
             vim.notify("File does not exist: " .. full_file_path, vim.log.levels.ERROR)
-            _G.file_context_result = "File does not exist: " .. full_file_path
           end
-          vim.notify("handle_fileselection ... DONE")
         end
 
         -- Display files in Telescope with exact matching in fuzzy search
@@ -125,18 +131,14 @@ return {
               results = display_names,
             }),
             sorter = require("telescope.sorters").get_fuzzy_file({
-              exact = true, -- Enable exact matching with fuzzy search
+              exact = true,
             }),
             previewer = require("telescope.previewers").new_buffer_previewer({
               define_preview = function(self, entry, status)
-                -- Get the full file path using the display name
                 local full_file_path = display_to_path[entry.value]
-                local content = vim.fn.readfile(full_file_path) -- Read the file contents
-                -- Display the content of the file in the preview window
+                local content = vim.fn.readfile(full_file_path)
                 vim.api.nvim_buf_set_lines(self.state.bufnr, 0, -1, false, content)
-
-                -- Set the filetype for syntax highlighting in the preview window
-                local filetype = vim.fn.fnamemodify(full_file_path, ":e") -- Get the file extension to determine filetype
+                local filetype = vim.fn.fnamemodify(full_file_path, ":e")
                 vim.bo[self.state.bufnr].filetype = filetype
               end,
             }),
@@ -147,27 +149,18 @@ return {
                 require("telescope.actions").close(prompt_bufnr)
                 _G.handle_file_selection(selection.value)
               end
-              map("i", "<CR>", get_selected_file_path) -- Get path on Enter
-              map("n", "<CR>", get_selected_file_path) -- Get path on Enter in normal mode too
+              map("i", "<CR>", get_selected_file_path)
+              map("n", "<CR>", get_selected_file_path)
               return true
             end,
           })
           :find()
 
-        -- Return a placeholder message that will be replaced
-        return "Please select a file from the telescope picker..."
-      end,
-
-      -- Add a transform function to replace the placeholder with the actual result
-      transform = function(content)
-        vim.notify("transform function processing ... WAIT")
-        if _G.file_context_result then
-          local result = _G.file_context_result
-          _G.file_context_result = nil -- Clean up global variable
-          return result
-        end
-        vim.notify("transform function processing ... DONE")
-        return content
+        return "After selecting a file, the content will be stored in register '"
+          .. context_register
+          .. "'. Focus the CodeCompanion input area and use \""
+          .. context_register
+          .. "p to paste, then submit manually."
       end,
     },
   },
