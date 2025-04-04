@@ -1,8 +1,7 @@
 local lsp = require("lspconfig")
 
 -- below changes the log level of lsp, to make it more verbose so can I check its' communication with neovim.
--- The lsp log file is at ~/.local/share/nvim/lsp.log
-vim.lsp.set_log_level("debug") -- change to "debug" for troubleshooting
+-- vim.lsp.set_log_level("debug") -- change to "debug" for troubleshooting
 
 -- Below customizes how diagnostics are shown
 vim.diagnostic.config({
