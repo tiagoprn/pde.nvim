@@ -611,7 +611,7 @@ which_key.add({
   { "<leader><C-e>", ":bufdo w! | :q!<cr>", desc = "save all buffers and quit" },
   { "<leader><C-q>", ":qa!<cr>", desc = "quit without saving" },
   -- groups (that are mapped somewhere else - e.g. plugins.lua, etc...)
-  { "<C-Space>", group = "Go to window" },
+  -- { "<C-Space>", group = "Go to window" },
   { "<leader>S", group = "Sessions" },
 })
 
@@ -742,7 +742,7 @@ map.set("i", "<C-left>", "<Esc>:tabprevious<cr>", { desc = "go to previous tab" 
 -- Easier window switching with leader + Number
 -- Creates mappings like this: km.set("n", "<Leader>2", "2<C-W>w", { desc = "Move to Window 2" })
 for i = 1, 9 do
-  local lhs = "<C-Space>" .. i
+  local lhs = "<leader>" .. i
   local rhs = i .. "<C-W>w"
   map.set("n", lhs, rhs, { desc = "Go to Window " .. i })
 end
