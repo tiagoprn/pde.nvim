@@ -8,6 +8,7 @@ local system = require("prompts.system")
 -- Configuration
 local CONFIG = {
   context_register = "w", -- Register to store file content
+  default_path = "~/.local/share/nvim/code-companion-chat-history/", -- Default path to show
 }
 
 -- Function to recursively list all files under path, excluding directories
@@ -46,10 +47,7 @@ return {
     {
       role = "user",
       content = function()
-        -- Configuration variable for the register to use
-        local context_register = "w" -- Default to register 'w'
-
-        local path = vim.fn.input("Enter directory path: ", "~/.local/share/nvim/code-companion-chat-history/")
+        local path = vim.fn.input("Enter directory path: ", CONFIG.default_path)
         if not path or path == "" then
           return "Operation cancelled."
         end
@@ -76,6 +74,11 @@ return {
 
         local file_paths = get_all_files_in_dir(dir_name)
 
+        if #file_paths == 0 then
+          vim.notify("No files found in directory: " .. dir_name, vim.log.levels.WARN)
+          return "No files found in directory: " .. dir_name
+        end
+
         -- Create a mapping of display names to full paths
         local display_to_path = {}
         local display_names = {}
@@ -101,21 +104,36 @@ return {
               local content = file:read("*all")
               file:close()
 
+              -- Get file extension for language detection
+              local file_ext = vim.fn.fnamemodify(telescope_selected_file_path, ":e")
+              local lang_tag = file_ext ~= "" and file_ext or "text"
+
+              -- Format relative path
               local relative_path = telescope_selected_file_path:gsub("^" .. vim.fn.getcwd() .. "/", "")
-              context_message = context_message .. "```\n\n -- " .. relative_path .. "\n\n" .. content .. "\n```\n\n"
+              context_message = context_message
+                .. "File: `"
+                .. relative_path
+                .. "`\n\n```"
+                .. lang_tag
+                .. "\n"
+                .. content
+                .. "\n```\n\n"
+            else
+              vim.notify("Failed to read file: " .. telescope_selected_file_path, vim.log.levels.ERROR)
+              context_message = context_message .. "Failed to read file: " .. telescope_selected_file_path
             end
 
             context_message = context_message
-              .. "Please acknowledge that you've received these files and will use them as context for our future conversation."
+              .. "Please acknowledge that you've received this file and will use it as context for our future conversation."
 
             -- Store the result in the specified register
-            vim.fn.setreg(context_register, context_message)
+            vim.fn.setreg(CONFIG.context_register, context_message)
 
             vim.notify(
               "File context stored in register '"
-                .. context_register
+                .. CONFIG.context_register
                 .. "'. Use \""
-                .. context_register
+                .. CONFIG.context_register
                 .. "p to paste it."
             )
           else
@@ -156,11 +174,11 @@ return {
           })
           :find()
 
-        return "After selecting a file, the content will be stored in register '"
-          .. context_register
-          .. "'. Focus the CodeCompanion input area and use \""
-          .. context_register
-          .. "p to paste, then submit manually."
+        return "(The content is now stored in register '"
+          .. CONFIG.context_register
+          .. "'. Use \""
+          .. CONFIG.context_register
+          .. "p to paste, then submit the message.)\n\n"
       end,
     },
   },
