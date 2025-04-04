@@ -124,23 +124,44 @@ lsp.ruff.setup({
     client.server_capabilities.document_range_formatting = true
     client.server_capabilities.document_diagnostics = true
 
-    -- Request diagnostics when I open the file (and do other buffer/window/tab events) explicitly.
-    -- Otherwise it does not show after I open it, just if a reload it.
-    vim.api.nvim_create_autocmd({
-      "BufEnter",
-      "BufWritePost",
-      "WinEnter",
-      "WinNew",
-      "BufWinEnter",
-      "TabEnter",
-      "BufReadPost",
-    }, {
+    -- Enable file watching
+    client.server_capabilities.workspace = client.server_capabilities.workspace or {}
+    client.server_capabilities.workspace.didChangeWatchedFiles = { dynamicRegistration = true }
+
+    -- Create autocmds to control when diagnostics run
+    -- Hide diagnostics in insert mode
+    vim.api.nvim_create_autocmd("InsertEnter", {
       buffer = bufnr,
       callback = function()
-        vim.diagnostic.enable(true, { buffer = bufnr })
+        vim.diagnostic.hide(bufnr) -- Changed from disable(bufnr) to hide(bufnr)
+      end,
+    })
+
+    -- Show and refresh diagnostics when leaving insert mode
+    vim.api.nvim_create_autocmd("InsertLeave", {
+      buffer = bufnr,
+      callback = function()
+        vim.diagnostic.show(bufnr) -- Changed from enable(bufnr) to show(bufnr)
+        -- Force refresh diagnostics
         client:request("textDocument/diagnostic", {
           textDocument = vim.lsp.util.make_text_document_params(bufnr),
         }, nil, bufnr)
+      end,
+    })
+
+    -- Force initial diagnostics when buffer is loaded
+    vim.api.nvim_create_autocmd({
+      "BufEnter",
+      "BufWritePost",
+    }, {
+      buffer = bufnr,
+      callback = function()
+        if vim.api.nvim_get_mode().mode ~= "i" then -- Only if not in insert mode
+          vim.diagnostic.show(bufnr) -- Changed from enable(bufnr) to show(bufnr)
+          client:request("textDocument/diagnostic", {
+            textDocument = vim.lsp.util.make_text_document_params(bufnr),
+          }, nil, bufnr)
+        end
       end,
     })
 
