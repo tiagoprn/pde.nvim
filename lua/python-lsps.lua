@@ -103,6 +103,7 @@ lsp.ruff.setup({
       logFile = vim.fn.getenv("HOME") .. "/.local/share/nvim/ruff-lsp-server.log",
       args = {},
       lint = {
+        preview = true, -- enable preview rules (as of ruff 0.11.2, needed for E2 and E3 rules group)
         select = { --  https://docs.astral.sh/ruff/settings/#lint_select
           -- -- Below are the defaults
           "E4",
@@ -111,32 +112,30 @@ lsp.ruff.setup({
           "F",
           "W",
           -- -- Below are additional ones
+          "E2", -- includes all whitespace rules (E201-E251)
+          "E3", -- includes all blank line rules (E301-E306)
           "E401", -- Multiple imports on one line
           "E402", -- Module level import not at top of file
           "E501", -- line too long (> 79 characters)
-          "F401", -- '____' imported but unused
-          "F522", -- `.format` call has unused named argument(s): name
-          "F541", -- f-string without any placeholders
           "E703", -- Statement ends with an unnecessary semicolon
           "E711", -- comparison to None should be 'if cond is not None:'
           "E712", -- comparison to True should be 'if cond is True:' or 'if cond:'
           "E713", -- Test for membership should be
-          "E722", -- do not use bare 'except'
           "E721", -- Do not compare types, use `isinstance()`
+          "E722", -- do not use bare 'except'
           "E731", -- do not assign a lambda expression, use a def
           "E741", -- Ambiguous variable name
+          "F401", -- '____' imported but unused
+          "F522", -- `.format` call has unused named argument(s): name
           "F523", -- `.format` call has unused arguments at position(s)
           "F524", -- `.format` call is missing argument(s) for placeholder(s)
+          "F541", -- f-string without any placeholders
           "F632", -- use '__' to compare constant literals
           "F811", -- Redefinition of unused ...
           "F821", -- Undefined name
           "F841", -- local variable 'exc' is assigned to but never used
         },
         ignore = { -- https://docs.astral.sh/ruff/settings/#lint_ignore
-          -- -- IN "PREVIEW" MODE, so still experimental/unstable: (last check on ruff 0.11.2)
-          -- "E302",
-          -- "E303",
-          -- "E252",
           -- -- NOT SUPPORTED: (last check on ruff 0.11.2)
           -- "E121", -- continuation line under-indented for hanging indent
           -- "E122", -- continuation line missing indentation or outdented
