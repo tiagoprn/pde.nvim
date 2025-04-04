@@ -48,25 +48,52 @@ return {
         local conf = require("telescope.config").values
         local actions = require("telescope.actions")
         local action_state = require("telescope.actions.state")
+        local previewers = require("telescope.previewers")
 
-        -- Create a finder that works with hidden files
+        -- Create a finder that works with hidden files - use a more efficient method
         local find_command
         if vim.fn.executable("fd") == 1 then
+          -- fd is the fastest option
           find_command = { "fd", "--type", "f", "--hidden", "--exclude", ".git", ".", path }
         elseif vim.fn.executable("rg") == 1 then
+          -- ripgrep is also fast
           find_command = { "rg", "--files", "--hidden", "--glob", "!.git", path }
         else
-          -- Fallback to a more reliable find command
-          find_command = { "find", path, "-type", "f", "-not", "-path", "*/\\.git/*" }
+          -- Optimize find command for speed
+          find_command =
+            { "find", path, "-type", "f", "-not", "-path", "*/\\.git/*", "-not", "-path", "*/node_modules/*" }
         end
 
         -- Create a completion flag
         local selection_completed = false
 
+        -- Create a file previewer
+        local file_previewer = previewers.new_buffer_previewer({
+          title = "File Preview",
+          define_preview = function(self, entry, status)
+            local filepath = entry.value
+
+            -- Check if file is readable
+            if vim.fn.filereadable(filepath) ~= 1 then
+              vim.api.nvim_buf_set_lines(self.state.bufnr, 0, -1, false, { "File not readable" })
+              return
+            end
+
+            -- Read file content
+            local content = vim.fn.readfile(filepath)
+            vim.api.nvim_buf_set_lines(self.state.bufnr, 0, -1, false, content)
+
+            -- Set filetype for syntax highlighting
+            local filetype = vim.filetype.match({ filename = filepath }) or ""
+            vim.bo[self.state.bufnr].filetype = filetype
+          end,
+        })
+
         local picker = pickers.new({}, {
           prompt_title = "Select Files to Add as Context (Enter to select, Ctrl-D to finish)",
           finder = finders.new_oneshot_job(find_command, {}),
-          sorter = conf.generic_sorter({}),
+          sorter = conf.file_sorter({}), -- Use the faster file sorter
+          previewer = file_previewer, -- Add file previewer
           attach_mappings = function(prompt_bufnr, map)
             actions.select_default:replace(function()
               local selection = action_state.get_selected_entry()
@@ -90,7 +117,7 @@ return {
 
         picker:find()
 
-        -- Wait for selection to complete
+        -- Wait for selection to complete with a shorter timeout
         vim.wait(30000, function()
           return selection_completed
         end, 100)
