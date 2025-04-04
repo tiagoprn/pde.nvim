@@ -137,19 +137,24 @@ lsp.ruff.setup({
       end,
     })
 
-    -- Show and refresh diagnostics when leaving insert mode
     vim.api.nvim_create_autocmd("InsertLeave", {
       buffer = bufnr,
       callback = function()
-        vim.diagnostic.show(bufnr) -- Changed from enable(bufnr) to show(bufnr)
-        -- Force refresh diagnostics
-        client:request("textDocument/diagnostic", {
-          textDocument = vim.lsp.util.make_text_document_params(bufnr),
-        }, nil, bufnr)
+        vim.diagnostic.show(bufnr)
+
+        -- Force refresh diagnostics with a simpler approach
+        vim.schedule(function()
+          -- Get the document URI
+          local uri = vim.uri_from_bufnr(bufnr)
+
+          -- Request diagnostics directly without sending didChange
+          client.request("textDocument/diagnostic", {
+            textDocument = { uri = uri },
+          }, nil, bufnr)
+        end)
       end,
     })
 
-    -- Force initial diagnostics when buffer is loaded
     vim.api.nvim_create_autocmd({
       "BufEnter",
       "BufWritePost",
@@ -157,10 +162,18 @@ lsp.ruff.setup({
       buffer = bufnr,
       callback = function()
         if vim.api.nvim_get_mode().mode ~= "i" then -- Only if not in insert mode
-          vim.diagnostic.show(bufnr) -- Changed from enable(bufnr) to show(bufnr)
-          client:request("textDocument/diagnostic", {
-            textDocument = vim.lsp.util.make_text_document_params(bufnr),
-          }, nil, bufnr)
+          vim.diagnostic.show(bufnr)
+
+          -- Force refresh diagnostics with a simpler approach
+          vim.schedule(function()
+            -- Get the document URI
+            local uri = vim.uri_from_bufnr(bufnr)
+
+            -- Request diagnostics directly without sending didChange
+            client.request("textDocument/diagnostic", {
+              textDocument = { uri = uri },
+            }, nil, bufnr)
+          end)
         end
       end,
     })
