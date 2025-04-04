@@ -102,7 +102,7 @@ return {
               file:close()
 
               local relative_path = telescope_selected_file_path:gsub("^" .. vim.fn.getcwd() .. "/", "")
-              context_message = context_message .. "File: " .. relative_path .. "\n```\n" .. content .. "\n```\n\n"
+              context_message = context_message .. "```\n\n -- " .. relative_path .. "\n\n" .. content .. "\n```\n\n"
             end
 
             context_message = context_message
