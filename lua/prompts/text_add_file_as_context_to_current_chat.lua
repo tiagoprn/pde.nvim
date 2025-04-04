@@ -1,6 +1,10 @@
--- This creates a slash command with codecompanion.nvim to be able to select a file from a specific path (path must be entered prior to open telescope to select the file).
--- The contents of the file I select with telescope will then be available as context for my future prompts.
--- The official codecompanion documentation mentions that I need to create a new prompt and configure it as a slash commands here: https://codecompanion.olimorris.dev/extending/prompts.html .
+-- This creates a slash command with codecompanion.nvim to be able to select a file using telescope.
+--
+-- The contents of the file I select with telescope will then be stored on the "w" register so I can paste it on the chat window.
+--
+-- If the file is text or markdown, I escape backsticks and remove markdown headers, changing them to an all uppercase without the markers (so I do not break the chat window markdowng rendering).
+--
+-- The official codecompanion documentation mentions that I need to create a new prompt to achieve that, and configure it as a slash command as stated here: https://codecompanion.olimorris.dev/extending/prompts.html .
 
 local telescope = require("telescope.builtin")
 local system = require("prompts.system")
@@ -28,9 +32,35 @@ local function get_all_files_in_dir(dir_name)
   return files
 end
 
+-- Function to format markdown and text content
+local function format_text_content(content, file_ext)
+  if file_ext == "txt" or file_ext == "md" or file_ext == "markdown" then
+    -- Escape backticks to prevent breaking markdown code blocks
+    content = content:gsub("`", "\\`")
+
+    -- Process lines to transform headers
+    local lines = {}
+    for line in content:gmatch("[^\r\n]+") do
+      -- Check if line starts with markdown header markers (# to ######)
+      local header_text = line:match("^%s*#+%s*(.*)")
+      if header_text then
+        -- Convert header text to uppercase
+        table.insert(lines, header_text:upper())
+      else
+        table.insert(lines, line)
+      end
+    end
+
+    -- Rejoin the lines
+    content = table.concat(lines, "\n")
+  end
+
+  return content
+end
+
 return {
   strategy = "chat",
-  description = "Add file as context to the current chat",
+  description = "add contents of file outside the current cwd() \nas context to the current chat\n(custom slash command)",
   opts = {
     short_name = "file-add-to-context",
     auto_submit = false, -- Manual submission
@@ -108,6 +138,9 @@ return {
               local file_ext = vim.fn.fnamemodify(telescope_selected_file_path, ":e")
               local lang_tag = file_ext ~= "" and file_ext or "text"
 
+              -- Apply special formatting for text and markdown files
+              content = format_text_content(content, file_ext)
+
               -- Format relative path
               local relative_path = telescope_selected_file_path:gsub("^" .. vim.fn.getcwd() .. "/", "")
               context_message = context_message
@@ -124,7 +157,9 @@ return {
             end
 
             context_message = context_message
-              .. "Please acknowledge that you've received this file and will use it as context for our future conversation."
+              .. "Please acknowledge that you've received this file, "
+              .. "summarize its contents and confirm you will use the full contents "
+              .. "as context on our next interactions at this conversation."
 
             -- Store the result in the specified register
             vim.fn.setreg(CONFIG.context_register, context_message)
