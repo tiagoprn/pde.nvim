@@ -28,12 +28,37 @@ which_key.add({
     "<cmd>lua require('tiagoprn.helpers').firefox('https://www.youtube.com/watch?v=GE5E1ZhV_Ok')<cr>",
     desc = "(flow) open YouTube video explaining how to use this plugin",
   },
-  { "<leader>acl", ":FlowLauncher<cr>", desc = "(flow) run launcher" },
-  { "<leader>aco", ":FlowLastOutput<cr>", desc = "(flow) show last output" },
+  {
+    "<leader>acl",
+    ":FlowLauncher<cr>",
+    desc = "(flow) run launcher",
+  },
+  {
+    "<leader>aco",
+    ":FlowLastOutput<cr>",
+    desc = "(flow) show last output",
+  },
   { "<leader>ai", group = "AI (CODE COMPANION)" },
-  { "<leader>aia", ":CodeCompanionActions<cr>", desc = "Select Action" },
-  { "<leader>aih", "<cmd>lua require('tiagoprn.forms').codecompanion_help()<cr>", desc = "help" },
-  { "<F10>", ":CodeCompanionChat<cr>", desc = "Toggle" },
+  {
+    "<leader>aia",
+    ":CodeCompanionActions<cr>",
+    desc = "Select Action",
+  },
+  {
+    "<leader>aih",
+    "<cmd>lua require('tiagoprn.forms').codecompanion_help()<cr>",
+    desc = "help",
+  },
+  {
+    "<leader>aio",
+    "<cmd>lua require('tiagoprn.ai_utils').preview_and_open_codecompanion_chat_history()<cr>",
+    desc = "Open chat from history",
+  },
+  {
+    "<F10>",
+    ":CodeCompanionChat<cr>",
+    desc = "Toggle",
+  },
   {
     "<leader>al",
     ":PrintLspSupportedRequests<cr>",
