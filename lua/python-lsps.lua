@@ -1,7 +1,9 @@
 local lsp = require("lspconfig")
 
+local LOG_LEVEL = "warn" -- change to "debug" here for troubleshooting
+
 -- below changes the log level of lsp, to make it more verbose so can I check its' communication with neovim.
--- vim.lsp.set_log_level("debug") -- change to "debug" for troubleshooting
+vim.lsp.set_log_level(LOG_LEVEL)
 
 -- USE THIS COMMAND on a python file to validate it is working: `checkhealth lsp`
 
@@ -95,12 +97,60 @@ lsp.ruff.setup({
       lineLength = 100,
       organizeImports = true,
       showSyntaxErrors = true,
-      configurationPreference = "filesystemFirst", -- https://docs.astral.sh/ruff/editors/settings/#configurationpreference
+      configurationPreference = "editorOnly", -- https://docs.astral.sh/ruff/editors/settings/#configurationpreference
       -- Any extra CLI arguments for `ruff` go here.
-      -- change "logLevel" to "debug" below for troubleshooting
-      logLevel = "debug",
+      logLevel = LOG_LEVEL,
       logFile = vim.fn.getenv("HOME") .. "/.local/share/nvim/ruff-lsp-server.log",
       args = {},
+      lint = {
+        select = { --  https://docs.astral.sh/ruff/settings/#lint_select
+          -- -- Below are the defaults
+          "E4",
+          "E7",
+          "E9",
+          "F",
+          "W",
+          -- -- Below are additional ones
+          "E401", -- Multiple imports on one line
+          "E402", -- Module level import not at top of file
+          "E501", -- line too long (> 79 characters)
+          "F401", -- '____' imported but unused
+          "F522", -- `.format` call has unused named argument(s): name
+          "F541", -- f-string without any placeholders
+          "E703", -- Statement ends with an unnecessary semicolon
+          "E711", -- comparison to None should be 'if cond is not None:'
+          "E712", -- comparison to True should be 'if cond is True:' or 'if cond:'
+          "E713", -- Test for membership should be
+          "E722", -- do not use bare 'except'
+          "E721", -- Do not compare types, use `isinstance()`
+          "E731", -- do not assign a lambda expression, use a def
+          "E741", -- Ambiguous variable name
+          "F523", -- `.format` call has unused arguments at position(s)
+          "F524", -- `.format` call is missing argument(s) for placeholder(s)
+          "F632", -- use '__' to compare constant literals
+          "F811", -- Redefinition of unused ...
+          "F821", -- Undefined name
+          "F841", -- local variable 'exc' is assigned to but never used
+        },
+        ignore = { -- https://docs.astral.sh/ruff/settings/#lint_ignore
+          -- -- IN "PREVIEW" MODE, so still experimental/unstable: (last check on ruff 0.11.2)
+          -- "E302",
+          -- "E303",
+          -- "E252",
+          -- -- NOT SUPPORTED: (last check on ruff 0.11.2)
+          -- "E121", -- continuation line under-indented for hanging indent
+          -- "E122", -- continuation line missing indentation or outdented
+          -- "E123", -- closing bracket does not match indentation of opening bracket's line
+          -- "E124", -- closing bracket does not match visual indentation
+          -- "E125", -- continuation line with same indent as next logical line
+          -- "E126", -- continuation line over-indented for hanging indent
+          -- "E127", -- continuation line over-indented for visual indent
+          -- "E128", -- continuation line under-indented for visual indent
+          -- "E131", -- continuation line unaligned for hanging indent
+          -- "W503", -- line break before binary operator
+          -- "W504", -- line break after binary operator
+        },
+      },
     },
   },
   capabilities = (function()
