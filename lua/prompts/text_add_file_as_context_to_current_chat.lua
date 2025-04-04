@@ -83,6 +83,7 @@ return {
 
         -- Create a function to handle file selection and set the global result
         _G.handle_file_selection = function(selection_value)
+          vim.notify("handle_fileselection ... WAIT")
           local full_file_path = display_to_path[selection_value]
 
           if vim.fn.filereadable(full_file_path) == 1 then
@@ -113,6 +114,7 @@ return {
             vim.notify("File does not exist: " .. full_file_path, vim.log.levels.ERROR)
             _G.file_context_result = "File does not exist: " .. full_file_path
           end
+          vim.notify("handle_fileselection ... DONE")
         end
 
         -- Display files in Telescope with exact matching in fuzzy search
@@ -158,11 +160,13 @@ return {
 
       -- Add a transform function to replace the placeholder with the actual result
       transform = function(content)
+        vim.notify("transform function processing ... WAIT")
         if _G.file_context_result then
           local result = _G.file_context_result
           _G.file_context_result = nil -- Clean up global variable
           return result
         end
+        vim.notify("transform function processing ... DONE")
         return content
       end,
     },
