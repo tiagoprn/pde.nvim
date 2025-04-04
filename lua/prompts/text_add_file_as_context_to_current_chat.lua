@@ -41,6 +41,9 @@ return {
     {
       role = "user",
       content = function()
+        -- Create a global variable to store our result
+        _G.file_context_result = nil
+
         local path = vim.fn.input("Enter directory path: ", "~/.local/share/nvim/code-companion-chat-history/")
         if not path or path == "" then
           return "Operation cancelled."
@@ -78,7 +81,39 @@ return {
           table.insert(display_names, display_name)
         end
 
-        local telescope_selected_file_path = ""
+        -- Create a function to handle file selection and set the global result
+        _G.handle_file_selection = function(selection_value)
+          local full_file_path = display_to_path[selection_value]
+
+          if vim.fn.filereadable(full_file_path) == 1 then
+            local telescope_selected_file_path = vim.fn.fnameescape(full_file_path)
+
+            vim.notify("Building context message...")
+
+            -- Build context message with file contents
+            local context_message = "I'm adding the following file as context for our conversation:\n\n"
+
+            local file = io.open(telescope_selected_file_path, "r")
+            if file then
+              local content = file:read("*all")
+              file:close()
+
+              local relative_path = telescope_selected_file_path:gsub("^" .. vim.fn.getcwd() .. "/", "")
+              context_message = context_message .. "File: " .. relative_path .. "\n```\n" .. content .. "\n```\n\n"
+            end
+
+            context_message = context_message
+              .. "Please acknowledge that you've received these files and will use them as context for our future conversation."
+
+            vim.notify("Context message prepared successfully")
+
+            -- Set the global result
+            _G.file_context_result = context_message
+          else
+            vim.notify("File does not exist: " .. full_file_path, vim.log.levels.ERROR)
+            _G.file_context_result = "File does not exist: " .. full_file_path
+          end
+        end
 
         -- Display files in Telescope with exact matching in fuzzy search
         require("telescope.pickers")
@@ -106,18 +141,9 @@ return {
             attach_mappings = function(prompt_bufnr, map)
               local function get_selected_file_path()
                 local selection = require("telescope.actions.state").get_selected_entry()
-                local full_file_path = display_to_path[selection.value] -- Get the full path for the selected file
-
-                vim.notify("selection full file path: " .. full_file_path)
-
+                vim.notify("Selection made: " .. vim.fn.fnamemodify(display_to_path[selection.value], ":t"))
                 require("telescope.actions").close(prompt_bufnr)
-
-                if vim.fn.filereadable(full_file_path) == 1 then
-                  telescope_selected_file_path = vim.fn.fnameescape(full_file_path)
-                  vim.notify("telescope_selected_file_path: " .. telescope_selected_file_path)
-                else
-                  vim.notify("File does not exist: " .. full_file_path) -- Handle case when file doesn't exist
-                end
+                _G.handle_file_selection(selection.value)
               end
               map("i", "<CR>", get_selected_file_path) -- Get path on Enter
               map("n", "<CR>", get_selected_file_path) -- Get path on Enter in normal mode too
@@ -126,32 +152,18 @@ return {
           })
           :find()
 
-        if telescope_selected_file_path == "" then
-          vim.notify("No file was selected.")
-          return
+        -- Return a placeholder message that will be replaced
+        return "Please select a file from the telescope picker..."
+      end,
+
+      -- Add a transform function to replace the placeholder with the actual result
+      transform = function(content)
+        if _G.file_context_result then
+          local result = _G.file_context_result
+          _G.file_context_result = nil -- Clean up global variable
+          return result
         end
-
-        vim.notify("Building context message...[WAIT]")
-
-        -- Build context message with file contents
-        local context_message = "I'm adding the following file as context for our conversation:\n\n"
-
-        local file = io.open(telescope_selected_file_path, "r")
-        if file then
-          local content = file:read("*all")
-          file:close()
-
-          local relative_path = telescope_selected_file_path:gsub("^" .. vim.fn.getcwd() .. "/", "")
-          context_message = context_message .. "File: " .. relative_path .. "\n```\n" .. content .. "\n```\n\n"
-        end
-
-        context_message = context_message
-          .. "Please acknowledge that you've received these files and will use them as context for our future conversation."
-
-        vim.notify("Building context message...[DONE]")
-        vim.notify("context_message: " .. context_message)
-
-        return context_message
+        return content
       end,
     },
   },
