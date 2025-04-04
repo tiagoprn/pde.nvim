@@ -33,7 +33,7 @@ for _, name in ipairs({
   "text_summarize", -- chat, has_system_prompt
   "text_generate_memory_summary_from_conversation", -- chat, has_system_prompt
   "text_create_flashcards", -- chat, has_system_prompt
-  "text_add_files_as_context_to_current_chat", -- chat, has_system_prompt
+  "text_add_file_as_context_to_current_chat", -- chat, has_system_prompt
   -- TODO: create inline versions of the text-related chat prompts above
 }) do
   prompt_library[name] = require("prompts." .. name)
