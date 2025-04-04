@@ -49,7 +49,7 @@ lsp.jedi_language_server.setup({
     vim.fn.getenv("HOME") .. "/.pyenv/versions/neovim/bin/jedi-language-server",
     -- "-v",
     "--log-file",
-    vim.fn.getenv("HOME") .. "/.local/share/nvim/lsp.log",
+    vim.fn.getenv("HOME") .. "/.local/share/nvim/jedi-lsp-server.log",
   },
 
   root_dir = require("lspconfig/util").root_pattern(".git"),
@@ -99,7 +99,7 @@ lsp.ruff.setup({
       -- Any extra CLI arguments for `ruff` go here.
       -- change "logLevel" to "debug" below for troubleshooting
       logLevel = "debug",
-      logFile = vim.fn.getenv("HOME") .. "/.local/share/nvim/ruff.log",
+      logFile = vim.fn.getenv("HOME") .. "/.local/share/nvim/ruff-lsp-server.log",
       args = {},
     },
   },
