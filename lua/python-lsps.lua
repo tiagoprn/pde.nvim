@@ -3,6 +3,8 @@ local lsp = require("lspconfig")
 -- below changes the log level of lsp, to make it more verbose so can I check its' communication with neovim.
 -- vim.lsp.set_log_level("debug") -- change to "debug" for troubleshooting
 
+-- USE THIS COMMAND on a python file to validate it is working: `checkhealth lsp`
+
 -- Below customizes how diagnostics are shown
 vim.diagnostic.config({
   -- Enable INLINE diagnostic details
