@@ -9,14 +9,20 @@ local snippet = {
   python = {
     new_snippet(
       "pytest_raises",
-      t([[
-with pytest.raises(IntegrityError) as exception_instance:
-    pass  # code that triggers the exception, in this example SQLAlchemy when an attribute is None
-
-assert exception_instance.type is IntegrityError
-expected_exception_value = '(pymysql.err.IntegrityError) (1048, "Column \'company_id\' cannot be null")'
-assert exception_instance.value.args[0] == expected_exception_value
-]])
+      ls.snippet_node("", {
+        t("with pytest.raises(IntegrityError) as exception_instance:"),
+        t({
+          "",
+          "    pass  # code that triggers the exception, in this example SQLAlchemy when an attribute is None",
+          "",
+        }),
+        t({ "", "assert exception_instance.type is IntegrityError" }),
+        t({
+          "",
+          "expected_exception_value = '(pymysql.err.IntegrityError) (1048, \"Column \\'company_id\\' cannot be null\")'",
+        }),
+        t({ "", "assert exception_instance.value.args[0] == expected_exception_value" }),
+      })
     ),
   },
 }
