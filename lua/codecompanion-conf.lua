@@ -74,7 +74,7 @@ codecompanion.setup({
         },
         schema = {
           model = {
-            default = "chatgpt-4o-latest", -- (gpt-4, ...: check more using my curl navi cheat for openai)
+            default = "chatgpt-4o-latest-0326", -- (chatgpt-4o-latest , ...: check more using my curl navi cheat for openai)
           },
         },
       })
