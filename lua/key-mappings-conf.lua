@@ -391,7 +391,6 @@ which_key.add({
   },
   { "<leader>fbn", ":LoadBufferWithoutWindow <cr>", desc = "open file without opening a window" },
   { "<leader>fbo", ":Telescope buffers<cr>", desc = "telescope menu of all open buffers" },
-  { "<leader>fbp", "<cmd> lua print(vim.api.nvim_get_current_buf())<cr>", desc = "get current buffer number (bufnr)" },
   {
     "<leader>fbs",
     '<cmd>lua require("buffer_manager.ui").save_menu_to_file()<cr>',
