@@ -39,6 +39,9 @@ for _, name in ipairs({
   prompt_library[name] = require("prompts." .. name)
 end
 
+-- Disables diff-mode and also trigger auto-saving of buffers after changes (this is useful for the @editor tool)
+vim.g.codecompanion_auto_tool_mode = true
+
 codecompanion.setup({
   -- useful command: ":checkhealth codecompanion"
   opts = {
