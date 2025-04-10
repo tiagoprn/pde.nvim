@@ -132,6 +132,13 @@ codecompanion.setup({
           },
         },
       },
+      tools = {
+        ["editor"] = { -- https://codecompanion.olimorris.dev/usage/chat-buffer/agents#editor
+          opts = {
+            requires_approval = false,
+          },
+        },
+      },
     },
     inline = { -- As of 2025-03-05, anthropic is not working as an inline provider (just for chat)
       adapter = "openai", -- default. options: openai, anthropic, deepseek.
