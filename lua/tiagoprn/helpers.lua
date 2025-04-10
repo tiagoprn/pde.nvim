@@ -344,4 +344,10 @@ function M.source_markdown()
   vim.notify('Successfully sourced "' .. filepath .. '"!')
 end
 
+-- Add this function to display buffer number
+function M.show_buffer_number()
+  local bufnr = vim.api.nvim_get_current_buf()
+  return string.format("(bufnr=%s)", bufnr)
+end
+
 return M
