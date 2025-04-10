@@ -6,7 +6,7 @@ local LOG_LEVEL = "warn" -- change to "debug" here for troubleshooting
 vim.lsp.set_log_level(LOG_LEVEL)
 
 -- USE THIS COMMAND on a python file to validate it is working: `checkhealth lsp`
-
+vim.diagnostic.show(nil, bufnr)
 -- Below customizes how diagnostics are shown
 vim.diagnostic.config({
   -- Enable INLINE diagnostic details
@@ -211,7 +211,11 @@ lsp.ruff.setup({
       buffer = bufnr,
       callback = function()
         if vim.api.nvim_get_mode().mode ~= "i" then -- Only if not in insert mode
-          vim.diagnostic.show(bufnr)
+          -- Check if diagnostics namespace exists before showing
+          local namespace = vim.diagnostic.get_namespaces()[client.id]
+          if namespace then
+            vim.diagnostic.show(nil, bufnr, nil, { namespace = client.id })
+          end
 
           -- Force refresh diagnostics with a simpler approach
           vim.schedule(function()
