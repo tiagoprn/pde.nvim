@@ -141,6 +141,7 @@ codecompanion.setup({
             requires_approval = false,
           },
         },
+        ["code_developer"] = require("tiagoprn.code_companion_editor_tool"),
       },
     },
     inline = { -- As of 2025-03-05, anthropic is not working as an inline provider (just for chat)
