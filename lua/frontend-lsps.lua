@@ -2,10 +2,15 @@ local capabilities = vim.lsp.protocol.make_client_capabilities()
 
 capabilities = vim.tbl_deep_extend("force", capabilities, require("blink.cmp").get_lsp_capabilities({}, false))
 
+-- Path to a newer Node.js version that supports optional chaining
+local node_path = vim.fn.expand("~/.nvm/versions/node/v14.17.0/bin/node")
+-- If you don't have v14.17.0 installed, use any version >= 14
+-- You can check available versions with: ls ~/.nvm/versions/node/
+
 -- TypeScript Server
 require("lspconfig").tsserver.setup({
   capabilities = capabilities,
-  cmd = { "node", vim.fn.getcwd() .. "/node_modules/.bin/typescript-language-server", "--stdio" },
+  cmd = { node_path, vim.fn.getcwd() .. "/node_modules/typescript-language-server/lib/cli.js", "--stdio" },
   filetypes = { "typescript", "typescriptreact", "typescript.tsx", "javascript" },
   root_dir = require("lspconfig.util").root_pattern("tsconfig.json", "package.json", ".git"),
   init_options = {
@@ -18,7 +23,7 @@ require("lspconfig").tsserver.setup({
 -- HTML Server
 require("lspconfig").html.setup({
   capabilities = capabilities,
-  cmd = { "node", vim.fn.getcwd() .. "/node_modules/.bin/vscode-html-language-server", "--stdio" },
+  cmd = { node_path, vim.fn.getcwd() .. "/node_modules/vscode-html-languageserver-bin/htmlServerMain.js", "--stdio" },
   filetypes = { "html" },
   init_options = {
     configurationSection = { "html", "css", "javascript" },
@@ -32,7 +37,7 @@ require("lspconfig").html.setup({
 -- CSS Server
 require("lspconfig").cssls.setup({
   capabilities = capabilities,
-  cmd = { "node", vim.fn.getcwd() .. "/node_modules/.bin/vscode-css-language-server", "--stdio" },
+  cmd = { node_path, vim.fn.getcwd() .. "/node_modules/vscode-css-languageserver-bin/cssServerMain.js", "--stdio" },
   filetypes = { "css", "scss" },
   settings = {
     css = {
