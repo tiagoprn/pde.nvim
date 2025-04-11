@@ -57,7 +57,12 @@ which_key.add({
   {
     "<F10>",
     ":CodeCompanionChat<cr>",
-    desc = "Toggle",
+    desc = "Open codecompanion chat window",
+  },
+  {
+    "<F12>",
+    ":CodeCompanionChat #buffer{watch}<cr>",
+    desc = "Open codecompanion chat window (current buffer with watch)",
   },
   {
     "<leader>al",
