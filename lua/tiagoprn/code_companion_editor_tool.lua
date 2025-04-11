@@ -12,9 +12,10 @@
 --
 
 local last_action = ""
--- Helper class definition
 
--- Code Editor helper
+-- -- Helper class definitions
+
+-- CODE EDITOR helper
 local CodeEditor = {}
 CodeEditor.__index = CodeEditor
 
@@ -119,7 +120,7 @@ function CodeEditor:add(action)
   end
 end
 
--- Code Extractor helper
+-- CODE EXTRACTOR helper
 local CodeExtractor = {}
 CodeExtractor.__index = CodeExtractor
 
@@ -333,10 +334,11 @@ function CodeExtractor:move_cursor_to_symbol(symbol)
   return -1
 end
 
--- Helpers initialization
+-- -- Helpers initialization
 local code_extractor = CodeExtractor:new()
 local code_editor = CodeEditor:new()
 
+-- -- Tool setup
 return {
   description = "Act as developer by utilizing LSP methods and code modification capabilities.",
   opts = {
