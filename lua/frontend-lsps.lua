@@ -58,9 +58,10 @@ vim.api.nvim_create_user_command("ESLintDiagnostics", function()
   local bufnr = vim.api.nvim_get_current_buf()
   local filename = vim.api.nvim_buf_get_name(bufnr)
 
-  -- Use vim.fn.expand for the paths
   local eslint_path = vim.fn.expand("~/.nvm/versions/node/v12.22.4/bin/eslint")
-  local cmd = string.format("%s --format json %s", eslint_path, vim.fn.shellescape(filename))
+
+  -- "--quiet" below allows to ignore WARNING, showing only severity >=2 (ERROR onwards)
+  local cmd = string.format("%s --format json --quiet %s", eslint_path, vim.fn.shellescape(filename))
 
   vim.fn.jobstart(cmd, {
     stdout_buffered = true,
