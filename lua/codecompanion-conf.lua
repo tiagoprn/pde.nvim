@@ -61,6 +61,13 @@ codecompanion.setup({
     },
     chat = {
       show_settings = true,
+      window = {
+        layout = "horizontal", -- float|vertical|horizontal|buffer
+        position = "bottom", -- left|right|top|bottom (nil will default depending on vim.opt.plitright|vim.opt.splitbelow)
+        height = 0.4,
+        -- width = 1.0,
+        full_height = false, -- when set to false, vsplit will be used to open the chat buffer vs. botright/topleft vsplit
+      },
     },
     diff = {
       enabled = true,
