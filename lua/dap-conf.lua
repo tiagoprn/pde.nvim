@@ -387,6 +387,27 @@ table.insert(dap.configurations.python, {
   timeout = 60000, -- 60 seconds timeout for this specific configuration
 })
 
+table.insert(dap.configurations.python, {
+  type = "python",
+  request = "launch",
+  name = "Flask",
+  module = "flask",
+  args = function()
+    local args = {
+      "run",
+      "-p",
+      "8080",
+      "--reload",
+    }
+    return args
+  end,
+  jinja = true,
+  console = "integratedTerminal", -- This is crucial for interactive debugging
+  pythonPath = get_project_python_path(),
+  dap_python_debugger = get_debugpy_python_path(),
+  timeout = 60000, -- 60 seconds timeout for this specific configuration
+})
+
 -- table.insert(dap.configurations.python, {
 --   type = "python",
 --   request = "launch",

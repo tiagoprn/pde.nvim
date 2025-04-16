@@ -264,16 +264,6 @@ which_key.add({
     desc = "Interactive REPL",
   },
   {
-    "<leader>ds",
-    "<cmd>lua require('dap-conf').run_config_by_name('Debug Sample File')<cr>",
-    desc = "Debug Sample File",
-  },
-  {
-    "<leader>df",
-    "<cmd>lua require('dap-conf').run_config_by_name('Debug Current File')<cr>",
-    desc = "Debug Current File",
-  },
-  {
     "<leader>de",
     "<cmd>lua require('dap').restart()<cr>",
     desc = "restart",
@@ -309,7 +299,7 @@ which_key.add({
     end,
     desc = "Expression (with prompt)",
   },
-  { "<leader>dt", group = "Pytest Debug (DAP)" },
+  { "<leader>dt", group = "Debug (DAP) - pytest" },
   {
     "<leader>dtc",
     "<cmd>lua require('dap-conf').run_config_by_name('Pytest: Current Test Function')<cr>",
@@ -324,6 +314,22 @@ which_key.add({
     "<leader>dtf",
     "<cmd>lua require('dap-conf').run_config_by_name('Pytest: Current File')<cr>",
     desc = "Current File",
+  },
+  { "<leader>dx", group = "Debug (DAP) - file, web framework" },
+  {
+    "<leader>dxc",
+    "<cmd>lua require('dap-conf').run_config_by_name('Debug Current File')<cr>",
+    desc = "Debug Current File",
+  },
+  {
+    "<leader>dxf",
+    "<cmd>lua require('dap-conf').run_config_by_name('Flask')<cr>",
+    desc = "Debug Flask Local Dev Server",
+  },
+  {
+    "<leader>dxs",
+    "<cmd>lua require('dap-conf').run_config_by_name('Debug Sample File')<cr>",
+    desc = "Debug Sample File",
   },
   -- etc
   { "<leader>e", group = "etc" },
