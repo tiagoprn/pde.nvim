@@ -1,11 +1,14 @@
+-- This plugin was originally "jose-elias-alvarez/null-ls.nvim"
+-- It was then forked to "nvimtools/none-ls.nvim", but preserving the previous namespaces to not break existing configs.
+
 -- buitin sources:
---   <https://github.com/jose-elias-alvarez/null-ls.nvim/blob/main/doc/BUILTINS.md>
+--   <https://github.com/nvimtools/none-ls.nvim/blob/main/doc/BUILTINS.md>
 
 -- Documentation on how to setup the builtin sources (formatters, linters, completion), like the ones below:
---   <https://github.com/jose-elias-alvarez/null-ls.nvim/blob/main/doc/BUILTIN_CONFIG.md>
+--   <https://github.com/nvimtools/none-ls.nvim/blob/main/doc/BUILTIN_CONFIG.md>
 
 -- How to configure "formatting on save":
---   <https://github.com/jose-elias-alvarez/null-ls.nvim/wiki/Formatting-on-save>
+--   <https://github.com/nvimtools/none-ls.nvim/wiki/Formatting-on-save>
 
 local null_ls = require("null-ls")
 
