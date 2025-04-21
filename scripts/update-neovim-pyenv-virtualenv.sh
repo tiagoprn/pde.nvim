@@ -29,6 +29,23 @@ pip install --upgrade pip
 echo "Generating list of outdated packages..."
 pip list --outdated >$LOGS_ROOT/outdated_packages.txt
 
+# I won't update jedi and jedi-language-server after they are installed.
+# When upgrading jedi-language-server from 0.44.0 to 0.45.0 it broke go-to-definitions,
+# so I had to downgrade it manually.
+# So, the code below effectively freezes this package on the current version and do not upgrade it anymore.
+if grep -n '^jedi' "$LOGS_ROOT/outdated_packages.txt"; then
+    echo "Above lines starting with 'jedi' were found and will be removed."
+    sed -i '/^jedi/d' "$LOGS_ROOT/outdated_packages.txt"
+else
+    echo "No lines starting with 'jedi' found."
+fi
+
+# Now check if the file has only 2 lines (header + separator), delete it.
+if [ "$(wc -l <"$LOGS_ROOT/outdated_packages.txt")" -eq 2 ]; then
+    echo "File has only 2 lines left, deleting it."
+    rm "$LOGS_ROOT/outdated_packages.txt"
+fi
+
 if [ -s "$LOGS_ROOT/outdated_packages.txt" ]; then
     echo "Outdated packages found!"
     echo "Upgrading outdated packages..."
