@@ -189,7 +189,14 @@ lsp.ruff.setup({
     vim.api.nvim_create_autocmd("InsertLeave", {
       buffer = bufnr,
       callback = function()
-        vim.diagnostic.show(bufnr)
+        -- Check if diagnostics namespace exists before showing
+        local namespace = vim.diagnostic.get_namespaces()[client.id]
+        if namespace then
+          vim.diagnostic.show(nil, bufnr, nil, { namespace = client.id })
+        else
+          -- Use the global namespace if client namespace doesn't exist yet
+          vim.diagnostic.show(nil, bufnr)
+        end
 
         -- Force refresh diagnostics with a simpler approach
         vim.schedule(function()

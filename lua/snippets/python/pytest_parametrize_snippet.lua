@@ -9,16 +9,43 @@ local snippet = {
   python = {
     new_snippet(
       "pytest_parametrize",
-      t([[
-@pytest.mark.parametrize('var1,var2',
+      fmt(
+        [[
+@pytest.mark.parametrize('{}',
     [
-        ('tuple1-var1', 'tuple1-var2',),
-        ('tuple2-var1', 'tuple2-var2',),
+        ({},),
+        ({},),
     ],
 )
-def test_name(var1, var2):
-    # use var1 and var2 here
-]])
+def test_{}({}):{}
+        ]],
+        {
+          i(1, "var1,var2"),
+          i(2, "'tuple1-var1', 'tuple1-var2'"),
+          i(3, "'tuple2-var1', 'tuple2-var2'"),
+          i(4, "name"),
+          f(function(args)
+            return args[1][1]
+          end, { 1 }),
+          f(function(args)
+            local vars = args[1][1]
+            local var_list = {}
+            for var in string.gmatch(vars, "([^,]+)") do
+              table.insert(var_list, var:match("^%s*(.-)%s*$")) -- trim whitespace
+            end
+
+            local comment = "\n    # use "
+            for i, var in ipairs(var_list) do
+              if i > 1 then
+                comment = comment .. " and "
+              end
+              comment = comment .. var
+            end
+            comment = comment .. " here"
+            return comment
+          end, { 1 }),
+        }
+      )
     ),
   },
 }

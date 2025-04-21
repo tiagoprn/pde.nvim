@@ -56,11 +56,6 @@ which_key.add({
   },
   {
     "<F10>",
-    ":CodeCompanionChat<cr>",
-    desc = "Open codecompanion chat window",
-  },
-  {
-    "<F12>",
     ":CodeCompanionChat #buffer{watch}<cr>",
     desc = "Open codecompanion chat window (current buffer with watch)",
   },
@@ -725,7 +720,6 @@ map.set("n", "<F4>", ":AerialToggle<cr>", { desc = "aerial classes and methods t
 map.set("n", "<F5>", ":TelescopeSelectLocalClipboardFiles<cr>", { desc = "telescope select local clipboard file" })
 map.set("n", "<F8>", ":Telescope bookmarks list<cr>", { desc = "telescope bookmarks list" })
 map.set("n", "<F9>", ":ChatGPT<cr>", { desc = "ChatGPT prompt (<C-h> to show help menu)" })
--- map.set("n", "<F10>", ":AvanteToggle<cr>", { desc = "Toggle Avante (Anthropic Claude AI)" })
 map.set("n", "<F12>", ":Markview toggle<cr>", { desc = "(markdown) turns markview on/off" })
 
 --> VISUAL (selection) mode
