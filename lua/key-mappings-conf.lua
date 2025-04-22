@@ -224,6 +224,11 @@ which_key.add({
     desc = "Toggle breakpoint",
   },
   {
+    "<leader>dB",
+    "<cmd>lua require('dap').clear_breakpoints()<cr>",
+    desc = "Clear all breakpoints",
+  },
+  {
     "<leader>dc",
     "<cmd>lua require('dap').continue()<cr>",
     desc = "Continue / Start",
