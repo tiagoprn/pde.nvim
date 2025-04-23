@@ -755,13 +755,6 @@ end
 -- --
 which_key.add({
   -- Leader prefixed mappings
-  { "<leader>o", group = "Obsidian", mode = "v" },
-  { "<leader>ox", ":ObsidianExtractNote<cr>", desc = "Extract to new note and link to it", mode = "v" },
-  { "<leader>oe", ":ObsidianLink<cr>", desc = "Create Link to existing note", mode = "v" },
-  { "<leader>on", ":ObsidianLinkNew<cr>", desc = "Create Link to new note", mode = "v" },
-
-  { "<leader>y", '"+y', desc = "YANK/COPY to system clipboard", mode = "v" },
-
   { "<leader>a", group = "automations", mode = "v" },
   { "<leader>ac", group = "commands (flow)", mode = "v" },
   { "<leader>acr", ":FlowRunSelected<cr>", desc = "run selection on new buffer", mode = "v" },
@@ -769,6 +762,21 @@ which_key.add({
   { "<leader>ai", group = "AI (CODE COMPANION)", mode = "v" },
   { "<leader>aia", ":CodeCompanionActions<cr>", desc = "Select Action", mode = "v" },
   { "<leader>aip", ":CodeCompanion<cr>", desc = "Run prompt on selection", mode = "v" },
+
+  { "<leader>b", group = "clipboard", mode = "v" },
+  {
+    "<leader>bf",
+    "<cmd>lua require('tiagoprn.buffer_utils').copy_visual_selection_to_register_and_file()<cr>",
+    desc = "copy to /tmp/copied.txt and vim register 'f'",
+    mode = "v",
+  },
+
+  { "<leader>o", group = "Obsidian", mode = "v" },
+  { "<leader>ox", ":ObsidianExtractNote<cr>", desc = "Extract to new note and link to it", mode = "v" },
+  { "<leader>oe", ":ObsidianLink<cr>", desc = "Create Link to existing note", mode = "v" },
+  { "<leader>on", ":ObsidianLinkNew<cr>", desc = "Create Link to new note", mode = "v" },
+
+  { "<leader>y", '"+y', desc = "YANK/COPY to system clipboard", mode = "v" },
 
   -- Non-leader mappings
   { "<", "<gv", desc = "dedent", mode = "v" },

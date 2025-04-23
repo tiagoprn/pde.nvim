@@ -214,4 +214,52 @@ function M.close_unshown_buffers()
   vim.notify("Unshown buffers were closed.")
 end
 
+function M.copy_visual_selection_to_register_and_file()
+  -- This function should be called from a visual mode mapping
+  -- The function needs to be executed while still in visual mode
+
+  -- Store the current register content to restore later
+  local old_reg = vim.fn.getreg('"')
+  local old_regtype = vim.fn.getregtype('"')
+
+  -- Use Vim's native yank command to get the visual selection
+  vim.api.nvim_feedkeys("y", "x", false)
+
+  -- Small delay to ensure the yank completes
+  vim.cmd("sleep 10m")
+
+  -- Get the yanked text from the default register
+  local selected_text = vim.fn.getreg('"')
+
+  -- Restore the original register content
+  vim.fn.setreg('"', old_reg, old_regtype)
+
+  -- If no text was selected, notify and return
+  if selected_text == nil or selected_text == "" then
+    vim.notify("No text selected", vim.log.levels.WARN)
+    return
+  end
+
+  -- Copy to register "f"
+  vim.fn.setreg("f", selected_text)
+
+  -- Write to /tmp/copied.txt
+  local file_path = "/tmp/copied.txt"
+  local file = io.open(file_path, "w")
+
+  if file then
+    file:write(selected_text)
+    file:close()
+
+    -- Check if inside tmux and send a notification
+    if os.getenv("TMUX") then
+      os.execute("tmux display-message 'Selected text copied to vim register \"f\" and /tmp/copied.txt'")
+    else
+      vim.notify('Selected text copied to vim register "f" and /tmp/copied.txt', vim.log.levels.INFO)
+    end
+  else
+    vim.notify("Failed to write to " .. file_path, vim.log.levels.ERROR)
+  end
+end
+
 return M
