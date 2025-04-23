@@ -770,6 +770,12 @@ which_key.add({
     desc = "copy to /tmp/copied.txt and vim register 'f'",
     mode = "v",
   },
+  {
+    "<leader>bm",
+    "<cmd>lua require('tiagoprn.buffer_utils').copy_visual_selection_as_markdown()<cr>",
+    desc = "copy as markdown code block to /tmp/copied.txt and vim register 'f'",
+    mode = "v",
+  },
 
   { "<leader>o", group = "Obsidian", mode = "v" },
   { "<leader>ox", ":ObsidianExtractNote<cr>", desc = "Extract to new note and link to it", mode = "v" },

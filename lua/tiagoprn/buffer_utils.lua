@@ -262,4 +262,56 @@ function M.copy_visual_selection_to_register_and_file()
   end
 end
 
+function M.copy_visual_selection_as_markdown()
+  -- Store the current register content to restore later
+  local old_reg = vim.fn.getreg('"')
+  local old_regtype = vim.fn.getregtype('"')
+
+  -- Use Vim's native yank command to get the visual selection
+  vim.api.nvim_feedkeys("y", "x", false)
+
+  -- Small delay to ensure the yank completes
+  vim.cmd("sleep 10m")
+
+  -- Get the yanked text from the default register
+  local selected_text = vim.fn.getreg('"')
+
+  -- Restore the original register content
+  vim.fn.setreg('"', old_reg, old_regtype)
+
+  -- If no text was selected, notify and return
+  if selected_text == nil or selected_text == "" then
+    vim.notify("No text selected", vim.log.levels.WARN)
+    return
+  end
+
+  -- Get the current buffer's filetype and relative path
+  local filetype = vim.bo.filetype
+  local relative_path = vim.fn.expand("%")
+
+  -- Create markdown code block with filetype and path inside the block
+  local markdown_text = "```" .. filetype .. "\n" .. "# " .. relative_path .. "\n" .. selected_text .. "\n```"
+
+  -- Copy to register "m"
+  vim.fn.setreg("m", markdown_text)
+
+  -- Write to /tmp/copied.txt
+  local file_path = "/tmp/copied.txt"
+  local file = io.open(file_path, "w")
+
+  if file then
+    file:write(markdown_text)
+    file:close()
+
+    -- Check if inside tmux and send a notification
+    if os.getenv("TMUX") then
+      os.execute("tmux display-message 'Selected text copied as markdown to vim register \"m\" and /tmp/copied.txt'")
+    else
+      vim.notify('Selected text copied as markdown to vim register "m" and /tmp/copied.txt', vim.log.levels.INFO)
+    end
+  else
+    vim.notify("Failed to write to " .. file_path, vim.log.levels.ERROR)
+  end
+end
+
 return M
