@@ -5,9 +5,6 @@ if not status_ok then
   return
 end
 
--- --
--- 1) WHICH-KEY mappings (can/must be triggered with the LEADER key)
--- --
 which_key.setup({
   -- https://github.com/folke/which-key.nvim?tab=readme-ov-file#%EF%B8%8F-configuration
   preset = "helix",
@@ -17,6 +14,10 @@ which_key.setup({
   sort = { "local", "order", "alphanum", "mod" },
 })
 
+-- --
+-- NORMAL mode:
+-- 1) WHICH-KEY mappings (can/must be triggered with the LEADER key)
+-- --
 which_key.add({
   -- automations
   { "<leader>a", group = "automations" },
@@ -218,15 +219,24 @@ which_key.add({
 
   -- debugging (nvim-dap)
   { "<leader>d", group = "debugging (DAP)" },
+  { "<leader>db", group = "Breakpoints" },
   {
-    "<leader>db",
+    "<leader>dbb",
     "<cmd>lua require('dap').toggle_breakpoint()<cr>",
-    desc = "Toggle breakpoint",
+    desc = "Toggle on current line",
   },
   {
-    "<leader>dB",
+    "<leader>dbc",
+    function()
+      local condition = vim.fn.input("Breakpoint condition: ")
+      require("dap").set_breakpoint(condition)
+    end,
+    desc = "Set with conditional expression",
+  },
+  {
+    "<leader>dbx",
     "<cmd>lua require('dap').clear_breakpoints()<cr>",
-    desc = "Clear all breakpoints",
+    desc = "Clear all",
   },
   {
     "<leader>dc",
@@ -627,11 +637,11 @@ which_key.add({
 })
 
 -- --
+-- NORMAL mode:
 -- 2) DIRECT mappings (can/must NOT be triggered with the LEADER key)
 -- --
 local map = vim.keymap
 
---> NORMAL mode
 map.set("n", "<cr>", ":nohlsearch<cr>", { desc = "clean current highlighted search" })
 map.set("n", "<Del>", "<C-w>c<Enter>", { desc = "close window & keep buffer" })
 
@@ -727,25 +737,8 @@ map.set("n", "<F8>", ":Telescope bookmarks list<cr>", { desc = "telescope bookma
 map.set("n", "<F9>", ":ChatGPT<cr>", { desc = "ChatGPT prompt (<C-h> to show help menu)" })
 map.set("n", "<F12>", ":Markview toggle<cr>", { desc = "(markdown) turns markview on/off" })
 
---> VISUAL (selection) mode
-map.set("v", "<", "<gv", { desc = "dedent" })
-map.set("v", ">", ">gv", { desc = "indent" })
-
-map.set("v", "<leader>ox", ":ObsidianExtractNote<cr>", { desc = "Obsidian: Extract to new note and link to it" })
-map.set("v", "<leader>oe", ":ObsidianLink<cr>", { desc = "Obsidian: Create Link to existing note" })
-map.set("v", "<leader>on", ":ObsidianLinkNew<cr>", { desc = "Obsidian: Create Link to new note" })
-
-map.set("v", "<leader>y", '"+y', { desc = "YANK/COPY to system clipboard" })
-map.set("v", "<leader>acr", ":FlowRunSelected<cr>", { desc = "run selection on new buffer" })
-
-map.set("v", "<leader>aia", ":CodeCompanionActions<cr>", { desc = "CODE COMPANION - Select Action" })
-map.set("v", "<leader>aip", ":CodeCompanion<cr>", { desc = "CODE COMPANION - Run prompt on selection" })
-
---> INSERT mode
-map.set("i", "<C-right>", "<Esc>:tabnext<cr>", { desc = "go to next tab" })
-map.set("i", "<C-left>", "<Esc>:tabprevious<cr>", { desc = "go to previous tab" })
-
 -- --
+-- NORMAL mode:
 -- 3) DYNAMIC (programatic) MAPPINGS
 --   references: https://gist.github.com/benfrain/97f2b91087121b2d4ba0dcc4202d252f#file-mappings-lua
 -- --
@@ -756,3 +749,34 @@ for i = 1, 9 do
   local rhs = i .. "<C-W>w"
   map.set("n", lhs, rhs, { desc = "Go to Window " .. i })
 end
+
+-- --
+-- VISUAL (selection) mode:
+-- --
+which_key.add({
+  -- Leader prefixed mappings
+  { "<leader>o", group = "Obsidian", mode = "v" },
+  { "<leader>ox", ":ObsidianExtractNote<cr>", desc = "Extract to new note and link to it", mode = "v" },
+  { "<leader>oe", ":ObsidianLink<cr>", desc = "Create Link to existing note", mode = "v" },
+  { "<leader>on", ":ObsidianLinkNew<cr>", desc = "Create Link to new note", mode = "v" },
+
+  { "<leader>y", '"+y', desc = "YANK/COPY to system clipboard", mode = "v" },
+
+  { "<leader>a", group = "automations", mode = "v" },
+  { "<leader>ac", group = "commands (flow)", mode = "v" },
+  { "<leader>acr", ":FlowRunSelected<cr>", desc = "run selection on new buffer", mode = "v" },
+
+  { "<leader>ai", group = "AI (CODE COMPANION)", mode = "v" },
+  { "<leader>aia", ":CodeCompanionActions<cr>", desc = "Select Action", mode = "v" },
+  { "<leader>aip", ":CodeCompanion<cr>", desc = "Run prompt on selection", mode = "v" },
+
+  -- Non-leader mappings
+  { "<", "<gv", desc = "dedent", mode = "v" },
+  { ">", ">gv", desc = "indent", mode = "v" },
+})
+
+-- --
+-- INSERT mode:
+-- --
+map.set("i", "<C-right>", "<Esc>:tabnext<cr>", { desc = "go to next tab" })
+map.set("i", "<C-left>", "<Esc>:tabprevious<cr>", { desc = "go to previous tab" })
