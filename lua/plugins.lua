@@ -126,6 +126,17 @@ require("lazy").setup({
   -- Surround text with pairs of characters
   { "kylechui/nvim-surround" },
 
+  {
+    "shrynx/line-numbers.nvim",
+    opts = {
+      mode = "both",
+      format = "abs_rel",
+      separator = " ",
+      rel_highlight = { link = "LineNr" },
+      abs_highlight = { link = "LineNr" },
+    },
+  },
+
   -- Snippets
   {
     "L3MON4D3/LuaSnip",
