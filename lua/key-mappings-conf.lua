@@ -134,7 +134,7 @@ which_key.add({
   { "<leader>bp", '"+p', desc = "paste from system clipboard" },
   -- coding
   { "<leader>c", group = "coding" },
-  { "<leader>cA", ":Lspsaga code_action<cr>", desc = "code action" },
+  -- { "<leader>cA", ":Lspsaga code_action<cr>", desc = "code action" },
   {
     "<leader>ca",
     ":Telescope lsp_workspace_symbols<cr>",
@@ -171,7 +171,7 @@ which_key.add({
     ":GeneratePythonProjectDefinitionsFile<cr>",
     desc = "Python Project Search: create/update python project definitions.txt file",
   },
-  { "<leader>ch", ":Lspsaga hover_doc<cr>", desc = "documentation hover" },
+  -- { "<leader>ch", ":Lspsaga hover_doc<cr>", desc = "documentation hover" },
   { "<leader>ci", "<cmd>lua vim.lsp.buf.implementation()<cr>", desc = "go to implementation" },
   { "<leader>cl", ":LspInfo <cr>", desc = "LSP info" },
   { "<leader>cm", ":Telescope make<cr>", desc = "telescope run Makefile command" },
