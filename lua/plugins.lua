@@ -403,7 +403,7 @@ require("lazy").setup({
 
   -- Highlight colors
   -- (highlight colors in neovim with the real color)
-  { "brenoprata10/nvim-highlight-colors" },
+  -- { "brenoprata10/nvim-highlight-colors" },
 
   -- Zen mode (allows zooming on a buffer)
   { "folke/zen-mode.nvim" },
@@ -646,11 +646,11 @@ require("lazy").setup({
   { "neovim/nvim-lspconfig", dependencies = { "saghen/blink.cmp" } },
 
   -- Nice UIs for LSP functions
-  { "glepnir/lspsaga.nvim", after = "nvim-lspconfig" },
+  -- { "glepnir/lspsaga.nvim", after = "nvim-lspconfig" },
 
   -- LSP diagnostics and code actions
   { -- originally "jose-elias-alvarez/null-ls.nvim"
-    "nvimtools/none-ls.nvim",
+    "ulisses-cruz/none-ls.nvim", -- TODO: move back to "nvimtools/none-ls.nvim" after https://github.com/nvimtools/none-ls.nvim/issues/276 is merged
     dependencies = {
       "nvimtools/none-ls-extras.nvim",
     },
