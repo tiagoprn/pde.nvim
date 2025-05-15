@@ -353,6 +353,11 @@ which_key.add({
     ":Telescope help_tags<cr>",
     desc = "telescope search tag on nvim help (builtins and plugins)",
   },
+  {
+    "<leader>et",
+    "<C-w>gf<C-w>T",
+    desc = "Open file under cursor in new tab",
+  },
   -- files, buffers, tabs & windows
   -- -- files
   { "<leader>f", group = "files, buffers, tabs & windows" },
