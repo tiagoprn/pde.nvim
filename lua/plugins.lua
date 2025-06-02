@@ -825,12 +825,12 @@ require("lazy").setup({
 
   -- DEBUGGING
   {
-    "rcarriga/nvim-dap-ui",
+    "miroshQa/debugmaster.nvim",
     dependencies = {
       "mfussenegger/nvim-dap",
-      "theHamsta/nvim-dap-virtual-text",
       "nvim-neotest/nvim-nio",
       "mfussenegger/nvim-dap-python",
+      "jbyuki/one-small-step-for-vimkind",
     },
   },
 

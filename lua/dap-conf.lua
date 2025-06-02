@@ -13,12 +13,18 @@ end
 local M = {}
 
 local dap = require("dap")
-local dapui = require("dapui")
-local dap_vt = require("nvim-dap-virtual-text")
+-- local dapui = require("dapui")
+local dm = require("debugmaster")
+-- local dap_vt = require("nvim-dap-virtual-text")
 
 local log_path = vim.fn.expand("~/.cache/nvim/dap.log")
 dap.set_log_level("TRACE") -- Set to 'TRACE' for maximum verbosity
 vim.notify("DAP logs (by default) are be written to: " .. log_path, vim.log.levels.INFO)
+
+-- debugmaster (dap UX) configuration:
+dm.plugins.osv_integration.enabled = true -- needed if you want to debug neovim lua code
+dm.plugins.cursor_hl.enabled = true
+dm.plugins.ui_auto_toggle.enabled = true
 
 -- HELPER FUNCTIONS
 
@@ -203,41 +209,41 @@ dap.adapters.python = {
   },
 }
 
-dapui.setup({
-  layouts = {
-    {
-      elements = {
-        { id = "scopes", size = 0.25 },
-        { id = "breakpoints", size = 0.25 },
-        { id = "stacks", size = 0.25 },
-        { id = "watches", size = 0.25 },
-      },
-      size = 40,
-      position = "left",
-    },
-    {
-      elements = {
-        { id = "console", size = 1.0 },
-      },
-      size = 0.2, -- 20% window height
-      position = "bottom",
-    },
-    {
-      elements = {
-        { id = "repl", size = 1.0 },
-      },
-      size = 0.2, -- 20% window height
-      position = "bottom",
-    },
-  },
-})
+-- dapui.setup({
+--   layouts = {
+--     {
+--       elements = {
+--         { id = "scopes", size = 0.25 },
+--         { id = "breakpoints", size = 0.25 },
+--         { id = "stacks", size = 0.25 },
+--         { id = "watches", size = 0.25 },
+--       },
+--       size = 40,
+--       position = "left",
+--     },
+--     {
+--       elements = {
+--         { id = "console", size = 1.0 },
+--       },
+--       size = 0.2, -- 20% window height
+--       position = "bottom",
+--     },
+--     {
+--       elements = {
+--         { id = "repl", size = 1.0 },
+--       },
+--       size = 0.2, -- 20% window height
+--       position = "bottom",
+--     },
+--   },
+-- })
 
-dap_vt.setup({
-  commented = true, -- Show virtual text alongside comment
-  enabled = true,
-  all_frames = true,
-  virt_text_pos = "eol",
-})
+-- dap_vt.setup({
+--   commented = true, -- Show virtual text alongside comment
+--   enabled = true,
+--   all_frames = true,
+--   virt_text_pos = "eol",
+-- })
 
 -- mfussenegger/nvim-dap-python:
 dap_python.setup(get_debugpy_python_path())
@@ -476,7 +482,9 @@ dap.listeners.before.event_exited["debug_info"] = function(session, body)
 end
 
 dap.listeners.after.event_initialized["dapui_config"] = function()
-  dapui.open()
+  -- TODO: maybe here I only enable for specific file types - e.g. python
+  -- dapui.open()
+  -- dm.mode.enable()
 end
 
 -- _G.run_pytest_on_current_file = function() -- on key-mappings-conf
@@ -543,7 +551,8 @@ end
 function M.finish_debugging_and_close_windows()
   -- Terminate any active debug session, then close the UI
   dap.terminate()
-  dapui.close()
+  -- dapui.close()
+  -- dm.mode.disable()
   vim.notify("Debugging terminated and windows closed", vim.log.levels.INFO)
 end
 

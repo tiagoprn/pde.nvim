@@ -244,6 +244,11 @@ which_key.add({
     desc = "Continue / Start",
   },
   {
+    "<leader>dz",
+    "<cmd>lua require('debugmaster').mode.toggle<cr>",
+    desc = "Toggle (enable/disable) UX",
+  },
+  {
     "<leader>dn",
     "<cmd>lua require('dap').step_over()<cr>",
     desc = "Step Over",
@@ -263,11 +268,12 @@ which_key.add({
     "<cmd>lua require('dap').step_back()<cr>",
     desc = "Step Back",
   },
-  {
-    "<leader>dv",
-    "<cmd>lua require('dapui').eval(nil, { enter = true })<cr>",
-    desc = "inspect cursor variable/object details",
-  },
+  -- TODO: change below for the corresponding debugmaster config
+  -- {
+  --   "<leader>dv",
+  --   "<cmd>lua require('dapui').eval(nil, { enter = true })<cr>",
+  --   desc = "inspect cursor variable/object details",
+  -- },
   {
     "<leader>dr",
     "<cmd>lua require('dap').repl.open()<cr>",
@@ -294,21 +300,22 @@ which_key.add({
     desc = "run last",
   },
   { "<leader>dw", group = "Add watch" },
-  {
-    "<leader>dww",
-    function()
-      require("dapui").elements.watches.add()
-    end,
-    desc = "Current Word (variable, property, etc...)",
-  },
-  {
-    "<leader>dwe",
-    function()
-      local expr = vim.fn.input("Expression to watch: ")
-      require("dapui").elements.watches.add(expr)
-    end,
-    desc = "Expression (with prompt)",
-  },
+  -- TODO: change below for the corresponding debugmaster config
+  -- {
+  --   "<leader>dww",
+  --   function()
+  --     require("dapui").elements.watches.add()
+  --   end,
+  --   desc = "Current Word (variable, property, etc...)",
+  -- },
+  -- {
+  --   "<leader>dwe",
+  --   function()
+  --     local expr = vim.fn.input("Expression to watch: ")
+  --     require("dapui").elements.watches.add(expr)
+  --   end,
+  --   desc = "Expression (with prompt)",
+  -- },
   { "<leader>dt", group = "Debug (DAP) - pytest" },
   {
     "<leader>dtc",
