@@ -203,14 +203,15 @@ dap.adapters.python = {
   },
 }
 
+-- TODO: check below if there is a way to toggle elements with a keybinding
 dapui.setup({
   layouts = {
     {
       elements = {
-        { id = "scopes", size = 0.25 },
-        { id = "breakpoints", size = 0.25 },
-        { id = "stacks", size = 0.25 },
-        { id = "watches", size = 0.25 },
+        { id = "scopes", size = 0.40 },
+        { id = "watches", size = 0.40 },
+        { id = "breakpoints", size = 0.20 },
+        -- { id = "stacks", size = 0.25 },
       },
       size = 40,
       position = "left",
@@ -227,7 +228,7 @@ dapui.setup({
         { id = "repl", size = 1.0 },
       },
       size = 0.2, -- 20% window height
-      position = "bottom",
+      position = "top",
     },
   },
 })
