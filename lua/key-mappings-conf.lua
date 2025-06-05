@@ -729,7 +729,7 @@ map.set("n", "<leader>]", ":cn<cr>", { desc = "quickfix next item" })
 map.set("n", "<leader>[", ":cp<cr>", { desc = "quickfix previous item" })
 
 -- FUNCTION KEYS
-map.set("n", "<F3>", ":NvimTreeToggle<cr>", { desc = ">>use oil instead<< nvim tree (project directory)" })
+map.set("n", "<F3>", ":Neotree toggle=true<cr>", { desc = ">>use oil instead<< nvim tree (project directory)" })
 map.set(
   "n",
   "<F2>",
