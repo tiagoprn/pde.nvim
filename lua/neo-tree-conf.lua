@@ -79,6 +79,11 @@ end
 
 -- Function to show TOC in a floating window with navigation
 local function show_markdown_toc()
+  -- FUTURE ENHANCEMENTS IDEAS:
+  -- TODO: Different icons for different header levels
+  -- TODO: Filtering by header level
+  -- TODO: Auto-refresh when the markdown file changes
+
   local headers = get_markdown_headers()
 
   if #headers == 0 then
