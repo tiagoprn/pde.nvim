@@ -738,6 +738,12 @@ map.set(
 )
 map.set("n", "<F4>", ":AerialToggle<cr>", { desc = "aerial classes and methods tree" })
 map.set("n", "<F5>", ":TelescopeSelectLocalClipboardFiles<cr>", { desc = "telescope select local clipboard file" })
+-- map.set(
+--   "n",
+--   "<F7>",
+--   ":Neotree toggle source=markdown_toc position=right<cr>",
+--   { desc = "Toggle markdown TOC (neo-tree)" }
+-- )
 map.set("n", "<F8>", ":Telescope bookmarks list<cr>", { desc = "telescope bookmarks list" })
 map.set("n", "<F12>", ":Markview toggle<cr>", { desc = "(markdown) turns markview on/off" })
 
