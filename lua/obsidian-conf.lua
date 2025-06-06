@@ -16,8 +16,7 @@ obsidian.setup({
   },
   new_notes_location = "notes_subdir",
   completion = {
-    -- nvim_cmp = true,
-    blink = true,
+    blink = false, -- TODO: changed because of bug on blink completion that started at 2025-06-06. revert back to "true" when that is solved.
     min_chars = 2,
     prepend_note_id = true,
   },

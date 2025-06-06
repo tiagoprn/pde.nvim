@@ -735,9 +735,9 @@ require("lazy").setup({
           "path",
           "snippets",
           "buffer",
-          "obsidian",
-          "obsidian_new",
-          "obsidian_tags",
+          -- "obsidian",  -- TODO: changed because of bug on blink completion that started at 2025-06-06.
+          -- "obsidian_new",
+          -- "obsidian_tags",
           "cmdline",
           "codecompanion",
           "omni",
