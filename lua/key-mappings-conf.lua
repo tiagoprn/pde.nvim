@@ -645,120 +645,170 @@ which_key.add({
 -- NORMAL mode:
 -- 2) DIRECT mappings (can/must NOT be triggered with the LEADER key)
 -- --
-local map = vim.keymap
+which_key.add({
+  -- Basic navigation and cleanup
+  { "<cr>", ":nohlsearch<cr>", desc = "clean current highlighted search" },
+  { "<Del>", "<C-w>c<Enter>", desc = "close window & keep buffer" },
 
-map.set("n", "<cr>", ":nohlsearch<cr>", { desc = "clean current highlighted search" })
-map.set("n", "<Del>", "<C-w>c<Enter>", { desc = "close window & keep buffer" })
+  -- Disable arrow keys in normal mode
+  { "<Up>", "<Nop>", desc = "disable Up in normal mode" },
+  { "<Down>", "<Nop>", desc = "disable Down in normal mode" },
+  { "<Left>", "<Nop>", desc = "disable Left in normal mode" },
+  { "<Right>", "<Nop>", desc = "disable Right in normal mode" },
 
-map.set("n", "<Up>", "<Nop>", { desc = "disable Up in normal mode" })
-map.set("n", "<Down>", "<Nop>", { desc = "disable Down in normal mode" })
-map.set("n", "<Left>", "<Nop>", { desc = "disable Left in normal mode" })
-map.set("n", "<Right>", "<Nop>", { desc = "disable Right in normal mode" })
+  -- Line movement
+  { "<M-j>", ":m .+1<cr>==", desc = "move current line/selection down" },
+  { "<M-k>", ":m .-2<cr>==", desc = "move current line/selection up" },
 
-map.set("n", "<M-j>", ":m .+1<cr>==", { desc = "move current line/selection down" })
-map.set("n", "<M-k>", ":m .-2<cr>==", { desc = "move current line/selection up" })
-
-map.set("n", "<C-k>", function()
-  vim.diagnostic.config({ virtual_lines = { current_line = true }, virtual_text = false })
-
-  vim.api.nvim_create_autocmd("CursorMoved", {
-    group = vim.api.nvim_create_augroup("line-diagnostics", { clear = true }),
-    callback = function()
-      vim.diagnostic.config({ virtual_lines = false, virtual_text = true })
-      return true
+  -- Diagnostics
+  {
+    "<C-k>",
+    function()
+      vim.diagnostic.config({ virtual_lines = { current_line = true }, virtual_text = false })
+      vim.api.nvim_create_autocmd("CursorMoved", {
+        group = vim.api.nvim_create_augroup("line-diagnostics", { clear = true }),
+        callback = function()
+          vim.diagnostic.config({ virtual_lines = false, virtual_text = true })
+          return true
+        end,
+      })
     end,
-  })
-end, { desc = "details diagnostics on virtual lines" })
+    desc = "details diagnostics on virtual lines",
+  },
 
-map.set("n", "<C-right>", ":tabnext<cr>", { desc = "go to next tab" })
-map.set("n", "<C-left>", ":tabprevious<cr>", { desc = "go to previous tab" })
+  -- Tab navigation
+  { "<C-right>", ":tabnext<cr>", desc = "go to next tab" },
+  {
+    "<C-left>",
+    ":tabprevious<cr>",
+    desc = "go to previous tab",
+  },
 
--- Keep the cursor in place when you join lines with J. That will also drop a mark before the operation to which you return afterwards:
-map.set("n", "J", "mzJ`z", { desc = "join lines keeping cursor in place" })
+  -- Line joining
+  {
+    "J",
+    "mzJ`z",
+    desc = "join lines keeping cursor in place",
+  },
 
-map.set(
-  "n",
-  "<C-g>g",
-  "<cmd>lua require('tiagoprn.telescope_multigrep').live_multigrep()<cr>",
-  { desc = "telescope custom search using rg and optional glob filters" }
-)
-map.set(
-  "n",
-  "<C-g>o",
-  ":Telescope live_grep<cr>",
-  { desc = "telescope search string on current path - current window" }
-)
-map.set(
-  "n",
-  "<C-g>t",
-  ":tabnew | Telescope live_grep<cr>",
-  { desc = "telescope search string on current path - new tab" }
-)
-map.set(
-  "n",
-  "<C-g>s",
-  ":split | Telescope live_grep<cr>",
-  { desc = "telescope search string on current path - horizontal split" }
-)
-map.set(
-  "n",
-  "<C-g>v",
-  ":vsplit | Telescope live_grep<cr>",
-  { desc = "telescope search string on current path - vertical split" }
-)
-map.set(
-  "n",
-  "<leader>*",
-  ":Telescope grep_string<cr>",
-  { desc = "telescope search word/string under cursor on current path" }
-)
-map.set(
-  "n",
-  "<C-down>",
-  ':lua require"tiagoprn.telescope_custom_pickers".switch_to_buffer()<cr>',
-  { desc = "telescope switch to open buffer" }
-)
-map.set("n", "<C-up>", ":Telescope buffers<cr>", { desc = "telescope open buffer on current window" })
+  -- Telescope search mappings
+  { "<C-g>", group = "telescope search" },
+  {
+    "<C-g>g",
+    "<cmd>lua require('tiagoprn.telescope_multigrep').live_multigrep()<cr>",
+    desc = "custom search using rg and optional glob filters",
+  },
+  {
+    "<C-g>o",
+    ":Telescope live_grep<cr>",
+    desc = "search string on current path - current window",
+  },
+  {
+    "<C-g>t",
+    ":tabnew | Telescope live_grep<cr>",
+    desc = "search string on current path - new tab",
+  },
+  {
+    "<C-g>s",
+    ":split | Telescope live_grep<cr>",
+    desc = "search string on current path - horizontal split",
+  },
+  {
+    "<C-g>v",
+    ":vsplit | Telescope live_grep<cr>",
+    desc = "search string on current path - vertical split",
+  },
 
-map.set("n", "<PageDown>", ":Gitsigns next_hunk<cr>", { desc = "gitsigns go to next hunk" })
-map.set("n", "<PageUp>", ":Gitsigns prev_hunk<cr>", { desc = "gitsigns go to previous hunk" })
-map.set("n", "<Home>", ":Gitsigns blame_line<cr>", { desc = "gitsigns blame line" })
-map.set("n", "<End>", ":Gitsigns preview_hunk<cr>", { desc = "gitsigns preview hunk" })
+  -- Additional telescope mappings
+  {
+    "<leader>*",
+    ":Telescope grep_string<cr>",
+    desc = "telescope search word/string under cursor on current path",
+  },
 
-map.set("n", "<leader>]", ":cn<cr>", { desc = "quickfix next item" })
-map.set("n", "<leader>[", ":cp<cr>", { desc = "quickfix previous item" })
+  -- Buffer navigation
+  {
+    "<C-down>",
+    ':lua require"tiagoprn.telescope_custom_pickers".switch_to_buffer()<cr>',
+    desc = "telescope switch to open buffer",
+  },
+  {
+    "<C-up>",
+    ":Telescope buffers<cr>",
+    desc = "telescope open buffer on current window",
+  },
 
--- FUNCTION KEYS
-map.set("n", "<F3>", ":Neotree toggle=true<cr>", { desc = ">>use oil instead<< nvim tree (project directory)" })
-map.set(
-  "n",
-  "<F2>",
-  "<cmd>lua require'oil'.toggle_float()<cr>",
-  { desc = "(oil) toggle buffer file manager - save buffer to apply changes" }
-)
-map.set("n", "<F4>", ":AerialToggle<cr>", { desc = "aerial classes and methods tree" })
-map.set("n", "<F5>", ":TelescopeSelectLocalClipboardFiles<cr>", { desc = "telescope select local clipboard file" })
--- map.set(
---   "n",
---   "<F7>",
---   ":Neotree toggle source=markdown_toc position=right<cr>",
---   { desc = "Toggle markdown TOC (neo-tree)" }
--- )
-map.set("n", "<F8>", ":Telescope bookmarks list<cr>", { desc = "telescope bookmarks list" })
-map.set("n", "<F12>", ":Markview toggle<cr>", { desc = "(markdown) turns markview on/off" })
+  -- Git navigation
+  {
+    "<PageDown>",
+    ":Gitsigns next_hunk<cr>",
+    desc = "gitsigns go to next hunk",
+  },
+  {
+    "<PageUp>",
+    ":Gitsigns prev_hunk<cr>",
+    desc = "gitsigns go to previous hunk",
+  },
+  {
+    "<Home>",
+    ":Gitsigns blame_line<cr>",
+    desc = "gitsigns blame line",
+  },
+  {
+    "<End>",
+    ":Gitsigns preview_hunk<cr>",
+    desc = "gitsigns preview hunk",
+  },
 
--- --
--- NORMAL mode:
--- 3) DYNAMIC (programatic) MAPPINGS
---   references: https://gist.github.com/benfrain/97f2b91087121b2d4ba0dcc4202d252f#file-mappings-lua
--- --
--- Easier window switching with leader + Number
--- Creates mappings like this: km.set("n", "<Leader>2", "2<C-W>w", { desc = "Move to Window 2" })
-for i = 1, 9 do
-  local lhs = "<leader>" .. i
-  local rhs = i .. "<C-W>w"
-  map.set("n", lhs, rhs, { desc = "Go to Window " .. i })
-end
+  -- Quickfix navigation
+  {
+    "<leader>]",
+    ":cn<cr>",
+    desc = "quickfix next item",
+  },
+  {
+    "<leader>[",
+    ":cp<cr>",
+    desc = "quickfix previous item",
+  },
+
+  -- Function keys
+  {
+    "<F2>",
+    "<cmd>lua require'oil'.toggle_float()<cr>",
+    desc = "(oil) toggle buffer file manager - save buffer to apply changes",
+  },
+  {
+    "<F3>",
+    ":Neotree toggle=true<cr>",
+    desc = ">>use oil instead<< nvim tree (project directory)",
+  },
+  {
+    "<F4>",
+    ":AerialToggle<cr>",
+    desc = "aerial classes and methods tree",
+  },
+  {
+    "<F5>",
+    ":TelescopeSelectLocalClipboardFiles<cr>",
+    desc = "telescope select local clipboard file",
+  },
+  {
+    "<F8>",
+    ":Telescope bookmarks list<cr>",
+    desc = "telescope bookmarks list",
+  },
+  {
+    "<F10>",
+    ":CodeCompanionChat #buffer{watch}<cr>",
+    desc = "Open codecompanion chat window (current buffer with watch)",
+  }, -- This was already in your which-key config
+  {
+    "<F12>",
+    ":Markview toggle<cr>",
+    desc = "(markdown) turns markview on/off",
+  },
+})
 
 -- --
 -- VISUAL (selection) mode:
@@ -798,6 +848,21 @@ which_key.add({
   { "<", "<gv", desc = "dedent", mode = "v" },
   { ">", ">gv", desc = "indent", mode = "v" },
 })
+
+local map = vim.keymap
+
+-- --
+-- NORMAL mode:
+-- 3) DYNAMIC (programatic) MAPPINGS
+--   references: https://gist.github.com/benfrain/97f2b91087121b2d4ba0dcc4202d252f#file-mappings-lua
+-- --
+-- Easier window switching with leader + Number
+-- Creates mappings like this: km.set("n", "<Leader>2", "2<C-W>w", { desc = "Move to Window 2" })
+for i = 1, 9 do
+  local lhs = "<leader>" .. i
+  local rhs = i .. "<C-W>w"
+  map.set("n", lhs, rhs, { desc = "Go to Window " .. i })
+end
 
 -- --
 -- INSERT mode:
