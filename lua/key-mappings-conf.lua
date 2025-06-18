@@ -354,6 +354,11 @@ which_key.add({
     desc = "telescope search tag on nvim help (builtins and plugins)",
   },
   {
+    "<leader>ek",
+    ":Telescope keymaps<cr>",
+    desc = "mappings (keymaps) search", -- Update your existing group
+  },
+  {
     "<leader>et",
     "<C-w>gf<C-w>T",
     desc = "Open file under cursor in new tab",
