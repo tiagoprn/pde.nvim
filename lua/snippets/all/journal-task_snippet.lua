@@ -36,21 +36,23 @@ TBD
 
 TBD
 
-# DAILY JOURNAL
-
-journal-task-daily
-
-# POSTMORTEM
-
-- yyyy-mm-dd: (write bullet points here when I reached a road block or something that stopped or slowed my code today - be as technical as needed)
-
 # BRANCHES
 
 journal-task-branch
 
 # PULL REQUESTS
 
-journal-task-pull-request]],
+journal-task-pull-request
+
+# POSTMORTEM
+
+- yyyy-mm-dd: (write bullet points here when I reached a road block or something that stopped or slowed my code today - be as technical as needed)
+
+# DAILY JOURNAL
+
+journal-task-daily
+
+]],
         {
           i(1, ""),
           f(function()

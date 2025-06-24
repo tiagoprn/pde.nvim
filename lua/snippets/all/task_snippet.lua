@@ -24,11 +24,6 @@ tags: []
 {}
 
 
-# CHECKLIST
-
-journal-task-daily
-
-
 # REFERENCES
 
 N/A
@@ -41,7 +36,14 @@ N/A
 
 # TECHNICAL DISCOVERY
 
-N/A]],
+N/A
+
+
+# CHECKLIST
+
+journal-task-daily
+
+]],
         {
           i(1, "Goal"),
           f(function()
