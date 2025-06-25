@@ -165,7 +165,25 @@ lsp.ruff.setup({
     })
     return cap
   end)(),
-  cmd = { vim.fn.getenv("HOME") .. "/.pyenv/versions/neovim/bin/ruff", "server" },
+  cmd = (function()
+    local home = vim.fn.getenv("HOME")
+    local pyenv_ruff = home .. "/.pyenv/versions/neovim/bin/ruff"
+    local local_ruff = home .. "/.local/bin/ruff"
+
+    -- Check pyenv path first
+    if vim.fn.executable(pyenv_ruff) == 1 then
+      vim.cmd('echomsg "Using ruff from pyenv..."')
+      return { pyenv_ruff, "server" }
+      -- Fallback to local bin
+    elseif vim.fn.executable(local_ruff) == 1 then
+      vim.cmd('echomsg "Using ruff from rust..."')
+      return { local_ruff, "server" }
+    else
+      -- Final fallback - let system find ruff in PATH
+      vim.cmd('echomsg "Using ruff from fallback..."')
+      return { "ruff", "server" }
+    end
+  end)(),
   on_attach = function(client, bufnr)
     -- NOTE: do not enable full file automatic formatting on save because of existing codebases
     client.server_capabilities.document_formatting = false
