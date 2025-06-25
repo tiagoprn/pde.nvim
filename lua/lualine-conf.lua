@@ -9,9 +9,12 @@ require("lualine").setup({
     theme = "powerline",
     component_separators = { left = "", right = "" },
     section_separators = { left = "", right = "" },
-    disabled_filetypes = {},
     always_divide_middle = true,
     globalstatus = true, -- enable global statusline (have a single statusline at bottom of neovim instead of one for every window).
+    disabled_filetypes = {
+      statusline = { "dap-view", "dap-view-term", "dap-repl" },
+      winbar = { "dap-view", "dap-view-term", "dap-repl" },
+    },
   },
   sections = {
     lualine_a = { "mode" },

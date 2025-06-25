@@ -831,6 +831,12 @@ require("lazy").setup({
 
   -- DEBUGGING
   {
+    "mfussenegger/nvim-dap",
+    dependencies = {
+      { "igorlfs/nvim-dap-view", opts = {} }, -- alternative to nvim-dap-ui (https://igorlfs.github.io/nvim-dap-view/faq#why-add-nvim-dap-view-as-a-dependency-for-nvim-dap)
+    },
+  },
+  {
     "rcarriga/nvim-dap-ui",
     dependencies = {
       "mfussenegger/nvim-dap",

@@ -13,7 +13,9 @@ end
 local M = {}
 
 local dap = require("dap")
-local dapui = require("dapui")
+-- local dapui = require("dapui")
+local dapview = require("dap-view")
+
 local dap_vt = require("nvim-dap-virtual-text")
 
 local log_path = vim.fn.expand("~/.cache/nvim/dap.log")
@@ -203,35 +205,34 @@ dap.adapters.python = {
   },
 }
 
--- TODO: check below if there is a way to toggle elements with a keybinding
-dapui.setup({
-  layouts = {
-    {
-      elements = {
-        { id = "scopes", size = 0.40 },
-        { id = "watches", size = 0.40 },
-        { id = "breakpoints", size = 0.20 },
-        -- { id = "stacks", size = 0.25 },
-      },
-      size = 40,
-      position = "left",
-    },
-    {
-      elements = {
-        { id = "console", size = 1.0 },
-      },
-      size = 0.2, -- 20% window height
-      position = "bottom",
-    },
-    {
-      elements = {
-        { id = "repl", size = 1.0 },
-      },
-      size = 0.2, -- 20% window height
-      position = "top",
-    },
-  },
-})
+-- dapui.setup({
+--   layouts = {
+--     {
+--       elements = {
+--         { id = "scopes", size = 0.40 },
+--         { id = "watches", size = 0.40 },
+--         { id = "breakpoints", size = 0.20 },
+--         -- { id = "stacks", size = 0.25 },
+--       },
+--       size = 40,
+--       position = "left",
+--     },
+--     {
+--       elements = {
+--         { id = "console", size = 1.0 },
+--       },
+--       size = 0.2, -- 20% window height
+--       position = "bottom",
+--     },
+--     {
+--       elements = {
+--         { id = "repl", size = 1.0 },
+--       },
+--       size = 0.2, -- 20% window height
+--       position = "top",
+--     },
+--   },
+-- })
 
 dap_vt.setup({
   commented = true, -- Show virtual text alongside comment
@@ -476,9 +477,108 @@ dap.listeners.before.event_exited["debug_info"] = function(session, body)
   vim.notify("DAP Exited - Session: " .. vim.inspect(session.config.name), vim.log.levels.INFO)
 end
 
-dap.listeners.after.event_initialized["dapui_config"] = function()
-  dapui.open()
+-- dap.listeners.after.event_initialized["dapui_config"] = function()
+--   dapui.open()
+-- end
+
+-- dap-view setup
+dap.listeners.before.attach["dap-view-config"] = function()
+  dapview.open()
 end
+
+dap.listeners.before.launch["dap-view-config"] = function()
+  dapview.open()
+end
+
+-- Helper function to save dap-view terminal contents
+local function save_dap_terminal_contents(event_name)
+  vim.notify("DEBUG: save_dap_terminal_contents called with event: " .. event_name, vim.log.levels.INFO)
+
+  local success, result = pcall(function()
+    -- Find the dap-view terminal buffer by name pattern
+    local buffers = vim.api.nvim_list_bufs()
+    local terminal_buf = nil
+    local buffer_count = 0
+    local dap_view_buffers = {}
+
+    vim.notify("DEBUG: Checking " .. #buffers .. " buffers", vim.log.levels.INFO)
+
+    for _, buf in ipairs(buffers) do
+      if vim.api.nvim_buf_is_valid(buf) then
+        buffer_count = buffer_count + 1
+        local buf_filetype = vim.api.nvim_buf_get_option(buf, "filetype")
+        local buf_name = vim.api.nvim_buf_get_name(buf)
+
+        vim.notify(
+          "DEBUG: Buffer " .. buf .. " - filetype: '" .. buf_filetype .. "', name: '" .. buf_name .. "'",
+          vim.log.levels.INFO
+        )
+
+        if buf_filetype == "dap-view-term" then
+          terminal_buf = buf
+          vim.notify(
+            "Found dap-view terminal buffer (filetype: " .. buf_filetype .. "): " .. buf_name,
+            vim.log.levels.INFO
+          )
+          break
+        elseif buf_name:match("^term:") then
+          -- Fallback to term: pattern if no dap-view-term found
+          if not terminal_buf then
+            terminal_buf = buf
+            vim.notify("Found fallback terminal buffer (name starts with 'term:'): " .. buf_name, vim.log.levels.INFO)
+          end
+        elseif buf_name:match("dap") or buf_filetype:match("dap") then
+          table.insert(dap_view_buffers, "Buffer " .. buf .. ": " .. buf_filetype .. " - " .. buf_name)
+        end
+      end
+    end
+
+    vim.notify("DEBUG: Total valid buffers: " .. buffer_count, vim.log.levels.INFO)
+    if #dap_view_buffers > 0 then
+      vim.notify("DEBUG: DAP-related buffers found: " .. table.concat(dap_view_buffers, "; "), vim.log.levels.INFO)
+    end
+
+    if terminal_buf then
+      -- Get all lines from the terminal buffer
+      local lines = vim.api.nvim_buf_get_lines(terminal_buf, 0, -1, false)
+      local content = table.concat(lines, "\n")
+
+      vim.notify("DEBUG: Terminal buffer has " .. #lines .. " lines", vim.log.levels.INFO)
+
+      -- Write to /tmp/copied.txt
+      local file = io.open("/tmp/copied.txt", "w")
+      if file then
+        file:write(content)
+        file:close()
+        vim.notify("Terminal contents saved to /tmp/copied.txt (" .. event_name .. ")", vim.log.levels.INFO)
+      else
+        vim.notify("Failed to write terminal contents to /tmp/copied.txt", vim.log.levels.ERROR)
+      end
+    else
+      vim.notify("No terminal buffer found (" .. event_name .. ")", vim.log.levels.WARN)
+    end
+  end)
+
+  if not success then
+    vim.notify("Error saving terminal contents (" .. event_name .. "): " .. tostring(result), vim.log.levels.ERROR)
+  end
+end
+
+-- Save dap-view terminal contents when debugging session ends (only use the first event)
+dap.listeners.before.event_exited["save_terminal_contents"] = function()
+  vim.notify("DEBUG: before.event_exited triggered - about to save terminal contents", vim.log.levels.INFO)
+  save_dap_terminal_contents("on exit")
+end
+
+-- TODO: when dap terminates, I want to save the terminal window (dap-view-term) contents -- into /tmp/copied.txt, using a dap event listener.
+
+-- dap.listeners.before.event_terminated["dap-view-config"] = function()
+--   dapview.close()
+-- end
+--
+-- dap.listeners.before.event_exited["dap-view-config"] = function()
+--   dapview.close()
+-- end
 
 -- _G.run_pytest_on_current_file = function() -- on key-mappings-conf
 --   local dap = require("dap")
@@ -544,7 +644,8 @@ end
 function M.finish_debugging_and_close_windows()
   -- Terminate any active debug session, then close the UI
   dap.terminate()
-  dapui.close()
+  -- dapui.close()
+  dapview.close()
   vim.notify("Debugging terminated and windows closed", vim.log.levels.INFO)
 end
 
