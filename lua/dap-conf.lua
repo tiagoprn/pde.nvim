@@ -561,13 +561,13 @@ dap.listeners.before.event_exited["save_terminal_contents"] = function()
   save_dap_terminal_contents("on exit")
 end
 
--- dap.listeners.before.event_terminated["dap-view-config"] = function()
---   dapview.close()
--- end
---
--- dap.listeners.before.event_exited["dap-view-config"] = function()
---   dapview.close()
--- end
+dap.listeners.before.event_terminated["dap-view-config"] = function()
+  dapview.close()
+end
+
+dap.listeners.before.event_exited["dap-view-config"] = function()
+  dapview.close()
+end
 
 -- _G.run_pytest_on_current_file = function() -- on key-mappings-conf
 --   local dap = require("dap")
