@@ -492,58 +492,32 @@ end
 
 -- Helper function to save dap-view terminal contents
 local function save_dap_terminal_contents(event_name)
-  vim.notify("DEBUG: save_dap_terminal_contents called with event: " .. event_name, vim.log.levels.INFO)
-
   local success, result = pcall(function()
-    -- Find the dap-view terminal buffer by name pattern
+    -- Find the dap-view terminal buffer by filetype
     local buffers = vim.api.nvim_list_bufs()
     local terminal_buf = nil
-    local buffer_count = 0
-    local dap_view_buffers = {}
-
-    vim.notify("DEBUG: Checking " .. #buffers .. " buffers", vim.log.levels.INFO)
 
     for _, buf in ipairs(buffers) do
       if vim.api.nvim_buf_is_valid(buf) then
-        buffer_count = buffer_count + 1
         local buf_filetype = vim.api.nvim_buf_get_option(buf, "filetype")
         local buf_name = vim.api.nvim_buf_get_name(buf)
 
-        vim.notify(
-          "DEBUG: Buffer " .. buf .. " - filetype: '" .. buf_filetype .. "', name: '" .. buf_name .. "'",
-          vim.log.levels.INFO
-        )
-
         if buf_filetype == "dap-view-term" then
           terminal_buf = buf
-          vim.notify(
-            "Found dap-view terminal buffer (filetype: " .. buf_filetype .. "): " .. buf_name,
-            vim.log.levels.INFO
-          )
           break
         elseif buf_name:match("^term:") then
           -- Fallback to term: pattern if no dap-view-term found
           if not terminal_buf then
             terminal_buf = buf
-            vim.notify("Found fallback terminal buffer (name starts with 'term:'): " .. buf_name, vim.log.levels.INFO)
           end
-        elseif buf_name:match("dap") or buf_filetype:match("dap") then
-          table.insert(dap_view_buffers, "Buffer " .. buf .. ": " .. buf_filetype .. " - " .. buf_name)
         end
       end
-    end
-
-    vim.notify("DEBUG: Total valid buffers: " .. buffer_count, vim.log.levels.INFO)
-    if #dap_view_buffers > 0 then
-      vim.notify("DEBUG: DAP-related buffers found: " .. table.concat(dap_view_buffers, "; "), vim.log.levels.INFO)
     end
 
     if terminal_buf then
       -- Get all lines from the terminal buffer
       local lines = vim.api.nvim_buf_get_lines(terminal_buf, 0, -1, false)
       local content = table.concat(lines, "\n")
-
-      vim.notify("DEBUG: Terminal buffer has " .. #lines .. " lines", vim.log.levels.INFO)
 
       -- Write to /tmp/copied.txt
       local file = io.open("/tmp/copied.txt", "w")
@@ -564,13 +538,10 @@ local function save_dap_terminal_contents(event_name)
   end
 end
 
--- Save dap-view terminal contents when debugging session ends (only use the first event)
+-- Save dap-view terminal contents when debugging session ends
 dap.listeners.before.event_exited["save_terminal_contents"] = function()
-  vim.notify("DEBUG: before.event_exited triggered - about to save terminal contents", vim.log.levels.INFO)
   save_dap_terminal_contents("on exit")
 end
-
--- TODO: when dap terminates, I want to save the terminal window (dap-view-term) contents -- into /tmp/copied.txt, using a dap event listener.
 
 -- dap.listeners.before.event_terminated["dap-view-config"] = function()
 --   dapview.close()
