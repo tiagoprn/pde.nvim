@@ -492,6 +492,8 @@ end
 
 -- Helper function to save dap-view terminal contents
 local function save_dap_terminal_contents(event_name)
+  local output_file = "/tmp/copied.txt"
+
   local success, result = pcall(function()
     -- Find the dap-view terminal buffer by filetype
     local buffers = vim.api.nvim_list_bufs()
@@ -519,18 +521,18 @@ local function save_dap_terminal_contents(event_name)
       local lines = vim.api.nvim_buf_get_lines(terminal_buf, 0, -1, false)
       local content = table.concat(lines, "\n")
 
-      -- Write to /tmp/copied.txt
-      local file = io.open("/tmp/copied.txt", "w")
+      -- Write to output file
+      local file = io.open(output_file, "w")
       if file then
         file:write(content)
         file:close()
-        vim.notify("Terminal contents saved to /tmp/copied.txt (" .. event_name .. ")", vim.log.levels.INFO)
+        vim.notify("Terminal contents saved to " .. output_file .. " (" .. event_name .. ")", vim.log.levels.INFO)
 
         -- Open the file in a new tab
-        vim.cmd("tabnew /tmp/copied.txt")
-        vim.notify("Opened /tmp/copied.txt in new tab", vim.log.levels.INFO)
+        vim.cmd("tabnew " .. output_file)
+        vim.notify("Opened " .. output_file .. " in new tab", vim.log.levels.INFO)
       else
-        vim.notify("Failed to write terminal contents to /tmp/copied.txt", vim.log.levels.ERROR)
+        vim.notify("Failed to write terminal contents to " .. output_file, vim.log.levels.ERROR)
       end
     else
       vim.notify("No terminal buffer found (" .. event_name .. ")", vim.log.levels.WARN)
