@@ -13,8 +13,10 @@ end
 local M = {}
 
 local dap = require("dap")
--- local dapui = require("dapui")
-local dapview = require("dap-view")
+
+-- TODO: remove soon the "dapui plugin below and its configuration"
+-- local dapui = require("dapui") -- disabled in favor of "dap-view" below, which has a simpler UI.
+local dapview = require("dap-view") -- type "g?" inside the view window to get help for its' mappings
 
 local dap_vt = require("nvim-dap-virtual-text")
 

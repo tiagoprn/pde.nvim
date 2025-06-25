@@ -263,11 +263,11 @@ which_key.add({
     "<cmd>lua require('dap').step_back()<cr>",
     desc = "Step Back",
   },
-  {
-    "<leader>dv",
-    "<cmd>lua require('dapui').eval(nil, { enter = true })<cr>",
-    desc = "inspect cursor variable/object details",
-  },
+  -- {
+  --   "<leader>dv",
+  --   "<cmd>lua require('dapui').eval(nil, { enter = true })<cr>",
+  --   desc = "inspect cursor variable/object details",
+  -- },
   {
     "<leader>dr",
     "<cmd>lua require('dap').repl.open()<cr>",
@@ -297,18 +297,18 @@ which_key.add({
   {
     "<leader>dww",
     function()
-      require("dapui").elements.watches.add()
+      require("dap-view").add_expr()
     end,
     desc = "Current Word (variable, property, etc...)",
   },
-  {
-    "<leader>dwe",
-    function()
-      local expr = vim.fn.input("Expression to watch: ")
-      require("dapui").elements.watches.add(expr)
-    end,
-    desc = "Expression (with prompt)",
-  },
+  -- {
+  --   "<leader>dwe",
+  --   function()
+  --     local expr = vim.fn.input("Expression to watch: ")
+  --     require("dapui").elements.watches.add(expr)
+  --   end,
+  --   desc = "Expression (with prompt)",
+  -- },
   { "<leader>dt", group = "Debug (DAP) - pytest" },
   {
     "<leader>dtc",
