@@ -490,9 +490,21 @@ dap.listeners.before.launch["dap-view-config"] = function()
   dapview.open()
 end
 
+local function get_session_output_file_path()
+  local project_root = vim.fn.getcwd()
+  local tmp_dir = project_root .. "/tmp"
+
+  vim.fn.mkdir(tmp_dir, "p")
+
+  local timestamp = os.date("%Y%m%d-%H%M%S")
+  local output_file = tmp_dir .. "/debug." .. timestamp
+
+  return output_file
+end
+
 -- Helper function to save dap-view terminal contents
 local function save_dap_terminal_contents(event_name)
-  local output_file = "/tmp/copied.txt"
+  local output_file = get_session_output_file_path()
 
   local success, result = pcall(function()
     -- Find the dap-view terminal buffer by filetype
