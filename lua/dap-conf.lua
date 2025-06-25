@@ -525,6 +525,10 @@ local function save_dap_terminal_contents(event_name)
         file:write(content)
         file:close()
         vim.notify("Terminal contents saved to /tmp/copied.txt (" .. event_name .. ")", vim.log.levels.INFO)
+
+        -- Open the file in a new tab
+        vim.cmd("tabnew /tmp/copied.txt")
+        vim.notify("Opened /tmp/copied.txt in new tab", vim.log.levels.INFO)
       else
         vim.notify("Failed to write terminal contents to /tmp/copied.txt", vim.log.levels.ERROR)
       end
