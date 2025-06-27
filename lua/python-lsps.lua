@@ -102,6 +102,9 @@ lsp.ruff.setup({
       logLevel = LOG_LEVEL,
       logFile = vim.fn.getenv("HOME") .. "/.local/share/nvim/ruff-lsp-server.log",
       args = {},
+      format = {
+        ["quote-style"] = "single",
+      },
       lint = {
         preview = true, -- enable preview rules (as of ruff 0.11.2, needed for E2 and E3 rules group)
         select = { --  https://docs.astral.sh/ruff/settings/#lint_select
@@ -112,6 +115,7 @@ lsp.ruff.setup({
           "F",
           "W",
           -- -- Below are additional ones
+          "C901", -- complex-structure
           "E2", -- includes all whitespace rules (E201-E251)
           "E3", -- includes all blank line rules (E301-E306)
           "E401", -- Multiple imports on one line
@@ -176,11 +180,11 @@ lsp.ruff.setup({
       return { pyenv_ruff, "server" }
       -- Fallback to local bin
     elseif vim.fn.executable(local_ruff) == 1 then
-      vim.cmd('echomsg "Using ruff from rust..."')
+      vim.cmd(string.format('echomsg "Using ruff from %s"', local_ruff))
       return { local_ruff, "server" }
     else
       -- Final fallback - let system find ruff in PATH
-      vim.cmd('echomsg "Using ruff from fallback..."')
+      vim.cmd('echomsg "Using ruff from system fallback..."')
       return { "ruff", "server" }
     end
   end)(),
