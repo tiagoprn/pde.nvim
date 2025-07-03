@@ -86,3 +86,13 @@ vim.api.nvim_create_autocmd({ "BufNewFile" }, {
 --     copy_to_unnamed(vim.v.event.regcontents)
 --   end,
 -- })
+
+-- Disable built-in SQL completion to prevent dbext errors
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = { "sql", "mysql", "plsql" },
+  callback = function()
+    vim.bo.omnifunc = ""
+    vim.bo.completefunc = ""
+  end,
+  desc = "Disable built-in SQL completion to prevent dbext errors",
+})
