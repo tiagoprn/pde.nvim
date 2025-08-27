@@ -182,7 +182,7 @@ which_key.add({
   },
   {
     "<leader>co",
-    ":Telescope import<cr>",
+    "<cmd>lua require('import').pick()<cr>",
     desc = "search for import on project and add to the top imports on this module",
   },
   {

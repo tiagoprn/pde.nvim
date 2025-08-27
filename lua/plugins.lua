@@ -121,7 +121,27 @@ require("lazy").setup({
   { "nvim-telescope/telescope-ui-select.nvim" },
 
   -- Imports on a project
-  { "piersolenski/telescope-import.nvim" },
+  {
+    "piersolenski/import.nvim",
+    dependencies = {
+      -- One of the following pickers is required:
+      "nvim-telescope/telescope.nvim",
+      -- 'folke/snacks.nvim',
+      -- 'ibhagwan/fzf-lua',
+    },
+    opts = {
+      picker = "telescope",
+    },
+    keys = {
+      {
+        "<leader>i",
+        function()
+          require("import").pick()
+        end,
+        desc = "Import",
+      },
+    },
+  },
 
   -- Surround text with pairs of characters
   { "kylechui/nvim-surround" },

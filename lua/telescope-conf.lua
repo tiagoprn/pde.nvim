@@ -130,10 +130,6 @@ require("telescope").setup({
       -- Display symbols as <root>.<parent>.<symbol>
       show_nesting = true,
     },
-    import = {
-      -- Add imports to the top of the file keeping the cursor in place: https://github.com/piersolenski/telescope-import.nvim/issues/2
-      insert_at_top = true,
-    },
     ["ui-select"] = {
       require("telescope.themes").get_dropdown({
         -- even more opts
