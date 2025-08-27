@@ -109,6 +109,10 @@ vim.o.termguicolors = true
 -- OVERRIDING COLORS
 -- Do that here: 'after/plugin/all.lua'
 
+--diff configuration
+-- reference: https://www.reddit.com/r/neovim/comments/1myfvla/comment/nad22ts/?share_id=VQlhP1KGc6b9J0F-2ItwZ&utm_name=androidcss
+vim.o.diffopt = "internal,filler,closeoff,algorithm:patience,indent-heuristic,inline:char,linematch:40"
+
 -- TODO: move below to 'after/plugin/all.lua'
 -- Highlight current line
 vim.o.cursorline = true
