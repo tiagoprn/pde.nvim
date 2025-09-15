@@ -24,11 +24,11 @@ tags: [{}]
 links: []
 ---
 
+# POSTMORTEM
+
+- yyyy-mm-dd: (write bullet points here when I reached a road block or something that stopped or slowed my code today - be as technical as needed)
+
 # CONTEXT
-
-TBD
-
-# TECHNICAL DISCOVERY
 
 TBD
 
@@ -36,17 +36,17 @@ TBD
 
 TBD
 
-# BRANCHES
-
-journal-task-branch
-
 # PULL REQUESTS
 
 journal-task-pull-request
 
-# POSTMORTEM
+# BRANCHES
 
-- yyyy-mm-dd: (write bullet points here when I reached a road block or something that stopped or slowed my code today - be as technical as needed)
+journal-task-branch
+
+# TECHNICAL DISCOVERY
+
+TBD
 
 # DAILY JOURNAL
 
