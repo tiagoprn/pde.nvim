@@ -22,46 +22,21 @@ echo "Updating activated virtualenv $VIRTUALENV_NAME on python version '$(python
 
 uv pip freeze >$LOGS_ROOT/pre-update-packages-versions.txt
 
-echo "Generating list of outdated packages..."
-uv pip list --outdated >$LOGS_ROOT/outdated_packages.txt
+PACKAGES_LIST=$(cat /storage/src/devops/python/requirements.nvim-lsp | grep -Ev '^#|^[[:space:]]*$')
 
-# ----- PACKAGES IGNORED FROM UPGRADE - begin
+echo -e "$PACKAGES_LIST" >$LOGS_ROOT/packages-list.txt
 
-# I won't update jedi, jedi-language-server and lsprotocol after they are installed.
-# When upgrading jedi-language-server from 0.44.0 to 0.45.0 it broke go-to-definitions,
-# so I had to downgrade it manually.
-# So, the code below effectively freezes this package on the current version and do not upgrade it anymore.
-if grep -n '^jedi' "$LOGS_ROOT/outdated_packages.txt"; then
-    echo "Above lines starting with 'jedi' were found and will be removed."
-    sed -i '/^jedi/d' "$LOGS_ROOT/outdated_packages.txt"
-else
-    echo "No lines starting with 'jedi' found."
-fi
+echo "Updating packages: $PACKAGES_LIST..."
+echo "$PACKAGES_LIST" | while IFS= read -r package; do
+    if [[ -n $package ]]; then
+        echo "Updating $package..."
+        uv pip install --upgrade "$package"
+    fi
+done
 
-# lsprotocol also is not updated frequently by jedi-language-server
-if grep -n '^lsprotocol' "$LOGS_ROOT/outdated_packages.txt"; then
-    echo "Above lines starting with 'lsprotocol' were found and will be removed."
-    sed -i '/^lsprotocol/d' "$LOGS_ROOT/outdated_packages.txt"
-else
-    echo "No lines starting with 'lsprotocol' found."
-fi
+uv pip freeze >$LOGS_ROOT/post-update-packages-versions.txt
 
-# ----- PACKAGES IGNORED FROM UPGRADE - end
-
-# Now check if the file has only 2 lines (header + separator), delete it.
-if [ "$(wc -l <"$LOGS_ROOT/outdated_packages.txt")" -eq 2 ]; then
-    echo "File has only 2 lines left, deleting it."
-    rm "$LOGS_ROOT/outdated_packages.txt"
-fi
-
-if [ -s "$LOGS_ROOT/outdated_packages.txt" ]; then
-    echo "Outdated packages found!"
-    echo "Upgrading outdated packages..."
-    uv pip list --outdated | awk 'NR>2 { print $1 }' | xargs -n1 uv pip install --upgrade # "NR>2" ignores the first 2 lines, which are not package names.
-
-    uv pip freeze >$LOGS_ROOT/pos-update-packages-versions.txt
-else
-    echo "No outdated packages found."
-fi
+echo -e "\n---\nUPDATE DIFF: "
+difft "$LOGS_ROOT/pre-update-packages-versions.txt" "$LOGS_ROOT/post-update-packages-versions.txt"
 
 echo "Finished updating. The update logs are at: '$LOGS_ROOT'."
