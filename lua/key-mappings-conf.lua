@@ -372,6 +372,11 @@ which_key.add({
     desc = "Save buffer copy to /tmp",
   },
   {
+    "<leader>fe",
+    ":e!<cr>",
+    desc = "reload file",
+  },
+  {
     "<leader>ff",
     ":Telescope find_files find_command=fd,-H,-E,.git prompt_prefix=fd: <cr>",
     desc = "telescope open files",
@@ -381,7 +386,6 @@ which_key.add({
     ":<cmd>lua require('tiagoprn.code_utils').open_git_changed_files_with_telescope()<cr>",
     desc = "(git) telescope open changed files",
   },
-
   {
     "<leader>fo",
     ":!gedit %<cr>",
