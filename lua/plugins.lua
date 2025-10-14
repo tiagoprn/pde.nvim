@@ -759,7 +759,7 @@ require("lazy").setup({
           -- "obsidian_new",
           -- "obsidian_tags",
           "cmdline",
-          "codecompanion",
+          -- "codecompanion", -- TODO: changed because of bug on blink completion that started at 2025-06-06.
           "omni",
         },
         providers = {
