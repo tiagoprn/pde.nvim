@@ -670,20 +670,20 @@ which_key.add({
   { "<M-k>", ":m .-2<cr>==", desc = "move current line/selection up" },
 
   -- Diagnostics
-  {
-    "<C-k>",
-    function()
-      vim.diagnostic.config({ virtual_lines = { current_line = true }, virtual_text = false })
-      vim.api.nvim_create_autocmd("CursorMoved", {
-        group = vim.api.nvim_create_augroup("line-diagnostics", { clear = true }),
-        callback = function()
-          vim.diagnostic.config({ virtual_lines = false, virtual_text = true })
-          return true
-        end,
-      })
-    end,
-    desc = "details diagnostics on virtual lines",
-  },
+  -- { -- remove this and change for the new plugin
+  --   "<C-k>",
+  --   function()
+  --     vim.diagnostic.config({ virtual_lines = { current_line = true }, virtual_text = false })
+  --     vim.api.nvim_create_autocmd("CursorMoved", {
+  --       group = vim.api.nvim_create_augroup("line-diagnostics", { clear = true }),
+  --       callback = function()
+  --         vim.diagnostic.config({ virtual_lines = false, virtual_text = true })
+  --         return true
+  --       end,
+  --     })
+  --   end,
+  --   desc = "details diagnostics on virtual lines",
+  -- },
 
   -- Tab navigation
   { "<C-right>", ":tabnext<cr>", desc = "go to next tab" },
