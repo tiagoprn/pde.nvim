@@ -229,6 +229,7 @@ require("obsidian-conf")
 require("oil-conf")
 require("codecompanion-conf")
 require("persist-quickfix-conf")
+require("dap-view-conf")
 
 -- Source additional Vimscript plugin configurations
 -- TODO: these need to be converted to Lua
