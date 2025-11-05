@@ -325,6 +325,11 @@ which_key.add({
     "<cmd>lua require('dap-conf').run_config_by_name('Pytest: Current File')<cr>",
     desc = "Current File",
   },
+  {
+    "<leader>dtw",
+    "<cmd>lua require('tiagoprn.code_utils').save_dap_terminal_contents('on exit')<cr>",
+    desc = "Save DAP terminal contents to file",
+  },
   { "<leader>dx", group = "Debug (DAP) - file, web framework" },
   {
     "<leader>dxc",

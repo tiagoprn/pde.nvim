@@ -213,4 +213,70 @@ function M.source_file()
   vim.notify("TODO: implement to source lua files")
 end
 
+local function get_session_output_file_path()
+  local project_root = vim.fn.getcwd()
+  local tmp_dir = project_root .. "/tmp"
+
+  vim.fn.mkdir(tmp_dir, "p")
+
+  local timestamp = os.date("%Y%m%d-%H%M%S")
+  local output_file = tmp_dir .. "/debug." .. timestamp
+
+  return output_file
+end
+
+-- Helper function to save dap-view terminal contents
+function M.save_dap_terminal_contents(event_name)
+  local output_file = get_session_output_file_path()
+
+  local success, result = pcall(function()
+    -- Find the dap-view terminal buffer by filetype
+    local buffers = vim.api.nvim_list_bufs()
+    local terminal_buf = nil
+
+    for _, buf in ipairs(buffers) do
+      if vim.api.nvim_buf_is_valid(buf) then
+        local buf_filetype = vim.api.nvim_buf_get_option(buf, "filetype")
+        local buf_name = vim.api.nvim_buf_get_name(buf)
+
+        if buf_filetype == "dap-view-term" then
+          terminal_buf = buf
+          break
+        elseif buf_name:match("^term:") then
+          -- Fallback to term: pattern if no dap-view-term found
+          if not terminal_buf then
+            terminal_buf = buf
+          end
+        end
+      end
+    end
+
+    if terminal_buf then
+      -- Get all lines from the terminal buffer
+      local lines = vim.api.nvim_buf_get_lines(terminal_buf, 0, -1, false)
+      local content = table.concat(lines, "\n")
+
+      -- Write to output file
+      local file = io.open(output_file, "w")
+      if file then
+        file:write(content)
+        file:close()
+        vim.notify("Terminal contents saved to " .. output_file .. " (" .. event_name .. ")", vim.log.levels.INFO)
+
+        -- Open the file in a new tab
+        vim.cmd("tabnew " .. output_file)
+        vim.notify("Opened " .. output_file .. " in new tab", vim.log.levels.INFO)
+      else
+        vim.notify("Failed to write terminal contents to " .. output_file, vim.log.levels.ERROR)
+      end
+    else
+      vim.notify("No terminal buffer found (" .. event_name .. ")", vim.log.levels.WARN)
+    end
+  end)
+
+  if not success then
+    vim.notify("Error saving terminal contents (" .. event_name .. "): " .. tostring(result), vim.log.levels.ERROR)
+  end
+end
+
 return M
