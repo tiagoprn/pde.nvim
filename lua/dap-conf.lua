@@ -296,9 +296,9 @@ table.insert(dap.configurations.python, {
 
     -- Add the standard pytest options after the root dir
     table.insert(args, "-s") -- Allow print statements and interactive prompts
+    table.insert(args, "-rp") -- List passing tests in the final summary
     table.insert(args, "-vvv") -- Very verbose output
     table.insert(args, "--no-header") -- Reduce header noise
-    table.insert(args, "--no-summary") -- Reduce summary noise
     table.insert(args, "--capture=no") -- Don't capture stdout (allows interactive input)
 
     -- Use -k with the filename to filter tests
