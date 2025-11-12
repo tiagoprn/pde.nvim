@@ -314,4 +314,13 @@ function M.copy_visual_selection_as_markdown()
   end
 end
 
+function M.delete_term_buffers()
+  for _, bufnr in ipairs(vim.api.nvim_list_bufs()) do
+    local name = vim.api.nvim_buf_get_name(bufnr)
+    if name:match("^term") or name:find("dap%-terminal") then
+      vim.api.nvim_buf_delete(bufnr, { force = true })
+    end
+  end
+end
+
 return M

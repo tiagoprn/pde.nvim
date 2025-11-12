@@ -254,6 +254,11 @@ which_key.add({
     desc = "Step Into",
   },
   {
+    "<leader>dk",
+    "<cmd>lua require('tiagoprn.buffer_utils').delete_term_buffers()<cr>",
+    desc = "Kill all terminal buffers",
+  },
+  {
     "<leader>do",
     "<cmd>lua require('dap').step_out()<cr>",
     desc = "Step Out",
