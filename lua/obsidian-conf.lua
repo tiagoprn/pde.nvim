@@ -3,6 +3,25 @@ if not status_ok then
   return
 end
 
+-- Keymaps: https://github.com/obsidian-nvim/obsidian.nvim?tab=readme-ov-file#keymaps
+-- To disable smart_action on <CR> and remap it to <leader><CR>, with only the checkbox specific behavior
+vim.api.nvim_create_autocmd("User", {
+  pattern = "ObsidianNoteEnter",
+  callback = function(ev)
+    -- Delete the default <CR> mapping for the current buffer
+    vim.keymap.del("n", "<CR>", { buffer = ev.buf })
+
+    require("which-key").add({
+      {
+        "<leader><cr>",
+        ":ObsidianToggleCheckbox<CR>",
+        desc = "OBSIDIAN: toggle markdown checkbox",
+        buffer = ev.buf, -- Crucially, this makes the mapping buffer-local
+      },
+    })
+  end,
+})
+
 obsidian.setup({
   ui = { enable = false }, -- disables the plugin's markdown renderer, so that I can keep using markview.nvim
   workspaces = {

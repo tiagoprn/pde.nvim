@@ -5,14 +5,20 @@ if not status_ok then
   return
 end
 
+-- https://github.com/OXY2DEV/markview.nvim/wiki/Configuration
+
 markview.setup({
   highlight_groups = "dark",
   preview = {
+    enable_hybrid_mode = false,
+    linewise_hybrid_mode = false,
     enable = false,
-    hybrid_modes = { "n" },
+    hybrid_modes = {},
   },
-  checkboxes = {
-    enable = true,
+  markdown_inline = {
+    checkboxes = {
+      enable = false,
+    },
   },
   markdown = {
     list_items = {
