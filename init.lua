@@ -35,6 +35,16 @@ vim.o.visualbell = true
 -- Height of the command bar
 vim.o.cmdheight = 1
 
+-- "More" prompt when starting nvim
+-- shortmess values:
+--   a) truncate messages
+--   t) truncate file messages
+--   F) reduces noisy “file written”, “X lines, Y bytes”, and similar messages
+--   I) disable the intro
+vim.opt.shortmess:append("atFI")
+vim.opt.messagesopt = "wait:1000,history:200"
+vim.lsp.log.set_level("WARN")
+
 -- Default updatetime 4000ms is not good for async update
 vim.o.updatetime = 100
 
