@@ -41,53 +41,55 @@ vim.api.nvim_create_autocmd("InsertLeave", {
   end,
 })
 
-lsp.jedi_language_server.setup({
-  capabilities = (function()
-    local cap = vim.lsp.protocol.make_client_capabilities()
-    cap = vim.tbl_deep_extend("force", cap, require("blink.cmp").get_lsp_capabilities({}, false))
-    return cap
-  end)(), -- Execute the function immediately to return the capabilities table
-  cmd = {
-    vim.fn.getenv("HOME") .. "/.pyenv/versions/neovim/bin/jedi-language-server",
-    -- "-v",
-    "--log-file",
-    vim.fn.getenv("HOME") .. "/.local/share/nvim/jedi-lsp-server.log",
-  },
-
-  root_dir = require("lspconfig/util").root_pattern(".git"),
-  -- disabled formatting capabilities because they are provided py
-  -- null-ls, which has configuration for all languages.
-  on_attach = function(client, bufnr)
-    client.server_capabilities.document_formatting = false
-    client.server_capabilities.document_range_formatting = false
-    client.server_capabilities.document_diagnostics = false
-  end,
-  settings = { -- below was generated with ChatGPT. I asked it to generate with the default values to see all available options.
-    jedi = {
-      -- completion = {
-      -- 	fuzzy = true, -- Enable fuzzy completions
-      -- 	show_doc_strings = true, -- Show doc strings in completions
-      -- },
-      diagnostics = {
-        enable = false, -- Enable or disable diagnostics as you type
-        -- did_open = true, -- Run diagnostics on open
-        -- did_change = true, -- Run diagnostics on change
-        -- did_save = true, -- Run diagnostics on save
-      },
-      -- environment = nil, -- The virtual environment to use for Jedi. Set to a path if you want a specific one, else nil
-      -- extra_paths = { "watson" }, -- Additional sys paths for Jedi to explore
-      references = {
-        extra_params = {}, -- Extra parameters for finding references, empty by default
-      },
-      signatures = {
-        show_doc_strings = true, -- Show doc strings in function signatures/help
-      },
-      workspace = {
-        extra_params = {}, -- Extra parameters for the workspace
-      },
-    },
-  },
-})
+-- NOTE: below temporarily disabled as a language server in favor of using pyrefly, which is configured using nvim native LSP integration on the end of this file
+--
+-- lsp.jedi_language_server.setup({
+--   capabilities = (function()
+--     local cap = vim.lsp.protocol.make_client_capabilities()
+--     cap = vim.tbl_deep_extend("force", cap, require("blink.cmp").get_lsp_capabilities({}, false))
+--     return cap
+--   end)(), -- Execute the function immediately to return the capabilities table
+--   cmd = {
+--     vim.fn.getenv("HOME") .. "/.pyenv/versions/neovim/bin/jedi-language-server",
+--     -- "-v",
+--     "--log-file",
+--     vim.fn.getenv("HOME") .. "/.local/share/nvim/jedi-lsp-server.log",
+--   },
+--
+--   root_dir = require("lspconfig/util").root_pattern(".git"),
+--   -- disabled formatting capabilities because they are provided py
+--   -- null-ls, which has configuration for all languages.
+--   on_attach = function(client, bufnr)
+--     client.server_capabilities.document_formatting = false
+--     client.server_capabilities.document_range_formatting = false
+--     client.server_capabilities.document_diagnostics = false
+--   end,
+--   settings = { -- below was generated with ChatGPT. I asked it to generate with the default values to see all available options.
+--     jedi = {
+--       -- completion = {
+--       -- 	fuzzy = true, -- Enable fuzzy completions
+--       -- 	show_doc_strings = true, -- Show doc strings in completions
+--       -- },
+--       diagnostics = {
+--         enable = false, -- Enable or disable diagnostics as you type
+--         -- did_open = true, -- Run diagnostics on open
+--         -- did_change = true, -- Run diagnostics on change
+--         -- did_save = true, -- Run diagnostics on save
+--       },
+--       -- environment = nil, -- The virtual environment to use for Jedi. Set to a path if you want a specific one, else nil
+--       -- extra_paths = { "watson" }, -- Additional sys paths for Jedi to explore
+--       references = {
+--         extra_params = {}, -- Extra parameters for finding references, empty by default
+--       },
+--       signatures = {
+--         show_doc_strings = true, -- Show doc strings in function signatures/help
+--       },
+--       workspace = {
+--         extra_params = {}, -- Extra parameters for the workspace
+--       },
+--     },
+--   },
+-- })
 
 lsp.ruff.setup({
   offset_encoding = "utf-16", -- forces ruff to use UTF-16
@@ -292,3 +294,26 @@ lsp.ruff.setup({
   end,
   single_file_support = true,
 })
+
+-- below are using (simpler) nvim native lsp integration
+-- https://github.com/bellini666/pytest-language-server
+-- Install the LSP: pipx install pytest-language-server
+vim.lsp.config("pytest_lsp", {
+  cmd = {
+    vim.fn.getenv("HOME") .. "/.local/bin/pytest-language-server", -- NOTE: installed with pipx
+  },
+  filetypes = { "python" },
+  root_markers = { "pyproject.toml", "setup.py", "setup.cfg", "pytest.ini", ".git" },
+})
+vim.lsp.enable("pytest_lsp")
+
+-- https://pyrefly.org/en/docs/IDE/#configure-pyrefly-for-neovim
+-- Install the LSP: pipx install pyrefly
+-- Using this as my Language Server for experimentation
+vim.lsp.config("pyrefly", {
+  cmd = {
+    vim.fn.getenv("HOME") .. "/.local/bin/pyrefly", -- NOTE: installed with pipx
+    "lsp",
+  },
+})
+vim.lsp.enable({ "pyrefly" })
