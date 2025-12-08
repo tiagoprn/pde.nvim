@@ -237,7 +237,7 @@ require("markview-conf")
 require("bookmarks-conf")
 require("obsidian-conf")
 require("oil-conf")
-require("codecompanion-conf")
+-- require("codecompanion-conf")
 require("persist-quickfix-conf")
 require("dap-view-conf")
 
