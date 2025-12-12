@@ -510,11 +510,14 @@ end
 local function set_dap_view_highlights()
   -- NOTE: to see the help with all the available highlights: ':h dap.txt', under section "SIGNS CONFIGURATION"
 
-  -- breakpoint is active on the current line: turn off the green line highlight:
-  vim.fn.sign_define("DapStopped", { text = "🛑", texthl = "", linehl = "", numhl = "" })
+  -- Create custom highlight group for italic line highlighting
+  vim.api.nvim_set_hl(0, "DapCustomLine", { bold = true })
+
+  -- Active breakpoint (stopped line): use italic line highlight
+  vim.fn.sign_define("DapStopped", { text = "🛑", texthl = "", linehl = "DapCustomLine", numhl = "" })
 
   -- breakpoint mark (not active yet):
-  vim.fn.sign_define("DapBreakpoint", { text = "🛑", texthl = "", linehl = "", numhl = "" })
+  vim.fn.sign_define("DapBreakpoint", { text = "🐛", texthl = "", linehl = "", numhl = "" })
 end
 
 set_dap_view_highlights()
