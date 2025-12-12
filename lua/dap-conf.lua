@@ -507,43 +507,17 @@ dap.listeners.before.event_exited["dap-view-config"] = function()
   dapview.close()
 end
 
--- 2. Function that defines all your custom colors
 local function set_dap_view_highlights()
-  -- TODO: change here for the right highlight group:
-  vim.api.nvim_set_hl(0, "NvimDapViewControlDisconnect", {
-    fg = "#ff5555", -- dark red-ish foreground
-    bg = "NONE",
-    bold = true,
-  })
+  -- NOTE: to see the help with all the available highlights: ':h dap.txt', under section "SIGNS CONFIGURATION"
 
-  vim.api.nvim_set_hl(0, "NvimDapViewControlTerminate", {
-    fg = "#ff5555",
-    bg = "NONE",
-  })
+  -- breakpoint is active on the current line: turn off the green line highlight:
+  vim.fn.sign_define("DapStopped", { text = "🛑", texthl = "", linehl = "", numhl = "" })
 
-  vim.api.nvim_set_hl(0, "NvimDapViewMissingData", {
-    fg = "#ff5555",
-    bg = "NONE",
-  })
-
-  -- Current frame / selected item in views
-  vim.api.nvim_set_hl(0, "NvimDapViewFrameCurrent", {
-    fg = "#ffffff",
-    bg = "#333333",
-    bold = true,
-  })
+  -- breakpoint mark (not active yet):
+  vim.fn.sign_define("DapBreakpoint", { text = "🛑", texthl = "", linehl = "", numhl = "" })
 end
 
--- 3. Apply once now (for current colorscheme)
 set_dap_view_highlights()
-
--- 4. Re-apply after *any* colorscheme change
-vim.api.nvim_create_autocmd("ColorScheme", {
-  pattern = "*",
-  callback = function()
-    set_dap_view_highlights()
-  end,
-})
 
 -- _G.run_pytest_on_current_file = function() -- on key-mappings-conf
 --   local dap = require("dap")
