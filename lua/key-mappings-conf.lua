@@ -85,7 +85,7 @@ which_key.add({
   -- clipboard
   { "<leader>b", group = "clipboard" },
   {
-    "<leader>bf",
+    "<leader>y",
     "<cmd>lua require('tiagoprn.buffer_utils').copy_default_clipboard_register_to_file()<cr>",
     desc = "copy contents of default clipboard register to /tmp/clipboard/copied.txt",
   },
@@ -847,15 +847,8 @@ which_key.add({
   { "<leader>aia", ":CodeCompanionActions<cr>", desc = "Select Action", mode = "v" },
   { "<leader>aip", ":CodeCompanion<cr>", desc = "Run prompt on selection", mode = "v" },
 
-  { "<leader>b", group = "clipboard", mode = "v" },
   {
-    "<leader>bf",
-    "<cmd>lua require('tiagoprn.buffer_utils').copy_visual_selection_to_register_and_file()<cr>",
-    desc = "copy to /tmp/clipboard/copied.txt and vim register 'f'",
-    mode = "v",
-  },
-  {
-    "<leader>bm",
+    "<leader>m",
     "<cmd>lua require('tiagoprn.buffer_utils').copy_visual_selection_as_markdown()<cr>",
     desc = "copy as markdown code block to /tmp/clipboard/copied.txt and vim register 'f'",
     mode = "v",
@@ -866,7 +859,12 @@ which_key.add({
   { "<leader>oe", ":ObsidianLink<cr>", desc = "Create Link to existing note", mode = "v" },
   { "<leader>on", ":ObsidianLinkNew<cr>", desc = "Create Link to new note", mode = "v" },
 
-  { "<leader>y", '"+y', desc = "YANK/COPY to system clipboard", mode = "v" },
+  {
+    "<leader>y",
+    "<cmd>lua require('tiagoprn.buffer_utils').copy_visual_selection_to_register_and_file()<cr>",
+    desc = "copy to /tmp/clipboard/copied.txt and vim register 'f'",
+    mode = "v",
+  },
 
   -- Non-leader mappings
   { "<", "<gv", desc = "dedent", mode = "v" },
