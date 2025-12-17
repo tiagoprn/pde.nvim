@@ -2,7 +2,7 @@ function! MoveVisualSelectionToFile()
   " copy current visual selection to x register
   normal gv"xy
 
-  let l:defaultFilename = '/tmp/copied.txt'
+  let l:defaultFilename = '/tmp/clipboard/copied.txt'
 
   call inputsave()
   let l:filename = input('Enter filename (leave it blank to copy to standard location "' . l:defaultFilename .  '"): ')

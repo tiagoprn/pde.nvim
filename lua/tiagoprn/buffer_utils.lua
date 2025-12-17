@@ -2,39 +2,39 @@ local M = {} -- creates a new table here to isolate from the global scope
 
 function M.copy_current_buffer_absolute_path()
   local current_file_path = vim.fn.expand("%:p")
-  vim.fn.writefile({ current_file_path }, "/tmp/copied.txt")
+  vim.fn.writefile({ current_file_path }, "/tmp/clipboard/copied.txt")
 end
 
 function M.copy_current_buffer_name()
   -- copies only the buffer name, without the directory where it is located
   local buffer_name = vim.fn.expand("%:t")
-  vim.fn.writefile({ buffer_name }, "/tmp/copied.txt")
+  vim.fn.writefile({ buffer_name }, "/tmp/clipboard/copied.txt")
 end
 
 function M.copy_current_buffer_relative_path()
   local relative_path = vim.fn.expand("%")
-  vim.fn.writefile({ relative_path }, "/tmp/copied.txt")
+  vim.fn.writefile({ relative_path }, "/tmp/clipboard/copied.txt")
 end
 
 function M.copy_current_buffer_absolute_path_with_position()
   local current_file_path = vim.fn.expand("%:p")
   local line_number = vim.fn.line(".")
   local path_with_position = current_file_path .. ":" .. line_number
-  vim.fn.writefile({ path_with_position }, "/tmp/copied.txt")
+  vim.fn.writefile({ path_with_position }, "/tmp/clipboard/copied.txt")
 end
 
 function M.copy_current_buffer_name_with_position()
   local buffer_name = vim.fn.expand("%:t")
   local line_number = vim.fn.line(".")
   local name_with_position = buffer_name .. ":" .. line_number
-  vim.fn.writefile({ name_with_position }, "/tmp/copied.txt")
+  vim.fn.writefile({ name_with_position }, "/tmp/clipboard/copied.txt")
 end
 
 function M.copy_current_buffer_relative_path_with_position()
   local relative_path = vim.fn.expand("%")
   local line_number = vim.fn.line(".")
   local path_with_position = relative_path .. ":" .. line_number
-  vim.fn.writefile({ path_with_position }, "/tmp/copied.txt")
+  vim.fn.writefile({ path_with_position }, "/tmp/clipboard/copied.txt")
 end
 
 function M.copy_default_clipboard_register_to_file()
@@ -45,7 +45,7 @@ function M.copy_default_clipboard_register_to_file()
     return
   end
 
-  local file_path = "/tmp/copied.txt"
+  local file_path = "/tmp/clipboard/copied.txt"
   local file = io.open(file_path, "w")
 
   if file then
@@ -54,7 +54,7 @@ function M.copy_default_clipboard_register_to_file()
 
     -- Check if inside tmux and send a notification
     if os.getenv("TMUX") then
-      os.execute("tmux display-message 'Saved to /tmp/copied.txt!'")
+      os.execute("tmux display-message 'Saved to /tmp/clipboard/copied.txt!'")
     end
   else
     vim.notify("Failed to write to " .. file_path, vim.log.levels.ERROR)
@@ -108,7 +108,7 @@ function M.save_buffer_copy_to_tmp()
   local timestamp = os.date("%Y-%m-%d-%H-%M-%S")
 
   -- Create the new filename with timestamp
-  local new_filename = "/tmp/" .. basename .. "." .. timestamp
+  local new_filename = "/tmp/clipboard/" .. basename .. "." .. timestamp
 
   -- Add appropriate extension
   if buffer_name ~= "" and extension and extension ~= "" then
@@ -134,7 +134,7 @@ end
 function M.save_quickfix_to_tmp()
   -- Generate timestamp in YYYY-MM-DD-HH-MM-SS format
   local timestamp = os.date("%Y-%m-%d-%H-%M-%S")
-  local new_filename = "/tmp/quickfix." .. timestamp .. ".txt"
+  local new_filename = "/tmp/clipboard/quickfix." .. timestamp .. ".txt"
 
   -- Get quickfix items
   local qf_items = vim.fn.getqflist()
@@ -243,8 +243,8 @@ function M.copy_visual_selection_to_register_and_file()
   -- Copy to register "f"
   vim.fn.setreg("f", selected_text)
 
-  -- Write to /tmp/copied.txt
-  local file_path = "/tmp/copied.txt"
+  -- Write to /tmp/clipboard/copied.txt
+  local file_path = "/tmp/clipboard/copied.txt"
   local file = io.open(file_path, "w")
 
   if file then
@@ -253,9 +253,9 @@ function M.copy_visual_selection_to_register_and_file()
 
     -- Check if inside tmux and send a notification
     if os.getenv("TMUX") then
-      os.execute("tmux display-message 'Selected text copied to vim register \"f\" and /tmp/copied.txt'")
+      os.execute("tmux display-message 'Selected text copied to vim register \"f\" and /tmp/clipboard/copied.txt'")
     else
-      vim.notify('Selected text copied to vim register "f" and /tmp/copied.txt', vim.log.levels.INFO)
+      vim.notify('Selected text copied to vim register "f" and /tmp/clipboard/copied.txt', vim.log.levels.INFO)
     end
   else
     vim.notify("Failed to write to " .. file_path, vim.log.levels.ERROR)
@@ -295,8 +295,8 @@ function M.copy_visual_selection_as_markdown()
   -- Copy to register "m"
   vim.fn.setreg("m", markdown_text)
 
-  -- Write to /tmp/copied.txt
-  local file_path = "/tmp/copied.txt"
+  -- Write to /tmp/clipboard/copied.txt
+  local file_path = "/tmp/clipboard/copied.txt"
   local file = io.open(file_path, "w")
 
   if file then
@@ -305,9 +305,14 @@ function M.copy_visual_selection_as_markdown()
 
     -- Check if inside tmux and send a notification
     if os.getenv("TMUX") then
-      os.execute("tmux display-message 'Selected text copied as markdown to vim register \"m\" and /tmp/copied.txt'")
+      os.execute(
+        "tmux display-message 'Selected text copied as markdown to vim register \"m\" and /tmp/clipboard/copied.txt'"
+      )
     else
-      vim.notify('Selected text copied as markdown to vim register "m" and /tmp/copied.txt', vim.log.levels.INFO)
+      vim.notify(
+        'Selected text copied as markdown to vim register "m" and /tmp/clipboard/copied.txt',
+        vim.log.levels.INFO
+      )
     end
   else
     vim.notify("Failed to write to " .. file_path, vim.log.levels.ERROR)

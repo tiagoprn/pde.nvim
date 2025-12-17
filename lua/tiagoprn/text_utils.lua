@@ -102,7 +102,7 @@ function M.copy_visual_selection_to_file()
     text = table.concat(lines, "\n")
   end
 
-  local file_path = "/tmp/copied.txt"
+  local file_path = "/tmp/clipboard/copied.txt"
 
   -- Handle existing file by renaming if necessary
   if not M.handle_existing_file(file_path) then

@@ -87,37 +87,37 @@ which_key.add({
   {
     "<leader>bf",
     "<cmd>lua require('tiagoprn.buffer_utils').copy_default_clipboard_register_to_file()<cr>",
-    desc = "copy contents of default clipboard register to /tmp/copied.txt",
+    desc = "copy contents of default clipboard register to /tmp/clipboard/copied.txt",
   },
   {
     "<leader>ba",
     "<cmd>lua require('tiagoprn.buffer_utils').copy_current_buffer_absolute_path()<cr>",
-    desc = "copy current buffer absolute path to /tmp/copied.txt",
+    desc = "copy current buffer absolute path to /tmp/clipboard/copied.txt",
   },
   {
     "<leader>br",
     "<cmd>lua require('tiagoprn.buffer_utils').copy_current_buffer_relative_path()<cr>",
-    desc = "copy current buffer relative path to /tmp/copied.txt",
+    desc = "copy current buffer relative path to /tmp/clipboard/copied.txt",
   },
   {
     "<leader>bn",
     "<cmd>lua require('tiagoprn.buffer_utils').copy_current_buffer_name()<cr>",
-    desc = "copy current buffer name to /tmp/copied.txt",
+    desc = "copy current buffer name to /tmp/clipboard/copied.txt",
   },
   {
     "<leader>bA",
     "<cmd>lua require('tiagoprn.buffer_utils').copy_current_buffer_absolute_path_with_position()<cr>",
-    desc = "copy current buffer absolute path (WITH POSITION) to /tmp/copied.txt",
+    desc = "copy current buffer absolute path (WITH POSITION) to /tmp/clipboard/copied.txt",
   },
   {
     "<leader>bR",
     "<cmd>lua require('tiagoprn.buffer_utils').copy_current_buffer_relative_path_with_position()<cr>",
-    desc = "copy current buffer relative path (WITH POSITION) to /tmp/copied.txt",
+    desc = "copy current buffer relative path (WITH POSITION) to /tmp/clipboard/copied.txt",
   },
   {
     "<leader>bN",
     "<cmd>lua require('tiagoprn.buffer_utils').copy_current_buffer_name_with_position()<cr>",
-    desc = "copy current buffer name (WITH POSITION) to /tmp/copied.txt",
+    desc = "copy current buffer name (WITH POSITION) to /tmp/clipboard/copied.txt",
   },
   { "<leader>be", ":Telescope registers<cr>", desc = "telescope browse registers" },
   {
@@ -379,7 +379,7 @@ which_key.add({
   {
     "<leader>fc",
     "<cmd>lua require('tiagoprn.buffer_utils').save_buffer_copy_to_tmp()<cr>",
-    desc = "Save buffer copy to /tmp",
+    desc = "Save buffer copy to /tmp/clipboard",
   },
   {
     "<leader>fe",
@@ -846,13 +846,13 @@ which_key.add({
   {
     "<leader>bf",
     "<cmd>lua require('tiagoprn.buffer_utils').copy_visual_selection_to_register_and_file()<cr>",
-    desc = "copy to /tmp/copied.txt and vim register 'f'",
+    desc = "copy to /tmp/clipboard/copied.txt and vim register 'f'",
     mode = "v",
   },
   {
     "<leader>bm",
     "<cmd>lua require('tiagoprn.buffer_utils').copy_visual_selection_as_markdown()<cr>",
-    desc = "copy as markdown code block to /tmp/copied.txt and vim register 'f'",
+    desc = "copy as markdown code block to /tmp/clipboard/copied.txt and vim register 'f'",
     mode = "v",
   },
 
