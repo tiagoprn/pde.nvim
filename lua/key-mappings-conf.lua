@@ -359,6 +359,11 @@ which_key.add({
     desc = "telescope browse color schemes",
   },
   {
+    "<leader>eg",
+    "<cmd>lua require('tiagoprn.text_utils').show_highlight_group_under_cursor()<cr>",
+    desc = "Show highlight group under cursor",
+  },
+  {
     "<leader>eh",
     ":Telescope help_tags<cr>",
     desc = "telescope search tag on nvim help (builtins and plugins)",

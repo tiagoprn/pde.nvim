@@ -119,4 +119,11 @@ function M.copy_visual_selection_to_file()
   end
 end
 
+function M.show_highlight_group_under_cursor()
+  local s = vim.fn.synID(vim.fn.line("."), vim.fn.col("."), 1)
+  local name = vim.fn.synIDattr(s, "name")
+  local trans = vim.fn.synIDattr(vim.fn.synIDtrans(s), "name")
+  print(name .. " -> " .. trans)
+end
+
 return M

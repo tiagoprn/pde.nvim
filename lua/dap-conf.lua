@@ -507,6 +507,21 @@ dap.listeners.before.event_exited["dap-view-config"] = function()
   dapview.close()
 end
 
+local function set_dap_view_highlights()
+  -- NOTE: to see the help with all the available highlights: ':h dap.txt', under section "SIGNS CONFIGURATION"
+
+  -- Create custom highlight group for italic line highlighting
+  vim.api.nvim_set_hl(0, "DapCustomLine", { bold = true })
+
+  -- Active breakpoint (stopped line): use italic line highlight
+  vim.fn.sign_define("DapStopped", { text = "🛑", texthl = "", linehl = "DapCustomLine", numhl = "" })
+
+  -- breakpoint mark (not active yet):
+  vim.fn.sign_define("DapBreakpoint", { text = "🐛", texthl = "", linehl = "", numhl = "" })
+end
+
+set_dap_view_highlights()
+
 -- _G.run_pytest_on_current_file = function() -- on key-mappings-conf
 --   local dap = require("dap")
 --
