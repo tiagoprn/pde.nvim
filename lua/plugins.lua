@@ -657,19 +657,15 @@ require("lazy").setup({
   {
     "nvim-treesitter/nvim-treesitter",
     build = ":TSUpdate",
+    branch = "master",
   },
-
-  -- Treesitter playground
   { "nvim-treesitter/playground" },
-
-  -- Treesitter context
   { "nvim-treesitter/nvim-treesitter-context" },
-
-  -- Text Objects
   {
     "nvim-treesitter/nvim-treesitter-textobjects",
     after = "nvim-treesitter",
     dependencies = "nvim-treesitter/nvim-treesitter",
+    branch = "master",
   },
 
   -- Completion
