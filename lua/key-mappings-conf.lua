@@ -200,17 +200,24 @@ which_key.add({
     ":PythonProjectSearch<cr>",
     desc = "Python Project Search: search and open a python class, method or function",
   },
+  --
   { "<leader>ct", group = "treesitter" },
   {
-    "<leader>ctn",
-    ":TSNodeUnderCursor<cr>",
-    desc = "current node info",
+    "<leader>ctt",
+    ":<cmd>TSJToggle<cr>",
+    desc = "Toggle",
   },
   {
-    "<leader>ctp",
-    ":TSPlaygroundToggle<cr>",
-    desc = "toggle playground",
+    "<leader>ctj",
+    ":<cmd>TSJJoin<cr>",
+    desc = "Join",
   },
+  {
+    "<leader>cts",
+    ":<cmd>TSJSplit<cr>",
+    desc = "Split",
+  },
+  ---
   {
     "<leader>cu",
     ":NullLsInfo <cr>",
