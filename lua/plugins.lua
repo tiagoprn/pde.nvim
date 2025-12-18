@@ -784,9 +784,6 @@ require("lazy").setup({
 
           -- Enable treesitter indentation
           vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
-
-          -- Install missing parser (async, no-op if already installed)
-          ts.install({ lang })
         end,
       })
     end,
