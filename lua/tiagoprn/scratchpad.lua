@@ -1,7 +1,6 @@
 local job = require("plenary.job")
 local zen_mode = require("zen-mode")
 local helpers = require("tiagoprn.helpers")
-local ts_utils = require("nvim-treesitter.ts_utils") -- FIXME: treesitter "main" branch refactor: this does does not exist anymore or is on another path
 local treesitter = require("vim.treesitter")
 
 local M = {}
@@ -211,7 +210,7 @@ function M.get_current_file_context()
     return "L" .. current_line_number
   end
 
-  local current_node = ts_utils.get_node_at_cursor() -- FIXME: treesitter "main" branch refactor: What should I use here?
+  local current_node = treesitter.get_node()
   if not current_node then
     print("Current node could not be determined, so I will return only the line number.")
     -- return the current line number
