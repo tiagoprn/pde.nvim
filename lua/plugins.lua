@@ -654,6 +654,11 @@ require("lazy").setup({
   },
 
   -- TREESITTER - begin
+  --
+  -- This configuration was obtained on this reddit thread, when treesitter changed the default to the "main" branch on Dec 17th 2025:
+  -- https://www.reddit.com/r/neovim/comments/1ppa4ag/nvimtreesitter_breaking_changes/nungaa0/?share_id=ET9ykNV5ZwXwq5ZOYaLCX
+  --
+  -- Plugins list:
   -- https://github.com/nvim-treesitter/nvim-treesitter
   -- https://github.com/RRethy/nvim-treesitter-endwise
   -- https://github.com/nvim-treesitter/nvim-treesitter-context
@@ -691,9 +696,10 @@ require("lazy").setup({
         "gosum",
         "gotmpl",
         "gowork",
-        "groovy",
         "hcl",
         "html",
+        "hurl",
+        "hyprlang",
         "javascript",
         "jsdoc",
         "json",
@@ -708,7 +714,6 @@ require("lazy").setup({
         "python",
         "query",
         "regex",
-        "ruby",
         "rust",
         "sql",
         "terraform",
@@ -719,8 +724,6 @@ require("lazy").setup({
         "vimdoc",
         "xml",
         "yaml",
-        "zig",
-        "zsh",
       }
       local installed = ts_cfg.get_installed()
       local to_install = vim
@@ -767,12 +770,23 @@ require("lazy").setup({
             return
           end
 
+          -- Start highlighting immediately (works if parser exists)
           local lang = vim.treesitter.language.get_lang(ft) or ft
           local buf = ev.buf
           pcall(vim.treesitter.start, buf, lang)
 
+          -- Use treesitter for folding, if "foldenable" is on.
+          -- By default we will let folding disabled here, but configured if
+          -- we choose to enable that in the future.
+          vim.wo.foldmethod = "expr"
           vim.wo.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+          vim.wo.foldenable = false
+
+          -- Enable treesitter indentation
           vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+
+          -- Install missing parser (async, no-op if already installed)
+          ts.install({ lang })
         end,
       })
     end,

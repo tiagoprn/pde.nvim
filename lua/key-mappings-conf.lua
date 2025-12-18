@@ -203,6 +203,11 @@ which_key.add({
   --
   { "<leader>ct", group = "treesitter" },
   {
+    "<leader>cta",
+    ":checkhealth treesitter<cr>",
+    desc = "Health Check",
+  },
+  {
     "<leader>ctt",
     ":<cmd>TSJToggle<cr>",
     desc = "Toggle",
