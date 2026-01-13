@@ -203,11 +203,6 @@ which_key.add({
   --
   { "<leader>ct", group = "treesitter" },
   {
-    "<leader>cta",
-    ":checkhealth treesitter<cr>",
-    desc = "Health Check",
-  },
-  {
     "<leader>ctt",
     ":<cmd>TSJToggle<cr>",
     desc = "Toggle",
@@ -399,6 +394,11 @@ which_key.add({
     desc = "Save buffer copy to /tmp/clipboard",
   },
   {
+    "<leader>fd",
+    ":redo<cr>",
+    desc = "redo",
+  },
+  {
     "<leader>fe",
     ":e!<cr>",
     desc = "reload file",
@@ -414,6 +414,11 @@ which_key.add({
     desc = "(git) telescope open changed files",
   },
   {
+    "<leader>fn",
+    ":set conceallevel = 0<cr>",
+    desc = "set conceallevel to 0",
+  },
+  {
     "<leader>fo",
     ":!gedit %<cr>",
     desc = "open current file on gedit",
@@ -427,6 +432,11 @@ which_key.add({
     "<leader>fs",
     ":SearchOnOpenFiles<cr>",
     desc = "search on open files",
+  },
+  {
+    "<leader>fu",
+    ":undo<cr>",
+    desc = "undo",
   },
   -- -- buffers
   { "<leader>fb", group = "buffers" },
