@@ -11,12 +11,13 @@ dap_view.setup({
   winbar = {
     default_section = "scopes",
   },
-  windows = {
-    height = 0.30,
-    -- position = "below",
-    terminal = {
-      width = 1,
-      position = "below",
-    },
-  },
+  -- TODO: Disabling, it has broke in a recent plugin update.
+  --       See if there is a new way to do that on the plugin's documentation.
+  -- windows = {
+  --   height = 0.30,
+  --   terminal = {
+  --     width = 1,
+  --     position = "below",
+  --   },
+  -- },
 })
