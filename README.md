@@ -22,7 +22,27 @@ $ curl -fsSL https://deb.nodesource.com/setup_current.x | sudo -E bash -
 $ sudo apt install -y nodejs
 ```
 
-### 2) Install language servers
+### 2) Treesitter
+
+Install treesitter CLI:
+
+```bash
+
+cargo install --locked tree-sitter-cli
+
+```
+
+To validate treesitter parsers installation: `:checkhealth treesitter`
+
+NOTE: Treesitter parsers will be installed when neovim if first started through npm. Commands to inspect that:
+```bash
+:TSInstallInfo  # List all available languages and their installation status
+:TSUpdate       # Updates all parsers
+:TSUpdate xyz   # Updates xyz language parser
+```
+
+
+### 3) Install language servers
 
 #### python
 
@@ -70,13 +90,6 @@ $ sudo apt install -y shellcheck
 $ sudo apt install -y golang-go  # install go if not installed
 $ GO111MODULE=on go install mvdan.cc/sh/v3/cmd/shfmt@latest
 $ sudo cp ~/go/bin/shfmt /usr/bin/
-```
-
-NOTE: Treesitter parsers will be installed when neovim if first started through npm. Commands to inspect that:
-```bash
-:TSInstallInfo  # List all available languages and their installation status
-:TSUpdate       # Updates all parsers
-:TSUpdate xyz   # Updates xyz language parser
 ```
 
 #### lua
