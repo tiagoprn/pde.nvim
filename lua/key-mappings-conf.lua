@@ -499,16 +499,62 @@ which_key.add({
     desc = "list all",
   },
 
-  -- BOOKMARKS
-  { "<leader>k", group = "BOOKMARKS on quickfix list" },
-  { "<leader>ka", "<cmd>lua require('tiagoprn.quickfix_bookmarks').add_bookmark()<cr>", desc = "Add Bookmark" },
+  -- Zettelkasten (zk)
+  { "<leader>k", group = "zk (zettelkasten)" },
   {
-    "<leader>kx",
+    "<leader>kb",
+    "<Cmd>ZkBacklinks<CR>",
+    desc = "Open Backlinks (notes linking to the current buffer)",
+  },
+  { "<leader>kc", group = "create" },
+  { "<leader>kcn", "<Cmd>ZkNew { dir = '0-inbox', title = vim.fn.input('Title: ') }<CR>", desc = "note (inbox)" },
+  { "<leader>kcj", "<Cmd>ZkNew { dir = 'journal' }<CR>", desc = "journal" },
+  { "<leader>kct", "<Cmd>ZkNew { dir = 'tasks', title = vim.fn.input('Title: ') }<CR>", desc = "task" },
+  {
+    "<leader>kf",
+    "<Cmd>ZkNotes { sort = { 'modified' }, match = { vim.fn.input('Search: ') } }<CR>",
+    desc = "Search for notes matching query",
+  },
+  {
+    "<leader>zi",
+    "<Cmd>ZkInsertLink<CR>",
+    desc = "Insert a link at the cursor location",
+  },
+  {
+    "<leader>zl",
+    "<Cmd>ZkLinks<CR>",
+    desc = "Open notes linked on the current buffer",
+  },
+  {
+    "<leader>ko",
+    "<Cmd>ZkNotes { sort = { 'modified' } }<CR>",
+    desc = "Open notes",
+  },
+  {
+    "<leader>kt",
+    "<Cmd>ZkTags<CR>",
+    desc = "Open notes with selected tags",
+  },
+  {
+    "<leader>kz",
+    "<Cmd>ZkIndex<CR>",
+    desc = "Indexes the notebook",
+  },
+
+  -- BOOKMARKS
+  { "<leader>K", group = "BOOKMARKS on quickfix list" },
+  {
+    "<leader>Ka",
+    "<cmd>lua require('tiagoprn.quickfix_bookmarks').add_bookmark()<cr>",
+    desc = "Add Bookmark",
+  },
+  {
+    "<leader>Kx",
     "<cmd>lua require('tiagoprn.quickfix_bookmarks').delete_quickfix_item_with_telescope()<cr>",
     desc = "Remove Bookmark",
   },
   {
-    "<leader>kq",
+    "<leader>Kq",
     "<cmd>lua require('tiagoprn.quickfix_bookmarks').set_current_quickfix_as_bookmarks()<cr>",
     desc = "Set current quickfix as bookmarks",
   },
@@ -863,11 +909,34 @@ which_key.add({
   -- Leader prefixed mappings
   { "<leader>a", group = "automations", mode = "v" },
   { "<leader>ac", group = "commands (flow)", mode = "v" },
-  { "<leader>acr", ":FlowRunSelected<cr>", desc = "run selection on new buffer", mode = "v" },
+  {
+    "<leader>acr",
+    ":FlowRunSelected<cr>",
+    desc = "run selection on new buffer",
+    mode = "v",
+  },
 
   { "<leader>ai", group = "AI (CODE COMPANION)", mode = "v" },
-  { "<leader>aia", ":CodeCompanionActions<cr>", desc = "Select Action", mode = "v" },
-  { "<leader>aip", ":CodeCompanion<cr>", desc = "Run prompt on selection", mode = "v" },
+  {
+    "<leader>aia",
+    ":CodeCompanionActions<cr>",
+    desc = "Select Action",
+    mode = "v",
+  },
+  {
+    "<leader>aip",
+    ":CodeCompanion<cr>",
+    desc = "Run prompt on selection",
+    mode = "v",
+  },
+
+  { "<leader>k", group = "zk (zettelkasten)", mode = "v" },
+  {
+    "<leader>kf",
+    ":'<,'>ZkMatch<CR>",
+    desc = "Search for the notes matching the current visual selection",
+    mode = "v",
+  },
 
   {
     "<leader>m",

@@ -331,6 +331,22 @@ require("lazy").setup({
     },
   },
 
+  -- zettelkasten (zk cli)
+  -- https://github.com/zk-org/zk-nvim?tab=readme-ov-file#built-in-commands
+  {
+    "zk-org/zk-nvim",
+    config = function()
+      require("zk").setup({
+        -- Can be "telescope", "fzf", "fzf_lua", "minipick", "snacks_picker",
+        -- or select" (`vim.ui.select`).
+        picker = "telescope",
+        picker_options = {
+          telescope = require("telescope.themes").get_ivy(),
+        },
+      })
+    end,
+  },
+
   -- UI component library
   { "MunifTanjim/nui.nvim" },
 
