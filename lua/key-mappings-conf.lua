@@ -516,12 +516,12 @@ which_key.add({
     desc = "Search for notes matching query",
   },
   {
-    "<leader>zi",
+    "<leader>ki",
     "<Cmd>ZkInsertLink<CR>",
     desc = "Insert a link at the cursor location",
   },
   {
-    "<leader>zl",
+    "<leader>kl",
     "<Cmd>ZkLinks<CR>",
     desc = "Open notes linked on the current buffer",
   },
