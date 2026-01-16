@@ -967,10 +967,6 @@ require("lazy").setup({
   -- { "hrsh7th/cmp-path" },
   {
     "saghen/blink.cmp",
-    dependencies = {
-      "onsails/lspkind.nvim",
-    },
-
     -- use a release tag to download pre-built binaries
     version = "1.*",
     -- AND/OR build from source, requires nightly: https://rust-lang.github.io/rustup/concepts/channels.html#working-with-nightly-rust
@@ -1015,17 +1011,15 @@ require("lazy").setup({
             components = {
               kind_icon = {
                 text = function(ctx)
-                  local lspkind = require("lspkind")
+                  -- Use the native icon provided by blink.cmp
                   local icon = ctx.kind_icon
+
+                  -- Override with nvim-web-devicons for Path sources (files)
                   if vim.tbl_contains({ "Path" }, ctx.source_name) then
                     local dev_icon, _ = require("nvim-web-devicons").get_icon(ctx.label)
                     if dev_icon then
                       icon = dev_icon
                     end
-                  else
-                    icon = require("lspkind").symbolic(ctx.kind, {
-                      mode = "symbol",
-                    })
                   end
 
                   return icon .. ctx.icon_gap
