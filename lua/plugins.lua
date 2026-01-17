@@ -316,21 +316,6 @@ require("lazy").setup({
     },
   },
 
-  -- obsidian
-  {
-    "obsidian-nvim/obsidian.nvim", -- community-maintained fork of "epwalsh/obsidian.nvim"
-    -- version = "*", -- recommended, use latest release instead of latest commit
-    lazy = true,
-    -- only want to load obsidian.nvim for markdown files in your vault:
-    event = {
-      "BufReadPre /storage/src/codex/*.md",
-      "BufNewFile /storage/src/codex/*.md",
-    },
-    dependencies = {
-      "nvim-lua/plenary.nvim",
-    },
-  },
-
   -- zettelkasten (zk cli)
   -- https://github.com/zk-org/zk-nvim?tab=readme-ov-file#built-in-commands
   {
