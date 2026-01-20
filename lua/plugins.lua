@@ -369,6 +369,8 @@ require("lazy").setup({
   { "windwp/nvim-autopairs" },
 
   -- Session manager
+  -- This is unmaintained as stated here: https://github.com/jedrzejboczar/possession.nvim/issues/91
+  -- Maybe I can change it for this other plugin recommended by him: https://github.com/stevearc/resession.nvim
   {
     "jedrzejboczar/possession.nvim",
     -- commit = "46dd09d9d4bf95665eb05286f8fccc0093b10035", -- NOTE: froze because this plugin broke after update on 2024-06-11
