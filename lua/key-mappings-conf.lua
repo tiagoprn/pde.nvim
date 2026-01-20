@@ -522,6 +522,48 @@ which_key.add({
     end,
     desc = "add current buffer to list",
   },
+  {
+    "<C-n>",
+    function()
+      harpoon:list():next()
+    end,
+    desc = "HARPOON: Go to next buffer on list",
+  },
+  {
+    "<C-p>",
+    function()
+      harpoon:list():prev()
+    end,
+    desc = "HARPOON: Go to previous buffer on list",
+  },
+  {
+    "<C-j>",
+    function()
+      harpoon:list():select(1)
+    end,
+    desc = "HARPOON: Go to buffer 1 on list",
+  },
+  {
+    "<C-k>",
+    function()
+      harpoon:list():select(2)
+    end,
+    desc = "HARPOON: Go to buffer 2 on list",
+  },
+  {
+    "<C-l>",
+    function()
+      harpoon:list():select(3)
+    end,
+    desc = "HARPOON: Go to buffer 3 on list",
+  },
+  {
+    "<C-m>",
+    function()
+      harpoon:list():select(4)
+    end,
+    desc = "HARPOON: Go to buffer 4 on list",
+  },
 
   -- snippets
   { "<leader>i", group = "snippets" },
