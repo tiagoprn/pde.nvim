@@ -5,6 +5,8 @@ if not status_ok then
   return
 end
 
+local harpoon = require("harpoon")
+
 which_key.setup({
   -- https://github.com/folke/which-key.nvim?tab=readme-ov-file#%EF%B8%8F-configuration
   preset = "helix",
@@ -475,8 +477,16 @@ which_key.add({
   { "<leader>ftn", ":tabnew<cr>", desc = "new" },
   -- -- windows
   { "<leader>fw", group = "windows" },
-  { "<leader>fwV", ":vnew", desc = "empty buffer on new vertical split" },
-  { "<leader>fwX", ":new", desc = "empty buffer on new horizontal split" },
+  {
+    "<leader>fwV",
+    ":vnew",
+    desc = "empty buffer on new vertical split",
+  },
+  {
+    "<leader>fwX",
+    ":new",
+    desc = "empty buffer on new horizontal split",
+  },
   { "<leader>fwh", "<c-w>H", desc = "move left" },
   { "<leader>fwj", "<c-w>J", desc = "move down" },
   { "<leader>fwk", "<c-w>K", desc = "move up" },
@@ -486,11 +496,33 @@ which_key.add({
   { "<leader>fwx", "<c-w>t<c-w>K", desc = "become horizontal split" },
   -- git
   { "<leader>g", group = "git" },
-  { "<leader>gb", ":BlameToggle<cr>", desc = "blame ([i]nfo, [b]ack, [f]orward)" },
+  {
+    "<leader>gb",
+    ":BlameToggle<cr>",
+    desc = "blame ([i]nfo, [b]ack, [f]orward)",
+  },
   { "<leader>gd", ":Gitsigns preview_hunk<cr>", desc = "diff current hunk" },
   { "<leader>gj", ":Gitsigns next_hunk<cr>", desc = "go to next changed hunk" },
   { "<leader>gk", ":Gitsigns prev_hunk<cr>", desc = "go to previous changed hunk" },
   { "<leader>gt", ":!tmux select-window -t git<cr>", desc = "go to gitui tmux window" },
+
+  -- harpoon
+  { "<leader>h", group = "harpoon" },
+  {
+    "<leader>hh",
+    function()
+      harpoon.ui:toggle_quick_menu(harpoon:list())
+    end,
+    desc = "toggle quick menu",
+  },
+  {
+    "<leader>ha",
+    function()
+      harpoon:list():add()
+    end,
+    desc = "add current buffer to list",
+  },
+
   -- snippets
   { "<leader>i", group = "snippets" },
   {

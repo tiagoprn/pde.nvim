@@ -50,8 +50,12 @@ require("lazy").setup({
     build = "cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build",
   },
 
-  -- Buffer manager that has an UI similar to harpoon
-  { "j-morano/buffer_manager.nvim" },
+  -- harpoon buffer manager
+  {
+    "ThePrimeagen/harpoon",
+    branch = "harpoon2",
+    dependencies = { "nvim-lua/plenary.nvim" },
+  },
 
   -- quickfix persistance - save/load
   {
