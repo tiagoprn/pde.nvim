@@ -420,6 +420,10 @@ require("lazy").setup({
           },
         },
       },
+      plugins = {
+        -- Disable the deletion of hidden buffers to ensure all buffers are saved
+        delete_hidden_buffers = false,
+      },
     },
   },
 
