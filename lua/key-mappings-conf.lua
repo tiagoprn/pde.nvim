@@ -581,9 +581,11 @@ which_key.add({
     desc = "Open Backlinks (notes linking to the current buffer)",
   },
   { "<leader>kc", group = "create" },
-  { "<leader>kcn", "<Cmd>ZkNew { dir = '0-inbox', title = vim.fn.input('Title: ') }<CR>", desc = "note (inbox)" },
   { "<leader>kcj", "<Cmd>ZkNew { dir = 'journal' }<CR>", desc = "journal" },
+  { "<leader>kcn", "<Cmd>ZkNew { dir = '0-inbox', title = vim.fn.input('Title: ') }<CR>", desc = "note (inbox)" },
+  { "<leader>kcp", "<Cmd>ZkNew { dir = '1-projects', title = vim.fn.input('Title: ') }<CR>", desc = "project" },
   { "<leader>kct", "<Cmd>ZkNew { dir = 'tasks', title = vim.fn.input('Title: ') }<CR>", desc = "task" },
+
   {
     "<leader>kf",
     "<Cmd>ZkNotes { sort = { 'modified' }, match = { vim.fn.input('Search: ') } }<CR>",

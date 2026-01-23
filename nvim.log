@@ -1,0 +1,105 @@
+
+Using Wayland clipboard configuration
+Loading module: lsp-common
+Loading module: plugins
+Found 153 snippet files
+Loaded 7 snippets for filetype: markdown
+Loaded 29 snippets for filetype: all
+Loaded 53 snippets for filetype: python
+Loaded 40 snippets for filetype: sh
+Loaded 24 snippets for filetype: lua
+Loading module: surround-conf
+Loading module: lua-lsp
+The `require('lspconfig')` "framework" is deprecated, use vim.lsp.config (see :help lspconfig-nvim-0.11) instead.
+Feature will be removed in nvim-lspconfig v3.0.0
+stack traceback:
+
+
+
+Using ruff from pyenv...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--- Autocommands ---
+--- Autocommands ---
+lualine  BufEnter
+    *         lua require'lualine.components.branch.git_branch'.find_git_dir()
+	Last set from ~/.local/share/nvim/lazy/lualine.nvim/lua/lualine/utils/utils.lua line 98
+--- Autocommands ---
+--- Autocommands ---
+--- Autocommands ---
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Error in /storage/src/pde.nvim/init.lua:
+Interrupted
+--- Autocommands ---
+--- Autocommands ---
+lualine  BufEnter
+    *         lua require'lualine.components.branch.git_branch'.find_git_dir()
+	Last set from ~/.local/share/nvim/lazy/lualine.nvim/lua/lualine/utils/utils.lua line 98
+--- Autocommands ---
+--- Autocommands ---
+--- Autocommands ---
