@@ -13,10 +13,16 @@ function M.write_log(message, filename)
     vim.fn.mkdir(log_dir, "p")
   end
 
+  -- Construct the log entry with timestamp, CWD, and PID
+  local timestamp = os.date("%Y-%m-%d %H:%M:%S")
+  local cwd = vim.fn.getcwd()
+  local pid = vim.fn.getpid()
+  local log_entry = string.format("%s %s PID %d > %s", timestamp, cwd, pid, message)
+
   -- Open the file in append mode
   local f = io.open(log_path, "a")
   if f then
-    f:write(message .. "\n")
+    f:write(log_entry .. "\n")
     f:close()
   end
 end
