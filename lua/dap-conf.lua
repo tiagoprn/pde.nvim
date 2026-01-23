@@ -249,7 +249,7 @@ dap_vt.setup({
 dap_python.setup(get_debugpy_python_path())
 dap_python.test_runner = "pytest"
 
-vim.notify("Configuring DAP...[DONE]", vim.log.levels.INFO)
+utils.write_log("Configuring DAP...[DONE]", vim.log.levels.INFO)
 
 -- DAP CONFIGURATIONS (PROFILES TO RUN DAP)
 
@@ -284,7 +284,7 @@ table.insert(dap.configurations.python, {
   module = "pytest", -- Use module instead of program
   args = function()
     local file_name = vim.fn.expand("%:t") -- Get just the filename with extension
-    vim.notify("Running pytest on file: " .. file_name, vim.log.levels.INFO)
+    utils.write_log("Running pytest on file: " .. file_name, vim.log.levels.INFO)
 
     local args = {}
 
@@ -292,7 +292,7 @@ table.insert(dap.configurations.python, {
     local root_dir = get_pytest_root_dir()
     if root_dir then
       table.insert(args, root_dir)
-      vim.notify("Using pytest root dir: " .. root_dir, vim.log.levels.INFO)
+      utils.write_log("Using pytest root dir: " .. root_dir, vim.log.levels.INFO)
     end
 
     -- Add the standard pytest options after the root dir
@@ -328,7 +328,7 @@ table.insert(dap.configurations.python, {
     local root_dir = get_pytest_root_dir()
     if root_dir then
       table.insert(args, root_dir)
-      vim.notify("Using pytest root dir: " .. root_dir, vim.log.levels.INFO)
+      utils.write_log("Using pytest root dir: " .. root_dir, vim.log.levels.INFO)
     end
 
     -- Add the standard pytest options after the root dir
@@ -466,19 +466,19 @@ table.insert(dap.configurations.python, {
 -- EVENT LISTENERS
 
 dap.listeners.before.launch["debug_info"] = function(session, body)
-  vim.notify("DAP Launch - Session: " .. vim.inspect(session.config.name), vim.log.levels.INFO)
+  utils.write_log("DAP Launch - Session: " .. vim.inspect(session.config.name), vim.log.levels.INFO)
 end
 
 dap.listeners.before.attach["debug_info"] = function(session, body)
-  vim.notify("DAP Attach - Session: " .. vim.inspect(session.config.name), vim.log.levels.INFO)
+  utils.write_log("DAP Attach - Session: " .. vim.inspect(session.config.name), vim.log.levels.INFO)
 end
 
 dap.listeners.before.event_terminated["debug_info"] = function(session, body)
-  vim.notify("DAP Terminated - Session: " .. vim.inspect(session.config.name), vim.log.levels.INFO)
+  utils.write_log("DAP Terminated - Session: " .. vim.inspect(session.config.name), vim.log.levels.INFO)
 end
 
 dap.listeners.before.event_exited["debug_info"] = function(session, body)
-  vim.notify("DAP Exited - Session: " .. vim.inspect(session.config.name), vim.log.levels.INFO)
+  utils.write_log("DAP Exited - Session: " .. vim.inspect(session.config.name), vim.log.levels.INFO)
 end
 
 -- dap.listeners.after.event_initialized["dapui_config"] = function()
@@ -526,7 +526,7 @@ set_dap_view_highlights()
 -- _G.run_pytest_on_current_file = function() -- on key-mappings-conf
 --   local dap = require("dap")
 --
---   vim.notify("Running pytest on current file", vim.log.levels.INFO)
+--   utils.write_log("Running pytest on current file", vim.log.levels.INFO)
 --
 --   local file_path = vim.fn.expand("%:p")
 --
@@ -535,10 +535,10 @@ set_dap_view_highlights()
 --   local pytest_path
 --   if venv then
 --     pytest_path = venv .. "/bin/pytest"
---     vim.notify("Using pytest from active virtualenv: " .. pytest_path, vim.log.levels.INFO)
+--     utils.write_log("Using pytest from active virtualenv: " .. pytest_path, vim.log.levels.INFO)
 --   else
 --     pytest_path = vim.fn.exepath("pytest")
---     vim.notify("No active virtualenv found, using system pytest: " .. pytest_path, vim.log.levels.INFO)
+--     utils.write_log("No active virtualenv found, using system pytest: " .. pytest_path, vim.log.levels.INFO)
 --   end
 --
 --   local config = {
@@ -561,7 +561,7 @@ set_dap_view_highlights()
 --     config_file:write("Pytest config:\n")
 --     config_file:write(vim.inspect(config))
 --     config_file:close()
---     vim.notify("Pytest config written to /tmp/pytest_config.txt", vim.log.levels.INFO)
+--     utils.write_log("Pytest config written to /tmp/pytest_config.txt", vim.log.levels.INFO)
 --   end
 --
 --   -- Try to run with this configuration
@@ -575,9 +575,9 @@ set_dap_view_highlights()
 --     if error_file then
 --       error_file:write("Error running pytest: " .. tostring(err))
 --       error_file:close()
---       vim.notify("Error details written to /tmp/pytest_error.txt", vim.log.levels.ERROR)
+--       utils.write_log("Error details written to /tmp/pytest_error.txt", vim.log.levels.ERROR)
 --     else
---       vim.notify("Failed to write error details to file", vim.log.levels.ERROR)
+--       utils.write_log("Failed to write error details to file", vim.log.levels.ERROR)
 --     end
 --   end
 -- end
@@ -589,7 +589,7 @@ function M.finish_debugging_and_close_windows()
   dap.terminate()
   -- dapui.close()
   dapview.close()
-  vim.notify("Debugging terminated and windows closed", vim.log.levels.INFO)
+  utils.write_log("Debugging terminated and windows closed", vim.log.levels.INFO)
 end
 
 function M.run_config_by_name(config_name)
@@ -600,7 +600,7 @@ function M.run_config_by_name(config_name)
       return
     end
   end
-  vim.notify("Configuration '" .. config_name .. "' not found", vim.log.levels.ERROR)
+  utils.write_log("Configuration '" .. config_name .. "' not found", vim.log.levels.ERROR)
 end
 
 return M
