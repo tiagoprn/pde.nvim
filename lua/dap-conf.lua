@@ -13,6 +13,7 @@ end
 local M = {}
 
 local dap = require("dap")
+local utils = require("utils")
 -- local code_utils = require("tiagoprn.code_utils")
 
 -- TODO: remove soon the "dapui plugin below and its configuration"
@@ -23,17 +24,17 @@ local dap_vt = require("nvim-dap-virtual-text")
 
 local log_path = vim.fn.expand("~/.cache/nvim/dap.log")
 dap.set_log_level("TRACE") -- Set to 'TRACE' for maximum verbosity
-vim.notify("DAP logs (by default) are be written to: " .. log_path, vim.log.levels.INFO)
+utils.write_log("DAP logs (by default) are be written to: " .. log_path)
 
 -- HELPER FUNCTIONS
 
 local function get_project_python_path()
   local venv = os.getenv("VIRTUAL_ENV")
   if venv then
-    vim.notify("DAP: project virtualenv python path: " .. venv, vim.log.levels.INFO)
+    utils.write_log("DAP: project virtualenv python path: " .. venv)
     return venv .. "/bin/python"
   else
-    vim.notify("DAP: no project virtualenv python path found, using system python", vim.log.levels.WARN)
+    utils.write_log("DAP: no project virtualenv python path found, using system python")
     return vim.fn.exepath("python")
   end
 end
@@ -48,12 +49,12 @@ local function get_debugpy_python_path()
   handle:close()
 
   if result:find("debugpy_available") then
-    vim.notify("Using debugpy from PROJECT: " .. project_python_path, vim.log.levels.INFO)
+    utils.write_log("Using debugpy from PROJECT: " .. project_python_path)
     return project_python_path
   end
 
   local neovim_venv_path = vim.fn.expand("~/.pyenv/versions/neovim/bin/python")
-  vim.notify("Using debugpy from NEOVIM VENV: " .. neovim_venv_path, vim.log.levels.INFO)
+  utils.write_log("Using debugpy from NEOVIM VENV: " .. neovim_venv_path)
   return neovim_venv_path
 end
 
@@ -61,7 +62,7 @@ local function get_current_test_name()
   -- Get the current node under cursor using Treesitter
   local current_node = vim.treesitter.get_node()
   if not current_node then
-    vim.notify("No treesitter node found at cursor position", vim.log.levels.WARN)
+    utils.write_log("No treesitter node found at cursor position")
     return nil
   end
 
@@ -106,7 +107,7 @@ local function get_current_test_name()
   end
 
   if not node then
-    vim.notify("No function or method definition found", vim.log.levels.WARN)
+    utils.write_log("No function or method definition found")
     return nil
   end
 
@@ -121,7 +122,7 @@ local function get_current_test_name()
   end
 
   if not func_name then
-    vim.notify("No function or method name found", vim.log.levels.WARN)
+    utils.write_log("No function or method name found")
     return nil
   end
 
@@ -130,22 +131,22 @@ local function get_current_test_name()
     if is_method and class_name then
       -- For methods, return both class and method name for pytest
       local full_name = class_name .. "::" .. func_name
-      vim.notify("Found test method: " .. full_name, vim.log.levels.INFO)
+      utils.write_log("Found test method: " .. full_name)
       return full_name
     else
       -- For standalone functions
-      vim.notify("Found test function: " .. func_name, vim.log.levels.INFO)
+      utils.write_log("Found test function: " .. func_name)
       return func_name
     end
   elseif class_name and class_name:match("^Test") then
     -- If the class name starts with "Test" but the method doesn't start with "test_",
     -- it might still be a test method in some frameworks
     local full_name = class_name .. "::" .. func_name
-    vim.notify("Found potential test method in test class: " .. full_name, vim.log.levels.INFO)
+    utils.write_log("Found potential test method in test class: " .. full_name)
     return full_name
   end
 
-  vim.notify("No test function or method name found", vim.log.levels.WARN)
+  utils.write_log("No test function or method name found")
   return nil
 end
 
@@ -166,7 +167,7 @@ local function get_pytest_root_dir()
       local content = file:read("*all"):gsub("%s+$", "") -- Trim whitespace
       file:close()
       if content and content ~= "" then
-        vim.notify("Found pytest root dir: " .. content, vim.log.levels.INFO)
+        utils.write_log("Found pytest root dir: " .. content)
         return content
       end
     end
@@ -183,7 +184,7 @@ local function get_pytest_root_dir()
         local content = file:read("*all"):gsub("%s+$", "") -- Trim whitespace
         file:close()
         if content and content ~= "" then
-          vim.notify("Found pytest root dir: " .. content, vim.log.levels.INFO)
+          utils.write_log("Found pytest root dir: " .. content)
           return content
         end
       end
@@ -191,13 +192,13 @@ local function get_pytest_root_dir()
   end
 
   -- No root dir file found, return nil
-  vim.notify("No pytest root dir file found, using default behavior", vim.log.levels.INFO)
+  utils.write_log("No pytest root dir file found, using default behavior")
   return nil
 end
 
 -- CONFIGURATION
 
-vim.notify("Configuring DAP...[WAIT]", vim.log.levels.INFO)
+utils.write_log("Configuring DAP...[WAIT]")
 
 dap.adapters.python = {
   type = "executable",
@@ -248,7 +249,7 @@ dap_vt.setup({
 dap_python.setup(get_debugpy_python_path())
 dap_python.test_runner = "pytest"
 
-vim.notify("Configuring DAP...[DONE]", vim.log.levels.INFO)
+utils.write_log("Configuring DAP...[DONE]", vim.log.levels.INFO)
 
 -- DAP CONFIGURATIONS (PROFILES TO RUN DAP)
 
@@ -283,7 +284,7 @@ table.insert(dap.configurations.python, {
   module = "pytest", -- Use module instead of program
   args = function()
     local file_name = vim.fn.expand("%:t") -- Get just the filename with extension
-    vim.notify("Running pytest on file: " .. file_name, vim.log.levels.INFO)
+    utils.write_log("Running pytest on file: " .. file_name, vim.log.levels.INFO)
 
     local args = {}
 
@@ -291,7 +292,7 @@ table.insert(dap.configurations.python, {
     local root_dir = get_pytest_root_dir()
     if root_dir then
       table.insert(args, root_dir)
-      vim.notify("Using pytest root dir: " .. root_dir, vim.log.levels.INFO)
+      utils.write_log("Using pytest root dir: " .. root_dir, vim.log.levels.INFO)
     end
 
     -- Add the standard pytest options after the root dir
@@ -327,7 +328,7 @@ table.insert(dap.configurations.python, {
     local root_dir = get_pytest_root_dir()
     if root_dir then
       table.insert(args, root_dir)
-      vim.notify("Using pytest root dir: " .. root_dir, vim.log.levels.INFO)
+      utils.write_log("Using pytest root dir: " .. root_dir, vim.log.levels.INFO)
     end
 
     -- Add the standard pytest options after the root dir
@@ -465,19 +466,19 @@ table.insert(dap.configurations.python, {
 -- EVENT LISTENERS
 
 dap.listeners.before.launch["debug_info"] = function(session, body)
-  vim.notify("DAP Launch - Session: " .. vim.inspect(session.config.name), vim.log.levels.INFO)
+  utils.write_log("DAP Launch - Session: " .. vim.inspect(session.config.name), vim.log.levels.INFO)
 end
 
 dap.listeners.before.attach["debug_info"] = function(session, body)
-  vim.notify("DAP Attach - Session: " .. vim.inspect(session.config.name), vim.log.levels.INFO)
+  utils.write_log("DAP Attach - Session: " .. vim.inspect(session.config.name), vim.log.levels.INFO)
 end
 
 dap.listeners.before.event_terminated["debug_info"] = function(session, body)
-  vim.notify("DAP Terminated - Session: " .. vim.inspect(session.config.name), vim.log.levels.INFO)
+  utils.write_log("DAP Terminated - Session: " .. vim.inspect(session.config.name), vim.log.levels.INFO)
 end
 
 dap.listeners.before.event_exited["debug_info"] = function(session, body)
-  vim.notify("DAP Exited - Session: " .. vim.inspect(session.config.name), vim.log.levels.INFO)
+  utils.write_log("DAP Exited - Session: " .. vim.inspect(session.config.name), vim.log.levels.INFO)
 end
 
 -- dap.listeners.after.event_initialized["dapui_config"] = function()
@@ -525,7 +526,7 @@ set_dap_view_highlights()
 -- _G.run_pytest_on_current_file = function() -- on key-mappings-conf
 --   local dap = require("dap")
 --
---   vim.notify("Running pytest on current file", vim.log.levels.INFO)
+--   utils.write_log("Running pytest on current file", vim.log.levels.INFO)
 --
 --   local file_path = vim.fn.expand("%:p")
 --
@@ -534,10 +535,10 @@ set_dap_view_highlights()
 --   local pytest_path
 --   if venv then
 --     pytest_path = venv .. "/bin/pytest"
---     vim.notify("Using pytest from active virtualenv: " .. pytest_path, vim.log.levels.INFO)
+--     utils.write_log("Using pytest from active virtualenv: " .. pytest_path, vim.log.levels.INFO)
 --   else
 --     pytest_path = vim.fn.exepath("pytest")
---     vim.notify("No active virtualenv found, using system pytest: " .. pytest_path, vim.log.levels.INFO)
+--     utils.write_log("No active virtualenv found, using system pytest: " .. pytest_path, vim.log.levels.INFO)
 --   end
 --
 --   local config = {
@@ -560,7 +561,7 @@ set_dap_view_highlights()
 --     config_file:write("Pytest config:\n")
 --     config_file:write(vim.inspect(config))
 --     config_file:close()
---     vim.notify("Pytest config written to /tmp/pytest_config.txt", vim.log.levels.INFO)
+--     utils.write_log("Pytest config written to /tmp/pytest_config.txt", vim.log.levels.INFO)
 --   end
 --
 --   -- Try to run with this configuration
@@ -574,9 +575,9 @@ set_dap_view_highlights()
 --     if error_file then
 --       error_file:write("Error running pytest: " .. tostring(err))
 --       error_file:close()
---       vim.notify("Error details written to /tmp/pytest_error.txt", vim.log.levels.ERROR)
+--       utils.write_log("Error details written to /tmp/pytest_error.txt", vim.log.levels.ERROR)
 --     else
---       vim.notify("Failed to write error details to file", vim.log.levels.ERROR)
+--       utils.write_log("Failed to write error details to file", vim.log.levels.ERROR)
 --     end
 --   end
 -- end
@@ -588,7 +589,7 @@ function M.finish_debugging_and_close_windows()
   dap.terminate()
   -- dapui.close()
   dapview.close()
-  vim.notify("Debugging terminated and windows closed", vim.log.levels.INFO)
+  utils.write_log("Debugging terminated and windows closed", vim.log.levels.INFO)
 end
 
 function M.run_config_by_name(config_name)
@@ -599,7 +600,7 @@ function M.run_config_by_name(config_name)
       return
     end
   end
-  vim.notify("Configuration '" .. config_name .. "' not found", vim.log.levels.ERROR)
+  utils.write_log("Configuration '" .. config_name .. "' not found", vim.log.levels.ERROR)
 end
 
 return M

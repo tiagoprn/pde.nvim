@@ -68,7 +68,7 @@ if vim.fn.executable("wl-copy") == 1 and vim.fn.executable("wl-paste") == 1 then
     },
     cache_enabled = 0,
   }
-  vim.cmd('echomsg "Using Wayland clipboard configuration"')
+  require("utils").write_log("Using Wayland clipboard configuration")
 elseif vim.fn.executable("tmux") == 1 and vim.env.TMUX ~= nil then
   -- Use tmux clipboard commands if tmux is installed and inside a tmux session
   vim.o.clipboard = "unnamedplus"
@@ -84,12 +84,12 @@ elseif vim.fn.executable("tmux") == 1 and vim.env.TMUX ~= nil then
     },
     cache_enabled = 0,
   }
-  vim.cmd('echomsg "Using Tmux clipboard configuration"')
+  require("utils").write_log("Using Tmux clipboard configuration")
 else
   -- Fallback to default clipboard behavior
   vim.o.clipboard = "unnamedplus"
   vim.g.clipboard = nil
-  vim.cmd('echomsg "Using default clipboard configuration"')
+  require("utils").write_log("Using default clipboard configuration")
 end
 
 -- Disable backup and swap files - they trigger too many events for file system watchers
@@ -176,7 +176,7 @@ require("custom_hooks")
 -- Check if a Python virtualenv is activated
 if vim.env.VIRTUAL_ENV then
   local venv_name = vim.fn.fnamemodify(vim.env.VIRTUAL_ENV, ":t")
-  vim.cmd('echomsg "Python virtualenv active: ' .. venv_name .. '"')
+  require("utils").write_log("Python virtualenv active: " .. venv_name)
 end
 
 -- Bootstrap lazy.nvim

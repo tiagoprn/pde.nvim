@@ -178,15 +178,15 @@ lsp.ruff.setup({
 
     -- Check pyenv path first
     if vim.fn.executable(pyenv_ruff) == 1 then
-      vim.cmd('echomsg "Using ruff from pyenv..."')
+      require("utils").write_log("Using ruff from pyenv...")
       return { pyenv_ruff, "server" }
       -- Fallback to local bin
     elseif vim.fn.executable(local_ruff) == 1 then
-      vim.cmd(string.format('echomsg "Using ruff from %s"', local_ruff))
+      require("utils").write_log("Using ruff from " .. local_ruff)
       return { local_ruff, "server" }
     else
       -- Final fallback - let system find ruff in PATH
-      vim.cmd('echomsg "Using ruff from system fallback..."')
+      require("utils").write_log("Using ruff from system fallback...")
       return { "ruff", "server" }
     end
   end)(),
@@ -269,7 +269,7 @@ lsp.ruff.setup({
       client.request("textDocument/diagnostic", {
         textDocument = { uri = uri },
       }, nil, bufnr)
-      vim.notify("Ruff diagnostics refreshed")
+      require("utils").write_log("Ruff diagnostics refreshed")
     end, { buffer = bufnr, desc = "ruff: refresh diagnostics" })
 
     -- mapping to format the selection with ruff
@@ -289,7 +289,7 @@ lsp.ruff.setup({
         async = true,
       })
 
-      vim.notify("ruff: buffer successfully formatted")
+      require("utils").write_log("ruff: buffer successfully formatted")
     end, { buffer = bufnr, desc = "ruff: format whole buffer" })
   end,
   single_file_support = true,

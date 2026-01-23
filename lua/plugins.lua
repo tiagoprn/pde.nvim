@@ -185,7 +185,7 @@ require("lazy").setup({
       local filetype_snippets = {}
 
       -- Debug: Print the number of snippet files found
-      vim.notify("Found " .. #snippet_files .. " snippet files")
+      require("utils").write_log("Found " .. #snippet_files .. " snippet files")
 
       for _, file in ipairs(snippet_files) do
         -- vim.notify("Processing file: " .. file)
@@ -195,7 +195,7 @@ require("lazy").setup({
 
         if not ok then
           -- If there was an error loading the file, notify the user
-          vim.notify("Error loading snippet file: " .. file .. "\nError: " .. snippet_data, vim.log.levels.ERROR)
+          require("utils").write_log("Error loading snippet file: " .. file .. "\nError: " .. snippet_data)
         else
           -- Debug: Print the filetypes found in this file
           local filetypes = {}
@@ -219,7 +219,7 @@ require("lazy").setup({
       -- 3) Now load them into LuaSnip
       for ft, snippets in pairs(filetype_snippets) do
         ls.add_snippets(ft, snippets)
-        vim.notify("Loaded " .. #snippets .. " snippets for filetype: " .. ft)
+        require("utils").write_log("Loaded " .. #snippets .. " snippets for filetype: " .. ft)
       end
 
       -- KEYBINDINGS
@@ -250,7 +250,7 @@ require("lazy").setup({
       -- Add command to reload snippets
       vim.api.nvim_create_user_command("SnippetsReload", function()
         require("luasnip").cleanup()
-        vim.notify("Reloading snippets...")
+        require("utils").write_log("Reloading snippets...")
         -- Call your snippet loading logic again
         -- This is a simplified version, you might need to adapt it
         for _, file in ipairs(snippet_files) do
@@ -261,7 +261,7 @@ require("lazy").setup({
             end
           end
         end
-        vim.notify("Snippets reloaded!")
+        require("utils").write_log("Snippets reloaded!")
       end, {})
     end,
   },
