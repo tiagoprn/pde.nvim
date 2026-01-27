@@ -7,110 +7,110 @@ local Text = require("nui.text")
 local M = {}
 
 function M.sample_nui_form()
-	local bufnr = 1
-	local table_example = NuiTable({
-		ns_id = "example_form",
-		bufnr = bufnr,
-		columns = {
-			{
-				align = "center",
-				header = "Name",
-				columns = {
-					{ accessor_key = "firstName", header = "First" },
-					{
-						id = "lastName",
-						accessor_fn = function(row)
-							return row.lastName
-						end,
-						header = "Last",
-					},
-				},
-			},
-			{
-				align = "right",
-				accessor_key = "age",
-				cell = function(cell)
-					return Text(tostring(cell.get_value()), "DiagnosticInfo")
-				end,
-				header = "Age",
-			},
-		},
-		data = {
-			{ firstName = "John", lastName = "Doe", age = 42 },
-			{ firstName = "Jane", lastName = "Doe", age = 27 },
-		},
-	})
+  local bufnr = 1
+  local table_example = NuiTable({
+    ns_id = "example_form",
+    bufnr = bufnr,
+    columns = {
+      {
+        align = "center",
+        header = "Name",
+        columns = {
+          { accessor_key = "firstName", header = "First" },
+          {
+            id = "lastName",
+            accessor_fn = function(row)
+              return row.lastName
+            end,
+            header = "Last",
+          },
+        },
+      },
+      {
+        align = "right",
+        accessor_key = "age",
+        cell = function(cell)
+          return Text(tostring(cell.get_value()), "DiagnosticInfo")
+        end,
+        header = "Age",
+      },
+    },
+    data = {
+      { firstName = "John", lastName = "Doe", age = 42 },
+      { firstName = "Jane", lastName = "Doe", age = 27 },
+    },
+  })
 
-	table_example:render()
+  table_example:render()
 end
 
 function M.popup_example()
-	local popup = Popup({
-		enter = true,
-		focusable = true,
-		border = {
-			style = "rounded",
-		},
-		position = "50%",
-		size = {
-			width = "80%",
-			height = "60%",
-		},
-	})
+  local popup = Popup({
+    enter = true,
+    focusable = true,
+    border = {
+      style = "rounded",
+    },
+    position = "50%",
+    size = {
+      width = "80%",
+      height = "60%",
+    },
+  })
 
-	-- mount/open the component
-	popup:mount()
+  -- mount/open the component
+  popup:mount()
 
-	-- unmount component when cursor leaves buffer
-	popup:on(event.BufLeave, function()
-		popup:unmount()
-	end)
+  -- unmount component when cursor leaves buffer
+  popup:on(event.BufLeave, function()
+    popup:unmount()
+  end)
 
-	popup:on(event.InsertEnter, function()
-		-- close current buffer
-		vim.api.nvim_input("<ESC>:bd!<cr>")
-	end)
+  popup:on(event.InsertEnter, function()
+    -- close current buffer
+    vim.api.nvim_input("<ESC>:bd!<cr>")
+  end)
 
-	-- set the popup's content
-	local text = [[
+  -- set the popup's content
+  local text = [[
     Hello there!
 
     ---
     Press <i> to close this buffer.
   ]]
 
-	vim.api.nvim_buf_set_lines(popup.bufnr, 0, -1, false, vim.split(text, "\n"))
+  vim.api.nvim_buf_set_lines(popup.bufnr, 0, -1, false, vim.split(text, "\n"))
 end
 
 function M.codecompanion_help()
-	local popup = Popup({
-		enter = true,
-		focusable = true,
-		border = {
-			style = "rounded",
-		},
-		position = "50%",
-		size = {
-			width = "30%",
-			height = "30%",
-		},
-	})
+  local popup = Popup({
+    enter = true,
+    focusable = true,
+    border = {
+      style = "rounded",
+    },
+    position = "50%",
+    size = {
+      width = "30%",
+      height = "30%",
+    },
+  })
 
-	-- mount/open the component
-	popup:mount()
+  -- mount/open the component
+  popup:mount()
 
-	-- unmount component when cursor leaves buffer
-	popup:on(event.BufLeave, function()
-		popup:unmount()
-	end)
+  -- unmount component when cursor leaves buffer
+  popup:on(event.BufLeave, function()
+    popup:unmount()
+  end)
 
-	popup:on(event.InsertEnter, function()
-		-- close current buffer
-		vim.api.nvim_input("<ESC>:bd!<cr>")
-	end)
+  popup:on(event.InsertEnter, function()
+    -- close current buffer
+    vim.api.nvim_input("<ESC>:bd!<cr>")
+  end)
 
-	-- set the popup's content
-	local text = [[
+  -- set the popup's content
+  local text = [[
 
     Save the buffer and trigger a response from the generative AI service.....: <C-s>
     Close the buffer..........................................................: <C-c>
@@ -125,7 +125,7 @@ function M.codecompanion_help()
     Press <i> to close this popup window.
   ]]
 
-	vim.api.nvim_buf_set_lines(popup.bufnr, 0, -1, false, vim.split(text, "\n"))
+  vim.api.nvim_buf_set_lines(popup.bufnr, 0, -1, false, vim.split(text, "\n"))
 end
 
 return M

@@ -41,27 +41,6 @@ which_key.add({
     ":FlowLastOutput<cr>",
     desc = "(flow) show last output",
   },
-  { "<leader>ai", group = "AI (CODE COMPANION)" },
-  {
-    "<leader>aia",
-    ":CodeCompanionActions<cr>",
-    desc = "Select Action",
-  },
-  {
-    "<leader>aih",
-    "<cmd>lua require('tiagoprn.forms').codecompanion_help()<cr>",
-    desc = "help",
-  },
-  {
-    "<leader>aio",
-    "<cmd>lua require('tiagoprn.ai_utils').preview_and_open_codecompanion_chat_history()<cr>",
-    desc = "Open chat from history",
-  },
-  {
-    "<F10>",
-    ":CodeCompanionChat #buffer{watch}<cr>",
-    desc = "Open codecompanion chat window (current buffer with watch)",
-  },
   {
     "<leader>al",
     ":PrintLspSupportedRequests<cr>",
@@ -967,11 +946,6 @@ which_key.add({
     desc = "telescope bookmarks list",
   },
   {
-    "<F10>",
-    ":CodeCompanionChat #buffer{watch}<cr>",
-    desc = "Open codecompanion chat window (current buffer with watch)",
-  }, -- This was already in your which-key config
-  {
     "<F12>",
     ":Markview toggle<cr>",
     desc = "(markdown) turns markview on/off",
@@ -983,29 +957,6 @@ which_key.add({
 -- --
 which_key.add({
   -- Leader prefixed mappings
-  { "<leader>a", group = "automations", mode = "v" },
-  { "<leader>ac", group = "commands (flow)", mode = "v" },
-  {
-    "<leader>acr",
-    ":FlowRunSelected<cr>",
-    desc = "run selection on new buffer",
-    mode = "v",
-  },
-
-  { "<leader>ai", group = "AI (CODE COMPANION)", mode = "v" },
-  {
-    "<leader>aia",
-    ":CodeCompanionActions<cr>",
-    desc = "Select Action",
-    mode = "v",
-  },
-  {
-    "<leader>aip",
-    ":CodeCompanion<cr>",
-    desc = "Run prompt on selection",
-    mode = "v",
-  },
-
   { "<leader>k", group = "zk (zettelkasten)", mode = "v" },
   {
     "<leader>kf",
