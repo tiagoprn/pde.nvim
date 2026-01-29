@@ -357,11 +357,6 @@ which_key.add({
     desc = "telescope search tag on nvim help (builtins and plugins)",
   },
   {
-    "<leader>ek",
-    ":Telescope keymaps<cr>",
-    desc = "mappings (keymaps) search", -- Update your existing group
-  },
-  {
     "<leader>et",
     "<C-w>gf<C-w>T",
     desc = "Open file under cursor in new tab",
@@ -625,13 +620,19 @@ which_key.add({
   { "<leader>lt", group = "telescope" },
   { "<leader>lta", ":Telescope builtin<cr>", desc = "all commands" },
   -- messages & notifications
-  { "<leader>m", group = "messages & notifications" },
-  { "<leader>mm", ":messages<cr>", desc = "show" },
+  { "<leader>M", group = "messages & notifications" },
+  { "<leader>Mm", ":messages<cr>", desc = "show" },
   {
-    "<leader>mr",
+    "<leader>Mr",
     ':lua require("tiagoprn.toggle_redir").toggle()<cr>',
     desc = "toggle redirecting messages to file - NOT real time (toggle OFF to stop and see the contents)",
   },
+  {
+    "<leader>m",
+    ":Telescope keymaps<cr>",
+    desc = "key mappings search (telescope)", -- Update your existing group
+  },
+
   -- navigation (code, hop, marks, lists etc)
   { "<leader>n", group = "navigation (code, hop, marks, lists etc)" },
   { "<leader>nC", ":lua require'aerial'.prev_up()<cr>", desc = "aerial go to previous class" },
