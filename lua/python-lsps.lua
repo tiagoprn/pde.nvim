@@ -91,7 +91,7 @@ vim.api.nvim_create_autocmd("InsertLeave", {
 --   },
 -- })
 
-lsp.ruff.setup({
+vim.lsp.config("ruff", {
   offset_encoding = "utf-16", -- forces ruff to use UTF-16
   init_options = {
     settings = { -- https://docs.astral.sh/ruff/editors/settings/#settings
@@ -294,6 +294,7 @@ lsp.ruff.setup({
   end,
   single_file_support = true,
 })
+vim.lsp.enable("ruff")
 
 -- below are using (simpler) nvim native lsp integration
 -- https://github.com/bellini666/pytest-language-server

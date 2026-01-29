@@ -75,6 +75,4 @@ vim.lsp.config[lsp_name] = {
     })
   end,
 }
-
--- Register the language server
-vim.lsp.config.register(lsp_name)
+vim.lsp.enable(lsp_name)
