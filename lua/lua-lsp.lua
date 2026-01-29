@@ -1,12 +1,33 @@
-local lspconfig = require("lspconfig")
+-- Refactored for Neovim 0.11 using vim.lsp.config
+local lsp_name = "lua_ls"
 
--- Configuration for lua_ls (Lua language server)
-lspconfig.lua_ls.setup({
-  single_file_support = true,
-  -- Force single file mode
-  root_dir = function(fname)
-    return nil -- Forces single file mode by not finding a root
+vim.lsp.config[lsp_name] = {
+  -- Single file support - don't look for root directory
+  root_dir = function(_fname)
+    return nil
   end,
+
+  -- Settings for the language server
+  settings = {
+    Lua = {
+      runtime = {
+        version = "LuaJIT",
+      },
+      workspace = {
+        -- Ignore the workspace root directory
+        ignoreDir = vim.fn.getcwd(),
+        maxPreload = 0,
+        preloadFileSize = 0,
+      },
+      telemetry = {
+        enable = false,
+      },
+      completion = {
+        callSnippet = "Replace",
+      },
+    },
+  },
+
   on_init = function(client)
     -- Limit workspace folders to just the current file's directory
     client.config.capabilities = client.config.capabilities or vim.lsp.protocol.make_client_capabilities()
@@ -33,15 +54,10 @@ lspconfig.lua_ls.setup({
 
     -- Apply these settings to fix the "Undefined global 'vim'" error
     client.config.settings.Lua = vim.tbl_deep_extend("force", client.config.settings.Lua or {}, {
-      runtime = {
-        -- Tell the language server which version of Lua you're using
-        version = "LuaJIT",
-      },
       diagnostics = {
         -- Recognize the `vim` global
         globals = {
           "vim",
-          -- Add other globals if needed
           "awesome",
           "client",
           "root",
@@ -55,27 +71,10 @@ lspconfig.lua_ls.setup({
           "${3rd}/luv/library",
         },
         checkThirdParty = false, -- Disable annoying prompts
-        -- -- Limit workspace scope
-        -- maxPreload = 0,
-        -- preloadFileSize = 0,
-        -- ignoreSubmodules = true,
-      },
-      telemetry = {
-        enable = false,
-      },
-      completion = {
-        callSnippet = "Replace",
       },
     })
   end,
-  settings = {
-    Lua = {
-      workspace = {
-        -- Additional workspace limitations
-        ignoreDir = vim.fn.getcwd(), -- Ignore the workspace root directory
-        maxPreload = 0, -- Disable preloading
-        preloadFileSize = 0, -- Disable preloading
-      },
-    },
-  },
-})
+}
+
+-- Register the language server
+vim.lsp.config.register(lsp_name)
