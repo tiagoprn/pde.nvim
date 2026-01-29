@@ -532,18 +532,25 @@ which_key.add({
     desc = "HARPOON: Go to buffer 3 on list",
   },
   {
-    "<C-J>",
+    "<M-s>",
     function()
       harpoon:list():select(4)
     end,
     desc = "HARPOON: Go to buffer 4 on list",
   },
   {
-    "<C-K>",
+    "<M-d>",
     function()
       harpoon:list():select(5)
     end,
     desc = "HARPOON: Go to buffer 5 on list",
+  },
+  {
+    "<M-f>",
+    function()
+      harpoon:list():select(6)
+    end,
+    desc = "HARPOON: Go to buffer 6 on list",
   },
 
   -- snippets
