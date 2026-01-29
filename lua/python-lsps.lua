@@ -3,7 +3,7 @@ local lsp = require("lspconfig")
 local LOG_LEVEL = "warn" -- change to "debug" here for troubleshooting
 
 -- below changes the log level of lsp, to make it more verbose so can I check its' communication with neovim.
-vim.lsp.set_log_level(LOG_LEVEL)
+vim.lsp.log.set_level(LOG_LEVEL)
 
 -- USE THIS COMMAND on a python file to validate it is working: `checkhealth lsp`
 vim.diagnostic.show(nil, bufnr)
@@ -310,10 +310,25 @@ vim.lsp.enable("pytest_lsp")
 -- https://pyrefly.org/en/docs/IDE/#configure-pyrefly-for-neovim
 -- Install the LSP: pipx install pyrefly
 -- Using this as my Language Server for experimentation
-vim.lsp.config("pyrefly", {
+-- vim.lsp.config("pyrefly", {
+--   cmd = {
+--     vim.fn.getenv("HOME") .. "/.local/bin/pyrefly", -- NOTE: installed with pipx
+--     "lsp",
+--   },
+-- })
+-- vim.lsp.enable({ "pyrefly" })
+
+-- https://docs.astral.sh/ty/editors/#neovim
+-- Install the LSP: uv tool install ty@latest
+vim.lsp.config("ty", {
   cmd = {
-    vim.fn.getenv("HOME") .. "/.local/bin/pyrefly", -- NOTE: installed with pipx
-    "lsp",
+    vim.fn.getenv("HOME") .. "/.local/bin/ty", -- NOTE: installed with uv
+    "server",
   },
+  -- settings = {
+  --   ty = {
+  --     -- ty language server settings go here
+  --   },
+  -- },
 })
-vim.lsp.enable({ "pyrefly" })
+vim.lsp.enable("ty")

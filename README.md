@@ -66,6 +66,15 @@ $ pip install -r /storage/src/devops/python/requirements.nvim-lsp  # https://git
 
 That will install not only pynvim, but also other packages related to python LSP on neovim (pylsp - python language server, black, pylint, isort, etc...) on this common environment. If the need arises to use different versions of any of them, I can manually install the libraries listed at <https://github.com/tiagoprn/devops/blob/master/python/requirements.nvim-lsp> on the project's virtualenv.
 
+Install `ty` LSP:
+
+```bash
+
+uv tool install ty@latest
+
+```
+
+
 #### bash
 
 - Bash Language Server:

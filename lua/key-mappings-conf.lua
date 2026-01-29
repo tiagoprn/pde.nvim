@@ -152,9 +152,8 @@ which_key.add({
     ":GeneratePythonProjectDefinitionsFile<cr>",
     desc = "Python Project Search: create/update python project definitions.txt file",
   },
-  -- { "<leader>ch", ":Lspsaga hover_doc<cr>", desc = "documentation hover" },
   { "<leader>ci", "<cmd>lua vim.lsp.buf.implementation()<cr>", desc = "go to implementation" },
-  { "<leader>cl", ":LspInfo <cr>", desc = "LSP info" },
+  { "<leader>cl", ":checkhealth vim.lsp<cr>", desc = "LSP config health" },
   { "<leader>cm", ":Telescope make<cr>", desc = "telescope run Makefile command" },
   {
     "<leader>cn",
