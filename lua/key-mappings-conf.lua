@@ -22,10 +22,10 @@ which_key.setup({
 -- --
 which_key.add({
   -- automations
-  { "<leader>a", group = "automations" },
-  { "<leader>ac", group = "commands (flow)" },
-  { "<leader>aca", ":FlowRunLastCmd<cr>", desc = "(flow) run last command" },
-  { "<leader>acf", ":FlowRunFile<cr>", desc = "(flow) run current file on new buffer" },
+  { "<leader>a",   group = "automations" },
+  { "<leader>ac",  group = "commands (flow)" },
+  { "<leader>aca", ":FlowRunLastCmd<cr>",    desc = "(flow) run last command" },
+  { "<leader>acf", ":FlowRunFile<cr>",       desc = "(flow) run current file on new buffer" },
   {
     "<leader>ach",
     "<cmd>lua require('tiagoprn.helpers').firefox('https://www.youtube.com/watch?v=GE5E1ZhV_Ok')<cr>",
@@ -46,7 +46,7 @@ which_key.add({
     ":PrintLspSupportedRequests<cr>",
     desc = "print all supported requests on the current LSP server",
   },
-  { "<leader>at", group = "tmux" },
+  { "<leader>at",  group = "tmux" },
   {
     "<leader>ati",
     ":RunInteractiveCommandOnCurrentFunctionOrMethodAtTmuxScratchpadSession<cr>",
@@ -64,7 +64,7 @@ which_key.add({
   },
   { "<leader>atr", ":RunCommandOnTmuxScratchpadSession<cr>", desc = "run bash command on tmux scratchpad session" },
   -- clipboard
-  { "<leader>b", group = "clipboard" },
+  { "<leader>b",   group = "clipboard" },
   {
     "<leader>y",
     "<cmd>lua require('tiagoprn.buffer_utils').copy_default_clipboard_register_to_file()<cr>",
@@ -111,10 +111,10 @@ which_key.add({
     ":let @+=system(\"git symbolic-ref --short HEAD 2>/dev/null | tr -d '\\n' | sed 's|/|.|g' \")<cr>",
     desc = "copy current git branch name to clipboard (replacing / character with .)",
   },
-  { "<leader>bl", ":let @+=line('.')<cr>", desc = "current line number" },
-  { "<leader>bp", '"+p', desc = "paste from system clipboard" },
+  { "<leader>bl", ":let @+=line('.')<cr>",    desc = "current line number" },
+  { "<leader>bp", '"+p',                      desc = "paste from system clipboard" },
   -- coding
-  { "<leader>c", group = "coding" },
+  { "<leader>c",  group = "coding" },
   -- { "<leader>cA", ":Lspsaga code_action<cr>", desc = "code action" },
   {
     "<leader>ca",
@@ -128,7 +128,7 @@ which_key.add({
     "<cmd>lua require('goto-preview').goto_preview_definition()<cr>",
     desc = "LSP open on floating window",
   },
-  { "<leader>cdo", "<cmd>lua vim.lsp.buf.definition()<cr>", desc = "LSP open on current window" },
+  { "<leader>cdo", "<cmd>lua vim.lsp.buf.definition()<cr>",                desc = "LSP open on current window" },
   { "<leader>cdq", "<cmd>lua require('goto-preview').close_all_win()<cr>", desc = "LSP close all floating windows" },
   {
     "<leader>cdt",
@@ -145,7 +145,7 @@ which_key.add({
     '<cmd>lua require"telescope.builtin".lsp_definitions({jump_type="split"})<cr>',
     desc = "LSP open on horizontal window",
   },
-  { "<leader>ce", "<cmd>lua vim.lsp.buf.declaration()<cr>", desc = "go to declaration" },
+  { "<leader>ce", "<cmd>lua vim.lsp.buf.declaration()<cr>",    desc = "go to declaration" },
   { "<leader>cf", "<cmd>lua vim.lsp.buf.format(nil,1200)<cr>", desc = "format file (null-ls)" },
   {
     "<leader>cg",
@@ -153,8 +153,8 @@ which_key.add({
     desc = "Python Project Search: create/update python project definitions.txt file",
   },
   { "<leader>ci", "<cmd>lua vim.lsp.buf.implementation()<cr>", desc = "go to implementation" },
-  { "<leader>cl", ":checkhealth vim.lsp<cr>", desc = "LSP config health" },
-  { "<leader>cm", ":Telescope make<cr>", desc = "telescope run Makefile command" },
+  { "<leader>cl", ":checkhealth vim.lsp<cr>",                  desc = "LSP config health" },
+  { "<leader>cm", ":Telescope make<cr>",                       desc = "telescope run Makefile command" },
   {
     "<leader>cn",
     ":Telescope lsp_document_symbols<cr>",
@@ -205,7 +205,7 @@ which_key.add({
   },
 
   -- debugging (nvim-dap)
-  { "<leader>d", group = "debugging (DAP)" },
+  { "<leader>d",  group = "debugging (DAP)" },
   { "<leader>db", group = "Breakpoints" },
   {
     "<leader>dbb",
@@ -339,7 +339,7 @@ which_key.add({
     desc = "Debug Sample File",
   },
   -- etc
-  { "<leader>e", group = "etc" },
+  { "<leader>e",  group = "etc" },
   {
     "<leader>ec",
     ":Telescope colorscheme<cr>",
@@ -362,7 +362,7 @@ which_key.add({
   },
   -- files, buffers, tabs & windows
   -- -- files
-  { "<leader>f", group = "files, buffers, tabs & windows" },
+  { "<leader>f",  group = "files, buffers, tabs & windows" },
   {
     "<leader>fc",
     "<cmd>lua require('tiagoprn.buffer_utils').save_buffer_copy_to_tmp()<cr>",
@@ -387,11 +387,6 @@ which_key.add({
     "<leader>fg",
     ":<cmd>lua require('tiagoprn.code_utils').open_git_changed_files_with_telescope()<cr>",
     desc = "(git) telescope open changed files",
-  },
-  {
-    "<leader>fn",
-    ":set conceallevel = 0<cr>",
-    desc = "set conceallevel to 0",
   },
   {
     "<leader>fo",
@@ -425,7 +420,7 @@ which_key.add({
     ":bp<bar>sp<bar>bn<bar>bd<cr>",
     desc = "close & keep window",
   },
-  { "<leader>fbk", ":bw<Enter>", desc = "close" },
+  { "<leader>fbk", ":bw<Enter>",                    desc = "close" },
   {
     "<leader>fbl",
     '<cmd>lua require("buffer_manager.ui").load_menu_from_file()<cr>',
@@ -437,19 +432,19 @@ which_key.add({
     desc = "buffer_manager open menu",
   },
   { "<leader>fbn", ":LoadBufferWithoutWindow <cr>", desc = "open file without opening a window" },
-  { "<leader>fbo", ":Telescope buffers<cr>", desc = "telescope menu of all open buffers" },
+  { "<leader>fbo", ":Telescope buffers<cr>",        desc = "telescope menu of all open buffers" },
   {
     "<leader>fbs",
     '<cmd>lua require("buffer_manager.ui").save_menu_to_file()<cr>',
     desc = "buffer_manager save to file",
   },
-  { "<leader>fbw", ":bufdo w!<cr>", desc = "save all" },
+  { "<leader>fbw", ":bufdo w!<cr>",  desc = "save all" },
   -- -- tabs
-  { "<leader>ft", group = "tabs" },
-  { "<leader>ftc", ":tabclose<cr>", desc = "close" },
-  { "<leader>ftn", ":tabnew<cr>", desc = "new" },
+  { "<leader>ft",  group = "tabs" },
+  { "<leader>ftc", ":tabclose<cr>",  desc = "close" },
+  { "<leader>ftn", ":tabnew<cr>",    desc = "new" },
   -- -- windows
-  { "<leader>fw", group = "windows" },
+  { "<leader>fw",  group = "windows" },
   {
     "<leader>fwV",
     ":vnew",
@@ -460,27 +455,27 @@ which_key.add({
     ":new",
     desc = "empty buffer on new horizontal split",
   },
-  { "<leader>fwh", "<c-w>H", desc = "move left" },
-  { "<leader>fwj", "<c-w>J", desc = "move down" },
-  { "<leader>fwk", "<c-w>K", desc = "move up" },
-  { "<leader>fwl", "<c-w>L", desc = "move right" },
-  { "<leader>fwr", "<c-w>r", desc = "rotate split window" },
+  { "<leader>fwh", "<c-w>H",       desc = "move left" },
+  { "<leader>fwj", "<c-w>J",       desc = "move down" },
+  { "<leader>fwk", "<c-w>K",       desc = "move up" },
+  { "<leader>fwl", "<c-w>L",       desc = "move right" },
+  { "<leader>fwr", "<c-w>r",       desc = "rotate split window" },
   { "<leader>fwv", "<c-w>t<c-w>H", desc = "become vertical split" },
   { "<leader>fwx", "<c-w>t<c-w>K", desc = "become horizontal split" },
   -- git
-  { "<leader>g", group = "git" },
+  { "<leader>g",   group = "git" },
   {
     "<leader>gb",
     ":BlameToggle<cr>",
     desc = "blame ([i]nfo, [b]ack, [f]orward)",
   },
-  { "<leader>gd", ":Gitsigns preview_hunk<cr>", desc = "diff current hunk" },
-  { "<leader>gj", ":Gitsigns next_hunk<cr>", desc = "go to next changed hunk" },
-  { "<leader>gk", ":Gitsigns prev_hunk<cr>", desc = "go to previous changed hunk" },
+  { "<leader>gd", ":Gitsigns preview_hunk<cr>",      desc = "diff current hunk" },
+  { "<leader>gj", ":Gitsigns next_hunk<cr>",         desc = "go to next changed hunk" },
+  { "<leader>gk", ":Gitsigns prev_hunk<cr>",         desc = "go to previous changed hunk" },
   { "<leader>gt", ":!tmux select-window -t git<cr>", desc = "go to gitui tmux window" },
 
   -- harpoon
-  { "<leader>h", group = "harpoon" },
+  { "<leader>h",  group = "harpoon" },
   {
     "<leader>hh",
     function()
@@ -567,11 +562,11 @@ which_key.add({
     "<Cmd>ZkBacklinks<CR>",
     desc = "Open Backlinks (notes linking to the current buffer)",
   },
-  { "<leader>kc", group = "create" },
-  { "<leader>kcj", "<Cmd>ZkNew { dir = 'journal' }<CR>", desc = "journal" },
-  { "<leader>kcn", "<Cmd>ZkNew { dir = '0-inbox', title = vim.fn.input('Title: ') }<CR>", desc = "note (inbox)" },
+  { "<leader>kc",  group = "create" },
+  { "<leader>kcj", "<Cmd>ZkNew { dir = 'journal' }<CR>",                                     desc = "journal" },
+  { "<leader>kcn", "<Cmd>ZkNew { dir = '0-inbox', title = vim.fn.input('Title: ') }<CR>",    desc = "note (inbox)" },
   { "<leader>kcp", "<Cmd>ZkNew { dir = '1-projects', title = vim.fn.input('Title: ') }<CR>", desc = "project" },
-  { "<leader>kct", "<Cmd>ZkNew { dir = 'tasks', title = vim.fn.input('Title: ') }<CR>", desc = "task" },
+  { "<leader>kct", "<Cmd>ZkNew { dir = 'tasks', title = vim.fn.input('Title: ') }<CR>",      desc = "task" },
 
   {
     "<leader>kf",
@@ -605,7 +600,7 @@ which_key.add({
   },
 
   -- BOOKMARKS
-  { "<leader>K", group = "BOOKMARKS on quickfix list" },
+  { "<leader>K",   group = "BOOKMARKS on quickfix list" },
   {
     "<leader>Ka",
     "<cmd>lua require('tiagoprn.quickfix_bookmarks').add_bookmark()<cr>",
@@ -622,12 +617,12 @@ which_key.add({
     desc = "Set current quickfix as bookmarks",
   },
   -- launchers
-  { "<leader>l", group = "launchers" },
-  { "<leader>lt", group = "telescope" },
-  { "<leader>lta", ":Telescope builtin<cr>", desc = "all commands" },
+  { "<leader>l",   group = "launchers" },
+  { "<leader>lt",  group = "telescope" },
+  { "<leader>lta", ":Telescope builtin<cr>",            desc = "all commands" },
   -- messages & notifications
-  { "<leader>M", group = "messages & notifications" },
-  { "<leader>Mm", ":messages<cr>", desc = "show" },
+  { "<leader>M",   group = "messages & notifications" },
+  { "<leader>Mm",  ":messages<cr>",                     desc = "show" },
   {
     "<leader>Mr",
     ':lua require("tiagoprn.toggle_redir").toggle()<cr>',
@@ -640,37 +635,37 @@ which_key.add({
   },
 
   -- navigation (code, hop, marks, lists etc)
-  { "<leader>n", group = "navigation (code, hop, marks, lists etc)" },
-  { "<leader>nC", ":lua require'aerial'.prev_up()<cr>", desc = "aerial go to previous class" },
-  { "<leader>nF", ":AerialPrev<cr>", desc = "aerial go to previous function/method" },
-  { "<leader>nc", ":lua require'aerial'.next_up()<cr>", desc = "aerial go to next class" },
-  { "<leader>nf", ":AerialNext<cr>", desc = "aerial go to next function / method" },
-  { "<leader>nl", group = "location list" },
-  { "<leader>nlb", ":Telescope loclist<cr>", desc = "telescope browse" },
-  { "<leader>nm", group = "marks" },
-  { "<leader>nmb", ":Telescope marks<cr>", desc = "telescope browse" },
-  { "<leader>nmd", ":delmarks!<cr>", desc = "delete all" },
-  { "<leader>nmx", ":call MarkDelete()<cr>", desc = "delete single" },
+  { "<leader>n",   group = "navigation (code, hop, marks, lists etc)" },
+  { "<leader>nC",  ":lua require'aerial'.prev_up()<cr>",              desc = "aerial go to previous class" },
+  { "<leader>nF",  ":AerialPrev<cr>",                                 desc = "aerial go to previous function/method" },
+  { "<leader>nc",  ":lua require'aerial'.next_up()<cr>",              desc = "aerial go to next class" },
+  { "<leader>nf",  ":AerialNext<cr>",                                 desc = "aerial go to next function / method" },
+  { "<leader>nl",  group = "location list" },
+  { "<leader>nlb", ":Telescope loclist<cr>",                          desc = "telescope browse" },
+  { "<leader>nm",  group = "marks" },
+  { "<leader>nmb", ":Telescope marks<cr>",                            desc = "telescope browse" },
+  { "<leader>nmd", ":delmarks!<cr>",                                  desc = "delete all" },
+  { "<leader>nmx", ":call MarkDelete()<cr>",                          desc = "delete single" },
   -- obsidian: https://github.com/epwalsh/obsidian.nvim?tab=readme-ov-file#commands
-  { "<leader>o", group = "Obsidian" },
-  { "<leader>oa", ":ObsidianOpen<cr>", desc = "Open in Obsidian App" },
-  { "<leader>ob", ":ObsidianBacklinks<cr>", desc = "Show Backlinks to this note" },
-  { "<leader>oi", ":ObsidianTOC<cr>", desc = "Browse Note Section" },
-  { "<leader>ol", ":ObsidianLinks<cr>", desc = "Show all links on this note" },
-  { "<leader>on", ":ObsidianNew<cr>", desc = "Create New Note" },
-  { "<leader>oo", group = "Open Link" },
-  { "<leader>ooo", ":ObsidianFollowLink<cr>", desc = "here" },
-  { "<leader>ooh", ":ObsidianFollowLink hsplit<cr>", desc = "in Horizontal Split" },
-  { "<leader>oov", ":ObsidianFollowLink vsplit<cr>", desc = "in Vertical Split" },
-  { "<leader>oq", ":ObsidianQuickSwitch<cr>", desc = "Quick Switch Note" },
-  { "<leader>or", ":ObsidianRename<cr>", desc = "Rename Note" },
-  { "<leader>os", ":ObsidianSearch<cr>", desc = "Search Inside All Notes" },
-  { "<leader>ot", ":ObsidianTags<cr>", desc = "Show all tags" },
+  { "<leader>o",   group = "Obsidian" },
+  { "<leader>oa",  ":ObsidianOpen<cr>",                               desc = "Open in Obsidian App" },
+  { "<leader>ob",  ":ObsidianBacklinks<cr>",                          desc = "Show Backlinks to this note" },
+  { "<leader>oi",  ":ObsidianTOC<cr>",                                desc = "Browse Note Section" },
+  { "<leader>ol",  ":ObsidianLinks<cr>",                              desc = "Show all links on this note" },
+  { "<leader>on",  ":ObsidianNew<cr>",                                desc = "Create New Note" },
+  { "<leader>oo",  group = "Open Link" },
+  { "<leader>ooo", ":ObsidianFollowLink<cr>",                         desc = "here" },
+  { "<leader>ooh", ":ObsidianFollowLink hsplit<cr>",                  desc = "in Horizontal Split" },
+  { "<leader>oov", ":ObsidianFollowLink vsplit<cr>",                  desc = "in Vertical Split" },
+  { "<leader>oq",  ":ObsidianQuickSwitch<cr>",                        desc = "Quick Switch Note" },
+  { "<leader>or",  ":ObsidianRename<cr>",                             desc = "Rename Note" },
+  { "<leader>os",  ":ObsidianSearch<cr>",                             desc = "Search Inside All Notes" },
+  { "<leader>ot",  ":ObsidianTags<cr>",                               desc = "Show all tags" },
   -- plugins (lazy.nvim)
-  { "<leader>p", group = "plugins (lazy.nvim)" },
-  { "<leader>ps", ":Lazy sync<cr>", desc = "Update all plugins" },
+  { "<leader>p",   group = "plugins (lazy.nvim)" },
+  { "<leader>ps",  ":Lazy sync<cr>",                                  desc = "Update all plugins" },
   -- Python
-  { "<leader>P", group = "python" },
+  { "<leader>P",   group = "python" },
   {
     "<leader>Pe",
     ":EmbedValueFromPythonPrintableExpression<cr>",
@@ -682,26 +677,26 @@ which_key.add({
     desc = "run python script on current line",
   },
   -- quickfix
-  { "<leader>q", group = "quickfix" },
-  { "<leader>q9", ":clast<cr>", desc = "end" },
-  { "<leader>ql", ":colder<cr>", desc = "older" },
-  { "<leader>qn", ":cnewer<cr>", desc = "newer" },
-  { "<leader>qo", ":copen<cr>", desc = "open" },
-  { "<leader>qe", group = "persistance (load, save and delete from file)" },
-  { "<leader>qel", "<cmd>lua require('persist-quickfix-conf').load()<cr>", desc = "load" },
-  { "<leader>qes", "<cmd>lua require('persist-quickfix-conf').save()<cr>", desc = "save" },
+  { "<leader>q",   group = "quickfix" },
+  { "<leader>q9",  ":clast<cr>",                                             desc = "end" },
+  { "<leader>ql",  ":colder<cr>",                                            desc = "older" },
+  { "<leader>qn",  ":cnewer<cr>",                                            desc = "newer" },
+  { "<leader>qo",  ":copen<cr>",                                             desc = "open" },
+  { "<leader>qe",  group = "persistance (load, save and delete from file)" },
+  { "<leader>qel", "<cmd>lua require('persist-quickfix-conf').load()<cr>",   desc = "load" },
+  { "<leader>qes", "<cmd>lua require('persist-quickfix-conf').save()<cr>",   desc = "save" },
   { "<leader>qex", "<cmd>lua require('persist-quickfix-conf').delete()<cr>", desc = "delete" },
-  { "<leader>qq", ":cclose<cr>", desc = "close" },
-  { "<leader>q1", ":cfirst<cr>", desc = "start" },
-  { "<leader>qt", group = "telescope" },
-  { "<leader>qtb", ":Telescope quickfix<cr>", desc = "telescope browse" },
-  { "<leader>qth", ":Telescope quickfixhistory<cr>", desc = "telescope browse history" },
+  { "<leader>qq",  ":cclose<cr>",                                            desc = "close" },
+  { "<leader>q1",  ":cfirst<cr>",                                            desc = "start" },
+  { "<leader>qt",  group = "telescope" },
+  { "<leader>qtb", ":Telescope quickfix<cr>",                                desc = "telescope browse" },
+  { "<leader>qth", ":Telescope quickfixhistory<cr>",                         desc = "telescope browse history" },
   -- redo
-  { "<leader>r", ":redo<cr>", desc = "redo changes" },
+  { "<leader>r",   ":redo<cr>",                                              desc = "redo changes" },
   -- save current buffer
-  { "<leader>s", ":w!<cr>", desc = "save current buffer" },
+  { "<leader>s",   ":w!<cr>",                                                desc = "save current buffer" },
   -- source files
-  { "<leader>t", group = "source" },
+  { "<leader>t",   group = "source" },
   {
     "<leader>tn",
     "<cmd>lua require('tiagoprn.code_utils').source_file()<cr>",
@@ -713,22 +708,22 @@ which_key.add({
     desc = "markdown configuration (remove conceal, etc)",
   },
   -- undo changes
-  { "<leader>u", ":undo<cr>", desc = "undo changes" },
+  { "<leader>u",   ":undo<cr>",                          desc = "undo changes" },
   -- writing
-  { "<leader>w", group = "writing" },
-  { "<leader>wf", group = "fleeting notes" },
-  { "<leader>wfc", ":CreateFleetingNote<cr>", desc = "create" },
-  { "<leader>wfl", ":ListFleetingNotesCategories<cr>", desc = "list categories" },
-  { "<leader>wfs", ":SearchFleetingNotes<cr>", desc = "search" },
+  { "<leader>w",   group = "writing" },
+  { "<leader>wf",  group = "fleeting notes" },
+  { "<leader>wfc", ":CreateFleetingNote<cr>",            desc = "create" },
+  { "<leader>wfl", ":ListFleetingNotesCategories<cr>",   desc = "list categories" },
+  { "<leader>wfs", ":SearchFleetingNotes<cr>",           desc = "search" },
   { "<leader>wfu", ":UpdateFleetingNotesCategories<cr>", desc = "update categories" },
-  { "<leader>wm", group = "Mind" },
-  { "<leader>wmI", ":MindOpenSmartProject<cr>", desc = "open smart project index menu" },
+  { "<leader>wm",  group = "Mind" },
+  { "<leader>wmI", ":MindOpenSmartProject<cr>",          desc = "open smart project index menu" },
   {
     "<leader>wmO",
     ":MindCustomOpenDataIndexOnSmartProjectTree<cr>",
     desc = "smart project - search node and open it",
   },
-  { "<leader>wmS", ":MindCustomInitializeSmartProjectTree<cr>", desc = "smart project - initialize" },
+  { "<leader>wmS", ":MindCustomInitializeSmartProjectTree<cr>",     desc = "smart project - initialize" },
   {
     "<leader>wmY",
     ":MindCustomCopyNodeLinkIndexOnSmartProjectTree<cr>",
@@ -739,51 +734,56 @@ which_key.add({
     ":MindCustomCreateNodeIndexOnMainTree<cr>",
     desc = "tree - create node inside another without leaving current buffer",
   },
-  { "<leader>wmi", ":MindOpenMain<cr>", desc = "open main index menu" },
+  { "<leader>wmi", ":MindOpenMain<cr>",                             desc = "open main index menu" },
   { "<leader>wmo", ":MindCustomOpenDataIndexOnMainProjectTree<cr>", desc = "tree - search node and open it" },
-  { "<leader>wmq", ":MindClose<cr>", desc = "close index menu" },
-  { "<leader>wmy", ":MindCustomCopyNodeLinkIndexOnMainTree<cr>", desc = "tree - search a node and copy its' link" },
-  { "<leader>wn", ":OpenPersonalDoc<cr>", desc = "open note" },
-  { "<leader>ws", group = "spell" },
+  { "<leader>wmq", ":MindClose<cr>",                                desc = "close index menu" },
+  { "<leader>wmy", ":MindCustomCopyNodeLinkIndexOnMainTree<cr>",    desc = "tree - search a node and copy its' link" },
+  { "<leader>wn",  ":OpenPersonalDoc<cr>",                          desc = "open note" },
+  { "<leader>ws",  group = "spell" },
   {
     "<leader>wsa",
     ":normal! mz[s1z=`z]<cr>",
     desc = "fix last misspelled word & jump back to where you were",
   },
   { "<leader>wsb", ":set spelllang=en,pt_br<cr>", desc = "set to EN & PT_BR" },
-  { "<leader>wse", ":set spelllang=en<cr>", desc = "set to EN" },
-  { "<leader>wsl", ":set spelllang?<cr>", desc = "show current language" },
-  { "<leader>wso", ":set spell?<cr>", desc = "show status" },
-  { "<leader>wsp", ":set spelllang=pt_br<cr>", desc = "set to PT_BR" },
-  { "<leader>wst", ":set spell!<cr>", desc = "toggle" },
-  { "<leader>wt", group = "Tasks" },
-  { "<leader>wtc", ":CreateTask<cr>", desc = "create" },
-  { "<leader>wts", ":SearchTaskCard<cr>", desc = "search" },
-  { "<leader>ww", group = "writeloop" },
-  { "<leader>wwf", ":CreateFlashcard<cr>", desc = "create flashcard" },
-  { "<leader>wwp", ":CreatePost<cr>", desc = "create post" },
+  { "<leader>wse", ":set spelllang=en<cr>",       desc = "set to EN" },
+  { "<leader>wsl", ":set spelllang?<cr>",         desc = "show current language" },
+  { "<leader>wso", ":set spell?<cr>",             desc = "show status" },
+  { "<leader>wsp", ":set spelllang=pt_br<cr>",    desc = "set to PT_BR" },
+  { "<leader>wst", ":set spell!<cr>",             desc = "toggle" },
+  { "<leader>wt",  group = "Tasks" },
+  { "<leader>wtc", ":CreateTask<cr>",             desc = "create" },
+  { "<leader>wts", ":SearchTaskCard<cr>",         desc = "search" },
+  { "<leader>ww",  group = "writeloop" },
+  { "<leader>wwf", ":CreateFlashcard<cr>",        desc = "create flashcard" },
+  { "<leader>wwp", ":CreatePost<cr>",             desc = "create post" },
   {
     "<leader>wws",
     ":SearchWriteloop<cr>",
     desc = "search (INBOX, PERSONAL, zettels, posts, flashcards, mind-maps, etc...)",
   },
-  { "<leader>wwz", ":CreateZettel<cr>", desc = "create zettel" },
+  { "<leader>wwz", ":CreateZettel<cr>",                         desc = "create zettel" },
   -- TODO list
-  { "<leader>T", group = "TODO list" },
-  { "<leader>Tf", ":TodoTelescope keywords=FIXME<cr>", desc = "telescope browse FIXMEs" },
-  { "<leader>Ti", ":require('todo-comments').jump_next()<cr>", desc = "next" },
-  { "<leader>Tl", ":TodoLocList<cr>", desc = "location list" },
-  { "<leader>Tn", ":TodoTelescope keywords=NOTE<cr>", desc = "telescope browse NOTEs" },
-  { "<leader>To", ":require('todo-comments').jump_prev()<cr>", desc = "prev" },
-  { "<leader>Tq", ":TodoQuickFix<cr>", desc = "quickfix list" },
-  { "<leader>Tt", ":TodoTelescope keywords=TODO<cr>", desc = "telescope browse TODOs" },
+  { "<leader>T",   group = "TODO list" },
+  { "<leader>Tf",  ":TodoTelescope keywords=FIXME<cr>",         desc = "telescope browse FIXMEs" },
+  { "<leader>Ti",  ":require('todo-comments').jump_next()<cr>", desc = "next" },
+  { "<leader>Tl",  ":TodoLocList<cr>",                          desc = "location list" },
+  { "<leader>Tn",  ":TodoTelescope keywords=NOTE<cr>",          desc = "telescope browse NOTEs" },
+  { "<leader>To",  ":require('todo-comments').jump_prev()<cr>", desc = "prev" },
+  { "<leader>Tq",  ":TodoQuickFix<cr>",                         desc = "quickfix list" },
+  { "<leader>Tt",  ":TodoTelescope keywords=TODO<cr>",          desc = "telescope browse TODOs" },
   -- toggle
-  { "<leader>x", group = "toggle" },
-  { "<leader>xx", ":set list!<cr>", desc = "special chars (listchars)" },
-  { "<leader>xc", ":set cuc!<cr>", desc = "current column indentation" },
+  { "<leader>x",   group = "toggle" },
+  {
+    "<leader>xa",
+    ":set conceallevel=0 concealcursor=<cr>",
+    desc = "disables conceal on current buffer",
+  },
+  { "<leader>xx", ":set list!<cr>",                   desc = "special chars (listchars)" },
+  { "<leader>xc", ":set cuc!<cr>",                    desc = "current column indentation" },
   { "<leader>xn", ":set number! relativenumber!<cr>", desc = "line numbers on/off" },
-  { "<leader>xl", ":set cursorline!<cr>", desc = "current line" },
-  { "<leader>xr", ":set rnu!<cr>", desc = "relative line numbers" },
+  { "<leader>xl", ":set cursorline!<cr>",             desc = "current line" },
+  { "<leader>xr", ":set rnu!<cr>",                    desc = "relative line numbers" },
   -- simple zoom (split current file into new tab)
   {
     "<leader>z",
@@ -791,15 +791,15 @@ which_key.add({
     desc = "simple zoom (duplicates current window on new tab)",
   },
   -- zen focus mode
-  { "<leader>u", group = "zen focus mode" },
-  { "<leader>uc", ":ZenCode<cr>", desc = "code full screen" },
-  { "<leader>uw", ":ZenWrite<cr>", desc = "write full screen" },
+  { "<leader>u",     group = "zen focus mode" },
+  { "<leader>uc",    ":ZenCode<cr>",          desc = "code full screen" },
+  { "<leader>uw",    ":ZenWrite<cr>",         desc = "write full screen" },
   -- others
-  { "<leader><C-e>", ":bufdo w! | :q!<cr>", desc = "save all buffers and quit" },
-  { "<leader><C-q>", ":qa!<cr>", desc = "quit without saving" },
+  { "<leader><C-e>", ":bufdo w! | :q!<cr>",   desc = "save all buffers and quit" },
+  { "<leader><C-q>", ":qa!<cr>",              desc = "quit without saving" },
   -- groups (that are mapped somewhere else - e.g. plugins.lua, etc...)
   -- { "<C-Space>", group = "Go to window" },
-  { "<leader>S", group = "Sessions" },
+  { "<leader>S",     group = "Sessions" },
 })
 
 -- --
@@ -808,18 +808,18 @@ which_key.add({
 -- --
 which_key.add({
   -- Basic navigation and cleanup
-  { "<cr>", ":nohlsearch<cr>", desc = "clean current highlighted search" },
-  { "<Del>", "<C-w>c<Enter>", desc = "close window & keep buffer" },
+  { "<cr>",      ":nohlsearch<cr>", desc = "clean current highlighted search" },
+  { "<Del>",     "<C-w>c<Enter>",   desc = "close window & keep buffer" },
 
   -- Disable arrow keys in normal mode
-  { "<Up>", "<Nop>", desc = "disable Up in normal mode" },
-  { "<Down>", "<Nop>", desc = "disable Down in normal mode" },
-  { "<Left>", "<Nop>", desc = "disable Left in normal mode" },
-  { "<Right>", "<Nop>", desc = "disable Right in normal mode" },
+  { "<Up>",      "<Nop>",           desc = "disable Up in normal mode" },
+  { "<Down>",    "<Nop>",           desc = "disable Down in normal mode" },
+  { "<Left>",    "<Nop>",           desc = "disable Left in normal mode" },
+  { "<Right>",   "<Nop>",           desc = "disable Right in normal mode" },
 
   -- Line movement
-  { "<M-j>", ":m .+1<cr>==", desc = "move current line/selection down" },
-  { "<M-k>", ":m .-2<cr>==", desc = "move current line/selection up" },
+  { "<M-j>",     ":m .+1<cr>==",    desc = "move current line/selection down" },
+  { "<M-k>",     ":m .-2<cr>==",    desc = "move current line/selection up" },
 
   -- Diagnostics
   -- { -- remove this and change for the new plugin
@@ -838,7 +838,7 @@ which_key.add({
   -- },
 
   -- Tab navigation
-  { "<C-right>", ":tabnext<cr>", desc = "go to next tab" },
+  { "<C-right>", ":tabnext<cr>",    desc = "go to next tab" },
   {
     "<C-left>",
     ":tabprevious<cr>",
@@ -971,7 +971,7 @@ which_key.add({
 -- --
 which_key.add({
   -- Leader prefixed mappings
-  { "<leader>k", group = "zk (zettelkasten)", mode = "v" },
+  { "<leader>k",  group = "zk (zettelkasten)", mode = "v" },
   {
     "<leader>kf",
     ":'<,'>ZkMatch<CR>",
@@ -986,10 +986,10 @@ which_key.add({
     mode = "v",
   },
 
-  { "<leader>o", group = "Obsidian", mode = "v" },
-  { "<leader>ox", ":ObsidianExtractNote<cr>", desc = "Extract to new note and link to it", mode = "v" },
-  { "<leader>oe", ":ObsidianLink<cr>", desc = "Create Link to existing note", mode = "v" },
-  { "<leader>on", ":ObsidianLinkNew<cr>", desc = "Create Link to new note", mode = "v" },
+  { "<leader>o",  group = "Obsidian",          mode = "v" },
+  { "<leader>ox", ":ObsidianExtractNote<cr>",  desc = "Extract to new note and link to it", mode = "v" },
+  { "<leader>oe", ":ObsidianLink<cr>",         desc = "Create Link to existing note",       mode = "v" },
+  { "<leader>on", ":ObsidianLinkNew<cr>",      desc = "Create Link to new note",            mode = "v" },
 
   {
     "<leader>y",
