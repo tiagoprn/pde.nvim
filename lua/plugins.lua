@@ -47,7 +47,8 @@ require("lazy").setup({
   -- Install to improve performance of sorting on telescope
   {
     "nvim-telescope/telescope-fzf-native.nvim",
-    build = "cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build",
+    build =
+    "cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build",
   },
 
   -- harpoon buffer manager
@@ -86,31 +87,31 @@ require("lazy").setup({
         })
 
         pickers
-          .new({}, {
-            prompt_title = "Quickfix Lists",
-            finder = finders.new_table({
-              results = items,
-              entry_maker = function(entry)
-                return {
-                  value = entry,
-                  display = entry,
-                  ordinal = entry,
-                  path = vim.fn.stdpath("data") .. "/persist-quickfix/" .. entry,
-                }
+            .new({}, {
+              prompt_title = "Quickfix Lists",
+              finder = finders.new_table({
+                results = items,
+                entry_maker = function(entry)
+                  return {
+                    value = entry,
+                    display = entry,
+                    ordinal = entry,
+                    path = vim.fn.stdpath("data") .. "/persist-quickfix/" .. entry,
+                  }
+                end,
+              }),
+              sorter = conf.generic_sorter({}),
+              previewer = jq_previewer,
+              attach_mappings = function(prompt_bufnr, map)
+                actions.select_default:replace(function()
+                  local selection = action_state.get_selected_entry()
+                  actions.close(prompt_bufnr)
+                  callback(selection.value)
+                end)
+                return true
               end,
-            }),
-            sorter = conf.generic_sorter({}),
-            previewer = jq_previewer,
-            attach_mappings = function(prompt_bufnr, map)
-              actions.select_default:replace(function()
-                local selection = action_state.get_selected_entry()
-                actions.close(prompt_bufnr)
-                callback(selection.value)
-              end)
-              return true
-            end,
-          })
-          :find()
+            })
+            :find()
       end,
     },
   },
@@ -119,7 +120,7 @@ require("lazy").setup({
   { "stevearc/dressing.nvim" },
 
   -- Useful to create custom telescope pickers
-  { "axkirillov/easypick.nvim", dependencies = "nvim-telescope/telescope.nvim" },
+  { "axkirillov/easypick.nvim",               dependencies = "nvim-telescope/telescope.nvim" },
 
   -- Sets vim.ui.select to telescope
   { "nvim-telescope/telescope-ui-select.nvim" },
@@ -274,21 +275,43 @@ require("lazy").setup({
 
   -- colorscheme
   {
-    "0xstepit/flow.nvim",
+    "EdenEast/nightfox.nvim",
     lazy = false,
     priority = 1000,
-    opts = {},
     config = function()
-      require("flow").setup({
-        transparent = true, -- Set transparent background.
-        fluo_color = "pink", --  Fluo color: pink, yellow, orange, or green.
-        mode = "bright", -- Intensity of the palette: normal, bright, desaturate, or dark. Notice that dark is ugly!
-        aggressive_spell = false, -- Display colors for spell check.
+      require("nightfox").setup({
+        options = {
+          dim_inactive = true,
+          transparent = false,
+        },
       })
+      vim.cmd.colorscheme("nightfox")
 
-      vim.cmd("colorscheme flow")
+      local p = {
+        bg = "#000000",
+        fg = "#f0f0f0",
+        accent1 = "#ff5555",
+        accent2 = "#50fa7b",
+        accent3 = "#8be9fd",
+        accent4 = "#bd93f9",
+      }
+
+      local function apply_palette()
+        vim.api.nvim_set_hl(0, "Normal", { fg = p.fg, bg = p.bg })
+        vim.api.nvim_set_hl(0, "Comment", { fg = p.accent2, italic = true })
+        vim.api.nvim_set_hl(0, "String", { fg = p.accent3 })
+        vim.api.nvim_set_hl(0, "Function", { fg = p.accent4 })
+        vim.api.nvim_set_hl(0, "DiagnosticError", { fg = p.accent1 })
+      end
+
+      apply_palette()
+      vim.api.nvim_create_autocmd("ColorScheme", {
+        pattern = "nightfox",
+        callback = apply_palette,
+      })
     end,
   },
+
   -- Icons
   { "kyazdani42/nvim-web-devicons" },
 
@@ -484,10 +507,10 @@ require("lazy").setup({
 
   -- LANGUAGE SERVERS - begin
   -- Handles automatically launching and initializing language servers installed on your system
-  { "neovim/nvim-lspconfig", dependencies = { "saghen/blink.cmp" } },
+  { "neovim/nvim-lspconfig",      dependencies = { "saghen/blink.cmp" } },
 
   -- LSP diagnostics and code actions
-  { -- originally "jose-elias-alvarez/null-ls.nvim"
+  {                              -- originally "jose-elias-alvarez/null-ls.nvim"
     "ulisses-cruz/none-ls.nvim", -- TODO: move back to "nvimtools/none-ls.nvim" after https://github.com/nvimtools/none-ls.nvim/issues/276 is merged
     dependencies = {
       "nvimtools/none-ls-extras.nvim",
@@ -568,11 +591,11 @@ require("lazy").setup({
       }
       local installed = ts_cfg.get_installed()
       local to_install = vim
-        .iter(ensure_installed)
-        :filter(function(parser)
-          return not vim.tbl_contains(installed, parser)
-        end)
-        :totable()
+          .iter(ensure_installed)
+          :filter(function(parser)
+            return not vim.tbl_contains(installed, parser)
+          end)
+          :totable()
 
       if #to_install > 0 then
         ts.install(to_install)
@@ -942,7 +965,7 @@ require("lazy").setup({
 
   -- Lua development environment
   { "justinsgithub/wezterm-types" },
-  { "Bilal2453/luvit-meta", lazy = true }, -- optional `vim.uv` typings
+  { "Bilal2453/luvit-meta",       lazy = true }, -- optional `vim.uv` typings
   {
     "folke/lazydev.nvim",
     ft = "lua", -- only load on lua files
