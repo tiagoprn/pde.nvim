@@ -27,8 +27,9 @@ function open_buffer_selection(prompt_bufnr)
   end
 
   if not is_buffer_open then
-    vim.cmd("tabnew | buffer " .. buffer_number)
-    print("Buffer '" .. buffer_name .. "' NOT OPENED, so I opened it on a new tab!")
+    -- vim.cmd("tabnew | buffer " .. buffer_number)
+    vim.cmd("buffer " .. buffer_number)
+    print("Buffer '" .. buffer_name .. "' NOT OPENED, so I opened it in the current window!")
   end
 end
 
