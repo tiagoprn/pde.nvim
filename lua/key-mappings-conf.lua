@@ -23,9 +23,11 @@ which_key.setup({
 which_key.add({
   -- automations
   { "<leader>a",   group = "automations" },
+  { "<leader>aa",  group = "wiremux (send context to tmux)" },
+
   { "<leader>ac",  group = "commands (flow)" },
-  { "<leader>aca", ":FlowRunLastCmd<cr>",    desc = "(flow) run last command" },
-  { "<leader>acf", ":FlowRunFile<cr>",       desc = "(flow) run current file on new buffer" },
+  { "<leader>aca", ":FlowRunLastCmd<cr>",                   desc = "(flow) run last command" },
+  { "<leader>acf", ":FlowRunFile<cr>",                      desc = "(flow) run current file on new buffer" },
   {
     "<leader>ach",
     "<cmd>lua require('tiagoprn.helpers').firefox('https://www.youtube.com/watch?v=GE5E1ZhV_Ok')<cr>",

@@ -480,6 +480,133 @@ require("lazy").setup({
   -- Git blame
   { "FabijanZulj/blame.nvim" },
 
+  -- Send context to tmux panes
+  {
+    "MSmaili/wiremux.nvim",
+    opts = {
+      -- picker = { adapter = "fzf-lua" },
+      targets = {
+        definitions = {
+          -- -- AI assistants
+          pi = { cmd = "pi", kind = { "pane", "window" }, shell = false },
+          -- opencode = { cmd = "opencode", kind = { "pane", "window" }, shell = false },
+          -- -- Interactive shell
+          shell = { kind = { "pane", "window" }, shell = true },
+          -- -- Quick command runner
+          quick = { kind = { "pane", "window" }, shell = false },
+        },
+      },
+    },
+    keys = {
+      {
+        "<leader>aaa",
+        function()
+          require("wiremux").toggle()
+        end,
+        desc = "Toggle target",
+      },
+      {
+        "<leader>aac",
+        function()
+          require("wiremux").create()
+        end,
+        desc = "Create target",
+      },
+      -- Send context
+      -- context (placeholders) documentation: https://github.com/MSmaili/wiremux.nvim?tab=readme-ov-file#placeholders
+      {
+        "<leader>aaf",
+        function()
+          require("wiremux").send("{file}")
+        end,
+        desc = "Send current buffer path",
+      },
+      {
+        "<leader>aat",
+        function()
+          require("wiremux").send("{this}")
+        end,
+        mode = { "x", "n" },
+        desc = "Send position + selection when available",
+      },
+      {
+        "<leader>aav",
+        function()
+          require("wiremux").send("{selection}")
+        end,
+        mode = "x",
+        desc = "Send selection",
+      },
+      {
+        "<leader>aad",
+        function()
+          require("wiremux").send("{diagnostics}")
+        end,
+        desc = "Send diagnostics on current line",
+      },
+      -- Send motion (works like an operator: ga + motion, e.g. gaip sends a paragraph)
+      {
+        "ga",
+        function()
+          require("wiremux").send_motion()
+        end,
+        desc = "wiremux: Send motion to target",
+      },
+      -- AI prompts picker
+      {
+        "<leader>aap",
+        function()
+          require("wiremux").send({
+            { label = "Review changes", value = "Can you review my changes?\n{changes}" },
+            {
+              label = "Fix diagnostics",
+              value = "Can you help me fix this?\n{diagnostics}",
+              visible = function()
+                return require("wiremux.context").is_available("diagnostics")
+              end,
+            },
+            { label = "Explain",        value = "Explain {this}" },
+            { label = "Write tests",    value = "Can you write tests for {this}?" },
+          })
+        end,
+        mode = { "n", "x" },
+        desc = "Send AI prompt from list",
+      },
+      -- Project commands (only show "quick" target)
+      {
+        "<leader>aar",
+        function()
+          require("wiremux").send({
+            -- {
+            --   label = "npm test",
+            --   value = "npm test; exec $SHELL",
+            --   submit = true,
+            --   visible = function()
+            --     return vim.fn.filereadable("package.json") == 1
+            --   end,
+            -- },
+            {
+              label = "go test",
+              value = "go test ./...",
+              submit = true,
+              visible = function()
+                return vim.bo.filetype == "go"
+              end,
+            },
+          }, {
+            mode = "definitions",
+            filter = {
+              definitions = function(name)
+                return name == "quick"
+              end,
+            },
+          })
+        end,
+        desc = "Run project command from list",
+      },
+    },
+  },
+
   -- Diagnostics (linters)
   {
     "rachartier/tiny-inline-diagnostic.nvim",
