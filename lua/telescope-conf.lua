@@ -21,15 +21,15 @@ function open_buffer_selection(prompt_bufnr)
     if vim.api.nvim_win_get_buf(window) == buffer_number then
       vim.api.nvim_set_current_win(window)
       is_buffer_open = true
-      print("Buffer '" .. buffer_name .. "' OPENED, switched to it!")
+      print("Loaded open buffer '" .. buffer_name .. "' in the current window.")
       break
     end
   end
 
   if not is_buffer_open then
     -- vim.cmd("tabnew | buffer " .. buffer_number)
-    vim.cmd("buffer " .. buffer_number)
-    print("Buffer '" .. buffer_name .. "' NOT OPENED, so I opened it in the current window!")
+    vim.cmd("buffer! " .. buffer_number)
+    print("Loaded closed buffer '" .. buffer_name .. "' in the current window.")
   end
 end
 
