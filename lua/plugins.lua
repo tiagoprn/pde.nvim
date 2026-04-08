@@ -294,6 +294,8 @@ require("lazy").setup({
         accent2 = "#50fa7b",
         accent3 = "#8be9fd",
         accent4 = "#bd93f9",
+        yellow = "#f1fa8c",
+        orange = "#ffb86c",
       }
 
       local function apply_palette()
@@ -302,6 +304,10 @@ require("lazy").setup({
         vim.api.nvim_set_hl(0, "String", { fg = p.accent3 })
         vim.api.nvim_set_hl(0, "Function", { fg = p.accent4 })
         vim.api.nvim_set_hl(0, "DiagnosticError", { fg = p.accent1 })
+        -- Markdown bold to yellow
+        vim.api.nvim_set_hl(0, "@markup.strong", { fg = p.yellow, bold = true })
+        -- Markdown italic to orange
+        vim.api.nvim_set_hl(0, "@markup.italic", { fg = p.orange, italic = true })
       end
 
       apply_palette()
