@@ -368,25 +368,10 @@ require("lazy").setup({
   -- UI component library
   { "MunifTanjim/nui.nvim" },
 
-  -- File explorer
+  -- File explorer - mini.files: does what neotree + oil can do
   {
-    "nvim-neo-tree/neo-tree.nvim",
-    dependencies = {
-      "nvim-lua/plenary.nvim",
-      "nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
-      "MunifTanjim/nui.nvim",
-      -- {"3rd/image.nvim", opts = {}}, -- Optional image support in preview window: See `# Preview Mode` for more information
-    },
-    lazy = false, -- neo-tree will lazily load itself
-  },
-
-  -- Alternative file explorer (oil)
-  {
-    "stevearc/oil.nvim",
-    ---@module 'oil'
-    ---@type oil.SetupOpts
-    opts = {},
-    dependencies = { "nvim-tree/nvim-web-devicons" }, -- use if prefer nvim-web-devicons
+    "nvim-mini/mini.files",
+    version = false,
   },
 
   -- Beautiful and customizable indentation

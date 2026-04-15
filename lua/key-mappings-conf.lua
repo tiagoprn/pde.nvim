@@ -938,13 +938,18 @@ which_key.add({
   -- Function keys
   {
     "<F2>",
-    "<cmd>lua require'oil'.toggle_float()<cr>",
-    desc = "(oil) toggle buffer file manager - save buffer to apply changes",
+    function()
+      local minifiles = require("mini.files")
+      if not minifiles.close() then
+        minifiles.open()
+      end
+    end,
+    desc = "Opens File Explorer",
   },
   {
     "<F3>",
-    ":Neotree toggle=true<cr>",
-    desc = ">>use oil instead<< nvim tree (project directory)",
+    ":h MiniFiles-navigation<cr>",
+    desc = "MiniFiles navigation help (scroll to the bottom of the section)",
   },
   {
     "<F4>",

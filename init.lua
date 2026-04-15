@@ -19,8 +19,8 @@ vim.o.undofile = true
 
 vim.o.wildignore = "*.swp,*.bak,*.pyc,*~"
 
-vim.wo.relativenumber = true -- Changing the ruler position
-vim.wo.number = true -- show line numbers
+vim.wo.relativenumber = true      -- Changing the ruler position
+vim.wo.number = true              -- show line numbers
 
 vim.opt.formatoptions:append("j") -- Remove comment leader when joining comment lines
 
@@ -98,10 +98,10 @@ vim.o.writebackup = false
 vim.o.swapfile = false
 
 -- Better Searching
-vim.o.hlsearch = true -- Highlight searches
-vim.o.incsearch = true -- Show search matches while you type
+vim.o.hlsearch = true   -- Highlight searches
+vim.o.incsearch = true  -- Show search matches while you type
 vim.o.ignorecase = true -- Ignore case on searching by default
-vim.o.smartcase = true -- Uppercase characters will be taken into account
+vim.o.smartcase = true  -- Uppercase characters will be taken into account
 
 vim.o.listchars = "tab:→␣,space:·,nbsp:␣,trail:•,eol:↩,precedes:«,extends:»"
 
@@ -207,7 +207,7 @@ require("frontend-lsps")
 require("bash-lsp")
 require("dap-conf")
 require("setup-none-ls")
-require("neo-tree-conf")
+require("mini-files-conf")
 require("autopairs")
 require("aerial-code-navigation")
 require("telescope-conf")
@@ -229,7 +229,6 @@ require("todo-conf")
 require("blame-conf")
 require("markview-conf")
 require("bookmarks-conf")
-require("oil-conf")
 require("persist-quickfix-conf")
 require("dap-view-conf")
 
