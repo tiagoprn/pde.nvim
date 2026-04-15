@@ -290,6 +290,7 @@ require("lazy").setup({
       local p = {
         bg = "#000000",
         fg = "#f0f0f0",
+        bright_green = "#25e017",
         accent1 = "#ff5555",
         accent2 = "#50fa7b",
         accent3 = "#8be9fd",
@@ -308,6 +309,8 @@ require("lazy").setup({
         vim.api.nvim_set_hl(0, "@markup.strong", { fg = p.yellow, bold = true })
         -- Markdown italic to orange
         vim.api.nvim_set_hl(0, "@markup.italic", { fg = p.orange, italic = true })
+        -- Markdown blockquotes in bright green
+        vim.api.nvim_set_hl(0, "@markup.quote", { fg = p.bright_green, bold = true })
       end
 
       apply_palette()
