@@ -9,11 +9,13 @@ vim.lsp.buf.hover = function()
   })
 end
 
-vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, {
-  title = "Signature help",
-  border = "double",
-  title_pos = "left",
-  -- max_width = 100,
-  max_width = math.floor(vim.o.columns * 0.4),
-  max_height = math.floor(vim.o.lines * 0.5),
-})
+vim.lsp.handlers["textDocument/signatureHelp"] = function(err, result, ctx, config)
+  vim.lsp.handlers.signature_help(err, result, ctx, vim.tbl_deep_extend("force", config or {}, {
+    title = "Signature help",
+    border = "double",
+    title_pos = "left",
+    -- max_width = 100,
+    max_width = math.floor(vim.o.columns * 0.4),
+    max_height = math.floor(vim.o.lines * 0.5),
+  }))
+end

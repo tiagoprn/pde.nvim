@@ -18,7 +18,7 @@ end
 
 -- Function to handle existing file by renaming it with a date suffix
 function M.handle_existing_file(file_path)
-  local stat = vim.loop.fs_stat(file_path)
+  local stat = vim.uv.fs_stat(file_path)
   if stat then
     -- Get the modification time of the existing file
     local mtime = stat.mtime

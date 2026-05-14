@@ -18,7 +18,7 @@ end
 
 function M.checkForErrorsAsBooleanVariable()
   local lazy_path = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
-  local lazy_exists = vim.loop.fs_stat(lazy_path) ~= nil
+  local lazy_exists = vim.uv.fs_stat(lazy_path) ~= nil
   if lazy_exists then
     vim.cmd('echo "Lazy.nvim exists! o/"')
   else

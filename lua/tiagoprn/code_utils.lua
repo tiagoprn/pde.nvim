@@ -204,7 +204,7 @@ function M.open_git_changed_files_with_telescope()
   -- Use Telescope to pick a file from the list of changed files
   telescope.find_files({
     prompt_title = "Changed Files",
-    cwd = vim.loop.cwd(),
+    cwd = vim.uv.cwd(),
     find_command = { "echo", table.concat(changed_files, "\n") },
   })
 end
