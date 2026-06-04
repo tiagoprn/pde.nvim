@@ -47,5 +47,31 @@ logging.basicConfig(
 )
 
 
-if __name__ == "__main__":
+def interactive_repl(variables):
+    """
+    Install ipython to use this feature. (uv pip install ipython)
+
+    USAGE: inside a method or function, call with:
+
+        interactive_repl(variables=locals())
+    """
+    print('')
+    print('---')
+    print('Starting ipython repl...')
+    print('')
+    __import__('IPython').embed(user_ns=variables)
+
+
+def prints(text: str):
+    print('')
+    print('---')
+    print('')
+    print(text)
+
+
+def main():
     print("Hello world!")
+
+
+if __name__ == "__main__":
+    main()
