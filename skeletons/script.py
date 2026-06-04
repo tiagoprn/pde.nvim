@@ -2,7 +2,8 @@
 # requires-python = ">=3.12"
 # dependencies = [
 #   "typer",
-#   "requests"
+#   "requests",
+#   "ipython",
 # ]
 # ///
 
@@ -70,7 +71,7 @@ def prints(text: str):
 
 
 def main():
-    print("Hello world!")
+    prints("Hello world!")
 
 
 if __name__ == "__main__":
