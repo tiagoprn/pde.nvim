@@ -9,9 +9,7 @@ local snippet = {
   python = {
     new_snippet(
       "ipy",
-      t([[
-__import__('IPython').embed()
-]])
+      t({ "", "__import__('IPython').embed(user_ns=locals())", "" })
     ),
   },
 }
