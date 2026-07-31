@@ -596,6 +596,11 @@ which_key.add({
     desc = "Open notes with selected tags",
   },
   {
+    "<leader>kw",
+    "<Cmd>lua require('tiagoprn.zk').sync()<CR>",
+    desc = "sync (pull and push)",
+  },
+  {
     "<leader>kz",
     "<Cmd>ZkIndex<CR>",
     desc = "Indexes the notebook",
