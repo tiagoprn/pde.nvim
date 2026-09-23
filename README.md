@@ -116,6 +116,9 @@ $ which stylua
 
 #### kotlin
 
+> NOTE: Before following the instructions below, make sure to install the android tooling stack and test it builds a working "hello world" application.
+>       The detailed steps to do that can be found in my forgejo repo "android-hello".
+
 - kotlin-language-server (community Kotlin LSP, used by `lua/kotlin-lsps.lua`):
 ```bash
 # Install JDK 21, used ONLY by this language server: its bundled Kotlin compiler 2.1.0
