@@ -255,6 +255,9 @@ local sources = {
       "AutoPreferDouble",
     },
   }),
+
+  null_ls.builtins.formatting.ktlint,
+  null_ls.builtins.diagnostics.ktlint,
 }
 
 local augroup = vim.api.nvim_create_augroup("LspFormatting", {})

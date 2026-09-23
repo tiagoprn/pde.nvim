@@ -65,6 +65,12 @@ which_key.add({
     desc = "run pytest on current function or method at tmux scratchpad session",
   },
   { "<leader>atr", ":RunCommandOnTmuxScratchpadSession<cr>", desc = "run bash command on tmux scratchpad session" },
+
+  -- Android Dev Commands
+  { "<leader>A",   group = "Android Dev Commands" },
+  { "<leader>Ab",  ":AndroidBuild<cr>",                   desc = "gradle: assembleDebug" },
+  { "<leader>Ai",  ":AndroidInstall<cr>",                 desc = "gradle: installDebug (deploys via adb)" },
+  { "<leader>Al",  ":AndroidLogcat<cr>",                  desc = "adb: clear and follow logcat" },
   -- clipboard
   { "<leader>b",   group = "clipboard" },
   {

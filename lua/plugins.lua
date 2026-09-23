@@ -691,6 +691,7 @@ require("lazy").setup({
         --"jsonnet",
         -- "json5", -- https://json5.org
         "just",
+        "kotlin",
         "lua",
         "luadoc",
         "markdown",

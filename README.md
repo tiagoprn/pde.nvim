@@ -114,6 +114,47 @@ $ cargo install stylua
 $ which stylua
 ```
 
+#### kotlin
+
+- kotlin-language-server (community Kotlin LSP, used by `lua/kotlin-lsps.lua`):
+```bash
+# Install JDK 21, used ONLY by this language server: its bundled Kotlin compiler 2.1.0
+# rejects Java 25 (java.lang.IllegalArgumentException in JavaVersion.parse).
+# This does NOT interfere with the JAVA_HOME=25 set in ~/.bashrc: the pin is applied
+# per-process via cmd_env in lua/kotlin-lsps.lua (Gradle/adb/shell still use JDK 25).
+$ sudo pacman -S --needed jdk21-openjdk
+
+# Download the latest release (check https://github.com/fwcd/kotlin-language-server/releases for updates).
+$ wget -O /tmp/kotlin-language-server.zip https://github.com/fwcd/kotlin-language-server/releases/download/1.3.13/server.zip
+
+# Extract under ~/.local/share.
+$ mkdir -p ~/.local/share/kotlin-language-server
+$ unzip -o /tmp/kotlin-language-server.zip -d ~/.local/share/kotlin-language-server
+
+# Symlink the binary onto PATH.
+$ ln -sf ~/.local/share/kotlin-language-server/server/bin/kotlin-language-server ~/.local/bin/kotlin-language-server
+
+# Test kotlin-language-server (it has no --version/--help flags; it boots and reads LSP on stdin).
+$ echo | timeout 5 kotlin-language-server
+```
+
+  Validate the JDK pin (server on 21, everything else on 25):
+```bash
+$ echo "JAVA_HOME=$JAVA_HOME"                       # /usr/lib/jvm/java-25-openjdk (unchanged)
+$ java -version                                     # openjdk 25.0.4.1 (Gradle's JDK)
+$ JAVA_HOME=/usr/lib/jvm/java-21-openjdk kotlin-language-server < /dev/null 2>/dev/null | grep -o 'Version 1.3.13'
+```
+
+- ktlint: Kotlin linter and formatter (registered as a none-ls source in `lua/setup-none-ls.lua`, formats on save):
+```bash
+# Download the self-executing binary (check https://github.com/ktlint/ktlint/releases for updates).
+$ wget -O ~/.local/bin/ktlint https://github.com/ktlint/ktlint/releases/download/1.8.0/ktlint
+$ chmod +x ~/.local/bin/ktlint
+
+# Test ktlint.
+$ ktlint --version
+```
+
 ## INSTALL
 
 1) Make sure you have the followig packages installed on your distro, to make sure you will be able to compile and use nvim with the configuration on this repo:
