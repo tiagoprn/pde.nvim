@@ -1,2 +1,2 @@
-norm Gozettelkasten
+norm ggIzettelkasten
 startinsert!

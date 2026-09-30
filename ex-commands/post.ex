@@ -1,2 +1,2 @@
-norm Gopost
+norm ggIpost
 startinsert!
