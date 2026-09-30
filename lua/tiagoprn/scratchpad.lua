@@ -5,6 +5,8 @@ local treesitter = require("vim.treesitter")
 
 local M = {}
 
+local exCommandsDir = vim.fn.stdpath("config") .. "/ex-commands/"
+
 function M.shout(str)
   return (string.upper(str) .. "!")
 end
@@ -12,28 +14,28 @@ end
 function M.createFleetingNote()
   -- local directory = '/tmp/fleeting-notes'
   local directory = "/storage/docs/fleeting-notes"
-  local exCommandsFile = "/storage/src/dot_files/nvim/ex-commands/fleeting-note.ex"
+  local exCommandsFile = exCommandsDir .. "fleeting-note.ex"
   helpers.createAlternativeFormatTimestampedFileWithSnippet(directory, exCommandsFile)
 end
 
 function M.createTask()
   -- local directory = '/tmp/tasks'
   local directory = "/storage/docs/tasks"
-  local exCommandsFile = "/storage/src/dot_files/nvim/ex-commands/task.ex"
+  local exCommandsFile = exCommandsDir .. "task.ex"
   helpers.createTimestampedFileWithSnippet(directory, exCommandsFile)
 end
 
 function M.createFlashCard()
   -- local directory = '/tmp/flashcards'
   local directory = "/storage/src/writeloop-raw/content/posts"
-  local exCommandsFile = "/storage/src/dot_files/nvim/ex-commands/flashcard.ex"
+  local exCommandsFile = exCommandsDir .. "flashcard.ex"
   helpers.createTimestampedFileWithSnippet(directory, exCommandsFile)
 end
 
 function M.createPost()
   -- local directory = '/tmp/posts'
   local directory = "/storage/src/writeloop-raw/content/posts"
-  local exCommandsFile = "/storage/src/dot_files/nvim/ex-commands/post.ex"
+  local exCommandsFile = exCommandsDir .. "post.ex"
 
   vim.ui.input({
     prompt = "Enter a name for the post: ",
@@ -50,7 +52,7 @@ end
 function M.createZettel()
   -- local directory = '/tmp/zettels'
   local directory = "/storage/src/writeloop-raw/PERSONAL/zettelkasten"
-  local exCommandsFile = "/storage/src/dot_files/nvim/ex-commands/zettel.ex"
+  local exCommandsFile = exCommandsDir .. "zettel.ex"
 
   vim.ui.input({
     prompt = "Enter a name for the zettel: ",

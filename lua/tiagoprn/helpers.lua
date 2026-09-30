@@ -8,6 +8,9 @@ local open_mode = "split" -- or tabedit, vsplit...
 
 function M.readLines(file)
   local f = io.open(file, "r")
+  if f == nil then
+    return nil
+  end
   local lines = f:read("*all")
   f:close()
   return lines

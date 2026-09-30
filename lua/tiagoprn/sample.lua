@@ -3,6 +3,8 @@
 local command = vim.api.nvim_command
 local fn = vim.fn
 
+local h = require("tiagoprn.helpers")
+
 local M = {} -- creates a new table here to isolate from the global scope
 
 -- This function shows how to run vim commands
@@ -27,12 +29,18 @@ function M.checkForErrorsAsBooleanVariable()
 end
 
 function M.complexSample()
-  local exCommandFile = "/storage/src/dot_files/nvim/ex-commands/complex-sample.ex"
+  local exCommandFile = vim.fn.stdpath("config") .. "/ex-commands/complex-sample.ex"
   local tempExFileName = "/tmp/quick-note.ex"
   local timestamp = os.date("%H:%M")
 
+  local content = h.readLines(exCommandFile)
+  if content == nil then
+    vim.notify("Ex commands file not found: " .. exCommandFile, vim.log.levels.ERROR)
+    return
+  end
+
   local commands = {}
-  for value in h.readLines(exCommandFile):gmatch("([^\n]*)\n?") do
+  for value in content:gmatch("([^\n]*)\n?") do
     value = value:gsub("%_TIMESTAMP_", timestamp)
     table.insert(commands, value)
   end
