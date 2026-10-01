@@ -22,6 +22,13 @@ draft: true
 ---
 
 {}
+
+> TIPS:
+> 1) Put the post title inside the "title" yaml frontmatter above
+> 2) Put the "call" into the "description yaml frontmatter above"
+> 3) The post contents go right below the yaml frontmatter: start writing after it
+>    (just ignore the title and description, as their place is in the frontmatter as described in 1 and 3 above).
+
 ]],
         {
           i(1),
