@@ -13,18 +13,31 @@ harpoon.setup({})
 
 harpoon:extend(harpoon_extensions.builtins.highlight_current_file())
 
+-- Single source of truth: each entry both binds the key inside the quick menu
+-- and contributes its hint to the menu title below.
+local menu_keys = {
+  { lhs = "<C-v>", desc = "vsplit", select = { vsplit = true } },
+  { lhs = "<C-x>", desc = "split", select = { split = true } },
+  { lhs = "<C-t>", desc = "tabedit", select = { tabedit = true } },
+}
+
 harpoon:extend({
   UI_CREATE = function(cx)
-    vim.keymap.set("n", "<C-v>", function()
-      harpoon.ui:select_menu_item({ vsplit = true })
-    end, { buffer = cx.bufnr })
+    local hints = {}
+    for _, item in ipairs(menu_keys) do
+      vim.keymap.set("n", item.lhs, function()
+        harpoon.ui:select_menu_item(item.select)
+      end, { buffer = cx.bufnr, desc = item.desc })
+      hints[#hints + 1] = item.lhs .. " " .. item.desc
+    end
 
-    vim.keymap.set("n", "<C-x>", function()
-      harpoon.ui:select_menu_item({ split = true })
-    end, { buffer = cx.bufnr })
+    -- Patch only the title; nvim_win_set_config updates just the given keys.
+    local all_hints = { "<CR> open" }
+    vim.list_extend(all_hints, hints)
+    all_hints[#all_hints + 1] = "q quit"
 
-    vim.keymap.set("n", "<C-t>", function()
-      harpoon.ui:select_menu_item({ tabedit = true })
-    end, { buffer = cx.bufnr })
+    vim.api.nvim_win_set_config(cx.win_id, {
+      title = " ⚓ HARPOON  |  " .. table.concat(all_hints, "  |  ") .. " ",
+    })
   end,
 })
