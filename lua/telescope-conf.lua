@@ -49,6 +49,35 @@ local function copy_to_clipboard()
   end
 end
 
+-- <Tab> in find_files: toggle showing files that .gitignore hides
+local function toggle_ignore(prompt_bufnr)
+  local action_state = require("telescope.actions.state")
+  local finders = require("telescope.finders")
+
+  local picker = action_state.get_current_picker(prompt_bufnr)
+  picker.no_ignore = not picker.no_ignore
+  picker.base_prefix = picker.base_prefix or picker.prompt_prefix
+
+  local find_command = { "fd", "-H", "-E", ".git" }
+  if picker.no_ignore then
+    find_command[#find_command + 1] = "--no-ignore"
+  end
+
+  picker:refresh(finders.new_oneshot_job(find_command, {
+    entry_maker = picker.finder.entry_maker,
+    cwd = picker.cwd,
+  }))
+  picker:change_prompt_prefix(
+    picker.no_ignore and picker.base_prefix .. "no-ignore:" or picker.base_prefix
+  )
+
+  local title = picker.no_ignore and "Results  (<Tab>: hide gitignored files)"
+    or "Results  (<Tab>: show gitignored files)"
+  if picker.layout and picker.layout.results.border then
+    picker.layout.results.border:change_title(title)
+  end
+end
+
 -- Add custom actions to the Telescope pickers
 local actions = require("telescope.actions")
 local custom_actions = setmetatable({}, {
@@ -101,11 +130,16 @@ require("telescope").setup({
       },
     },
     find_files = {
+      results_title = "Results  (<Tab>: toggle gitignored files)",
       layout_config = {
         prompt_position = "top",
         horizontal = {
           preview_width = 0.65,
         },
+      },
+      mappings = {
+        i = { ["<Tab>"] = toggle_ignore },
+        n = { ["<Tab>"] = toggle_ignore },
       },
     },
     live_grep = {
