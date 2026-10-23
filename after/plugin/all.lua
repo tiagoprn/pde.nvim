@@ -16,6 +16,9 @@ vim.api.nvim_create_autocmd("VimEnter", {
       highlight TabLineFill guibg=#606060 guifg=#ffffff
       highlight TabLineSel guibg=#ff007b guifg=#ffffff
       highlight Comment guifg=#f5eea3
+      highlight TelescopePromptTitle guifg=#bd93f9 gui=bold
+      highlight TelescopeResultsTitle guifg=#8be9fd gui=bold
+      highlight TelescopePreviewTitle guifg=#50fa7b gui=bold
     ]])
 
     -- forces nvim background to be transparent
