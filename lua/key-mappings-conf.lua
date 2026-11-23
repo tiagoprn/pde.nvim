@@ -563,42 +563,57 @@ which_key.add({
     desc = "list all",
   },
 
-  -- Zettelkasten (zk)
+  -- Zettelkasten (zk) -- constructs notebook
   { "<leader>k", group = "zk (zettelkasten)" },
   {
     "<leader>kb",
-    "<Cmd>ZkBacklinks<CR>",
+    "<Cmd>ZkBacklinks { notebook_path = '/storage/src/constructs' }<CR>",
     desc = "Open Backlinks (notes linking to the current buffer)",
   },
-  { "<leader>kc",  group = "create" },
-  { "<leader>kcj", "<Cmd>ZkNew { dir = 'journal' }<CR>",                                     desc = "journal" },
-  { "<leader>kcn", "<Cmd>ZkNew { dir = '0-inbox', title = vim.fn.input('Title: ') }<CR>",    desc = "note (inbox)" },
-  { "<leader>kcp", "<Cmd>ZkNew { dir = '1-projects', title = vim.fn.input('Title: ') }<CR>", desc = "project" },
-  { "<leader>kct", "<Cmd>ZkNew { dir = 'tasks', title = vim.fn.input('Title: ') }<CR>",      desc = "task" },
-
+  { "<leader>kc", group = "create" },
+  {
+    "<leader>kcj",
+    "<Cmd>ZkNew { dir = 'journal', notebook_path = '/storage/src/constructs' }<CR>",
+    desc = "journal",
+  },
+  {
+    "<leader>kcn",
+    "<Cmd>ZkNew { dir = 'research', title = vim.fn.input('Title: '), notebook_path = '/storage/src/constructs' }<CR>",
+    desc = "note (research)",
+  },
+  {
+    "<leader>kcp",
+    "<Cmd>ZkNew { dir = 'projects', title = vim.fn.input('Title: '), notebook_path = '/storage/src/constructs' }<CR>",
+    desc = "project (projects)",
+  },
+  {
+    "<leader>kct",
+    "<Cmd>ZkNew { dir = 'tasks', title = vim.fn.input('Title: '), notebook_path = '/storage/src/constructs' }<CR>",
+    desc = "task",
+  },
   {
     "<leader>kf",
-    "<Cmd>ZkNotes { sort = { 'modified' }, match = { vim.fn.input('Search: ') } }<CR>",
+    "<Cmd>ZkNotes { sort = { 'modified' }, match = { vim.fn.input('Search: ') }, notebook_path = '/storage/src/constructs' }<CR>",
     desc = "Search for notes matching query",
   },
   {
     "<leader>ki",
-    "<Cmd>ZkInsertLink<CR>",
+    "<Cmd>ZkInsertLink { notebook_path = '/storage/src/constructs' }<CR>",
     desc = "Insert a link at the cursor location",
   },
   {
     "<leader>kl",
-    "<Cmd>ZkLinks<CR>",
+    "<Cmd>ZkLinks { notebook_path = '/storage/src/constructs' }<CR>",
     desc = "Open notes linked on the current buffer",
   },
   {
     "<leader>ko",
-    "<Cmd>ZkNotes { sort = { 'modified' } }<CR>",
+    "<Cmd>ZkNotes { sort = { 'modified' }, notebook_path = '/storage/src/constructs' }<CR>",
     desc = "Open notes",
   },
   {
     "<leader>kt",
-    "<Cmd>ZkTags<CR>",
+    "<Cmd>ZkTags { notebook_path = '/storage/src/constructs' }<CR>",
     desc = "Open notes with selected tags",
   },
   {
@@ -608,7 +623,71 @@ which_key.add({
   },
   {
     "<leader>kz",
-    "<Cmd>ZkIndex<CR>",
+    "<Cmd>ZkIndex { notebook_path = '/storage/src/constructs' }<CR>",
+    desc = "Indexes the notebook",
+  },
+
+  -- Zettelkasten (zk) -- codex notebook
+  { "<leader>kA", group = "zk (codex notebook)" },
+  {
+    "<leader>kAb",
+    "<Cmd>ZkBacklinks { notebook_path = '/storage/src/codex' }<CR>",
+    desc = "Open Backlinks (notes linking to the current buffer)",
+  },
+  { "<leader>kAc", group = "create" },
+  {
+    "<leader>kAcj",
+    "<Cmd>ZkNew { dir = 'journal', notebook_path = '/storage/src/codex' }<CR>",
+    desc = "journal",
+  },
+  {
+    "<leader>kAcn",
+    "<Cmd>ZkNew { dir = '0-inbox', title = vim.fn.input('Title: '), notebook_path = '/storage/src/codex' }<CR>",
+    desc = "note (0-inbox)",
+  },
+  {
+    "<leader>kAcp",
+    "<Cmd>ZkNew { dir = '1-projects', title = vim.fn.input('Title: '), notebook_path = '/storage/src/codex' }<CR>",
+    desc = "project (1-projects)",
+  },
+  {
+    "<leader>kAct",
+    "<Cmd>ZkNew { dir = 'tasks', title = vim.fn.input('Title: '), notebook_path = '/storage/src/codex' }<CR>",
+    desc = "task",
+  },
+  {
+    "<leader>kAf",
+    "<Cmd>ZkNotes { sort = { 'modified' }, match = { vim.fn.input('Search: ') }, notebook_path = '/storage/src/codex' }<CR>",
+    desc = "Search for notes matching query",
+  },
+  {
+    "<leader>kAi",
+    "<Cmd>ZkInsertLink { notebook_path = '/storage/src/codex' }<CR>",
+    desc = "Insert a link at the cursor location",
+  },
+  {
+    "<leader>kAl",
+    "<Cmd>ZkLinks { notebook_path = '/storage/src/codex' }<CR>",
+    desc = "Open notes linked on the current buffer",
+  },
+  {
+    "<leader>kAo",
+    "<Cmd>ZkNotes { sort = { 'modified' }, notebook_path = '/storage/src/codex' }<CR>",
+    desc = "Open notes",
+  },
+  {
+    "<leader>kAt",
+    "<Cmd>ZkTags { notebook_path = '/storage/src/codex' }<CR>",
+    desc = "Open notes with selected tags",
+  },
+  {
+    "<leader>kAw",
+    "<Cmd>lua require('tiagoprn.zk').sync()<CR>",
+    desc = "sync (pull and push)",
+  },
+  {
+    "<leader>kAz",
+    "<Cmd>ZkIndex { notebook_path = '/storage/src/codex' }<CR>",
     desc = "Indexes the notebook",
   },
 
@@ -724,6 +803,11 @@ which_key.add({
   { "<leader>u",   ":undo<cr>",                          desc = "undo changes" },
   -- writing
   { "<leader>w",   group = "writing" },
+  {
+    "<leader>wd",
+    "<cmd>lua require('tiagoprn.buffer_utils').delete_blockquotes()<cr>",
+    desc = "delete all blockquotes (markdown)",
+  },
   { "<leader>wf",  group = "fleeting notes" },
   { "<leader>wfc", ":CreateFleetingNote<cr>",            desc = "create" },
   { "<leader>wfl", ":ListFleetingNotesCategories<cr>",   desc = "list categories" },
@@ -992,7 +1076,15 @@ which_key.add({
   { "<leader>k",  group = "zk (zettelkasten)", mode = "v" },
   {
     "<leader>kf",
-    ":'<,'>ZkMatch<CR>",
+    ":'<','>ZkMatch { notebook_path = '/storage/src/constructs' }<CR>",
+    desc = "Search for the notes matching the current visual selection",
+    mode = "v",
+  },
+
+  { "<leader>kA", group = "zk (codex notebook)", mode = "v" },
+  {
+    "<leader>kAf",
+    ":'<','>ZkMatch { notebook_path = '/storage/src/codex' }<CR>",
     desc = "Search for the notes matching the current visual selection",
     mode = "v",
   },

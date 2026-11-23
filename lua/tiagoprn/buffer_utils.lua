@@ -328,4 +328,37 @@ function M.delete_term_buffers()
   end
 end
 
+-- Deletes all markdown blockquote lines from the current buffer, then
+-- squeezes the blank runs that the deletions created down to a single
+-- blank line. Lines inside fenced code blocks are never touched.
+function M.delete_blockquotes()
+  local lines = vim.api.nvim_buf_get_lines(0, 0, -1, false)
+  local output, removed, in_fence, skip_next_blank = {}, 0, false, false
+  for _, line in ipairs(lines) do
+    if line:match("^%s*```+") or line:match("^%s*~~~+") then
+      in_fence = not in_fence
+      output[#output + 1] = line
+      skip_next_blank = false
+    elseif in_fence then
+      output[#output + 1] = line
+    elseif line:match("^%s*>") then
+      removed = removed + 1
+      if output[#output] and output[#output]:match("^%s*$") then
+        skip_next_blank = true
+      end
+    elseif skip_next_blank and line:match("^%s*$") then
+      skip_next_blank = false
+    else
+      skip_next_blank = false
+      output[#output + 1] = line
+    end
+  end
+  if removed == 0 then
+    vim.notify("No blockquotes found", vim.log.levels.WARN)
+    return
+  end
+  vim.api.nvim_buf_set_lines(0, 0, -1, false, output)
+  vim.notify(("Deleted %d blockquote line(s)"):format(removed), vim.log.levels.INFO)
+end
+
 return M
